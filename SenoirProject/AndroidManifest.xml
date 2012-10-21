@@ -38,7 +38,8 @@
         
         <activity android:name=".SelectSchoolLevel" />
                   
-        <activity android:name=".SchoolLevel1"/>
+        <activity android:name=".SchoolLevel1"
+             	 />
         
         <activity android:name=".L1ScCount" />
         <activity android:name=".L1ScBoard" />
