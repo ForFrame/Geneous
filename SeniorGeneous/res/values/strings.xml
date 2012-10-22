@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="app_name">Geneous</string>
+   <!-- <string name="hello_world">Hello world!</string> --> 
+    <string name="menu_settings">Settings</string>
+    <string name="main_intent">Go to Market</string>
+ 	<string name="market_intent">Market</string>
+	<string name="school_intent">School</string>
+	<string name="farm_intent">Farm</string>
+	<string name="hospital_intent">Hospital</string>
+	<string name="police_intent">Police</string>
+	<string name="house_intent">House</string>
+</resources>

@@ -1,0 +1,39 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_level1"
+    android:orientation="vertical" >
+
+    <!-- <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/school_intent" /> -->
+
+	<Button
+	    android:id="@+id/schoollevel1"
+	    android:layout_width="190dp"
+	    android:layout_height="182dp"
+	    android:layout_x="169dp"
+	    android:layout_y="216dp"
+	    android:background="@drawable/blevel1" />
+
+	<Button
+	    android:id="@+id/schoollevel3"
+	    android:layout_width="189dp"
+	    android:layout_height="179dp"
+	    android:layout_x="678dp"
+	    android:layout_y="219dp"
+	    android:background="@drawable/blevel3" />
+
+	<Button
+	    android:id="@+id/schoollevel2"
+	    android:layout_width="190dp"
+	    android:layout_height="172dp"
+	    android:layout_x="429dp"
+	    android:layout_y="224dp"
+	    android:background="@drawable/blevel2" />
+
+</AbsoluteLayout>
