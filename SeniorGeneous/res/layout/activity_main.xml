@@ -62,4 +62,21 @@
         android1:layout_y="334dp"
         android1:background="@drawable/home_main" />
 
+    <Button
+        android1:id="@+id/login1"
+        android1:layout_width="127dp"
+        android1:layout_height="wrap_content"
+        android1:layout_x="727dp"
+        android1:layout_y="36dp"
+        android1:text="@string/login_button" />
+
+    <TextView
+        android1:id="@+id/textUser"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_x="755dp"
+        android1:layout_y="94dp"
+        android1:text="Username"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 </AbsoluteLayout>

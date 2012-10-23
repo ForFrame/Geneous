@@ -241,13 +241,7 @@ public class L1ScCount extends Activity {
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
+				
 		Button countButton = (Button)findViewById(R.id.countbutton);
 		countButton.setOnClickListener(new View.OnClickListener() {
 	

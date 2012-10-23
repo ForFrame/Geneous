@@ -10,4 +10,6 @@
 	<string name="hospital_intent">Hospital</string>
 	<string name="police_intent">Police</string>
 	<string name="house_intent">House</string>
+	<string name="login_button">Log in</string>
+	<string name="user_text">Username : </string>
 </resources>
