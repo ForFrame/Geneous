@@ -1,0 +1,40 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_popup_login"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <EditText
+        android:id="@+id/userTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="508dp"
+        android:layout_y="181dp"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="374dp"
+        android:layout_y="198dp"
+        android:text="@string/user_text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/logbnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="523dp"
+        android:layout_y="273dp"
+        android:text="@string/login_button" />
+    
+</AbsoluteLayout>
