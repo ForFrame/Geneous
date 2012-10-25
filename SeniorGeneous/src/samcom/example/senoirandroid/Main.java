@@ -7,14 +7,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 
 public class Main extends Activity {
 protected String UserText;
 final Context context2 = this;
+
+SQLiteDatabase db;
+
 /** Called when the activity is first created. */
 	
 	
@@ -23,6 +25,8 @@ final Context context2 = this;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	
+		myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
 		
 		Button swapPoliceButton1 = (Button)findViewById(R.id.maintopolice1);
 	
