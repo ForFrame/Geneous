@@ -12,14 +12,14 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 
 public class Main extends Activity {
-protected String UserText;
+String CurrentUser;
 final Context context2 = this;
+
 
 SQLiteDatabase db;
 
 /** Called when the activity is first created. */
-	
-	
+		
 	@Override
  	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,6 +27,12 @@ SQLiteDatabase db;
 	
 		myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
+		
+		// SelectCurrentUser(); check MAX(No)loginStatus table on Status == 'N' or null -> null =='Y' -> name 
+		CurrentUser = myDb.SelectCurrentUser();
+		if(CurrentUser == null){
+			showLoginPopup();
+		}
 		
 		Button swapPoliceButton1 = (Button)findViewById(R.id.maintopolice1);
 	
@@ -117,6 +123,8 @@ SQLiteDatabase db;
 		final Dialog popLog = new Dialog(context2);
 		popLog.setContentView(R.layout.activity_popup_login);
 		
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
 				
 		Button LoginBt = (Button)popLog.findViewById(R.id.logbnt);
 		LoginBt.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +132,8 @@ SQLiteDatabase db;
 				// TODO Auto-generated method stub
 				popLog.dismiss();
 				EditText user = (EditText)popLog.findViewById(R.id.userTxt);
-				UserText = user.getText().toString();
+				CurrentUser = user.getText().toString();
+				myDb.InsertCurrent(CurrentUser);
 				TextView result = (TextView) findViewById(R.id.textUser);
 				result.setText(user.getText().toString());
 			}
