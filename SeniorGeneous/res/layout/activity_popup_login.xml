@@ -3,38 +3,26 @@
     android:id="@+id/layout_popup_login"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="100dp"
+    android:layout_marginTop="30dp"
+    android:background="@drawable/bg_play"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="50dp" >
+    
+  	 <Button
+  	     android:id="@+id/LogRegisBt"
+  	     android:layout_width="215dp"
+  	     android:layout_height="wrap_content"
+  	     android:layout_x="757dp"
+  	     android:layout_y="473dp"
+  	     android:background="@drawable/txt_play" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        />
-
-    <EditText
-        android:id="@+id/userTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="508dp"
-        android:layout_y="181dp"
-        android:ems="10" />
-
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="374dp"
-        android:layout_y="198dp"
-        android:text="@string/user_text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/logbnt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="523dp"
-        android:layout_y="273dp"
-        android:text="@string/login_button" />
+  	 <Button
+  	     android:id="@+id/playBt"
+  	     android:layout_width="218dp"
+  	     android:layout_height="251dp"
+  	     android:layout_x="390dp"
+  	     android:layout_y="150dp"
+  	     android:background="@drawable/button_play" />
     
 </AbsoluteLayout>

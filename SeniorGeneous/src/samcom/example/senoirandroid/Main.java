@@ -119,6 +119,9 @@ SQLiteDatabase db;
 		});
 	}
 
+	void showLoginPopup(){
+		
+	}
 	void popUpLogIn(){
 		final Dialog popLog = new Dialog(context2);
 		popLog.setContentView(R.layout.activity_popup_login);
