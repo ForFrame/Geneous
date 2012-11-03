@@ -86,9 +86,9 @@ public final class R {
         public static final int wrong=0x7f020048;
     }
     public static final class id {
-        public static final int LogRegisBt=0x7f08003f;
-        public static final int LoginBt=0x7f080033;
-        public static final int board=0x7f080045;
+        public static final int LogRegisBt=0x7f080041;
+        public static final int LoginBt=0x7f08003e;
+        public static final int board=0x7f080046;
         public static final int boardbutton=0x7f08000f;
         public static final int buttonnumber1=0x7f080011;
         public static final int buttonnumber10=0x7f08001a;
@@ -100,8 +100,9 @@ public final class R {
         public static final int buttonnumber7=0x7f080017;
         public static final int buttonnumber8=0x7f080018;
         public static final int buttonnumber9=0x7f080019;
-        public static final int calendar=0x7f080046;
+        public static final int calendar=0x7f080047;
         public static final int calendarbutton=0x7f080010;
+        public static final int checkContinueLogin=0x7f080040;
         public static final int countbutton=0x7f080030;
         public static final int counttable1=0x7f08001b;
         public static final int counttable10=0x7f080024;
@@ -118,25 +119,25 @@ public final class R {
         public static final int hospitalbutton=0x7f08000d;
         public static final int housebutton=0x7f08000e;
         public static final int layout_dialog=0x7f080000;
-        public static final int layout_popup_login=0x7f080031;
-        public static final int login1=0x7f08003b;
-        public static final int maintofarm1=0x7f080035;
-        public static final int maintohospital1=0x7f080039;
-        public static final int maintohouse1=0x7f08003a;
-        public static final int maintomarket1=0x7f080036;
-        public static final int maintopolice1=0x7f080037;
-        public static final int maintoschool=0x7f080038;
-        public static final int maintoschool1=0x7f08003d;
-        public static final int marketbutton=0x7f08003e;
-        public static final int menu_settings=0x7f08004a;
-        public static final int playBt=0x7f080040;
-        public static final int policebutton=0x7f080041;
-        public static final int regisBt=0x7f080034;
-        public static final int schoolbutton=0x7f080042;
-        public static final int schoolbutton1=0x7f080043;
-        public static final int schoollevel1=0x7f080047;
-        public static final int schoollevel2=0x7f080049;
-        public static final int schoollevel3=0x7f080048;
+        public static final int layout_popup_login=0x7f08003c;
+        public static final int login1=0x7f080037;
+        public static final int maintofarm1=0x7f080031;
+        public static final int maintohospital1=0x7f080035;
+        public static final int maintohouse1=0x7f080036;
+        public static final int maintomarket1=0x7f080032;
+        public static final int maintopolice1=0x7f080033;
+        public static final int maintoschool=0x7f080034;
+        public static final int maintoschool1=0x7f080039;
+        public static final int marketbutton=0x7f08003a;
+        public static final int menu_settings=0x7f08004b;
+        public static final int playBt=0x7f080042;
+        public static final int policebutton=0x7f08003b;
+        public static final int regisBt=0x7f08003f;
+        public static final int schoolbutton=0x7f080043;
+        public static final int schoolbutton1=0x7f080044;
+        public static final int schoollevel1=0x7f080048;
+        public static final int schoollevel2=0x7f08004a;
+        public static final int schoollevel3=0x7f080049;
         public static final int scoreback=0x7f08000a;
         public static final int scorehome=0x7f080008;
         public static final int scorenext=0x7f080009;
@@ -157,10 +158,10 @@ public final class R {
         public static final int star3=0x7f080005;
         public static final int star4=0x7f080006;
         public static final int star5=0x7f080007;
-        public static final int table=0x7f080044;
-        public static final int textUser=0x7f08003c;
+        public static final int table=0x7f080045;
+        public static final int textUser=0x7f080038;
         public static final int textView1=0x7f080001;
-        public static final int usertext=0x7f080032;
+        public static final int usertext=0x7f08003d;
     }
     public static final class layout {
         public static final int activity_dialog_score_sclv1g1=0x7f030000;
@@ -173,18 +174,17 @@ public final class R {
         public static final int activity_l1_sc_board=0x7f030007;
         public static final int activity_l1_sc_calendar=0x7f030008;
         public static final int activity_l1_sc_count=0x7f030009;
-        public static final int activity_login_popup=0x7f03000a;
-        public static final int activity_main=0x7f03000b;
-        public static final int activity_main_level1=0x7f03000c;
-        public static final int activity_market=0x7f03000d;
-        public static final int activity_market_level1=0x7f03000e;
-        public static final int activity_play_popup=0x7f03000f;
-        public static final int activity_police=0x7f030010;
-        public static final int activity_police_level1=0x7f030011;
-        public static final int activity_popup_login=0x7f030012;
-        public static final int activity_school=0x7f030013;
-        public static final int activity_school_level1=0x7f030014;
-        public static final int activity_select_school_level=0x7f030015;
+        public static final int activity_main=0x7f03000a;
+        public static final int activity_main_level1=0x7f03000b;
+        public static final int activity_market=0x7f03000c;
+        public static final int activity_market_level1=0x7f03000d;
+        public static final int activity_police=0x7f03000e;
+        public static final int activity_police_level1=0x7f03000f;
+        public static final int activity_popup_login=0x7f030010;
+        public static final int activity_popup_play=0x7f030011;
+        public static final int activity_school=0x7f030012;
+        public static final int activity_school_level1=0x7f030013;
+        public static final int activity_select_school_level=0x7f030014;
     }
     public static final class menu {
         public static final int activity_main=0x7f070000;
@@ -194,6 +194,7 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f050000;
+        public static final int continue_login=0x7f05000b;
         public static final int farm_intent=0x7f050005;
         public static final int hospital_intent=0x7f050006;
         public static final int house_intent=0x7f050008;

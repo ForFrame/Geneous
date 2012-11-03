@@ -12,4 +12,5 @@
 	<string name="house_intent">House</string>
 	<string name="login_button">Log in</string>
 	<string name="user_text">Username : </string>
+	<string name="continue_login">ให้ฉันอยู่ในระบบต่อไป</string>
 </resources>
