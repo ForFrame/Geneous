@@ -1,0 +1,53 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_popup_login"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="100dp"
+    android:layout_marginTop="30dp"
+    android:background="@drawable/bg_regis"
+    android:orientation="vertical"
+    android:padding="50dp" >
+    
+  	 <EditText
+  	     android:id="@+id/regUsertext"
+  	     android:layout_width="wrap_content"
+  	     android:layout_height="wrap_content"
+  	     android:layout_x="360dp"
+  	     android:layout_y="130dp"
+  	     android:ems="10" />
+
+  	 <Button
+  	     android:id="@+id/regisBt"
+  	     android:layout_width="176dp"
+  	     android:layout_height="87dp"
+  	     android:layout_x="360dp"
+  	     android:layout_y="400dp"
+  	     android:background="@drawable/button_regis" />
+
+  	 <RadioButton
+  	     android:id="@+id/radioBoy"
+  	     android:layout_width="wrap_content"
+  	     android:layout_height="wrap_content"
+  	     android:layout_x="360dp"
+  	     android:layout_y="190dp"
+  	     android:checked="true"
+  	     android:text="@string/boy" />
+
+  	 <RadioButton
+  	     android:id="@+id/radioGirl"
+  	     android:layout_width="wrap_content"
+  	     android:layout_height="wrap_content"
+  	     android:layout_x="360dp"
+  	     android:layout_y="230dp"
+  	     android:text="@string/girl" />
+
+  	 <Spinner
+  	     android:id="@+id/ageSelection"
+  	     android:layout_width="wrap_content"
+  	     android:layout_height="wrap_content"
+  	     android:layout_x="360dp"
+  	     android:layout_y="300dp" 
+  	     android:entries="@array/year" />
+    
+</AbsoluteLayout>

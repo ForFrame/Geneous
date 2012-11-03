@@ -5,14 +5,18 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+
 import java.util.Date;
 import java.text.*;
 
@@ -30,7 +34,7 @@ SQLiteDatabase db;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	
-		myDBClass myDb = new myDBClass(this);
+		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 		
 		// SelectCurrentUser(); check MAX(No)loginStatus table on Status == 'Logout'-> No or 'Y' -> name 
@@ -38,6 +42,15 @@ SQLiteDatabase db;
 		if(CurrentUser.equals("Logout")){
 			showLoginPopup();
 		}
+		
+		if(!(CurrentUser.equals("Guest"))){
+			TextView result = (TextView) findViewById(R.id.textUser);
+			result.setVisibility(TextView.VISIBLE);
+			result.setText(CurrentUser);
+			Button LogoutBt = (Button) findViewById(R.id.logout);
+			LogoutBt.setVisibility(Button.VISIBLE);
+		}
+		
 		
 		Button swapPoliceButton1 = (Button)findViewById(R.id.maintopolice1);
 	
@@ -112,12 +125,13 @@ SQLiteDatabase db;
 			}
 		});
 		
-		Button LoginButton = (Button)findViewById(R.id.login1);
+		Button LogoutButton = (Button)findViewById(R.id.logout);
 		
-		LoginButton.setOnClickListener(new View.OnClickListener() {
+		LogoutButton.setOnClickListener(new View.OnClickListener() {
 			 
-	
 			public void onClick(View v) {
+								
+				myDb.logoutUser(CurrentUser);
 				popUpLogIn();
 			}
 			
@@ -126,20 +140,21 @@ SQLiteDatabase db;
 
 	void showLoginPopup(){
 		final Dialog LoginPop = new Dialog(context2);
-		LoginPop.setContentView(R.layout.activity_login_popup);
+		LoginPop.setContentView(R.layout.activity_popup_login);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 				
-		final boolean checkUser;
-		final String username;
-		final Date d = new Date();
-		final boolean continueLoginState;
+		
 		
 		Button LoginBt = (Button)LoginPop.findViewById(R.id.LoginBt);
 		LoginBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				final boolean checkUser;
+				final String username;
+				final Date d = new Date();
+				boolean continueLoginState = false;
 				
 				EditText user = (EditText)LoginPop.findViewById(R.id.usertext);
 				username = user.getText().toString();
@@ -157,8 +172,13 @@ SQLiteDatabase db;
 					CurrentUser = username;
 					
 					myDb.InsertCurrent(CurrentUser,d,continueLoginState);
-					TextView result = (TextView) findViewById(R.id.textUser);
-					result.setText(CurrentUser);
+					if(!(CurrentUser.equals("Guest"))){
+							TextView result = (TextView) findViewById(R.id.textUser);
+							result.setVisibility(TextView.VISIBLE);
+							result.setText(CurrentUser);
+							Button LogoutBt = (Button) findViewById(R.id.logout);
+							LogoutBt.setVisibility(Button.VISIBLE);
+					}
 				}
 				else{
 					//String strTxt = editT1.getText().toString();              
@@ -191,71 +211,87 @@ SQLiteDatabase db;
 	void showRegisPopup(String inputname){
 		
 		final Dialog RegisPop = new Dialog(context2);
-		RegisPop.setContentView(R.layout.activity_login_popup);
+		RegisPop.setContentView(R.layout.activity_popup_regis);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 				
-		final boolean checkUser;
-		final String username;
-		final Date d = new Date();
-		final boolean continueLoginState;
+		EditText user = (EditText)RegisPop.findViewById(R.id.regUsertext);
+		user.setText(inputname);
 		
-		Button LoginBt = (Button)LoginPop.findViewById(R.id.LoginBt);
-		LoginBt.setOnClickListener(new View.OnClickListener() {
+		//Regis Button
+		Button RegisBt = (Button)RegisPop.findViewById(R.id.regisBt);
+		RegisBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				final boolean checkUser;
+				char chooseSex = 0;
+				final String selectedAge;
+				final String username;
+				final Date d = new Date();
+				boolean continueLoginState = false;
 				
-				EditText user = (EditText)LoginPop.findViewById(R.id.usertext);
+				//Username
+				EditText user = (EditText)RegisPop.findViewById(R.id.regUsertext);
 				username = user.getText().toString();
 				
-				CheckBox checkbox = (CheckBox)LoginPop.findViewById(R.id.checkContinueLogin);
+				//Choose sex (boy/girl)
+				RadioButton chooseBoy = (RadioButton)RegisPop.findViewById(R.id.radioBoy);
+				if(chooseBoy.isChecked()){
+					chooseSex = 'B';
+				}
+				RadioButton chooseGirl = (RadioButton)RegisPop.findViewById(R.id.radioGirl);
+				if(chooseBoy.isChecked()){
+					chooseSex = 'G';
+				}
+				
+				//Select age (2-6 year)	
+				Spinner spin1 = (Spinner)RegisPop.findViewById(R.id.ageSelection);
+					selectedAge = String.valueOf(spin1.getSelectedItem());
+					String ages[] = selectedAge.split(" ");
+					int age = Integer.parseInt(ages[0]);
+
+				//Continue Login
+				CheckBox checkbox = (CheckBox)RegisPop.findViewById(R.id.checkContinueLogin);
 				if(checkbox.isChecked())
 				{
 					continueLoginState = true;
 
 				}
-				//check user info if got -> insert status table(name,date) ,no -> message Toast 
+			
+					
+				//check user info if got -> already , not -> insert new user
 				checkUser = myDb.checkUserInfo(username);
 				if(checkUser == true){
-					LoginPop.dismiss();
-					CurrentUser = username;
+					Toast.makeText(Main.this, username + " : same as in user info", Toast.LENGTH_LONG).show(); 
 					
-					myDb.InsertCurrent(CurrentUser,d,continueLoginState);
-					TextView result = (TextView) findViewById(R.id.textUser);
-					result.setText(CurrentUser);
 				}
 				else{
-					//String strTxt = editT1.getText().toString();              
-					Toast.makeText(Main.this, username + " : not in user info", Toast.LENGTH_LONG).show(); 
+					              
+					RegisPop.dismiss();
+					CurrentUser = username;
+					
+					myDb.InsertUser(CurrentUser,age,chooseSex);
+					myDb.InsertCurrent(CurrentUser,d,continueLoginState);
+					if(!(CurrentUser.equals("Guest"))){
+						TextView result = (TextView) findViewById(R.id.textUser);
+						result.setVisibility(TextView.VISIBLE);
+						result.setText(CurrentUser);
+						Button LogoutBt = (Button) findViewById(R.id.logout);
+						LogoutBt.setVisibility(Button.VISIBLE);
+					}
 				}
-				
-				//CurrentUser = user.getText().toString();
-				
-			}
-		});
-		
-		Button RegisBt = (Button)LoginPop.findViewById(R.id.regisBt);
-		LoginBt.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-			String name;	
-				EditText user = (EditText)LoginPop.findViewById(R.id.usertext);
-				name = user.getText().toString();
-				
-				LoginPop.dismiss();
-				showRegisPopup(name);				
-				//CurrentUser = user.getText().toString();
-				
-			}
-		});
-		
 			
-		LoginPop.show();
+				
+			}
+		});
+		
+		RegisPop.show();
 	}
+	//Play popup
 	void popUpLogIn(){
 		final Dialog popLog = new Dialog(context2);
-		popLog.setContentView(R.layout.activity_popup_login);
+		popLog.setContentView(R.layout.activity_popup_play);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
@@ -264,12 +300,14 @@ SQLiteDatabase db;
 		PlayBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				final Date d = new Date();
+				
 				popLog.dismiss();
-				myDb.InsertCurrent("Guest");
+				myDb.InsertCurrent("Guest",d,false);
 				TextView result = (TextView) findViewById(R.id.textUser);
 				result.setVisibility(TextView.INVISIBLE);
-				Button LoginBt = (Button) findViewById(R.id.login1);
-				result.setVisibility(Button.INVISIBLE);
+				Button LogoutBt = (Button) findViewById(R.id.logout);
+				LogoutBt.setVisibility(Button.INVISIBLE);
 			}
 		});
 		

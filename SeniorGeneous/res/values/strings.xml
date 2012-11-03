@@ -10,7 +10,17 @@
 	<string name="hospital_intent">Hospital</string>
 	<string name="police_intent">Police</string>
 	<string name="house_intent">House</string>
-	<string name="login_button">Log in</string>
+	<string name="logout_button">ออกจากระบบ</string>
 	<string name="user_text">Username : </string>
+	<string name="girl"> หญิง</string>
+	<string name="boy"> ชาย</string>
+	
 	<string name="continue_login">ให้ฉันอยู่ในระบบต่อไป</string>
+	<string-array name="year">
+	 	<item>2 ปี</item>
+	 	<item>3 ปี</item>
+	 	<item>4 ปี</item>
+	 	<item>5 ปี</item>
+	 	<item>6 ปี</item>
+	 </string-array>
 </resources>
