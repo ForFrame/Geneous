@@ -62,7 +62,7 @@ public void onCreate(SQLiteDatabase db) {
 //SelectCurrentUser(); check MAX(No)loginStatus table on Status == 'Logout'-> No or 'Y' -> name 
 //CurrentUser = myDb.SelectCurrentUser();
 public String SelectCurrentUser(){
-	String username = null;
+	String username = "Logout";
 	try{
 		String userinfo[] = null;
 		

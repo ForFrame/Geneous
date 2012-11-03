@@ -37,7 +37,7 @@ SQLiteDatabase db;
 		// SelectCurrentUser(); check MAX(No)loginStatus table on Status == 'Logout'-> No or 'Y' -> name 
 		CurrentUser = myDb.SelectCurrentUser();
 		if(CurrentUser.equals("Logout")){
-			showLoginPopup();
+			popUpLogIn();
 		}
 		
 		if(!(CurrentUser.equals("Guest"))){
@@ -300,6 +300,7 @@ SQLiteDatabase db;
 				final Date d = new Date();
 				
 				popLog.dismiss();
+				
 				myDb.InsertCurrent("Guest",d,false);
 				TextView result = (TextView) findViewById(R.id.textUser);
 				result.setVisibility(TextView.INVISIBLE);
