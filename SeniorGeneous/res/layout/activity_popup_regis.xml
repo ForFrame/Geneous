@@ -1,51 +1,64 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_popup_login"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@drawable/bg_regis"
     android:orientation="vertical"
-    android:padding="50dp" >
-    
-  	 <EditText
-  	     android:id="@+id/regUsertext"
-  	     android:layout_width="wrap_content"
-  	     android:layout_height="wrap_content"
-  	     android:layout_x="360dp"
-  	     android:layout_y="130dp"
-  	     android:ems="10" />
+    >
 
-  	 <Button
-  	     android:id="@+id/regisBt"
-  	     android:layout_width="176dp"
-  	     android:layout_height="87dp"
-  	     android:layout_x="360dp"
-  	     android:layout_y="400dp"
-  	     android:background="@drawable/button_regis" />
 
-  	 <RadioButton
-  	     android:id="@+id/radioBoy"
-  	     android:layout_width="wrap_content"
-  	     android:layout_height="wrap_content"
-  	     android:layout_x="360dp"
-  	     android:layout_y="190dp"
-  	     android:checked="true"
-  	     android:text="@string/boy" />
 
-  	 <RadioButton
-  	     android:id="@+id/radioGirl"
-  	     android:layout_width="wrap_content"
-  	     android:layout_height="wrap_content"
-  	     android:layout_x="360dp"
-  	     android:layout_y="230dp"
-  	     android:text="@string/girl" />
+    <EditText
+        android:id="@+id/regUsertext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="50dp"
+        android:layout_y="52dp"
+        android:ems="10" >
 
-  	 <Spinner
-  	     android:id="@+id/ageSelection"
-  	     android:layout_width="96dp"
-  	     android:layout_height="78dp"
-  	     android:layout_x="425dp"
-  	     android:layout_y="320dp"
-  	     android:entries="@array/year" />
-    
+        <requestFocus />
+    </EditText>
+
+     <Button
+         android:id="@+id/regisBt"
+         android:layout_width="138dp"
+         android:layout_height="wrap_content"
+         android:layout_x="443dp"
+         android:layout_y="23dp"
+         android:background="@drawable/button_regis" />
+
+     <RadioButton
+         android:id="@+id/radioBoy"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_x="149dp"
+         android:layout_y="119dp"
+         android:checked="true"
+         android:text="@string/boy" />
+
+     <RadioButton
+         android:id="@+id/radioGirl"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_x="151dp"
+         android:layout_y="177dp"
+         android:text="@string/girl" />
+     
+     <Spinner
+         android:id="@+id/ageSelection"
+         android:layout_width="96dp"
+         android:layout_height="78dp"
+         android:layout_x="437dp"
+         android:layout_y="135dp"
+         android:entries="@array/year" />
+
+     <CheckBox
+         android:id="@+id/checkContinueLogin"
+         android:layout_width="263dp"
+         android:layout_height="wrap_content"
+         android:layout_x="398dp"
+         android:layout_y="98dp"
+         android:text="@string/continue_login" />
+
 </AbsoluteLayout>

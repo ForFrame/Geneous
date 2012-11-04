@@ -26,6 +26,7 @@ SQLiteDatabase db;
 
 /** Called when the activity is first created. */
 		
+
 	@Override
  	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -144,14 +145,14 @@ SQLiteDatabase db;
 				
 		
 		
-		Button LoginBt = (Button)LoginPop.findViewById(R.id.LoginBt);
-		LoginBt.setOnClickListener(new View.OnClickListener() {
+		Button LoginnBt = (Button)LoginPop.findViewById(R.id.LoginBt);
+		LoginnBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				final boolean checkUser;
 				final String username;
 				final Date d = new Date();
-				boolean continueLoginState = false;
+				int continueLoginState = 0;
 				
 				EditText user = (EditText)LoginPop.findViewById(R.id.usertext);
 				username = user.getText().toString();
@@ -159,7 +160,7 @@ SQLiteDatabase db;
 				CheckBox checkbox = (CheckBox)LoginPop.findViewById(R.id.checkContinueLogin);
 				if(checkbox.isChecked())
 				{
-					continueLoginState = true;
+					continueLoginState = 1;
 
 				}
 				//check user info if got -> insert status table(name,date) ,no -> message Toast 
@@ -187,8 +188,8 @@ SQLiteDatabase db;
 			}
 		});
 		
-		Button RegisBt = (Button)LoginPop.findViewById(R.id.regisBt);
-		LoginBt.setOnClickListener(new View.OnClickListener() {
+		Button RegissBt = (Button)LoginPop.findViewById(R.id.regisBt);
+		RegissBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 			String name;	
@@ -217,16 +218,16 @@ SQLiteDatabase db;
 		user.setText(inputname);
 		
 		//Regis Button
-		Button RegisBt = (Button)RegisPop.findViewById(R.id.regisBt);
-		RegisBt.setOnClickListener(new View.OnClickListener() {
+		Button RegissBt = (Button)RegisPop.findViewById(R.id.regisBt);
+		RegissBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				final boolean checkUser;
-				char chooseSex = 0;
+				int chooseSex = 0;
 				final String selectedAge;
 				final String username;
 				final Date d = new Date();
-				boolean continueLoginState = false;
+				int continueLoginState = 0;
 				
 				//Username
 				EditText user = (EditText)RegisPop.findViewById(R.id.regUsertext);
@@ -235,11 +236,12 @@ SQLiteDatabase db;
 				//Choose sex (boy/girl)
 				RadioButton chooseBoy = (RadioButton)RegisPop.findViewById(R.id.radioBoy);
 				if(chooseBoy.isChecked()){
-					chooseSex = 'B';
+					chooseSex = 1;
+					
 				}
 				RadioButton chooseGirl = (RadioButton)RegisPop.findViewById(R.id.radioGirl);
-				if(chooseBoy.isChecked()){
-					chooseSex = 'G';
+				if(chooseGirl.isChecked()){
+					chooseSex = 0;
 				}
 				
 				//Select age (2-6 year)	
@@ -249,10 +251,10 @@ SQLiteDatabase db;
 					int age = Integer.parseInt(ages[0]);
 
 				//Continue Login
-				CheckBox checkbox = (CheckBox)RegisPop.findViewById(R.id.checkContinueLogin);
-				if(checkbox.isChecked())
+				CheckBox checkboxx = (CheckBox)RegisPop.findViewById(R.id.checkContinueLogin);
+				if(checkboxx.isChecked())
 				{
-					continueLoginState = true;
+					continueLoginState = 1;
 
 				}
 			
@@ -293,15 +295,15 @@ SQLiteDatabase db;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 			
-		Button PlayBt = (Button)popLog.findViewById(R.id.playBt);
-		PlayBt.setOnClickListener(new View.OnClickListener() {
+		Button PlayyBt = (Button)popLog.findViewById(R.id.playBt);
+		PlayyBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				final Date d = new Date();
 				
 				popLog.dismiss();
 				
-				myDb.InsertCurrent("Guest",d,false);
+				myDb.InsertCurrent("Guest",d,0);
 				TextView result = (TextView) findViewById(R.id.textUser);
 				result.setVisibility(TextView.INVISIBLE);
 				Button LogoutBt = (Button) findViewById(R.id.logout);
@@ -309,8 +311,8 @@ SQLiteDatabase db;
 			}
 		});
 		
-		Button LoginBt = (Button)popLog.findViewById(R.id.LogRegisBt);
-		LoginBt.setOnClickListener(new View.OnClickListener() {
+		Button LoginnBt = (Button)popLog.findViewById(R.id.LogRegisBt);
+		LoginnBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				popLog.dismiss();
@@ -322,4 +324,10 @@ SQLiteDatabase db;
 		
 		
 	}
+
+
+public void onRestart(){
+	onCreate(null);
+}
+
 }

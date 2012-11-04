@@ -90,8 +90,8 @@ public final class R {
         public static final int wrong=0x7f020049;
     }
     public static final class id {
-        public static final int LogRegisBt=0x7f090041;
-        public static final int LoginBt=0x7f09003e;
+        public static final int LogRegisBt=0x7f090042;
+        public static final int LoginBt=0x7f09003f;
         public static final int ageSelection=0x7f090046;
         public static final int board=0x7f09004a;
         public static final int boardbutton=0x7f09000f;
@@ -107,7 +107,7 @@ public final class R {
         public static final int buttonnumber9=0x7f090019;
         public static final int calendar=0x7f09004b;
         public static final int calendarbutton=0x7f090010;
-        public static final int checkContinueLogin=0x7f090040;
+        public static final int checkContinueLogin=0x7f09003e;
         public static final int countbutton=0x7f090030;
         public static final int counttable1=0x7f09001b;
         public static final int counttable10=0x7f090024;
@@ -135,12 +135,12 @@ public final class R {
         public static final int maintoschool1=0x7f090039;
         public static final int marketbutton=0x7f09003a;
         public static final int menu_settings=0x7f09004f;
-        public static final int playBt=0x7f090042;
+        public static final int playBt=0x7f090041;
         public static final int policebutton=0x7f09003b;
         public static final int radioBoy=0x7f090044;
         public static final int radioGirl=0x7f090045;
         public static final int regUsertext=0x7f090043;
-        public static final int regisBt=0x7f09003f;
+        public static final int regisBt=0x7f090040;
         public static final int schoolbutton=0x7f090047;
         public static final int schoolbutton1=0x7f090048;
         public static final int schoollevel1=0x7f09004c;
