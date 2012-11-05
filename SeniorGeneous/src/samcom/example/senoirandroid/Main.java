@@ -1,13 +1,19 @@
 package samcom.example.senoirandroid;
 
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +25,9 @@ import java.util.Date;
 
 public class Main extends Activity {
 String CurrentUser;
+int chooseSex = 0;
 final Context context2 = this;
+
 
 
 SQLiteDatabase db;
@@ -47,8 +55,18 @@ SQLiteDatabase db;
 			result.setText(CurrentUser);
 			Button LogoutBt = (Button) findViewById(R.id.logout);
 			LogoutBt.setVisibility(Button.VISIBLE);
+			Button LoginBt = (Button) findViewById(R.id.loginn);
+			LoginBt.setVisibility(Button.INVISIBLE);
 		}
 		
+		Button loginBut = (Button)findViewById(R.id.loginn);
+		loginBut.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				showLoginPopup();
+			}
+		});
 		
 		Button swapPoliceButton1 = (Button)findViewById(R.id.maintopolice1);
 	
@@ -137,8 +155,11 @@ SQLiteDatabase db;
 	}
 
 	void showLoginPopup(){
-		final Dialog LoginPop = new Dialog(context2);
+	
+		final Dialog LoginPop = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+				
 		LoginPop.setContentView(R.layout.activity_popup_login);
+		
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
@@ -176,6 +197,8 @@ SQLiteDatabase db;
 							result.setText(CurrentUser);
 							Button LogoutBt = (Button) findViewById(R.id.logout);
 							LogoutBt.setVisibility(Button.VISIBLE);
+							Button LoginBt = (Button) findViewById(R.id.loginn);
+							LoginBt.setVisibility(Button.INVISIBLE);
 					}
 				}
 				else{
@@ -196,19 +219,29 @@ SQLiteDatabase db;
 				EditText user = (EditText)LoginPop.findViewById(R.id.usertext);
 				name = user.getText().toString();
 				
+				//
+				//LoginPop.dismiss();
+				showRegisPopup(name);
 				LoginPop.dismiss();
-				showRegisPopup(name);				
 				//CurrentUser = user.getText().toString();
 				
 			}
 		});
 		
+		Button cancellogin = (Button)LoginPop.findViewById(R.id.CancelLog);
+		cancellogin.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				popUpLogIn();
+			}
+		});
 			
 		LoginPop.show();
 	}
 	void showRegisPopup(String inputname){
 		
-		final Dialog RegisPop = new Dialog(context2);
+		final Dialog RegisPop = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
 		RegisPop.setContentView(R.layout.activity_popup_regis);
 		
 		final myDBClass myDb = new myDBClass(this);
@@ -223,7 +256,6 @@ SQLiteDatabase db;
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				final boolean checkUser;
-				int chooseSex = 0;
 				final String selectedAge;
 				final String username;
 				final Date d = new Date();
@@ -234,15 +266,20 @@ SQLiteDatabase db;
 				username = user.getText().toString();
 				
 				//Choose sex (boy/girl)
-				RadioButton chooseBoy = (RadioButton)RegisPop.findViewById(R.id.radioBoy);
-				if(chooseBoy.isChecked()){
+				
+				RadioGroup radioSexGroup = (RadioGroup)RegisPop.findViewById(R.id.radioSex);
+						 
+				int selectedId = radioSexGroup.getCheckedRadioButtonId();
+				RadioButton radioSexButton = (RadioButton)RegisPop.findViewById(selectedId);
+						
+				if(radioSexButton.equals("radioMale")){
 					chooseSex = 1;
-					
 				}
-				RadioButton chooseGirl = (RadioButton)RegisPop.findViewById(R.id.radioGirl);
-				if(chooseGirl.isChecked()){
+				else{
 					chooseSex = 0;
 				}
+				
+			   	
 				
 				//Select age (2-6 year)	
 				Spinner spin1 = (Spinner)RegisPop.findViewById(R.id.ageSelection);
@@ -278,6 +315,8 @@ SQLiteDatabase db;
 						result.setText(CurrentUser);
 						Button LogoutBt = (Button) findViewById(R.id.logout);
 						LogoutBt.setVisibility(Button.VISIBLE);
+						Button LoginBt = (Button) findViewById(R.id.loginn);
+						LoginBt.setVisibility(Button.INVISIBLE);
 					}
 				}
 			
@@ -285,11 +324,20 @@ SQLiteDatabase db;
 			}
 		});
 		
+		Button cancelregis = (Button)RegisPop.findViewById(R.id.CancelReg);
+		cancelregis.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				showLoginPopup();
+			}
+		});
+		
 		RegisPop.show();
 	}
 	//Play popup
 	void popUpLogIn(){
-		final Dialog popLog = new Dialog(context2);
+		final Dialog popLog =  new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
 		popLog.setContentView(R.layout.activity_popup_play);
 		
 		final myDBClass myDb = new myDBClass(this);
@@ -308,6 +356,8 @@ SQLiteDatabase db;
 				result.setVisibility(TextView.INVISIBLE);
 				Button LogoutBt = (Button) findViewById(R.id.logout);
 				LogoutBt.setVisibility(Button.INVISIBLE);
+				Button LoginBt = (Button) findViewById(R.id.loginn);
+				LoginBt.setVisibility(Button.VISIBLE);
 			}
 		});
 		
@@ -315,8 +365,9 @@ SQLiteDatabase db;
 		LoginnBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				popLog.dismiss();
+				//popLog.dismiss();
 				showLoginPopup();
+				popLog.dismiss();
 			}
 		});
 	
@@ -324,10 +375,5 @@ SQLiteDatabase db;
 		
 		
 	}
-
-
-public void onRestart(){
-	onCreate(null);
 }
 
-}

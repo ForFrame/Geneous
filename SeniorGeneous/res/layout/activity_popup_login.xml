@@ -1,19 +1,17 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_popup_login"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/bg_login"
-    android:orientation="vertical"
-    
-    >
+    android:orientation="vertical" >
 
     <EditText
         android:id="@+id/usertext"
-        android:layout_width="188dp"
+        android:layout_width="335dp"
         android:layout_height="wrap_content"
-        android:layout_x="20dp"
-        android:layout_y="20dp"
+        android:layout_x="377dp"
+        android:layout_y="234dp"
         android:ems="10" >
 
         <requestFocus />
@@ -21,26 +19,35 @@
 
     <CheckBox
         android:id="@+id/checkContinueLogin"
-        android:layout_width="263dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="54dp"
-        android:layout_y="107dp"
-        android:text="@string/continue_login" />
+        android:layout_x="368dp"
+        android:layout_y="314dp"
+        android:text="@string/continue_login"
+        android:textSize="10pt" />
 
     <Button
         android:id="@+id/LoginBt"
-        android:layout_width="129dp"
-        android:layout_height="50dp"
-        android:layout_x="431dp"
-        android:layout_y="25dp"
+        android:layout_width="138dp"
+        android:layout_height="69dp"
+        android:layout_x="288dp"
+        android:layout_y="428dp"
         android:background="@drawable/button_login" />
 
     <Button
         android:id="@+id/regisBt"
-        android:layout_width="126dp"
-        android:layout_height="50dp"
-        android:layout_x="430dp"
-        android:layout_y="117dp"
+        android:layout_width="138dp"
+        android:layout_height="69dp"
+        android:layout_x="474dp"
+        android:layout_y="428dp"
         android:background="@drawable/button_regis" />
+
+    <Button
+        android:id="@+id/CancelLog"
+        android:layout_width="138dp"
+        android:layout_height="69dp"
+        android:layout_x="651dp"
+        android:layout_y="428dp"
+        android:background="@drawable/cancel" />
 
 </AbsoluteLayout>
