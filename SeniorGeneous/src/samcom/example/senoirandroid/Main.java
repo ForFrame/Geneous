@@ -19,6 +19,8 @@ import android.widget.Toast;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.Typeface;
 
 import java.util.Date;
 
@@ -39,10 +41,21 @@ SQLiteDatabase db;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	
-		final myDBClass myDb = new myDBClass(this);
-		myDb.getWritableDatabase();
+		//final myDBClass myDb = new myDBClass(this);
+		//myDb.getWritableDatabase();
 		
 		// SelectCurrentUser(); check MAX(No)loginStatus table on Status == 'Logout'-> No or 'Y' -> name 
+		mainPage();
+	}
+	
+	void mainPage(){
+		
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getReadableDatabase();
+		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
+		   
+		   
 		CurrentUser = myDb.SelectCurrentUser();
 		if(CurrentUser.equals("Logout")){
 			popUpLogIn();
@@ -50,8 +63,9 @@ SQLiteDatabase db;
 		
 		if(!(CurrentUser.equals("Guest"))){
 			TextView result = (TextView) findViewById(R.id.textUser);
-			
-			result.setGravity(TextView.FOCUS_RIGHT);
+			result.setTypeface(type);
+			//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
+			result.setTextColor(Color.rgb(2, 101, 203));
 			result.setVisibility(TextView.VISIBLE);
 			result.setText(CurrentUser);
 			Button LogoutBt = (Button) findViewById(R.id.logout);
@@ -162,6 +176,8 @@ SQLiteDatabase db;
 		LoginPop.setContentView(R.layout.activity_popup_login);
 		
 		
+		
+		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 				
@@ -175,11 +191,12 @@ SQLiteDatabase db;
 				final String username;
 				final Date d = new Date();
 				int continueLoginState = 0;
-				
+				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 				EditText user = (EditText)LoginPop.findViewById(R.id.usertext);
 				username = user.getText().toString();
 				
 				CheckBox checkbox = (CheckBox)LoginPop.findViewById(R.id.checkContinueLogin);
+				//checkbox.setTypeface(type);
 				if(checkbox.isChecked())
 				{
 					continueLoginState = 1;
@@ -194,7 +211,10 @@ SQLiteDatabase db;
 					myDb.InsertCurrent(CurrentUser,d,continueLoginState);
 					if(!(CurrentUser.equals("Guest"))){
 							TextView result = (TextView) findViewById(R.id.textUser);
-							result.setGravity(TextView.FOCUS_RIGHT);
+							result.setTypeface(type); 
+							//result.setTextColor(Color.WHITE);
+							result.setTextColor(Color.rgb(2, 101, 203));
+							//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
 							result.setVisibility(TextView.VISIBLE);
 							result.setText(CurrentUser);
 							Button LogoutBt = (Button) findViewById(R.id.logout);
@@ -235,6 +255,7 @@ SQLiteDatabase db;
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				LoginPop.dismiss();
 				popUpLogIn();
 			}
 		});
@@ -245,11 +266,12 @@ SQLiteDatabase db;
 		
 		final Dialog RegisPop = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
 		RegisPop.setContentView(R.layout.activity_popup_regis);
-		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/touchy_boy.ttf"); 
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 				
 		EditText user = (EditText)RegisPop.findViewById(R.id.regUsertext);
+		//user.setTypeface(type);
 		user.setText(inputname);
 		
 		//Regis Button
@@ -262,9 +284,11 @@ SQLiteDatabase db;
 				final String username;
 				final Date d = new Date();
 				int continueLoginState = 0,lenghtName;
-				
+				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
+				 
 				//Username
 				EditText user = (EditText)RegisPop.findViewById(R.id.regUsertext);
+				//user.setTypeface(type);
 				username = user.getText().toString();
 				
 				
@@ -274,7 +298,7 @@ SQLiteDatabase db;
 						 
 				int selectedId = radioSexGroup.getCheckedRadioButtonId();
 				RadioButton radioSexButton = (RadioButton)RegisPop.findViewById(selectedId);
-						
+				//radioSexButton.setTypeface(type);		
 				if(radioSexButton.equals("radioMale")){
 					chooseSex = 1;
 				}
@@ -286,12 +310,14 @@ SQLiteDatabase db;
 				
 				//Select age (2-6 year)	
 				Spinner spin1 = (Spinner)RegisPop.findViewById(R.id.ageSelection);
+				
 					selectedAge = String.valueOf(spin1.getSelectedItem());
 					String ages[] = selectedAge.split(" ");
 					int age = Integer.parseInt(ages[0]);
 
 				//Continue Login
 				CheckBox checkboxx = (CheckBox)RegisPop.findViewById(R.id.checkContinueLogin);
+				//checkboxx.setTypeface(type);
 				if(checkboxx.isChecked())
 				{
 					continueLoginState = 1;
@@ -320,7 +346,10 @@ SQLiteDatabase db;
 						myDb.InsertCurrent(CurrentUser,d,continueLoginState);
 						if(!(CurrentUser.equals("Guest"))){
 							TextView result = (TextView) findViewById(R.id.textUser);
-							result.setGravity(TextView.FOCUS_RIGHT);
+							result.setTypeface(type);
+							//result.setTextColor(Color.WHITE);
+							result.setTextColor(Color.rgb(2, 101, 203));
+							//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
 							result.setVisibility(TextView.VISIBLE);
 							result.setText(CurrentUser);
 							Button LogoutBt = (Button) findViewById(R.id.logout);
@@ -339,6 +368,7 @@ SQLiteDatabase db;
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				RegisPop.dismiss();
 				showLoginPopup();
 			}
 		});

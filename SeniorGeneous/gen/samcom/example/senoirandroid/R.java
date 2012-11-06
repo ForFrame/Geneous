@@ -229,5 +229,6 @@ public final class R {
     }
     public static final class style {
         public static final int AppTheme=0x7f070000;
+        public static final int AudioFileInfoOverlayText=0x7f070001;
     }
 }
