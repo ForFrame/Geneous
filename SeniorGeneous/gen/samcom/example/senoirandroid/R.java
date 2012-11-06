@@ -132,11 +132,11 @@ public final class R {
         public static final int layout_popup_login=0x7f09003d;
         public static final int loginn=0x7f090031;
         public static final int logout=0x7f090038;
-        public static final int maintofarm1=0x7f090032;
-        public static final int maintohospital1=0x7f090036;
-        public static final int maintohouse1=0x7f090037;
+        public static final int maintofarm1=0x7f090036;
+        public static final int maintohospital1=0x7f090037;
+        public static final int maintohouse1=0x7f090034;
         public static final int maintomarket1=0x7f090033;
-        public static final int maintopolice1=0x7f090034;
+        public static final int maintopolice1=0x7f090032;
         public static final int maintoschool=0x7f090035;
         public static final int maintoschool1=0x7f09003a;
         public static final int marketbutton=0x7f09003b;

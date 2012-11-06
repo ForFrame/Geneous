@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_x="384dp"
         android:layout_y="190dp"
-        android:ems="10" >
+        android:ems="10" 
+        android:hint = "Username"
+        >
 
         <requestFocus />
     </EditText>

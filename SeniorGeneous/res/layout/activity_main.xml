@@ -84,10 +84,11 @@
             android1:layout_height="wrap_content"
             android1:layout_x="683dp"
             android1:layout_y="38dp"
-            android1:gravity="right"
+            
             android1:text="Username"
             android1:textAppearance="?android:attr/textAppearanceLarge"
             android1:textStyle="bold"
-            android1:typeface="sans" />
+            android1:typeface="sans"
+            />
 
 </AbsoluteLayout>

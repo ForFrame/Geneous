@@ -1,16 +1,15 @@
 package samcom.example.senoirandroid;
 
-import android.app.ActionBar.LayoutParams;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.view.Display;
+
+import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
+
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -51,6 +50,8 @@ SQLiteDatabase db;
 		
 		if(!(CurrentUser.equals("Guest"))){
 			TextView result = (TextView) findViewById(R.id.textUser);
+			
+			result.setGravity(TextView.FOCUS_RIGHT);
 			result.setVisibility(TextView.VISIBLE);
 			result.setText(CurrentUser);
 			Button LogoutBt = (Button) findViewById(R.id.logout);
@@ -193,6 +194,7 @@ SQLiteDatabase db;
 					myDb.InsertCurrent(CurrentUser,d,continueLoginState);
 					if(!(CurrentUser.equals("Guest"))){
 							TextView result = (TextView) findViewById(R.id.textUser);
+							result.setGravity(TextView.FOCUS_RIGHT);
 							result.setVisibility(TextView.VISIBLE);
 							result.setText(CurrentUser);
 							Button LogoutBt = (Button) findViewById(R.id.logout);
@@ -220,9 +222,9 @@ SQLiteDatabase db;
 				name = user.getText().toString();
 				
 				//
-				//LoginPop.dismiss();
-				showRegisPopup(name);
 				LoginPop.dismiss();
+				showRegisPopup(name);
+				
 				//CurrentUser = user.getText().toString();
 				
 			}
@@ -259,11 +261,12 @@ SQLiteDatabase db;
 				final String selectedAge;
 				final String username;
 				final Date d = new Date();
-				int continueLoginState = 0;
+				int continueLoginState = 0,lenghtName;
 				
 				//Username
 				EditText user = (EditText)RegisPop.findViewById(R.id.regUsertext);
 				username = user.getText().toString();
+				
 				
 				//Choose sex (boy/girl)
 				
@@ -295,31 +298,38 @@ SQLiteDatabase db;
 
 				}
 			
-					
-				//check user info if got -> already , not -> insert new user
-				checkUser = myDb.checkUserInfo(username);
-				if(checkUser == true){
-					Toast.makeText(Main.this, username + " : same as in user info", Toast.LENGTH_LONG).show(); 
-					
+				lenghtName = username.length();
+				if((lenghtName<1)){
+					Toast.makeText(Main.this, username + " : username must > 1", Toast.LENGTH_LONG).show();
+				}
+				else if((lenghtName>10)){
+					Toast.makeText(Main.this, username + " : username must < 10", Toast.LENGTH_LONG).show();
 				}
 				else{
-					              
-					RegisPop.dismiss();
-					CurrentUser = username;
-					
-					myDb.InsertUser(CurrentUser,age,chooseSex);
-					myDb.InsertCurrent(CurrentUser,d,continueLoginState);
-					if(!(CurrentUser.equals("Guest"))){
-						TextView result = (TextView) findViewById(R.id.textUser);
-						result.setVisibility(TextView.VISIBLE);
-						result.setText(CurrentUser);
-						Button LogoutBt = (Button) findViewById(R.id.logout);
-						LogoutBt.setVisibility(Button.VISIBLE);
-						Button LoginBt = (Button) findViewById(R.id.loginn);
-						LoginBt.setVisibility(Button.INVISIBLE);
+					checkUser = myDb.checkUserInfo(username);
+					if(checkUser == true){
+						Toast.makeText(Main.this, username + " : same as in user info", Toast.LENGTH_LONG).show(); 
+						
 					}
-				}
-			
+					else{
+						//check user info if got -> already , not -> insert new user
+						RegisPop.dismiss();
+						CurrentUser = username;
+						
+						myDb.InsertUser(CurrentUser,age,chooseSex);
+						myDb.InsertCurrent(CurrentUser,d,continueLoginState);
+						if(!(CurrentUser.equals("Guest"))){
+							TextView result = (TextView) findViewById(R.id.textUser);
+							result.setGravity(TextView.FOCUS_RIGHT);
+							result.setVisibility(TextView.VISIBLE);
+							result.setText(CurrentUser);
+							Button LogoutBt = (Button) findViewById(R.id.logout);
+							LogoutBt.setVisibility(Button.VISIBLE);
+							Button LoginBt = (Button) findViewById(R.id.loginn);
+							LoginBt.setVisibility(Button.INVISIBLE);
+						}
+					}
+				}	
 				
 			}
 		});
@@ -351,6 +361,7 @@ SQLiteDatabase db;
 				
 				popLog.dismiss();
 				
+				
 				myDb.InsertCurrent("Guest",d,0);
 				TextView result = (TextView) findViewById(R.id.textUser);
 				result.setVisibility(TextView.INVISIBLE);
@@ -365,9 +376,9 @@ SQLiteDatabase db;
 		LoginnBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//popLog.dismiss();
-				showLoginPopup();
 				popLog.dismiss();
+				showLoginPopup();
+				
 			}
 		});
 	

@@ -12,9 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_x="377dp"
         android:layout_y="234dp"
-        android:ems="10" >
+        android:ems="10" 
+        android:hint = "Username"
+        android:maxLength="10">
 
-        <requestFocus />
+       
     </EditText>
 
     <CheckBox
