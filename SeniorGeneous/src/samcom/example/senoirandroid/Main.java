@@ -57,6 +57,7 @@ SQLiteDatabase db;
 		   
 		   
 		CurrentUser = myDb.SelectCurrentUser();
+		myDb.close();
 		if(CurrentUser.equals("Logout")){
 			popUpLogIn();
 		}
@@ -204,6 +205,7 @@ SQLiteDatabase db;
 				}
 				//check user info if got -> insert status table(name,date) ,no -> message Toast 
 				checkUser = myDb.checkUserInfo(username);
+				myDb.close();
 				if(checkUser == true){
 					LoginPop.dismiss();
 					CurrentUser = username;
@@ -344,6 +346,7 @@ SQLiteDatabase db;
 						
 						myDb.InsertUser(CurrentUser,age,chooseSex);
 						myDb.InsertCurrent(CurrentUser,d,continueLoginState);
+						myDb.close();
 						if(!(CurrentUser.equals("Guest"))){
 							TextView result = (TextView) findViewById(R.id.textUser);
 							result.setTypeface(type);
@@ -388,11 +391,16 @@ SQLiteDatabase db;
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				final Date d = new Date();
-				
+				String username = null;
 				popLog.dismiss();
 				
 				
 				myDb.InsertCurrent("Guest",d,0);
+				myDb.close();
+				myDb.getReadableDatabase();
+				username = myDb.SelectCurrentUser();
+				myDb.close();
+				Toast.makeText(Main.this, username + " : username ", Toast.LENGTH_LONG).show();
 				TextView result = (TextView) findViewById(R.id.textUser);
 				result.setVisibility(TextView.INVISIBLE);
 				Button LogoutBt = (Button) findViewById(R.id.logout);
