@@ -13,46 +13,7 @@
 		android:text="@string/title_activity_main"
 	/>
     -->
-      <Button
-            android1:id="@+id/loginn"
-            android1:layout_width="127dp"
-            android1:layout_height="wrap_content"
-            android1:layout_x="849dp"
-            android1:layout_y="32dp"
-            android1:background="@drawable/login_txt" /> 
-        
-      <Button
-        android1:id="@+id/maintopolice1"
-        android1:layout_width="146dp"
-        android1:layout_height="113dp"
-        android1:layout_x="41dp"
-        android1:layout_y="50dp"
-        android1:background="@drawable/policestation_main" />
-	
-       <Button
-            android1:id="@+id/maintomarket1"
-            android1:layout_width="158dp"
-            android1:layout_height="142dp"
-            android1:layout_x="44dp"
-            android1:layout_y="349dp"
-            android1:background="@drawable/market_main" />
-	
-        <Button
-            android1:id="@+id/maintohouse1"
-            android1:layout_width="188dp"
-            android1:layout_height="149dp"
-            android1:layout_x="310dp"
-            android1:layout_y="213dp"
-            android1:background="@drawable/home_main" />
-        
-       <Button
-        android1:id="@+id/maintoschool"
-        android1:layout_width="228dp"
-        android1:layout_height="122dp"
-        android1:layout_x="351dp"
-        android1:layout_y="26dp"
-        android1:background="@drawable/school_main" />
-	 
+
     <Button
         android1:id="@+id/maintofarm1"
         android1:layout_width="175dp"
@@ -60,35 +21,45 @@
         android1:layout_x="801dp"
         android1:layout_y="244dp"
         android1:background="@drawable/farm_main" />
-        
-      <Button
-          android1:id="@+id/maintohospital1"
-          android1:layout_width="158dp"
-          android1:layout_height="143dp"
-          android1:layout_x="490dp"
-          android1:layout_y="420dp"
-          android1:background="@drawable/hospital_main" />
 
-        <Button
-            android1:id="@+id/logout"
-            android1:layout_width="127dp"
-            android1:layout_height="wrap_content"
-            android1:layout_x="849dp"
-            android1:layout_y="32dp"
-            android1:background="@drawable/logout_txt" />
-
-         <TextView
-             android1:id="@+id/textUser"
-             android1:layout_width="200dp"
-             android1:layout_height="wrap_content"
-             android1:layout_x="633dp"
-             android1:layout_y="30dp"
-             android1:gravity="right|center_vertical"
-             android1:text="Username"
-             android1:textAppearance="?android:attr/textAppearanceLarge"
-             android1:textSize="16pt"
-             android1:textStyle="bold"
-             android1:typeface="sans" />
+    <Button
+        android1:id="@+id/maintomarket1"
+        android1:layout_width="158dp"
+        android1:layout_height="142dp"
+        android1:layout_x="43dp"
+        android1:layout_y="365dp"
+        android1:background="@drawable/market_main" />
 
-<!-- style="@style/AudioFileInfoOverlayText" -->
+    <Button
+        android1:id="@+id/maintopolice1"
+        android1:layout_width="146dp"
+        android1:layout_height="113dp"
+        android1:layout_x="41dp"
+        android1:layout_y="50dp"
+        android1:background="@drawable/policestation_main" />
+
+    <Button
+        android1:id="@+id/maintoschool"
+        android1:layout_width="228dp"
+        android1:layout_height="122dp"
+        android1:layout_x="351dp"
+        android1:layout_y="26dp"
+        android1:background="@drawable/school_main" />
+
+    <Button
+        android1:id="@+id/maintohospital1"
+        android1:layout_width="158dp"
+        android1:layout_height="143dp"
+        android1:layout_x="551dp"
+        android1:layout_y="272dp"
+        android1:background="@drawable/hospital_main" />
+
+    <Button
+        android1:id="@+id/maintohouse1"
+        android1:layout_width="188dp"
+        android1:layout_height="149dp"
+        android1:layout_x="318dp"
+        android1:layout_y="334dp"
+        android1:background="@drawable/home_main" />
+
 </AbsoluteLayout>
