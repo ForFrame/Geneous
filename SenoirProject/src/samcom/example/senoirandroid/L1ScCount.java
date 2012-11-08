@@ -42,13 +42,8 @@ public class L1ScCount extends Activity {
 		
 		
 		
-		/*View imgView = (View)findViewById(R.id.get(temp)); 
-		
-		imgView.setVisibility(View.VISIBLE);*/
-		
 		final View imgWrong = (View)findViewById(R.id.showwrongnumber); 
-		//final View imgBlank = (View)findViewById(R.id.showblanknumber); 
-		
+				
 		Button selectButton1 = (Button)findViewById(R.id.buttonnumber1);
 		selectButton1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -246,13 +241,7 @@ public class L1ScCount extends Activity {
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
+				
 		Button countButton = (Button)findViewById(R.id.countbutton);
 		countButton.setOnClickListener(new View.OnClickListener() {
 	
