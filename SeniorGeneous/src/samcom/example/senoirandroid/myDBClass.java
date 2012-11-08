@@ -6,7 +6,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteCursor;
 //import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
@@ -66,33 +65,9 @@ public void onCreate(SQLiteDatabase db) {
 //SelectCurrentUser(); check MAX(No)loginStatus table on Status == 'Logout'-> No or 'Y' -> name 
 //CurrentUser = myDb.SelectCurrentUser();
 public String SelectCurrentUser(){
-	
+	String username = "Logout";
 	
 	try{
-		
-		String username = "Logout";
-		int statuslogin = 0;
-		int checkContinue = 0;
-		SQLiteDatabase db;
-		db = this.getReadableDatabase();
-		SQLiteCursor cur = (SQLiteCursor)db.rawQuery("select * from loginStatus",null);
-		 cur.moveToFirst();
-		
-		  while (cur.isAfterLast() == false) {
-			  username = cur.getString(2);
-			  statuslogin = cur.getInt(3);
-			  checkContinue = cur.getInt(4);
-
-		      cur.moveToNext();
-		  }
-		  cur.close();
-
-				
-		 if((checkContinue == 1)&&(statuslogin == 1)||(username.equals("Guest"))){
-	        	return username;
-	     }
-		 
-		/*try{
 		//String userinfo[] = null;
 		
 		SQLiteDatabase db;
@@ -101,7 +76,7 @@ public String SelectCurrentUser(){
 		Cursor c = db.rawQuery("SELECT MAX(No) as No,Username,Status,Checkbox" +
                    " FROM " + TABLE_STATUS+ " ;", null);
 		//Cursor cursor = db.query(TABLE_STATUS, new String[] {"*"}, ""
-		  Get the indices of the Columns we will need 
+		 /* Get the indices of the Columns we will need */
         
         int UsernameColumn = c.getColumnIndex("Username");
         int StatusColumn = c.getColumnIndex("Status");
@@ -112,14 +87,13 @@ public String SelectCurrentUser(){
         int Check = c.getInt(CheckColumn);
                 
         
-        if((Check == 1)&&(Status == 1)||(username.equals("Guest"))){
+        if((Check == 1)&&(Status == 1)){
         	return username;
         }
               
          
-	} */
-	}catch (Exception e){
-			return "Logout";
+	} catch (Exception e){
+		return "Logout";
 	}
 	
 	return "Logout";
@@ -204,20 +178,15 @@ public void InsertCurrent(String CurrentUser,Date d,int continueLoginState){
 		else{
 			state = 1;
 		}
-		
-		
-		/*ContentValues Val = new ContentValues();
+		ContentValues Val = new ContentValues();
 		Val.put("Username", CurrentUser);
 		Val.put("Status", state);
 		Val.put("Date", datetime);
 		Val.put("Checkbox", continueLoginState);
 		
-		long rows = db.insert(TABLE_STATUS, null, Val);*/
-				
-		String sql ="insert into loginStatus values(null,'"+CurrentUser+"','"+state+"','"+continueLoginState+"',"+datetime+")";
-		db.execSQL(sql);
-
-		//db.close();
+		long rows = db.insert(TABLE_STATUS, null, Val);
+		
+		db.close();
 	
 	} catch (Exception e){
 	
