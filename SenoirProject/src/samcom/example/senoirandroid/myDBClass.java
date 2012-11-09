@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 //import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
@@ -37,7 +38,7 @@ public void onCreate(SQLiteDatabase db) {
 	" Age INTEGER,"+" Sex INTEGER);");
 	//Create Login status table
 	db.execSQL("CREATE TABLE "+ TABLE_STATUS +" (No INTEGER PRIMARY KEY AUTOINCREMENT,"+
-	" Username TEXT(100),"+" Status INTEGER,"+" Checkbox INTEGER,"+" Date TEXT(30));");
+	" Username TEXT(100),"+" Status INTEGER,"+" Checkbox INTEGER,"+" Home INTEGER,"+" Date TEXT(30));");
 	//Create List of Game table
 	db.execSQL("CREATE TABLE "+ TABLE_LEVEL +" (GameNo TEXT(5) PRIMARY KEY,"+
 	" Gamename TEXT(100), "+"Level INTEGER);");
@@ -67,7 +68,7 @@ public void onCreate(SQLiteDatabase db) {
 public String SelectCurrentUser(){
 	String username = "Logout";
 	
-	try{
+	/*try{
 		//String userinfo[] = null;
 		
 		SQLiteDatabase db;
@@ -76,7 +77,7 @@ public String SelectCurrentUser(){
 		Cursor c = db.rawQuery("SELECT MAX(No) as No,Username,Status,Checkbox" +
                    " FROM " + TABLE_STATUS+ " ;", null);
 		//Cursor cursor = db.query(TABLE_STATUS, new String[] {"*"}, ""
-		 /* Get the indices of the Columns we will need */
+		  Get the indices of the Columns we will need 
         
         int UsernameColumn = c.getColumnIndex("Username");
         int StatusColumn = c.getColumnIndex("Status");
@@ -92,11 +93,135 @@ public String SelectCurrentUser(){
         }
               
          
-	} catch (Exception e){
+	}*/
+	try{
+		
+	 	
+	    int statuslogin = 0;
+		int checkContinue = 0;
+		
+	    SQLiteDatabase db;
+		
+	    db = this.getReadableDatabase();
+		
+	    SQLiteCursor cur = (SQLiteCursor)db.rawQuery("select * from loginStatus",null);
+		
+	     cur.moveToFirst();
+		
+	    
+		
+	      while (cur.isAfterLast() == false) {
+		
+	        username = cur.getString(1);
+	        statuslogin = cur.getInt(2);
+	        checkContinue = cur.getInt(3);
+	        cur.moveToNext();
+		
+	      }
+		
+	      cur.close();
+			
+	//     if((checkContinue == 1)&&(statuslogin == 1)||(username.equals("Guest"))){
+	  //          return username;
+		
+	    //   }
+	}catch (Exception e){
 		return "Logout";
 	}
 	
-	return "Logout";
+	return username;
+}
+
+public void ChangeHome(int homec){
+	try{
+		//String userinfo[] = null;
+		
+		SQLiteDatabase db;
+		db = this.getWritableDatabase();
+				
+		ContentValues Val = new ContentValues();
+		Val.put("Home", homec);
+		
+		if(homec == 1){
+			int id = db.update(TABLE_STATUS,Val,"Home = '0'",null);
+		}
+		else{
+			int id = db.update(TABLE_STATUS,Val,"Home = '1'",null);
+		}
+		
+		db.close();
+		//Cursor cursor = db.query(TABLE_STATUS, new String[] {"*"}, ""
+	} catch (Exception e){
+		//return null;
+	}
+}
+//check (1,1) -> true
+public Boolean isCurrentContinue(){
+	Boolean boo=false;
+	try{
+		
+	 	
+	    int statuslogin = 0;
+		int checkContinue = 0;
+		
+	    SQLiteDatabase db;
+		
+	    db = this.getReadableDatabase();
+		
+	    SQLiteCursor cur = (SQLiteCursor)db.rawQuery("select * from loginStatus",null);
+		
+	     cur.moveToFirst();
+		
+	    
+		
+	      while (cur.isAfterLast() == false) {
+		
+	        //username = cur.getString(1);
+	        statuslogin = cur.getInt(2);
+	        checkContinue = cur.getInt(3);
+	        cur.moveToNext();
+		
+	      }
+		
+	      cur.close();
+			
+	     if((checkContinue == 1)&&(statuslogin == 1)){
+	            boo = true;
+		
+	       }
+	}catch (Exception e){
+		return false;
+	}
+	return boo;
+}
+
+public Boolean notFromHome(){
+	Boolean boo=false;
+	int summ = 0;
+	try{
+		
+	 	
+	   // int statuslogin = 0;
+		//int checkContinue = 0;
+		
+	    SQLiteDatabase db;
+		
+	    db = this.getReadableDatabase();
+		
+	    Cursor cursor = db.rawQuery("SELECT SUM(Home) FROM loginStatus", null);
+	    	if(cursor.moveToFirst()) {
+	    	    summ = cursor.getInt(0);
+	    	}
+	    
+			
+	     
+	}catch (Exception e){
+		summ = 2;
+	}
+	if(summ == 0){
+        boo = true;
+	}
+	return boo;
 }
 	
 //myDb.logoutUser(CurrentUser);
@@ -107,13 +232,11 @@ public void logoutUser(String user){
 		
 		SQLiteDatabase db;
 		db = this.getWritableDatabase();
+				
+		ContentValues Val = new ContentValues();
+		Val.put("Status", 0);
 		
-		// insertCmd ;
-		String strSQL = "UPDATE " + TABLE_STATUS + " SET Status = 0 WHERE Status == 1";
-		
-		SQLiteStatement insertCmd = db.compileStatement(strSQL);
-		
-		//long check = insertCmd.executeUpdateDelete();
+		int id = db.update(TABLE_STATUS,Val,"Status = '1'",null);
 		
 		db.close();
 		//Cursor cursor = db.query(TABLE_STATUS, new String[] {"*"}, ""
@@ -172,16 +295,21 @@ public void InsertCurrent(String CurrentUser,Date d,int continueLoginState){
 		db = this.getWritableDatabase();
 		String datetime = d.toString();
 		int state;
+		int homee = 0;
 		if(CurrentUser.equals("Guest")){
 			state = 0;
 		}
 		else{
 			state = 1;
+			if(continueLoginState == 1){
+				homee = 1;
+			}
 		}
 		ContentValues Val = new ContentValues();
 		Val.put("Username", CurrentUser);
 		Val.put("Status", state);
 		Val.put("Date", datetime);
+		Val.put("Home", homee);
 		Val.put("Checkbox", continueLoginState);
 		
 		long rows = db.insert(TABLE_STATUS, null, Val);
