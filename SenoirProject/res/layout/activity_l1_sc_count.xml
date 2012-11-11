@@ -6,7 +6,16 @@
     android:background="@drawable/school_bg_level1g1"
     android:orientation="vertical" >
  	
+ 	<TextView
+        android:id="@+id/tv"
+        android:layout_width="87dp"
+        android:layout_height="52dp"
+        android:layout_x="34dp"
+        android:layout_y="40dp"
+        android:text="TextView" />
+ 	
  <!-- number for click -->	
+ 
  	<Button
         android:id="@+id/buttonnumber1"
         android:layout_width="60dp"
@@ -270,6 +279,6 @@
         android:layout_y="550dp"
         android:background="@drawable/home" />
 
-   
+    
     
 </AbsoluteLayout>

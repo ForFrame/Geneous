@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -22,45 +24,136 @@ public class L1ScCount extends Activity {
 	static int score = 10;
 	static int found = -1;
 	static int randomInt;
+	
 	final Context context = this;
+	String username;
+	float timeRemain;
+	int Round;
+	//MyCountDown countdown ;
+	
+	public class MyCountDown extends CountDownTimer {
+		public MyCountDown(long millisInFuture, long countDownInterval) {
+		super(millisInFuture, countDownInterval);
+		// TODO Auto-generated constructor stub
+		}
+		
+		@Override
+		public void onFinish() { // เมื่อทำงานเสร็จสิ้น
+		// TODO Auto-generated method stub
+		}
+		
+		@Override
+		public void onTick(long remain) { // ในขณะที่ทำงานทุก ๆ ครั้ง
+		// TODO Auto-generated method stub
+			timeRemain = (float) remain / 1000;
+		}
+	}
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_l1_sc_count);
-		score = 10;
 		
-		//final int[] chackNumber = new int[10];
-		//do{
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
+		
+		myDb.addGameNo("001", "Count tables", 1);
+		myDb.emptyNumberTable();
+		myDb.close();
+		myDb.getReadableDatabase();
+		username = myDb.SelectCurrentUser();
+		TextView tv1 = (TextView)findViewById(R.id.tv);
+		tv1.setText("user: "+username);
+		
+		//final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.counttable);
+		//mediaPlayer.start();
+		Round = myDb.getNumRound("001", username);
+		game001();
+					
+	}	
+	
+	void game001(){
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getReadableDatabase();
+		int count = myDb.CountNumRan();
+		int Random = 0;
+		int LastRanNum = 0;
+		float scores;
+		if(count < 10){
+			Random = RanNum();
+			LastRanNum = myDb.getLastNum();
+			if(LastRanNum!= 0){
+				hideTables(LastRanNum);
+			}
+			showTables(Random);
+			final long startTime = ((Random*2)+10)*1000;
+			//countdown = new MyCountDown(startTime,1000);
+			//countdown.start();
+			checkAns(Random,count);
+		}
+		else{
+			scores = myDb.countScore("001", username, Round, count);
+			if(username.equals("Guest")){
+				myDb.close();
+				myDb.getWritableDatabase();
+				myDb.deleteGuest();
+			}
+			
+			showPopup(scores);
+		}
+		
+		
+		
+	}
+	
+	
+	
+	int RanNum(){
+		int randomInt;
+		Boolean isExited;
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getReadableDatabase();
+		
+		do{
 			Random randomGenerator = new Random();
 			randomInt = randomGenerator.nextInt(10)+1;
-		//	found = checkArray(randomInt);
-		//}while(found != -1);
+			isExited = myDb.checkNumber(randomInt);
+		}while(isExited);
+		myDb.close();
+		myDb.getWritableDatabase();
+		myDb.insertRanNumber(randomInt);
+		return randomInt;
+	}
+	void checkAns(final int RandomNum,final int item){
 		
-		showTables(randomInt);
-		final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.counttable);
-		mediaPlayer.start();
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
 		
+		final long startTime = ((RandomNum*2)+10)*1000;
+		final MyCountDown countdown = new MyCountDown(startTime,1000);
 		
-		
+		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrongnumber); 
-				
+		countdown.start();
 		Button selectButton1 = (Button)findViewById(R.id.buttonnumber1);
 		selectButton1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mediaPlayer.stop();
+				//mediaPlayer.stop();
 				View imgNum1 = (View)findViewById(R.id.shownumber1); 
-				if(randomInt == 1){
+				if(RandomNum == 1){
 					imgWrong.setVisibility(View.INVISIBLE);
-					imgNum1.setVisibility(View.VISIBLE);
-					showPopup(score);
-					
+					(imgNum1).setVisibility(View.VISIBLE);
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 				}
 				else{
-					//imgBlank.setVisibility(View.VISIBLE);
 					imgWrong.setVisibility(View.VISIBLE);
-					score -= 1;
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
+				game001();
 			}
 		});
 		
@@ -68,18 +161,20 @@ public class L1ScCount extends Activity {
 		selectButton2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mediaPlayer.stop();
+				//mediaPlayer.stop();
 				View imgNum2 = (View)findViewById(R.id.shownumber2); 
-				if(randomInt == 2){
+				if(RandomNum == 2){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgNum2.setVisibility(View.VISIBLE);
-					showPopup(score);
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 				}
 				else{
-					//imgBlank.setVisibility(View.VISIBLE);
 					imgWrong.setVisibility(View.VISIBLE);
-					score -= 1;
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
+				game001();
 			}
 		});
 		
@@ -87,18 +182,20 @@ public class L1ScCount extends Activity {
 		selectButton3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mediaPlayer.stop();
+				//mediaPlayer.stop();
 				View imgNum3 = (View)findViewById(R.id.shownumber3); 
 				if(randomInt == 3){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgNum3.setVisibility(View.VISIBLE);
-					showPopup(score);
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 				}
 				else{
-					//imgBlank.setVisibility(View.VISIBLE);
 					imgWrong.setVisibility(View.VISIBLE);
-					score -= 1;
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
+				game001();
 			}
 		});
 		
@@ -106,18 +203,20 @@ public class L1ScCount extends Activity {
 		selectButton4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mediaPlayer.stop();
+				//mediaPlayer.stop();
 				View imgNum4 = (View)findViewById(R.id.shownumber4); 
 				if(randomInt == 4){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgNum4.setVisibility(View.VISIBLE);
-					showPopup(score);
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 				}
 				else{
-					//imgBlank.setVisibility(View.VISIBLE);
 					imgWrong.setVisibility(View.VISIBLE);
-					score -= 1;
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
+				game001();
 			}
 		});
 		
@@ -125,18 +224,20 @@ public class L1ScCount extends Activity {
 		selectButton5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mediaPlayer.stop();
+				//mediaPlayer.stop();
 				View imgNum5 = (View)findViewById(R.id.shownumber5); 
 				if(randomInt == 5){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgNum5.setVisibility(View.VISIBLE);
-					showPopup(score);
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 				}
 				else{
-					//imgBlank.setVisibility(View.VISIBLE);
 					imgWrong.setVisibility(View.VISIBLE);
-					score -= 1;
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
+				game001();
 			}
 		});
 		
@@ -144,18 +245,20 @@ public class L1ScCount extends Activity {
 		selectButton6.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mediaPlayer.stop();
+				//mediaPlayer.stop();
 				View imgNum6 = (View)findViewById(R.id.shownumber6); 
 				if(randomInt == 6){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgNum6.setVisibility(View.VISIBLE);
-					showPopup(score);
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 				}
 				else{
-					//imgBlank.setVisibility(View.VISIBLE);
 					imgWrong.setVisibility(View.VISIBLE);
-					score -= 1;
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
+				game001();
 			}
 		});
 		
@@ -163,18 +266,20 @@ public class L1ScCount extends Activity {
 		selectButton7.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mediaPlayer.stop();
+				//mediaPlayer.stop();
 				View imgNum7 = (View)findViewById(R.id.shownumber7); 
 				if(randomInt == 7){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgNum7.setVisibility(View.VISIBLE);
-					showPopup(score);
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 				}
 				else{
-					//imgBlank.setVisibility(View.VISIBLE);
 					imgWrong.setVisibility(View.VISIBLE);
-					score -= 1;
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
+				game001();
 			}
 		});
 		
@@ -182,18 +287,20 @@ public class L1ScCount extends Activity {
 		selectButton8.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mediaPlayer.stop();
+				//mediaPlayer.stop();
 				View imgNum8 = (View)findViewById(R.id.shownumber8); 
 				if(randomInt == 8){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgNum8.setVisibility(View.VISIBLE);
-					showPopup(score);
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 				}
 				else{
-					//imgBlank.setVisibility(View.VISIBLE);
 					imgWrong.setVisibility(View.VISIBLE);
-					score -= 1;
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
+				game001();
 			}
 		});
 		
@@ -201,18 +308,20 @@ public class L1ScCount extends Activity {
 		selectButton9.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mediaPlayer.stop();
+				//mediaPlayer.stop();
 				View imgNum1 = (View)findViewById(R.id.shownumber9); 
 				if(randomInt == 9){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgNum1.setVisibility(View.VISIBLE);
-					showPopup(score);
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 				}
 				else{
-					//imgBlank.setVisibility(View.VISIBLE);
 					imgWrong.setVisibility(View.VISIBLE);
-					score -= 1;
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
+				game001();
 			}
 		});
 		
@@ -220,68 +329,47 @@ public class L1ScCount extends Activity {
 		selectButton10.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mediaPlayer.stop();
+				//mediaPlayer.stop();
 				View imgNum10 = (View)findViewById(R.id.shownumber10); 
 				if(randomInt == 10){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgNum10.setVisibility(View.VISIBLE);
-					showPopup(score);
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 				}
 				else{
-					//imgBlank.setVisibility(View.VISIBLE);
 					imgWrong.setVisibility(View.VISIBLE);
-					score -= 1;
+					countdown.cancel();
+					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
+				game001();
 			}
 		});
 		
-		if(score < 7){
-			
-			mediaPlayer.start();
-		}
-		
-		
-				
 		Button countButton = (Button)findViewById(R.id.countbutton);
 		countButton.setOnClickListener(new View.OnClickListener() {
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				finish();
+				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
+				startActivity(intent);
 			}
 		});
-		
-	}	
 	
-	
-	protected void showPopup(int scores){
+	}
+	protected void showPopup(float scores){
 		
 		// custom dialog
 		final Dialog dialog = new Dialog(context);
 		dialog.setContentView(R.layout.activity_dialog_score_sclv1g1);
-		//dialog.setTitle("Title...");
-
-		// set the custom dialog components - text, image and button
-		//TextView text = (TextView) dialog.findViewById(R.id.textView1);
-		//text.setText("Android custom dialog example!");
-		switch(scores){
-			case 10: ImageView score5 = (ImageView)dialog.findViewById(R.id.star5); 
-					score5.setVisibility(ImageView.VISIBLE);	break;
-			case 9: ImageView score4 = (ImageView)dialog.findViewById(R.id.star4); 
-					score4.setVisibility(ImageView.VISIBLE);	break;	
-			case 8: ImageView score3 = (ImageView)dialog.findViewById(R.id.star3); 
-					score3.setVisibility(ImageView.VISIBLE);	break;
-			case 7: ImageView score2 = (ImageView)dialog.findViewById(R.id.star2); 
-					score2.setVisibility(ImageView.VISIBLE);	break;	
-			case 6: ImageView score1 = (ImageView)dialog.findViewById(R.id.star1); 
-					score1.setVisibility(ImageView.VISIBLE);	break;
-			default: ImageView score0 = (ImageView)dialog.findViewById(R.id.star0); 
-					score0.setVisibility(ImageView.VISIBLE);	break;		
-		}
-		//ImageView image = (ImageView) dialog.findViewById(R.id.image);
-		//image.setImageResource(R.drawable.ic_launcher);
-
-		Button dialogHomeBt1 = (Button) dialog.findViewById(R.id.scorehome);
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getReadableDatabase();
+		
+		RatingBar rb = (RatingBar) findViewById(R.id.ratingBar1);
+		//rb.setRating(3.5f);
+		rb.setRating(scores);
+		
+		
 		// if button is clicked, close the custom dialog
 		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
@@ -289,7 +377,10 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				finish();
+				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
+				startActivity(intent);
+				
+				//finish();
 				
 			}
 		});
@@ -299,9 +390,13 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(L1ScCount.this,L1ScCount.class);
-				startActivity(intent);
-				
+				//int random = myDb.getLastNum();
+				myDb.getWritableDatabase();
+				myDb.emptyNumberTable();
+				myDb.close();
+				myDb.getReadableDatabase();
+				Round = myDb.getNumRound("001", username);
+				game001();
 			}
 		});
 		
@@ -310,7 +405,7 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(L1ScCount.this,L1ScCount.class);
+				Intent intent = new Intent(L1ScCount.this,L1ScCalendar.class);
 				startActivity(intent);
 				
 			}
@@ -345,14 +440,54 @@ public class L1ScCount extends Activity {
 		}
 	}
 	
-	int checkArray(int number){
-		int[] checkNumber = new int[10];
-			if(checkNumber[number-1] != 1){
-				checkNumber[number-1] = 1;
-				return -1;
-			}
+	protected void hideTables(int randomNum){
 		
-		return number;
+		switch(randomNum){
 		
-	}}
+			case 1: ImageView imgView1 = (ImageView)findViewById(R.id.counttable1); 
+					imgView1.setVisibility(ImageView.INVISIBLE);	break;
+			case 2: ImageView imgView2 = (ImageView)findViewById(R.id.counttable2); 
+			 		imgView2.setVisibility(ImageView.INVISIBLE);	break;
+			case 3: ImageView imgView3 = (ImageView)findViewById(R.id.counttable3); 
+					imgView3.setVisibility(ImageView.INVISIBLE);	break;
+			case 4: ImageView imgView4 = (ImageView)findViewById(R.id.counttable4); 
+			 		imgView4.setVisibility(ImageView.INVISIBLE);	break;	
+			case 5: ImageView imgView5 = (ImageView)findViewById(R.id.counttable5); 
+					imgView5.setVisibility(ImageView.INVISIBLE);	break;
+			case 6: ImageView imgView6 = (ImageView)findViewById(R.id.counttable6); 
+					imgView6.setVisibility(ImageView.INVISIBLE);	break;	
+			case 7: ImageView imgView7 = (ImageView)findViewById(R.id.counttable7); 
+					imgView7.setVisibility(ImageView.INVISIBLE);	break;
+			case 8: ImageView imgView8 = (ImageView)findViewById(R.id.counttable8); 
+					imgView8.setVisibility(ImageView.INVISIBLE);	break;	
+			case 9: ImageView imgView9 = (ImageView)findViewById(R.id.counttable9); 
+					imgView9.setVisibility(ImageView.INVISIBLE);	break;
+			case 10: ImageView imgView10 = (ImageView)findViewById(R.id.counttable10); 
+					imgView10.setVisibility(ImageView.INVISIBLE);	break;	
+		}
+	}
+	
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getReadableDatabase();
+		Boolean isThisContinue;
+		isThisContinue = myDb.isCurrentContinue();
+		myDb.close();
+		if(isThisContinue == true){
+			game001();
+		}
+		else{
+			myDb.getWritableDatabase();
+			myDb.ChangeHome(0);
+			Intent intent = new Intent(L1ScCount.this,Main.class);
+			startActivity(intent);
+		}
+		
+		super.onRestart();
+	}
+}
+	
+	
 
