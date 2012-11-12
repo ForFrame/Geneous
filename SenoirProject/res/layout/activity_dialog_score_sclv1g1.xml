@@ -22,8 +22,97 @@
         android:layout_y="129dp"
         android:clickable="false"
         android:longClickable="false"
-        android:max="100"
-        android:numStars="5" />
+        android:numStars="5"
+        android:visibility="invisible" />
+     
+     <ImageView
+        android:id="@+id/star0"
+        android:layout_width="840dp"
+        android:layout_height="170dp"
+        android:layout_x="65dp"
+        android:layout_y="70dp"
+        android:background="@drawable/star_collor_0"
+        android:visibility="invisible" />
+      <ImageView
+        android:id="@+id/star0_5"
+        android:layout_width="840dp"
+        android:layout_height="170dp"
+        android:layout_x="65dp"
+        android:layout_y="70dp"
+        android:background="@drawable/star_collor_0_5"
+        android:visibility="invisible" />
+    <ImageView
+        android:id="@+id/star1"
+        android:layout_width="840dp"
+        android:layout_height="170dp"
+        android:layout_x="65dp"
+        android:layout_y="70dp"
+        android:background="@drawable/star_collor_1" 
+        android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/star1_5"
+        android:layout_width="840dp"
+        android:layout_height="170dp"
+        android:layout_x="65dp"
+        android:layout_y="70dp"
+        android:background="@drawable/star_collor_1_5" 
+        android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/star2"
+        android:layout_width="840dp"
+        android:layout_height="170dp"
+        android:layout_x="65dp"
+        android:layout_y="70dp"
+        android:background="@drawable/star_collor_2" 
+        android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/star2_5"
+        android:layout_width="840dp"
+        android:layout_height="170dp"
+        android:layout_x="65dp"
+        android:layout_y="70dp"
+        android:background="@drawable/star_collor_2_5" 
+        android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/star3"
+        android:layout_width="840dp"
+        android:layout_height="170dp"
+        android:layout_x="65dp"
+        android:layout_y="70dp"
+        android:background="@drawable/star_collor_3" 
+        android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/star3_5"
+        android:layout_width="840dp"
+        android:layout_height="170dp"
+        android:layout_x="65dp"
+        android:layout_y="70dp"
+        android:background="@drawable/star_collor_3_5" 
+        android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/star4"
+        android:layout_width="840dp"
+        android:layout_height="170dp"
+        android:layout_x="65dp"
+        android:layout_y="70dp"
+        android:background="@drawable/star_collor_4" 
+        android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/star4_5"
+        android:layout_width="840dp"
+        android:layout_height="170dp"
+        android:layout_x="65dp"
+        android:layout_y="70dp"
+        android:background="@drawable/star_collor_4_5" 
+        android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/star5"
+        android:layout_width="840dp"
+        android:layout_height="170dp"
+        android:layout_x="65dp"
+        android:layout_y="70dp"
+        android:background="@drawable/star_collor_5" 
+        android:visibility="invisible"/>
      
     <Button
         android:id="@+id/scorehome"

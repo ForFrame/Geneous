@@ -59,6 +59,7 @@ public class SchoolLevel1 extends Activity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				myDb.ChangeHome(0);
 				Intent intent = new Intent(SchoolLevel1.this,Main.class);
 				startActivity(intent);
 			}

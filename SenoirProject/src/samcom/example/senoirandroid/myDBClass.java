@@ -321,10 +321,10 @@ int CountNumRan(){
 		
 	    SQLiteDatabase db;
 		db = this.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_GAME001+" WHERE No = (SELECT MAX(No) FROM Game001);", null);
+		Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_GAME001+" ;", null);
 	    if(cursor != null){
 			if(cursor.moveToFirst()) {
-	    	    num = cursor.getInt(0);
+	    	    num = cursor.getCount();
 	    	}
 			
 	    }
@@ -349,12 +349,15 @@ int getLastNum(){
 	    SQLiteDatabase db;
 		db = this.getReadableDatabase();
 		indexLast = CountNumRan();
-		indexLast--;
-		//Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_GAME001+" WHERE No = "+(Integer.toString(indexLast))+";", null);
-		Cursor cursor = db.rawQuery("SELECT No, RanNum FROM "+TABLE_GAME001+" WHERE No = '"+indexLast+"' ;", null);
-			if(cursor.moveToFirst()) {
-	    	    RanNum = cursor.getInt(1);
-	    	}
+		if(indexLast > 1){
+			indexLast--;
+			//Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_GAME001+" WHERE No = "+(Integer.toString(indexLast))+";", null);
+			Cursor cursor = db.rawQuery("SELECT No, RanNum FROM "+TABLE_GAME001+" WHERE No = '"+indexLast+"' ;", null);
+				if(cursor.moveToFirst()) {
+		    	    RanNum = cursor.getInt(1);
+		    	}
+		}
+		
 	    
 	}catch (Exception e){
 		RanNum = 0;
@@ -469,14 +472,15 @@ int getNumRound(String GNo,String user){
 			db = this.getReadableDatabase();
 			Cursor cursor = db.rawQuery("SELECT Round FROM scItem WHERE Username = '"+user+"' and GameNo = '"+GNo+"' ;", null);
 		    	
+			
 			if(cursor != null){
-				if(cursor.moveToFirst()) {
-		    	    round = cursor.getCount();
-		    	    round = round+1;
-		    	}
-				else{
-					round = 1;
-				}
+				cursor.moveToFirst();
+				
+			      while (cursor.isAfterLast() == false) {
+			    	  round = cursor.getInt(0);
+			    	  cursor.moveToNext();
+				  }
+			    round++;
 			}
 			else{
 				round = 1;
@@ -490,9 +494,9 @@ int getNumRound(String GNo,String user){
 }
 
 //count score
-float countScore(String GNo,String user,int Round,int ItemNo){
+int countScore(String GNo,String user,int Round,int ItemNo){
 	
-	float scoree = 0;
+	int scoree = 0;
 	try{
 		
 	    SQLiteDatabase db;
@@ -502,7 +506,7 @@ float countScore(String GNo,String user,int Round,int ItemNo){
 		if(cursor != null){
 			if(cursor.moveToFirst()) {
 	    	    scoree = cursor.getInt(0);
-	    	    scoree = (float) scoree/ItemNo;
+	    	    //scoree = (float) (scoree*5)/ItemNo;
 	    	}
 		}
 		else{
