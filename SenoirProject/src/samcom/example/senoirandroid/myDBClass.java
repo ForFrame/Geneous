@@ -51,7 +51,7 @@ public void onCreate(SQLiteDatabase db) {
 	db.execSQL("CREATE TABLE "+ TABLE_Dev +" (No INTEGER PRIMARY KEY AUTOINCREMENT,"+
 	" Username TEXT(100),"+" GameNo TEXT(5),"+"Dev INTEGER);");
 	//Create score of each item table
-	db.execSQL("CREATE TABLE "+ TABLE_ScItem +" (No INTEGER PRIMARY KEY AUTOINCREMENT,"+
+	db.execSQL("CREATE TABLE "+ TABLE_ScItem +" (No INTEGER PRIMARY KEY,"+
 	" Username TEXT(100), "+" GameNo TEXT(5), "+"Round INTEGER, "+"Item INTEGER, "+
 	"Score INTEGER, "+"Time FLOAT);");
 	//Create score of each game table
@@ -342,16 +342,17 @@ int CountNumRan(){
 
 //get last random number from game001 table
 int getLastNum(){
-	int indexLast ;
+	int indexLast;
 	int RanNum = 0;
 	try{
 		
 	    SQLiteDatabase db;
 		db = this.getReadableDatabase();
 		indexLast = CountNumRan();
-
-		Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_GAME001+" WHERE No = "+(Integer.toString(indexLast))+";", null);
-	    	if(cursor.moveToFirst()) {
+		indexLast--;
+		//Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_GAME001+" WHERE No = "+(Integer.toString(indexLast))+";", null);
+		Cursor cursor = db.rawQuery("SELECT No, RanNum FROM "+TABLE_GAME001+" WHERE No = '"+indexLast+"' ;", null);
+			if(cursor.moveToFirst()) {
 	    	    RanNum = cursor.getInt(1);
 	    	}
 	    
@@ -473,6 +474,9 @@ int getNumRound(String GNo,String user){
 		    	    round = cursor.getCount();
 		    	    round = round+1;
 		    	}
+				else{
+					round = 1;
+				}
 			}
 			else{
 				round = 1;
