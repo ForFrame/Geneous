@@ -51,7 +51,7 @@ public void onCreate(SQLiteDatabase db) {
 	db.execSQL("CREATE TABLE "+ TABLE_Dev +" (No INTEGER PRIMARY KEY AUTOINCREMENT,"+
 	" Username TEXT(100),"+" GameNo TEXT(5),"+"Dev INTEGER);");
 	//Create score of each item table
-	db.execSQL("CREATE TABLE "+ TABLE_ScItem +" (No INTEGER PRIMARY KEY AUTOINCREMENT,"+
+	db.execSQL("CREATE TABLE "+ TABLE_ScItem +" (No INTEGER PRIMARY KEY,"+
 	" Username TEXT(100), "+" GameNo TEXT(5), "+"Round INTEGER, "+"Item INTEGER, "+
 	"Score INTEGER, "+"Time FLOAT);");
 	//Create score of each game table
@@ -321,10 +321,10 @@ int CountNumRan(){
 		
 	    SQLiteDatabase db;
 		db = this.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_GAME001+" WHERE No = (SELECT MAX(No) FROM Game001);", null);
+		Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_GAME001+" ;", null);
 	    if(cursor != null){
 			if(cursor.moveToFirst()) {
-	    	    num = cursor.getInt(0);
+	    	    num = cursor.getCount();
 	    	}
 			
 	    }
@@ -342,18 +342,22 @@ int CountNumRan(){
 
 //get last random number from game001 table
 int getLastNum(){
-	int indexLast ;
+	int indexLast;
 	int RanNum = 0;
 	try{
 		
 	    SQLiteDatabase db;
 		db = this.getReadableDatabase();
 		indexLast = CountNumRan();
-
-		Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_GAME001+" WHERE No = "+(Integer.toString(indexLast))+";", null);
-	    	if(cursor.moveToFirst()) {
-	    	    RanNum = cursor.getInt(1);
-	    	}
+		if(indexLast > 1){
+			indexLast--;
+			//Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_GAME001+" WHERE No = "+(Integer.toString(indexLast))+";", null);
+			Cursor cursor = db.rawQuery("SELECT No, RanNum FROM "+TABLE_GAME001+" WHERE No = '"+indexLast+"' ;", null);
+				if(cursor.moveToFirst()) {
+		    	    RanNum = cursor.getInt(1);
+		    	}
+		}
+		
 	    
 	}catch (Exception e){
 		RanNum = 0;
@@ -468,11 +472,15 @@ int getNumRound(String GNo,String user){
 			db = this.getReadableDatabase();
 			Cursor cursor = db.rawQuery("SELECT Round FROM scItem WHERE Username = '"+user+"' and GameNo = '"+GNo+"' ;", null);
 		    	
+			
 			if(cursor != null){
-				if(cursor.moveToFirst()) {
-		    	    round = cursor.getCount();
-		    	    round = round+1;
-		    	}
+				cursor.moveToFirst();
+				
+			      while (cursor.isAfterLast() == false) {
+			    	  round = cursor.getInt(0);
+			    	  cursor.moveToNext();
+				  }
+			    round++;
 			}
 			else{
 				round = 1;
@@ -486,9 +494,9 @@ int getNumRound(String GNo,String user){
 }
 
 //count score
-float countScore(String GNo,String user,int Round,int ItemNo){
+int countScore(String GNo,String user,int Round,int ItemNo){
 	
-	float scoree = 0;
+	int scoree = 0;
 	try{
 		
 	    SQLiteDatabase db;
@@ -498,7 +506,7 @@ float countScore(String GNo,String user,int Round,int ItemNo){
 		if(cursor != null){
 			if(cursor.moveToFirst()) {
 	    	    scoree = cursor.getInt(0);
-	    	    scoree = (float) scoree/ItemNo;
+	    	    //scoree = (float) (scoree*5)/ItemNo;
 	    	}
 		}
 		else{

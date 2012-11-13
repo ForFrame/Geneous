@@ -26,7 +26,8 @@
         android:layout_x="368dp"
         android:layout_y="314dp"
         android:text="@string/continue_login"
-        android:textSize="10pt" />
+        android:textSize="10pt" 
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/LoginBt"

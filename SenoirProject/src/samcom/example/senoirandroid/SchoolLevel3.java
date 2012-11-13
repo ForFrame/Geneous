@@ -50,7 +50,7 @@ setContentView(R.layout.activity_school_level1);
 		}
 	});
 	
-	Button backButton = (Button)findViewById(R.id.schoolbutton1);
+	Button backButton = (Button)findViewById(R.id.backToselectSchool);
 	backButton.setOnClickListener(new View.OnClickListener() {
 
 		public void onClick(View v) {
