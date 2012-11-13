@@ -99,6 +99,16 @@ public class SelectSchoolLevel extends Activity {
 				startActivity(intent);
 			}
 		});
+		
+		Button countButton = (Button)findViewById(R.id.backToHome);
+		countButton.setOnClickListener(new View.OnClickListener() {
+	
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(SelectSchoolLevel.this,Main.class);
+				startActivity(intent);
+			}
+		});
 
 			
 	}
@@ -107,19 +117,21 @@ public class SelectSchoolLevel extends Activity {
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		myDb.getReadableDatabase();
-		Boolean isThisContinue;
-		isThisContinue = myDb.isCurrentContinue();
-		myDb.close();
-		if(isThisContinue == true){
-			selectLevel();
-		}
-		else{
+		//this comment for ติ๊ก ๆๆๆๆ  continue (1,1) state
+		//myDb.getReadableDatabase();
+		//
+		//Boolean isThisContinue;
+		//isThisContinue = myDb.isCurrentContinue();
+		//myDb.close();
+		//if(isThisContinue == true){
+		//	selectLevel();
+		//}
+		//else{
 			myDb.getWritableDatabase();
 			myDb.ChangeHome(0);
 			Intent intent = new Intent(SelectSchoolLevel.this,Main.class);
 			startActivity(intent);
-		}
+		//}
 		
 		super.onRestart();
 	}

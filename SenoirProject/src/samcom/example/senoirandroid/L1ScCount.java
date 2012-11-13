@@ -3,6 +3,8 @@ package samcom.example.senoirandroid;
 import android.app.Activity;
 import android.app.Dialog;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -48,7 +50,11 @@ public class L1ScCount extends Activity {
 		@Override
 		public void onTick(long remain) { // ในขณะที่ทำงานทุก ๆ ครั้ง
 		// TODO Auto-generated method stub
+			
+			TextView result = (TextView) findViewById(R.id.textView1);
 			timeRemain = (float) remain / 1000;
+			//int timeRemain = (int) (remain) / 1000;
+			result.setText(" Rest: " + timeRemain);
 		}
 	}
 	
@@ -68,7 +74,7 @@ public class L1ScCount extends Activity {
 		username = myDb.SelectCurrentUser();
 		
 		
-		//final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.counttable);
+		
 		//mediaPlayer.start();
 		Round = myDb.getNumRound("001", username);
 		game001();
@@ -196,6 +202,12 @@ public class L1ScCount extends Activity {
 		final long startTime = ((RandomNum*2)+10)*1000;
 		final MyCountDown countdown = new MyCountDown(startTime,1000);
 		
+		//final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.correct_sound);
+		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
+		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound);
+		//MediaPlayer mp = MediaPlayer.create(this,Uri.parse("android.resource://emad.app/raw/seven_chimes"));
+		
+		
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrongnumber); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrectnumber);
@@ -212,15 +224,18 @@ public class L1ScCount extends Activity {
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
 					countdown.cancel();
+					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					
 				}
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
 					countdown.cancel();
+					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				game001();
+				//game001();
 			}
 		});
 		
@@ -234,15 +249,18 @@ public class L1ScCount extends Activity {
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
 					countdown.cancel();
+					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					
 				}
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
 					countdown.cancel();
+					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				game001();
+				//game001();
 			}
 		});
 		
@@ -256,15 +274,18 @@ public class L1ScCount extends Activity {
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
 					countdown.cancel();
+					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					
 				}
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
 					countdown.cancel();
+					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				game001();
+				//game001();
 			}
 		});
 		
@@ -278,15 +299,18 @@ public class L1ScCount extends Activity {
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
 					countdown.cancel();
+					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					
 				}
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
 					countdown.cancel();
+					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				game001();
+				//game001();
 			}
 		});
 		
@@ -300,15 +324,18 @@ public class L1ScCount extends Activity {
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
 					countdown.cancel();
+					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					
 				}
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
 					countdown.cancel();
+					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				game001();
+				//game001();
 			}
 		});
 		
@@ -322,15 +349,18 @@ public class L1ScCount extends Activity {
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
 					countdown.cancel();
+					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					
 				}
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
 					countdown.cancel();
+					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				game001();
+				//game001();
 			}
 		});
 		
@@ -344,15 +374,18 @@ public class L1ScCount extends Activity {
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
 					countdown.cancel();
+					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					
 				}
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
 					countdown.cancel();
+					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				game001();
+				//game001();
 			}
 		});
 		
@@ -366,15 +399,18 @@ public class L1ScCount extends Activity {
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
 					countdown.cancel();
+					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					
 				}
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
 					countdown.cancel();
+					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				game001();
+				//game001();
 			}
 		});
 		
@@ -388,15 +424,18 @@ public class L1ScCount extends Activity {
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
 					countdown.cancel();
+					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					
 				}
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
 					countdown.cancel();
+					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				game001();
+				//game001();
 			}
 		});
 		
@@ -410,34 +449,58 @@ public class L1ScCount extends Activity {
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
 					countdown.cancel();
+					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					
 				}
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
 					countdown.cancel();
+					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
+				//game001();
+			}
+		});
+		
+		final View imgWrongClick = (View)findViewById(R.id.showwrongnumber); 
+		final View imgCorrectClick = (View)findViewById(R.id.showcorrectnumber);
+		
+		imgWrongClick.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				soundWrong.stop();
+				imgWrong.setVisibility(View.INVISIBLE);
+				//imgCorrect.setVisibility(View.INVISIBLE);
 				game001();
 			}
 		});
 		
-		imgWrong.setOnClickListener(new View.OnClickListener() {
-			
+		imgCorrectClick.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				imgWrong.setVisibility(View.INVISIBLE);
+				//imgWrong.setVisibility(View.INVISIBLE);
+				soundCorrect.stop();
 				imgCorrect.setVisibility(View.INVISIBLE);
+				game001();
 			}
 		});
-		imgCorrect.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				imgWrong.setVisibility(View.INVISIBLE);
-				imgCorrect.setVisibility(View.INVISIBLE);
-			}
-		});
+		
+		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
+            public void onCompletion(MediaPlayer soundCorrect) {
+            	imgCorrect.setVisibility(View.INVISIBLE);
+            	game001();
+            }
+        });
+
+		soundWrong.setOnCompletionListener(new OnCompletionListener() {
+            public void onCompletion(MediaPlayer soundWrong) {
+            	imgWrong.setVisibility(View.INVISIBLE);
+            	game001();
+            }
+        });
 		
 		Button HelpButton = (Button)findViewById(R.id.helpCountTable);
 		HelpButton.setOnClickListener(new View.OnClickListener() {
@@ -666,19 +729,22 @@ public class L1ScCount extends Activity {
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		myDb.getReadableDatabase();
-		Boolean isThisContinue;
-		isThisContinue = myDb.isCurrentContinue();
-		myDb.close();
-		if(isThisContinue == true){
-			game001();
-		}
-		else{
+		
+		//this comment for ติ๊ก ๆๆๆๆ  continue (1,1) state
+		//myDb.getReadableDatabase();
+		//Boolean isThisContinue;
+		//isThisContinue = myDb.isCurrentContinue();
+		//myDb.close();
+		
+		//if(isThisContinue == true){
+		//	game001();
+		//}
+		//else{
 			myDb.getWritableDatabase();
 			myDb.ChangeHome(0);
 			Intent intent = new Intent(L1ScCount.this,Main.class);
 			startActivity(intent);
-		}
+		//}
 		
 		super.onRestart();
 	}

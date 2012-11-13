@@ -58,14 +58,13 @@
 	    android:layout_x="47dp"
 	    android:layout_y="136dp"
 	    android:background="@drawable/sc_board" />
-	
+
 	<Button
 	    android:id="@+id/backToselectSchool"
-	    android:layout_width="89dp"
-	    android:layout_height="74dp"
-	    android:layout_x="930dp"
-	    android:layout_y="531dp"
-	    android:background="@drawable/home" />
-
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_x="907dp"
+	    android:layout_y="558dp"
+	    android:background="@drawable/icon_home" />
 
 </AbsoluteLayout>
