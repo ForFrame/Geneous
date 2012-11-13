@@ -211,13 +211,13 @@ SQLiteDatabase db;
 				EditText user = (EditText)LoginPop.findViewById(R.id.usertext);
 				username = user.getText().toString();
 				
-				CheckBox checkbox = (CheckBox)LoginPop.findViewById(R.id.checkContinueLogin);
+				/*CheckBox checkbox = (CheckBox)LoginPop.findViewById(R.id.checkContinueLogin);
 				//checkbox.setTypeface(type);
 				if(checkbox.isChecked())
 				{
 					continueLoginState = 1;
 
-				}
+				}*/
 				//check user info if got -> insert status table(name,date) ,no -> message Toast 
 				checkUser = myDb.checkUserInfo(username);
 				if(checkUser == true){
@@ -332,13 +332,13 @@ SQLiteDatabase db;
 					int age = Integer.parseInt(ages[0]);
 
 				//Continue Login
-				CheckBox checkboxx = (CheckBox)RegisPop.findViewById(R.id.checkContinueLogin);
+				/*CheckBox checkboxx = (CheckBox)RegisPop.findViewById(R.id.checkContinueLogin);
 				//checkboxx.setTypeface(type);
 				if(checkboxx.isChecked())
 				{
 					continueLoginState = 1;
 
-				}
+				}*/
 			
 				lenghtName = username.length();
 				if((lenghtName<1)){
@@ -437,14 +437,18 @@ SQLiteDatabase db;
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		myDb.getReadableDatabase();
-		Boolean isThisContinue;
-		isThisContinue = myDb.isCurrentContinue();
-		myDb.close();
-		if(isThisContinue == false){
+		//myDb.getReadableDatabase();
+		//this comment for ติ๊ก ๆๆๆๆ  continue (1,1) state
+		//Boolean isThisContinue;
+		
+		//isThisContinue = myDb.isCurrentContinue();
+		//myDb.close();
+		
+				
+		//if(isThisContinue == false){
 			myDb.getWritableDatabase();
 			myDb.ChangeHome(0);
-		}
+		//}
 		
 		mainPage();
 			

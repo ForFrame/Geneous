@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/sc_calender"
+    android:background="@drawable/friday"
     android:orientation="vertical" >
 
 <TextView 

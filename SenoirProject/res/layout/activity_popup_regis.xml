@@ -59,7 +59,8 @@
         android:layout_x="385dp"
         android:layout_y="445dp"
         android:text="@string/continue_login"
-        android:textSize="10pt" />
+        android:textSize="10pt"
+        android:visibility="invisible"  />
 
     <Button
         android:id="@+id/regisBt"
