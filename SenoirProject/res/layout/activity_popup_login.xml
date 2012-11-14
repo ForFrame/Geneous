@@ -12,11 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_x="377dp"
         android:layout_y="234dp"
-        android:ems="10" 
-        android:hint = "Username"
-        android:maxLength="10">
-
-       
+        android:ems="10"
+        android:hint="Username"
+        android:maxLength="10" >
     </EditText>
 
     <CheckBox
@@ -26,31 +24,32 @@
         android:layout_x="368dp"
         android:layout_y="314dp"
         android:text="@string/continue_login"
-        android:textSize="10pt" 
+        android:textSize="10pt"
         android:visibility="invisible" />
+
 
     <Button
         android:id="@+id/LoginBt"
         android:layout_width="138dp"
         android:layout_height="69dp"
-        android:layout_x="288dp"
-        android:layout_y="428dp"
+        android:layout_x="297dp"
+        android:layout_y="350dp"
         android:background="@drawable/button_login" />
-
+    
     <Button
         android:id="@+id/regisBt"
         android:layout_width="138dp"
         android:layout_height="69dp"
-        android:layout_x="474dp"
-        android:layout_y="428dp"
+        android:layout_x="483dp"
+        android:layout_y="350dp"
         android:background="@drawable/button_regis" />
 
     <Button
         android:id="@+id/CancelLog"
         android:layout_width="138dp"
         android:layout_height="69dp"
-        android:layout_x="651dp"
-        android:layout_y="428dp"
+        android:layout_x="660dp"
+        android:layout_y="350dp"
         android:background="@drawable/cancel" />
 
 </AbsoluteLayout>

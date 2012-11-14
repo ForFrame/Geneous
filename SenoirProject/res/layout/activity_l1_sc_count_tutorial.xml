@@ -1,0 +1,134 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/school_bg_level1g1"
+    android:orientation="vertical" >
+
+    <!-- number for click -->
+
+    <Button
+        android:id="@+id/buttonnumber1"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="170dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n1" />
+
+    <Button
+        android:id="@+id/buttonnumber2"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="240dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n2" />
+
+    <Button
+        android:id="@+id/buttonnumber3"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="310dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n3" />
+
+    <Button
+        android:id="@+id/buttonnumber4"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="380dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n4" />
+
+    <Button
+        android:id="@+id/buttonnumber5"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="450dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n5" />
+
+    <Button
+        android:id="@+id/buttonnumber6"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="520dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n6" />
+
+    <Button
+        android:id="@+id/buttonnumber7"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="590dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n7" />
+
+    <Button
+        android:id="@+id/buttonnumber8"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="660dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n8" />
+
+    <Button
+        android:id="@+id/buttonnumber9"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="730dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n9" />
+
+    <Button
+        android:id="@+id/buttonnumber10"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="800dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n10" />
+
+    <!-- table for count -->
+    <!-- android:visibility="invisible" -->
+
+
+    <!-- show number for counting table -->
+    <!--
+          <ImageView
+        android:id="@+id/showblanknumber"
+        android:layout_width="206dp"
+        android:layout_height="177dp"
+        android:layout_x="807dp"
+        android:layout_y="382dp"
+        android:background="@drawable/blank"
+        android:visibility="invisible" />
+    -->
+
+    <ImageView
+        android:id="@+id/counttable5"
+        android:layout_width="650dp"
+        android:layout_height="240dp"
+        android:layout_x="191dp"
+        android:layout_y="314dp"
+        android:background="@drawable/table5"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/showcorrectnumber"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_x="270dp"
+        android:layout_y="87dp"
+        android:background="@drawable/smile"
+        android:clickable="true"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/helpNumber"
+        android:layout_width="100dp"
+        android:layout_height="124dp"
+        android:layout_x="432dp"
+        android:layout_y="58dp"
+        android:background="@drawable/help1"
+        android:visibility="invisible" />
+
+</AbsoluteLayout>

@@ -19,7 +19,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_x="656dp"
-        android:layout_y="-3dp"
+        android:layout_y="1dp"
         android:gravity="right|center_vertical"
         android:text="Username"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -32,7 +32,7 @@
         android:layout_width="127dp"
         android:layout_height="wrap_content"
         android:layout_x="872dp"
-        android:layout_y="-1dp"
+        android:layout_y="1dp"
         android:background="@drawable/login_txt" />
 
     <Button
@@ -40,7 +40,7 @@
         android:layout_width="127dp"
         android:layout_height="wrap_content"
         android:layout_x="872dp"
-        android:layout_y="-1dp"
+        android:layout_y="1dp"
         android:background="@drawable/logout_txt" />
 
     <!-- number for click -->
@@ -124,6 +124,15 @@
         android:layout_x="800dp"
         android:layout_y="85dp"
         android:background="@drawable/n10" />
+    
+    <TextView
+        android:id="@+id/currentitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="894dp"
+        android:layout_y="269dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <!-- table for count -->
     <!-- android:visibility="invisible" -->
@@ -342,20 +351,19 @@
         android:visibility="invisible" />
 
      <Button
-        android:id="@+id/helpCountTable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="825dp"
-        android:layout_y="594dp"
-        android:background="@drawable/icon_help2" />
+         android:id="@+id/helpCountTable"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_x="824dp"
+       	 android:layout_y="600dp"
+         android:background="@drawable/icon_help2" />
+
     <Button
         android:id="@+id/backtoHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="934dp"
-        android:layout_y="594dp"
+       	android:layout_x="927dp"
+        android:layout_y="600dp"
         android:background="@drawable/icon_home1" />
-
-    
 
 </AbsoluteLayout>

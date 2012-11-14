@@ -18,7 +18,7 @@
              android:textSize="16pt"
              android:textStyle="bold"
              android:typeface="sans" />
-    
+
     <Button
             android:id="@+id/loginn"
             android:layout_width="127dp"
@@ -26,6 +26,7 @@
             android:layout_x="849dp"
             android:layout_y="32dp"
             android:background="@drawable/login_txt" /> 
+
     <Button
             android:id="@+id/logout"
             android:layout_width="127dp"
@@ -62,9 +63,9 @@
 	<Button
 	    android:id="@+id/backToselectSchool"
 	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_x="907dp"
-	    android:layout_y="558dp"
-	    android:background="@drawable/icon_home" />
+        android:layout_height="wrap_content"
+        android:layout_x="895dp"
+        android:layout_y="593dp"
+        android:background="@drawable/icon_home" />
 
 </AbsoluteLayout>

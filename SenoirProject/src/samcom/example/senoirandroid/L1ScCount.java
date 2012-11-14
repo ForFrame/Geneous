@@ -28,7 +28,7 @@ public class L1ScCount extends Activity {
 	static int score = 10;
 	static int found = -1;
 	static int randomInt;
-	
+	long startTime;
 	final Context context = this;
 	String username;
 	float timeRemain;
@@ -44,7 +44,7 @@ public class L1ScCount extends Activity {
 		@Override
 		public void onFinish() { // เมื่อทำงานเสร็จสิ้น
 		// TODO Auto-generated method stub
-			
+			showTimeout();
 		}
 		
 		@Override
@@ -52,8 +52,8 @@ public class L1ScCount extends Activity {
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textView1);
-			timeRemain = (float) remain / 1000;
-			//int timeRemain = (int) (remain) / 1000;
+			//timeRemain = (float) remain / 1000;
+			int timeRemain = (int) (remain) / 1000;
 			result.setText(" Rest: " + timeRemain);
 		}
 	}
@@ -82,6 +82,7 @@ public class L1ScCount extends Activity {
 	}	
 	
 	void game001(){
+		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		int count = myDb.CountNumRan();
@@ -129,8 +130,12 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
-				Intent intent = new Intent(L1ScCount.this,Main.class);
-				startActivity(intent);
+				//Intent intent = new Intent(L1ScCount.this,Main.class);
+				//startActivity(intent);
+				Intent in = new Intent(getApplicationContext(),Main.class);
+				in.putExtra("loginButt", 1);
+				startActivity(in);
+
 			}
 		});
 		
@@ -150,15 +155,15 @@ public class L1ScCount extends Activity {
 			Random = RanNum();
 					
 			final long startTime = ((Random*2)+10)*1000;
-			int LastRan = myDb.getLastNum();
+			int LastRan = myDb.getLastNum(0);
 			if(LastRan!= 0){
 				hideTables(LastRan);
 			}
 			checkAns(Random,count+1);
 		}
 		else{
-			scores = myDb.countScore("001", username, Round, count);
-			int LastRan = myDb.getLastNum();
+			scores = myDb.countScore("001", username, Round);
+			int LastRan = myDb.getLastNum(10);
 			//if(LastRan!= 0){
 				hideTables(LastRan);
 			//}
@@ -199,18 +204,23 @@ public class L1ScCount extends Activity {
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 		
-		final long startTime = ((RandomNum*2)+10)*1000;
+		startTime = ((RandomNum*2)+10)*1000;
 		final MyCountDown countdown = new MyCountDown(startTime,1000);
 		
 		//final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.correct_sound);
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
-		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound);
+		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
 		//MediaPlayer mp = MediaPlayer.create(this,Uri.parse("android.resource://emad.app/raw/seven_chimes"));
 		
 		
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrongnumber); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrectnumber);
+		
+		TextView current = (TextView) findViewById(R.id.currentitem);
+		//timeRemain = (float) remain / 1000;
+		current.setText(item +"/ 10");
+		
 		countdown.start();
 		showTables(RandomNum);
 		
@@ -562,7 +572,7 @@ public class L1ScCount extends Activity {
 				myDb.emptyNumberTable();
 				myDb.close();
 				myDb.getReadableDatabase();
-				Round = myDb.getNumRound("001", username);
+				//Round = myDb.getNumRound("001", username);
 				game001();
 			}
 		});
@@ -586,7 +596,7 @@ public class L1ScCount extends Activity {
 		// custom dialog
 		final Dialog dialog = new Dialog(context);
 		dialog.setContentView(R.layout.activity_dialog_score_sclv1g1);
-		
+	//	dialog.dispatchTouchEvent(ev)
 
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -638,7 +648,7 @@ public class L1ScCount extends Activity {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
 				
-				int LastRan = myDb.getLastNum();
+				int LastRan = myDb.getLastNum(10);
 				//if(LastRan!= 0){
 					hideTables(LastRan);
 				//}
@@ -653,7 +663,7 @@ public class L1ScCount extends Activity {
 				imgCorrectpop.setVisibility(View.INVISIBLE);
 				
 				Round = myDb.getNumRound("001", username);
-				Round++;
+				//Round++;
 				game001();
 			}
 		});
@@ -723,6 +733,31 @@ public class L1ScCount extends Activity {
 			case 10: ImageView imgView20 = (ImageView)findViewById(R.id.counttable10); 
 					imgView20.setVisibility(ImageView.INVISIBLE);	break;	
 		}
+	}
+	
+	void showTimeout(){
+		final View imgWrongFin = (View)findViewById(R.id.showwrongnumber); 
+		final View imgCorrectFin = (View)findViewById(R.id.showcorrectnumber);
+		imgWrongFin.setVisibility(View.VISIBLE);
+		imgCorrectFin.setVisibility(View.INVISIBLE);
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getReadableDatabase();
+		int item = myDb.CountNumRan();
+		//int item = count+1;
+		myDb.close();
+		myDb.getWritableDatabase();
+		myDb.addItemScore("001",username,Round,item,0,startTime);
+		
+		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
+		soundWrongFin.start();
+		
+		soundWrongFin.setOnCompletionListener(new OnCompletionListener() {
+            public void onCompletion(MediaPlayer soundWrong) {
+            	imgWrongFin.setVisibility(View.INVISIBLE);
+            	game001();
+            }
+        });
+		
 	}
 	
 	@Override

@@ -43,12 +43,20 @@ SQLiteDatabase db;
 	
 		//final myDBClass myDb = new myDBClass(this);
 		//myDb.getWritableDatabase();
+		//myDb.ChangeHome(0);
 		
 		// SelectCurrentUser(); check MAX(No)loginStatus table on Status == 'Logout'-> No or 'Y' -> name 
-		mainPage();
+		int valueLogin = 0;
+		Bundle extras = getIntent().getExtras();
+		if(extras != null){
+			valueLogin = extras.getInt("loginButt");
+		}
+
+		
+		mainPage(valueLogin);
 	}
 	
-	void mainPage(){
+	void mainPage(int valueLogin){
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -58,8 +66,15 @@ SQLiteDatabase db;
 		   
 		CurrentUser = myDb.SelectCurrentUser();
 		Boolean notFromHomee = myDb.notFromHome();
-		if(notFromHomee == true){
-			popUpLogIn();
+		if(notFromHomee == true)
+		{
+			if(valueLogin == 1){
+				showLoginPopup();
+			}
+			else{
+				popUpLogIn();
+			}
+			
 		}
 		
 		if(!(CurrentUser.equals("Guest"))){
@@ -450,7 +465,7 @@ SQLiteDatabase db;
 			myDb.ChangeHome(0);
 		//}
 		
-		mainPage();
+		mainPage(0);
 			
 		
 		super.onRestart();
