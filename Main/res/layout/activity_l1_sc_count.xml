@@ -1,0 +1,369 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/school_bg_level1g1"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="37dp"
+        android:layout_y="28dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android:id="@+id/textUser"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_x="656dp"
+        android:layout_y="1dp"
+        android:gravity="right|center_vertical"
+        android:text="Username"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16pt"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <Button
+        android:id="@+id/loginn"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_x="872dp"
+        android:layout_y="1dp"
+        android:background="@drawable/login_txt" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_x="872dp"
+        android:layout_y="1dp"
+        android:background="@drawable/logout_txt" />
+
+    <!-- number for click -->
+
+    <Button
+        android:id="@+id/buttonnumber1"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="170dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n1" />
+
+    <Button
+        android:id="@+id/buttonnumber2"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="240dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n2" />
+
+    <Button
+        android:id="@+id/buttonnumber3"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="310dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n3" />
+
+    <Button
+        android:id="@+id/buttonnumber4"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="380dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n4" />
+
+    <Button
+        android:id="@+id/buttonnumber5"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="450dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n5" />
+
+    <Button
+        android:id="@+id/buttonnumber6"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="520dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n6" />
+
+    <Button
+        android:id="@+id/buttonnumber7"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="590dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n7" />
+
+    <Button
+        android:id="@+id/buttonnumber8"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="660dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n8" />
+
+    <Button
+        android:id="@+id/buttonnumber9"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="730dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n9" />
+
+    <Button
+        android:id="@+id/buttonnumber10"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_x="800dp"
+        android:layout_y="85dp"
+        android:background="@drawable/n10" />
+    
+    <TextView
+        android:id="@+id/currentitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="894dp"
+        android:layout_y="269dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <!-- table for count -->
+    <!-- android:visibility="invisible" -->
+
+
+    <!-- show number for counting table -->
+    <!--
+          <ImageView
+        android:id="@+id/showblanknumber"
+        android:layout_width="206dp"
+        android:layout_height="177dp"
+        android:layout_x="807dp"
+        android:layout_y="382dp"
+        android:background="@drawable/blank"
+        android:visibility="invisible" />
+    -->
+
+    <ImageView
+        android:id="@+id/shownumber1"
+        android:layout_width="150dp"
+        android:layout_height="110dp"
+        android:layout_x="840dp"
+        android:layout_y="415dp"
+        android:background="@drawable/a1"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/shownumber2"
+        android:layout_width="150dp"
+        android:layout_height="110dp"
+        android:layout_x="840dp"
+        android:layout_y="415dp"
+        android:background="@drawable/a2"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/shownumber3"
+        android:layout_width="150dp"
+        android:layout_height="110dp"
+        android:layout_x="840dp"
+        android:layout_y="415dp"
+        android:background="@drawable/a3"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/shownumber4"
+        android:layout_width="150dp"
+        android:layout_height="110dp"
+        android:layout_x="840dp"
+        android:layout_y="415dp"
+        android:background="@drawable/a4"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/shownumber5"
+        android:layout_width="150dp"
+        android:layout_height="110dp"
+        android:layout_x="840dp"
+        android:layout_y="415dp"
+        android:background="@drawable/a5"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/shownumber6"
+        android:layout_width="150dp"
+        android:layout_height="110dp"
+        android:layout_x="840dp"
+        android:layout_y="415dp"
+        android:background="@drawable/a6"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/shownumber7"
+        android:layout_width="150dp"
+        android:layout_height="110dp"
+        android:layout_x="840dp"
+        android:layout_y="415dp"
+        android:background="@drawable/a7"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/shownumber8"
+        android:layout_width="150dp"
+        android:layout_height="110dp"
+        android:layout_x="840dp"
+        android:layout_y="415dp"
+        android:background="@drawable/a8"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/shownumber9"
+        android:layout_width="150dp"
+        android:layout_height="110dp"
+        android:layout_x="840dp"
+        android:layout_y="415dp"
+        android:background="@drawable/a9"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/shownumber10"
+        android:layout_width="150dp"
+        android:layout_height="110dp"
+        android:layout_x="840dp"
+        android:layout_y="415dp"
+        android:background="@drawable/a10"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/counttable1"
+        android:layout_width="650dp"
+        android:layout_height="240dp"
+        android:layout_x="191dp"
+        android:layout_y="314dp"
+        android:background="@drawable/table1"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/counttable2"
+        android:layout_width="650dp"
+        android:layout_height="240dp"
+        android:layout_x="191dp"
+        android:layout_y="314dp"
+        android:background="@drawable/table2"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/counttable3"
+        android:layout_width="650dp"
+        android:layout_height="240dp"
+        android:layout_x="191dp"
+        android:layout_y="314dp"
+        android:background="@drawable/table3"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/counttable4"
+        android:layout_width="650dp"
+        android:layout_height="240dp"
+        android:layout_x="191dp"
+        android:layout_y="314dp"
+        android:background="@drawable/table4"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/counttable5"
+        android:layout_width="650dp"
+        android:layout_height="240dp"
+        android:layout_x="191dp"
+        android:layout_y="314dp"
+        android:background="@drawable/table5"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/counttable6"
+        android:layout_width="650dp"
+        android:layout_height="240dp"
+        android:layout_x="191dp"
+        android:layout_y="314dp"
+        android:background="@drawable/table6"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/counttable7"
+        android:layout_width="650dp"
+        android:layout_height="240dp"
+        android:layout_x="191dp"
+        android:layout_y="314dp"
+        android:background="@drawable/table7"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/counttable8"
+        android:layout_width="650dp"
+        android:layout_height="240dp"
+        android:layout_x="191dp"
+        android:layout_y="314dp"
+        android:background="@drawable/table8"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/counttable9"
+        android:layout_width="650dp"
+        android:layout_height="240dp"
+        android:layout_x="191dp"
+        android:layout_y="314dp"
+        android:background="@drawable/table9"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/counttable10"
+        android:layout_width="650dp"
+        android:layout_height="240dp"
+        android:layout_x="191dp"
+        android:layout_y="314dp"
+        android:background="@drawable/table10"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/showwrongnumber"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_x="270dp"
+        android:layout_y="87dp"
+        android:background="@drawable/weak"
+        android:clickable="true"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/showcorrectnumber"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_x="270dp"
+        android:layout_y="87dp"
+        android:background="@drawable/smile"
+        android:clickable="true"
+        android:visibility="invisible" />
+
+     <Button
+         android:id="@+id/helpCountTable"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_x="824dp"
+       	 android:layout_y="600dp"
+         android:background="@drawable/icon_help2" />
+
+    <Button
+        android:id="@+id/backtoHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       	android:layout_x="927dp"
+        android:layout_y="600dp"
+        android:background="@drawable/icon_home1" />
+
+</AbsoluteLayout>
