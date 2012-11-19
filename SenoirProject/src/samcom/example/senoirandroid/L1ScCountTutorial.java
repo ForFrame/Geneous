@@ -32,24 +32,35 @@ public class L1ScCountTutorial extends Activity{
 	    setContentView(R.layout.activity_l1_sc_count_tutorial);
 	    
 	    final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
-		final MediaPlayer soundIns = MediaPlayer.create(context, R.raw.wrong_sound2);
+		final MediaPlayer soundIns = MediaPlayer.create(context, R.raw.count_tuto_sound);
 		final Animation myFadeOnceAnimation = AnimationUtils.loadAnimation(L1ScCountTutorial.this, R.anim.tween_once);
 		final ImageView helpNo = (ImageView)findViewById(R.id.helpNumber);
+		final ImageView correctFace = (ImageView)findViewById(R.id.showcorrectnumber);
 		
 		//soundWrong is instruction sound
 		soundIns.start();
 		
 		soundIns.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundIns) {
+            	helpNo.setAnimation(myFadeOnceAnimation);
+            	myFadeOnceAnimation.setAnimationListener(new AnimationListener() {
+                     public void onAnimationStart(Animation anim)
+                     {
+                     };
+                     public void onAnimationRepeat(Animation anim)
+                     {
+                     };
+                     public void onAnimationEnd(Animation anim)
+                     {
+                    	 correctFace.setVisibility(View.VISIBLE);
+                    	 soundCorrect.start();
+                     };
+                 });             
             	
             	helpNo.startAnimation(myFadeOnceAnimation);
             	
             }
         });
-		
-		final ImageView correctFace = (ImageView)findViewById(R.id.showcorrectnumber);
-		correctFace.setVisibility(View.VISIBLE);
-		soundCorrect.start();
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
