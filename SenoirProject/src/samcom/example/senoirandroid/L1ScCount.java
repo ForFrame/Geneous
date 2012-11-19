@@ -42,13 +42,13 @@ public class L1ScCount extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // เมื่อทำงานเสร็จสิ้น
+		public void onFinish() { // เน€เธกเธทเน�เธญเธ—เธณเธ�เธฒเธ�เน€เธชเธฃเน�เธ�เธชเธดเน�เธ�
 		// TODO Auto-generated method stub
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // ในขณะที่ทำงานทุก ๆ ครั้ง
+		public void onTick(long remain) { // เน�เธ�เธ�เธ“เธฐเธ—เธตเน�เธ—เธณเธ�เธฒเธ�เธ—เธธเธ� เน� เธ�เธฃเธฑเน�เธ�
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textView1);
@@ -86,6 +86,38 @@ public class L1ScCount extends Activity {
 			valueTutorial = extras.getInt("tutorial");
 			if(valueTutorial == 1){
 				game001();
+			}
+			else if(valueTutorial == 2){
+				
+				//in.putExtra("numran", RandomNum);
+				//  in.putExtra("numitem", item);
+				int rannum = extras.getInt("numran");
+				int thisitem = extras.getInt("numitem");
+				username = myDb.SelectCurrentUser();
+				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
+				if(!(username.equals("Guest"))){
+					TextView result = (TextView) findViewById(R.id.textUser);
+					result.setTypeface(type);
+					//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
+					result.setTextColor(Color.rgb(2, 101, 203));
+					result.setVisibility(TextView.VISIBLE);
+					result.setText(username);
+					Button LogoutBt = (Button) findViewById(R.id.logout);
+					LogoutBt.setVisibility(Button.VISIBLE);
+					Button LoginBt = (Button) findViewById(R.id.loginn);
+					LoginBt.setVisibility(Button.INVISIBLE);
+				}
+				
+				if((username.equals("Guest"))){
+					TextView result = (TextView) findViewById(R.id.textUser);
+					result.setVisibility(TextView.INVISIBLE);
+					Button LogoutBt = (Button) findViewById(R.id.logout);
+					LogoutBt.setVisibility(Button.INVISIBLE);
+					Button LoginBt = (Button) findViewById(R.id.loginn);
+					LoginBt.setVisibility(Button.VISIBLE);
+				}
+				checkAns(rannum,thisitem);
+				
 			}
 		}
 		else{
@@ -168,7 +200,7 @@ public class L1ScCount extends Activity {
 		if(count < 10){
 			Random = RanNum();
 					
-			final long startTime = ((Random*2)+10)*1000;
+			//final long startTime = ((Random*2)+10)*1000;
 			int LastRan = myDb.getLastNum(0);
 			if(LastRan!= 0){
 				hideTables(LastRan);
@@ -532,7 +564,10 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				countdown.cancel();
-				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
+				Intent intent = new Intent(L1ScCount.this,L1ScCountTutorial.class);
+				intent.putExtra("putbutt", 1);
+				intent.putExtra("numran", RandomNum);
+				intent.putExtra("numitem", item);
 				startActivity(intent);
 			}
 		});
@@ -781,7 +816,7 @@ public class L1ScCount extends Activity {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
 		
-		//this comment for ติ๊ก ๆๆๆๆ  continue (1,1) state
+		//this comment for เธ•เธดเน�เธ� เน�เน�เน�เน�  continue (1,1) state
 		//myDb.getReadableDatabase();
 		//Boolean isThisContinue;
 		//isThisContinue = myDb.isCurrentContinue();

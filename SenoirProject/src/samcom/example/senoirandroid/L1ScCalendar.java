@@ -33,13 +33,13 @@ public class L1ScCalendar extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // เมื่อทำงานเสร็จสิ้น
+		public void onFinish() { // เน€เธกเธทเน�เธญเธ—เธณเธ�เธฒเธ�เน€เธชเธฃเน�เธ�เธชเธดเน�เธ�
 		// TODO Auto-generated method stub
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // ในขณะที่ทำงานทุก ๆ ครั้ง
+		public void onTick(long remain) { // เน�เธ�เธ�เธ“เธฐเธ—เธตเน�เธ—เธณเธ�เธฒเธ�เธ—เธธเธ� เน� เธ�เธฃเธฑเน�เธ�
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textTime);
@@ -155,7 +155,7 @@ public class L1ScCalendar extends Activity {
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
-
+		countdownTime.start();
 		
 			answer = choice(Day);
 				ans1.setOnClickListener(new View.OnClickListener() {
@@ -459,7 +459,7 @@ public class L1ScCalendar extends Activity {
 		final myDBClass myDb = new myDBClass(this);
 		//myDb.getReadableDatabase();
 		
-		//this comment for ติ๊ก ๆๆๆๆ  continue (1,1) state
+		//this comment for เธ•เธดเน�เธ� เน�เน�เน�เน�  continue (1,1) state
 		//Boolean isThisContinue;
 		//isThisContinue = myDb.isCurrentContinue();
 		//myDb.close();

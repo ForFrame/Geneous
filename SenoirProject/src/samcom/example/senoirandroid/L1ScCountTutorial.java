@@ -25,6 +25,7 @@ public class L1ScCountTutorial extends Activity{
 	//MediaPlayer mp;
 	//AnimationDrawable animation;
 	final Context context = this;
+	int RandomNum = 0,item = 0,frombutton =0 ;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +33,20 @@ public class L1ScCountTutorial extends Activity{
 	    setContentView(R.layout.activity_l1_sc_count_tutorial);
 	    
 	    final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
-		final MediaPlayer soundIns = MediaPlayer.create(context, R.raw.count_tuto_sound);
+		final MediaPlayer soundIns = MediaPlayer.create(context, R.raw.ins_count_tuto);
 		final Animation myFadeOnceAnimation = AnimationUtils.loadAnimation(L1ScCountTutorial.this, R.anim.tween_once);
 		final ImageView helpNo = (ImageView)findViewById(R.id.helpNumber);
 		final ImageView correctFace = (ImageView)findViewById(R.id.showcorrectnumber);
+		
+		
+		//intent.putExtra("numran", RandomNum);
+		//intent.putExtra("numitem", item);
+		Bundle extras = getIntent().getExtras();
+		if(extras != null){
+			frombutton = extras.getInt("putbutt");
+			RandomNum = extras.getInt("numran");
+			item = extras.getInt("numitem");
+		}
 		
 		//soundWrong is instruction sound
 		soundIns.start();
@@ -66,7 +77,14 @@ public class L1ScCountTutorial extends Activity{
             public void onCompletion(MediaPlayer soundCorrect) {
             	
             	Intent in = new Intent(getApplicationContext(),L1ScCount.class);
-  			  	in.putExtra("tutorial", 1);
+            	if(frombutton == 1){
+  				  in.putExtra("tutorial", 2);
+  				  in.putExtra("numran", RandomNum);
+  				  in.putExtra("numitem", item);
+  			  	}
+  			  	else{
+  				  in.putExtra("tutorial", 1);
+  			  	}
   			  	startActivity(in);
             }
         });
@@ -78,18 +96,28 @@ public class L1ScCountTutorial extends Activity{
 		
 	public boolean onTouchEvent (MotionEvent event) {
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
-		final MediaPlayer soundIns = MediaPlayer.create(context, R.raw.wrong_sound2);
+		final MediaPlayer soundIns = MediaPlayer.create(context, R.raw.ins_count_tuto);
+		soundCorrect.stop();
+		soundIns.stop();
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			  
 			soundCorrect.stop();
-			  soundIns.stop();
-			  
-			  //Intent intent = new Intent(L1ScCountTutorial.this,L1ScCount.class);
-			  //startActivity(intent);
+			soundIns.stop();
 			  
 			  Intent in = new Intent(getApplicationContext(),L1ScCount.class);
-			  in.putExtra("tutorial", 1);
+			  //in.putExtra("tutorial", 1);
+			  if(frombutton == 1){
+				  in.putExtra("tutorial", 2);
+				  in.putExtra("numran", RandomNum);
+				  in.putExtra("numitem", item);
+				  //finish();
+			  }
+			  else{
+				  in.putExtra("tutorial", 1);
+			  }
 			  startActivity(in);
+			
+			//finish();
 	
 		}
 		return super.onTouchEvent(event);

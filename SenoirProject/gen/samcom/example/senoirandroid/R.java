@@ -307,8 +307,9 @@ public final class R {
         public static final int correctted=0x7f050001;
         public static final int counttable=0x7f050002;
         public static final int crab_sound=0x7f050003;
-        public static final int wrong_sound=0x7f050004;
-        public static final int wrong_sound2=0x7f050005;
+        public static final int ins_count_tuto=0x7f050004;
+        public static final int wrong_sound=0x7f050005;
+        public static final int wrong_sound2=0x7f050006;
     }
     public static final class string {
         public static final int app_name=0x7f060000;
