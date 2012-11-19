@@ -1,6 +1,6 @@
 package samcom.example.senoirandroid;
 
-import samcom.example.senoirandroid.L1ScCount.MyCountDown;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -42,7 +42,7 @@ public class L1ScCalendar extends Activity {
 		public void onTick(long remain) { // ในขณะที่ทำงานทุก ๆ ครั้ง
 		// TODO Auto-generated method stub
 			
-			TextView result = (TextView) findViewById(R.id.textView);
+			TextView result = (TextView) findViewById(R.id.textTime);
 			int timeRemain = (int) (remain) / 1000;
 			result.setText(" Times: " + timeRemain);
 		}
@@ -120,7 +120,7 @@ public class L1ScCalendar extends Activity {
 			
 		});
 		if(Day < 8){
-			final long startTime = (30)*1000;
+			startTime = (30)*1000;
 			checkAns();
 		}
 		else{
@@ -150,7 +150,7 @@ public class L1ScCalendar extends Activity {
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
 		
 		startTime = (30)*1000;
-		final MyCountDown countdown = new MyCountDown(startTime,1000);
+		final MyCountDown countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
@@ -164,14 +164,14 @@ public class L1ScCalendar extends Activity {
 						//mediaPlayer.stop();
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
-							countdown.cancel();
+							countdownTime.cancel();
 							soundCorrect.start();
 							myDb.addItemScore("002",username,Round,Day,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
-							countdown.cancel();
+							countdownTime.cancel();
 							soundWrong.start();
 							myDb.addItemScore("002",username,Round,Day,0,(countTime - timeRemain));
 						}
@@ -184,14 +184,14 @@ public class L1ScCalendar extends Activity {
 						//mediaPlayer.stop();
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
-							countdown.cancel();
+							countdownTime.cancel();
 							soundCorrect.start();
 							myDb.addItemScore("002",username,Round,Day,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
-							countdown.cancel();
+							countdownTime.cancel();
 							soundWrong.start();
 							myDb.addItemScore("002",username,Round,Day,0,(countTime - timeRemain));
 						}
@@ -203,14 +203,14 @@ public class L1ScCalendar extends Activity {
 						//mediaPlayer.stop();
 						if(answer == 3){
 							imgCorrect.setVisibility(View.VISIBLE);
-							countdown.cancel();
+							countdownTime.cancel();
 							soundCorrect.start();
 							myDb.addItemScore("002",username,Round,Day,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
-							countdown.cancel();
+							countdownTime.cancel();
 							soundWrong.start();
 							myDb.addItemScore("002",username,Round,Day,0,(countTime - timeRemain));
 						}
@@ -261,6 +261,7 @@ public class L1ScCalendar extends Activity {
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				countdownTime.cancel();
 				Intent intent = new Intent(L1ScCalendar.this,SchoolLevel1.class);
 				startActivity(intent);
 			}
@@ -272,7 +273,7 @@ public class L1ScCalendar extends Activity {
 		
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			countdown.cancel();
+			countdownTime.cancel();
 			Intent intent = new Intent(L1ScCalendar.this,SchoolLevel1.class);
 			startActivity(intent);
 		}

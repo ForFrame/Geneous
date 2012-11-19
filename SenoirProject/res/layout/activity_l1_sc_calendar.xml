@@ -6,7 +6,7 @@
     android:background="@drawable/school_level1_g2_bg" >
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="37dp"

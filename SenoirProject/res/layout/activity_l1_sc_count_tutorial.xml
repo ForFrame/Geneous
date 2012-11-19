@@ -7,7 +7,7 @@
 
     <!-- number for click -->
 
-    <Button
+    <ImageView
         android:id="@+id/buttonnumber1"
         android:layout_width="60dp"
         android:layout_height="70dp"
@@ -15,7 +15,7 @@
         android:layout_y="85dp"
         android:background="@drawable/n1" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonnumber2"
         android:layout_width="60dp"
         android:layout_height="70dp"
@@ -23,7 +23,7 @@
         android:layout_y="85dp"
         android:background="@drawable/n2" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonnumber3"
         android:layout_width="60dp"
         android:layout_height="70dp"
@@ -31,7 +31,7 @@
         android:layout_y="85dp"
         android:background="@drawable/n3" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonnumber4"
         android:layout_width="60dp"
         android:layout_height="70dp"
@@ -39,7 +39,7 @@
         android:layout_y="85dp"
         android:background="@drawable/n4" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonnumber5"
         android:layout_width="60dp"
         android:layout_height="70dp"
@@ -47,7 +47,7 @@
         android:layout_y="85dp"
         android:background="@drawable/n5" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonnumber6"
         android:layout_width="60dp"
         android:layout_height="70dp"
@@ -55,7 +55,7 @@
         android:layout_y="85dp"
         android:background="@drawable/n6" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonnumber7"
         android:layout_width="60dp"
         android:layout_height="70dp"
@@ -63,7 +63,7 @@
         android:layout_y="85dp"
         android:background="@drawable/n7" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonnumber8"
         android:layout_width="60dp"
         android:layout_height="70dp"
@@ -71,7 +71,7 @@
         android:layout_y="85dp"
         android:background="@drawable/n8" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonnumber9"
         android:layout_width="60dp"
         android:layout_height="70dp"
@@ -79,7 +79,7 @@
         android:layout_y="85dp"
         android:background="@drawable/n9" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonnumber10"
         android:layout_width="60dp"
         android:layout_height="70dp"
@@ -122,7 +122,7 @@
         android:clickable="true"
         android:visibility="invisible" />
 
-    <Button
+    <ImageView
         android:id="@+id/helpNumber"
         android:layout_width="100dp"
         android:layout_height="124dp"

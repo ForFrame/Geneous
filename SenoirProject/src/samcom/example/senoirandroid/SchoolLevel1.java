@@ -6,7 +6,13 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -27,7 +33,9 @@ public class SchoolLevel1 extends Activity {
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		
+		ImageView imgLogo;  
+	    Animation animCalendar;  
+	     
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
 		   
@@ -54,6 +62,8 @@ public class SchoolLevel1 extends Activity {
 			LoginBt.setVisibility(Button.VISIBLE);
 		}
 		
+		
+		
 		Button loginBut = (Button)findViewById(R.id.loginn);
 		loginBut.setOnClickListener(new View.OnClickListener() {
 			
@@ -79,8 +89,10 @@ public class SchoolLevel1 extends Activity {
 			}
 			
 		});
-		
+		Animation myFadeInAnimation = AnimationUtils.loadAnimation(SchoolLevel1.this, R.anim.tween);
+		//Animation myFadeOutAnimation = AnimationUtils.loadAnimation(SchoolLevel1.this, R.anim.tween_reverse);
 		Button CountTable = (Button)findViewById(R.id.table);
+		 CountTable.startAnimation(myFadeInAnimation);
 		CountTable.setOnClickListener(new View.OnClickListener() {
 			 
 
@@ -90,12 +102,17 @@ public class SchoolLevel1 extends Activity {
 				startActivity(intent);
 			}
 		});
-		
-		
 		Button GameCalendar = (Button)findViewById(R.id.calendar);
+		
+		//aniMate();
+		 
+		 //ImageView myImageView = (ImageView) findViewById(R.id.imageView2); 
+		 
+		 GameCalendar.startAnimation(myFadeInAnimation);
+		
+		
 		GameCalendar.setOnClickListener(new View.OnClickListener() {
 			 
-
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(SchoolLevel1.this,L1ScCalendar.class);
@@ -124,6 +141,65 @@ public class SchoolLevel1 extends Activity {
 				//finish();
 			}
 		});
+	}
+	public void aniMate(){
+		final Button GameCalendar = (Button)findViewById(R.id.calendar);
+		
+		AnimationSet animationSet = new AnimationSet(true);
+		
+		Animation animation1 = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+		Animation animation2 = AnimationUtils.loadAnimation(this, android.R.anim.fade_out);
+		
+		animation1 = new AlphaAnimation(0.0f, 1.0f);
+		animation1.setDuration(1000);
+		animation1.setStartOffset(5000);
+
+	    //animation1 AnimationListener
+		
+	    animation1.setAnimationListener(new AnimationListener(){
+	    	Animation animation2 = new AlphaAnimation(1.0f, 0.0f);
+	        public void onAnimationEnd(Animation arg0) {
+	            // start animation2 when animation1 ends (continue)
+	            GameCalendar.startAnimation(animation2);
+	        }
+
+	        public void onAnimationRepeat(Animation arg0) {
+	            // TODO Auto-generated method stub
+
+	        }
+
+	        public void onAnimationStart(Animation arg0) {
+	            // TODO Auto-generated method stub
+
+	        }
+
+	    });
+
+	    animation2 = new AlphaAnimation(1.0f, 0.0f);
+	    animation2.setDuration(1000);
+	    animation2.setStartOffset(5000);
+
+	    //animation2 AnimationListener
+	    animation2.setAnimationListener(new AnimationListener(){
+	    	Animation animation1 = new AlphaAnimation(0.0f, 1.0f);
+	        public void onAnimationEnd(Animation arg0) {
+	            // start animation1 when animation2 ends (repeat)
+	            GameCalendar.startAnimation(animation1);
+	        }
+
+	        public void onAnimationRepeat(Animation arg0) {
+	            // TODO Auto-generated method stub
+
+	        }
+
+	        public void onAnimationStart(Animation arg0) {
+	            // TODO Auto-generated method stub
+
+	        }
+
+	    });
+
+	    GameCalendar.startAnimation(animation1);
 	}
 	
 	@Override

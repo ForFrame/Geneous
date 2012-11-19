@@ -77,7 +77,21 @@ public class L1ScCount extends Activity {
 		
 		//mediaPlayer.start();
 		Round = myDb.getNumRound("001", username);
-		game001();
+		//game001();
+		
+		
+		int valueTutorial = 0;
+		Bundle extras = getIntent().getExtras();
+		if(extras != null){
+			valueTutorial = extras.getInt("tutorial");
+			if(valueTutorial == 1){
+				game001();
+			}
+		}
+		else{
+			Intent intent = new Intent(L1ScCount.this,L1ScCountTutorial.class);
+			startActivity(intent);
+		}
 					
 	}	
 	
@@ -517,6 +531,7 @@ public class L1ScCount extends Activity {
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				countdown.cancel();
 				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
 				startActivity(intent);
 			}
@@ -527,6 +542,7 @@ public class L1ScCount extends Activity {
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				countdown.cancel();
 				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
 				startActivity(intent);
 			}
