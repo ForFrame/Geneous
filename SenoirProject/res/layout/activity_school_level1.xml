@@ -41,16 +41,28 @@
 	    android:layout_height="196dp"
 	    android:layout_x="103dp"
 	    android:layout_y="419dp"
-	    android:background="@drawable/sc_table_student" />
-
-	
+	    android:background="@drawable/sc_table_student_t1" />
+	<ImageView
+	    android:id="@+id/tableImg"
+	    android:layout_width="685dp"
+	    android:layout_height="196dp"
+	    android:layout_x="103dp"
+	    android:layout_y="419dp"
+	    android:background="@drawable/sc_table_student2" />
 	<Button
 	    android:id="@+id/calendar"
 	    android:layout_width="150dp"
 	    android:layout_height="140dp"
 	    android:layout_x="844dp"
 	    android:layout_y="135dp"
-	    android:background="@drawable/sc_calender" />
+	    android:background="@drawable/sc_calender_t" />
+	<ImageView 
+	    android:id="@+id/calendarImg"
+	    android:layout_width="150dp"
+	    android:layout_height="140dp"
+	    android:layout_x="844dp"
+	    android:layout_y="135dp"
+	    android:background="@drawable/sc_calender2_t" />
 	
 	<Button
 	    android:id="@+id/board"

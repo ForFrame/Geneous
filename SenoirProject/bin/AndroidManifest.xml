@@ -53,6 +53,8 @@
         
         <activity android:name=".L1ScCount" 
             	  android:screenOrientation="landscape"/>
+        <activity android:name=".L1ScCountTutorial" 
+            	  android:screenOrientation="landscape"/>
         
         <activity android:name=".L1ScCalendar" 
             	  android:screenOrientation="landscape"/>
