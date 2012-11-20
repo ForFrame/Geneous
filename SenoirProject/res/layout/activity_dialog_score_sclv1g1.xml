@@ -6,7 +6,7 @@
     android:layout_gravity="center_vertical|center_horizontal|center"
     android:background="@drawable/score_bg"
     android:orientation="vertical"
-    android:padding="10dp" >
+     >
 
     <TextView
         android:id="@+id/textView1"

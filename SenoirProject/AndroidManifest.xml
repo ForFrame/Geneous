@@ -11,10 +11,12 @@
         
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" 
+       	android:theme="@style/AppTheme"
+        	
         
         android:screenOrientation="landscape" 
         android:configChanges="orientation|keyboardHidden">
+        
         <activity
             android:name=".Main"
             android:label="@string/app_name" 
@@ -57,6 +59,8 @@
             	  android:screenOrientation="landscape"/>
         
         <activity android:name=".L1ScCalendar" 
+            	  android:screenOrientation="landscape"/>
+        <activity android:name=".L1ScCalendarTutorial" 
             	  android:screenOrientation="landscape"/>
         
         <activity android:name=".SchoolLevel2" 

@@ -1,0 +1,85 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/AbsoluteLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/school_level1_g2_tu" >
+
+	<!--     Tuesday of week    -->
+
+	<ImageView
+        android:id="@+id/Sunday_thai"
+        android:layout_width="490dp"
+        android:layout_height="105dp"
+        android:layout_x="274dp"
+        android:layout_y="70dp"
+        android:background="@drawable/mon_thai"
+        android:visibility="visible" />
+    
+    <ImageView
+        android:id="@+id/Sunday_eng"
+        android:layout_width="259dp"
+        android:layout_height="69dp"
+        android:layout_x="258dp"
+        android:layout_y="176dp"
+        android:background="@drawable/mon_day_eng"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/Sunday_Ceng"
+        android:layout_width="202dp"
+        android:layout_height="69dp"
+        android:layout_x="578dp"
+        android:layout_y="178dp"
+        android:background="@drawable/mon_color_eng"
+        android:visibility="visible" />
+    
+    <ImageView
+        android:id="@+id/answer"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_x="155dp"
+        android:layout_y="333dp"
+        android:background="@drawable/mon2" 
+        android:visibility="visible"/>
+    
+     <ImageView
+        android:id="@+id/Sunday_ans1"
+        android:layout_width="149dp"
+        android:layout_height="wrap_content"
+        android:layout_x="189dp"
+        android:layout_y="354dp"
+        android:background="@drawable/banana"
+        android:visibility="visible" />
+     
+    <ImageView
+        android:id="@+id/Sunday_ans2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_x="415dp"
+        android:layout_y="333dp"
+        android:background="@drawable/tue2" 
+        android:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/Sunday_ans3"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_x="675dp"
+        android:layout_y="333dp"
+        android:background="@drawable/mon3" 
+        android:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/showcorrect"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_x="270dp"
+        android:layout_y="87dp"
+        android:background="@drawable/smile"
+        android:clickable="true"
+        android:visibility="invisible" />
+
+    
+
+</AbsoluteLayout>

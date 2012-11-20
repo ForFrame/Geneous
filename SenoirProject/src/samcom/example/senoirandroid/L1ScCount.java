@@ -65,11 +65,7 @@ public class L1ScCount extends Activity {
 		setContentView(R.layout.activity_l1_sc_count);
 		
 		final myDBClass myDb = new myDBClass(this);
-		myDb.getWritableDatabase();
 		
-		myDb.addGameNo("001", "Count tables", 1);
-		myDb.emptyNumberTable();
-		myDb.close();
 		myDb.getReadableDatabase();
 		username = myDb.SelectCurrentUser();
 		
@@ -85,15 +81,20 @@ public class L1ScCount extends Activity {
 		if(extras != null){
 			valueTutorial = extras.getInt("tutorial");
 			if(valueTutorial == 1){
+				
 				game001();
 			}
 			else if(valueTutorial == 2){
 				
 				//in.putExtra("numran", RandomNum);
 				//  in.putExtra("numitem", item);
+				
 				int rannum = extras.getInt("numran");
 				int thisitem = extras.getInt("numitem");
 				username = myDb.SelectCurrentUser();
+				
+				//Round = myDb.getNumRound("001", username);
+				Round--;
 				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 				if(!(username.equals("Guest"))){
 					TextView result = (TextView) findViewById(R.id.textUser);
@@ -121,8 +122,20 @@ public class L1ScCount extends Activity {
 			}
 		}
 		else{
-			Intent intent = new Intent(L1ScCount.this,L1ScCountTutorial.class);
-			startActivity(intent);
+			myDb.getWritableDatabase();
+			myDb.addGameNo("001", "Count tables", 1);
+			myDb.emptyNumberTable();
+			myDb.close();
+			
+			//Round = myDb.getNumRound("001", username);
+			
+			if(Round == 1){
+				Intent intent = new Intent(L1ScCount.this,L1ScCountTutorial.class);
+				startActivity(intent);
+			}
+			else{
+				game001();
+			}
 		}
 					
 	}	
@@ -589,6 +602,7 @@ public class L1ScCount extends Activity {
 		// custom dialog
 		final Dialog dialog = new Dialog(context);
 		dialog.setContentView(R.layout.activity_dialog_score_sclv1g1);
+		dialog.setCanceledOnTouchOutside(false);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();

@@ -26,14 +26,16 @@ public class L1ScCountTutorial extends Activity{
 	//AnimationDrawable animation;
 	final Context context = this;
 	int RandomNum = 0,item = 0,frombutton =0 ;
+	MediaPlayer soundCorrect;
+	MediaPlayer soundIns;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_l1_sc_count_tutorial);
 	    
-	    final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
-		final MediaPlayer soundIns = MediaPlayer.create(context, R.raw.ins_count_tuto);
+	    soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
+		soundIns = MediaPlayer.create(context, R.raw.ins_count_tuto);
 		final Animation myFadeOnceAnimation = AnimationUtils.loadAnimation(L1ScCountTutorial.this, R.anim.tween_once);
 		final ImageView helpNo = (ImageView)findViewById(R.id.helpNumber);
 		final ImageView correctFace = (ImageView)findViewById(R.id.showcorrectnumber);
@@ -95,8 +97,8 @@ public class L1ScCountTutorial extends Activity{
 	
 		
 	public boolean onTouchEvent (MotionEvent event) {
-		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
-		final MediaPlayer soundIns = MediaPlayer.create(context, R.raw.ins_count_tuto);
+		//final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
+		//final MediaPlayer soundIns = MediaPlayer.create(context, R.raw.ins_count_tuto);
 		soundCorrect.stop();
 		soundIns.stop();
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {

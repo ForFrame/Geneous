@@ -59,7 +59,65 @@ public class L1ScCalendar extends Activity {
 		//mediaPlayer.start();
 		Round = myDb.getNumRound("002", username);
 		
-		game002();
+		//game002();
+		
+		int valueCalenTutorial = 0;
+		Bundle extras = getIntent().getExtras();
+		if(extras != null){
+			valueCalenTutorial = extras.getInt("calen_tuto");
+			if(valueCalenTutorial == 1){
+				game002();
+			}
+			else if(valueCalenTutorial == 2){
+				
+				//in.putExtra("numran", RandomNum);
+				//  in.putExtra("numitem", item);
+				
+				Day = extras.getInt("today");
+				
+				username = myDb.SelectCurrentUser();
+				
+				//Round = myDb.getNumRound("002", username);
+				Round--;
+				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
+				if(!(username.equals("Guest"))){
+					TextView result = (TextView) findViewById(R.id.textUser);
+					result.setTypeface(type);
+					//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
+					result.setTextColor(Color.rgb(2, 101, 203));
+					result.setVisibility(TextView.VISIBLE);
+					result.setText(username);
+					Button LogoutBt = (Button) findViewById(R.id.logout);
+					LogoutBt.setVisibility(Button.VISIBLE);
+					Button LoginBt = (Button) findViewById(R.id.loginn);
+					LoginBt.setVisibility(Button.INVISIBLE);
+				}
+				
+				if((username.equals("Guest"))){
+					TextView result = (TextView) findViewById(R.id.textUser);
+					result.setVisibility(TextView.INVISIBLE);
+					Button LogoutBt = (Button) findViewById(R.id.logout);
+					LogoutBt.setVisibility(Button.INVISIBLE);
+					Button LoginBt = (Button) findViewById(R.id.loginn);
+					LoginBt.setVisibility(Button.VISIBLE);
+				}
+				startTime = (30)*1000;
+				checkAns();
+				
+			}
+		}
+		else{
+						
+			//Round = myDb.getNumRound("002", username);
+			
+			if(Round == 1){
+				Intent intent2 = new Intent(L1ScCalendar.this,L1ScCalendarTutorial.class);
+				startActivity(intent2);
+			}
+			else{
+				game002();
+			}
+		}
 	}
 
 	void game002(){
@@ -262,7 +320,9 @@ public class L1ScCalendar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				countdownTime.cancel();
-				Intent intent = new Intent(L1ScCalendar.this,SchoolLevel1.class);
+				Intent intent = new Intent(L1ScCalendar.this,L1ScCalendarTutorial.class);
+				intent.putExtra("frombutt", 1);
+				intent.putExtra("today", Day);
 				startActivity(intent);
 			}
 		});
@@ -363,6 +423,8 @@ public class L1ScCalendar extends Activity {
 		// custom dialog
 		final Dialog dialog = new Dialog(context);
 		dialog.setContentView(R.layout.activity_dialog_score_sclv1g1);
+		dialog.setCanceledOnTouchOutside(false);
+		
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
