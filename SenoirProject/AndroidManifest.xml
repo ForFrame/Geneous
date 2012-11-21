@@ -63,6 +63,11 @@
         <activity android:name=".L1ScCalendarTutorial" 
             	  android:screenOrientation="landscape"/>
         
+        <activity android:name=".L1ScLongShort" 
+            	  android:screenOrientation="landscape"/>
+        <activity android:name=".L1ScLongShortTutorial" 
+            	  android:screenOrientation="landscape"/>
+        
         <activity android:name=".SchoolLevel2" 
             	  android:screenOrientation="landscape"/>
                   

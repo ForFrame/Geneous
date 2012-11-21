@@ -126,7 +126,7 @@ public class SchoolLevel1 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(SchoolLevel1.this,L1ScBoard.class);
+				Intent intent = new Intent(SchoolLevel1.this,L1ScLongShort.class);
 				startActivity(intent);
 			}
 		});

@@ -661,7 +661,7 @@ public class L1ScCount extends Activity {
 		// custom dialog
 		final Dialog dialog = new Dialog(context);
 		dialog.setContentView(R.layout.activity_dialog_score_sclv1g1);
-	//	dialog.dispatchTouchEvent(ev)
+		dialog.setCanceledOnTouchOutside(false);
 
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
