@@ -63,10 +63,10 @@ public class L1ScLongShort extends Activity {
 		//mediaPlayer.start();
 		Round = myDb.getNumRound("003", username);
 		
-		/*int valueCalenTutorial = 0;
+		int valueCalenTutorial = 0;
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
-			valueCalenTutorial = extras.getInt("calen_tuto");
+			valueCalenTutorial = extras.getInt("longshort_tuto");
 			if(valueCalenTutorial == 1){
 				game003();
 			}
@@ -103,20 +103,20 @@ public class L1ScLongShort extends Activity {
 				
 			}
 		}
-		else{*/
+		else{
 			myDb.getWritableDatabase();
 			myDb.addGameNo("003", "Short or Long", 1);
 			myDb.emptyNumberTable();
 			myDb.close();
 			
-			//if(Round == 1){
-			//	Intent intent2 = new Intent(L1ScLongShort.this,L1ScLongShortTutorial.class);
-			//	startActivity(intent2);
-			//}
-			//else{
+			if(Round == 1){
+				Intent intent2 = new Intent(L1ScLongShort.this,L1ScLongShortTutorial.class);
+				startActivity(intent2);
+			}
+			else{
 				game003();
-			//}
-		//}
+			}
+		}
 	}
 
 	void game003(){
@@ -486,6 +486,7 @@ public class L1ScLongShort extends Activity {
 				dialog.dismiss();
 				//Intent intent = new Intent(L1ScLongShort.this,L1ScCount.class);
 				//startActivity(intent);
+				myDb.getWritableDatabase();
 				myDb.ChangeHome(0);
 				Intent intent = new Intent(L1ScLongShort.this,Main.class);
 				startActivity(intent);

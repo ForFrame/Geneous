@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsoluteLayout;
 import android.widget.ImageView;
 
 
@@ -20,18 +21,23 @@ public class L1ScLongShortTutorial extends Activity{
 	//AnimationDrawable animation;
 	final Context context = this;
 	int RandomNum = 0,item = 0,frombutton =0  ;
-	MediaPlayer soundCorrect;
-	MediaPlayer soundIns;
+	MediaPlayer soundCorrect1;
+	MediaPlayer soundCorrect2;
+	MediaPlayer soundShortIns;
+	MediaPlayer soundLongIns;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_l1_sc_longshort_tutorial);
 	    
-	    soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
-		soundIns = MediaPlayer.create(context, R.raw.calen_tuto_sound);
+	    soundCorrect1 = MediaPlayer.create(context, R.raw.crab_sound);
+	    soundCorrect2 = MediaPlayer.create(context, R.raw.crab_sound);
+		soundShortIns = MediaPlayer.create(context, R.raw.which_short);
+		soundLongIns = MediaPlayer.create(context, R.raw.which_long);
 		final Animation myFadeOnceAnimation = AnimationUtils.loadAnimation(L1ScLongShortTutorial.this, R.anim.tween_once);
-		final ImageView helpAns = (ImageView)findViewById(R.id.answer);
+		final ImageView shortAns = (ImageView)findViewById(R.id.shortcorrect);
+		final ImageView longAns = (ImageView)findViewById(R.id.longcorrect);
 		final ImageView correctFace = (ImageView)findViewById(R.id.showcorrect);
 		
 		
@@ -39,18 +45,18 @@ public class L1ScLongShortTutorial extends Activity{
 		//intent.putExtra("numitem", item);
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
-			frombutton = extras.getInt("putbutt");
+			frombutton = extras.getInt("frombutt");
 			RandomNum = extras.getInt("numran");
 			item = extras.getInt("numitem");
 			
 		}
 		
-		//soundWrong is instruction sound
-		soundIns.start();
+		//soundIns for short is instruction short sound
+		soundShortIns.start();
 		
-		soundIns.setOnCompletionListener(new OnCompletionListener() {
-            public void onCompletion(MediaPlayer soundIns) {
-            	helpAns.setAnimation(myFadeOnceAnimation);
+		soundShortIns.setOnCompletionListener(new OnCompletionListener() {
+            public void onCompletion(MediaPlayer soundShortIns) {
+            	shortAns.setAnimation(myFadeOnceAnimation);
             	myFadeOnceAnimation.setAnimationListener(new AnimationListener() {
                      public void onAnimationStart(Animation anim)
                      {
@@ -61,25 +67,58 @@ public class L1ScLongShortTutorial extends Activity{
                      public void onAnimationEnd(Animation anim)
                      {
                     	 correctFace.setVisibility(View.VISIBLE);
-                    	 soundCorrect.start();
+                    	 soundCorrect1.start();
                      };
                  });             
             	
-            	helpAns.startAnimation(myFadeOnceAnimation);
+            	shortAns.startAnimation(myFadeOnceAnimation);
             	
             }
         });
 		
-		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
+		soundCorrect1.setOnCompletionListener(new OnCompletionListener() {
+            public void onCompletion(MediaPlayer soundCorrect) {
+            	correctFace.setVisibility(View.INVISIBLE);
+            	AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.longshortLayoutTuto);
+            	Thislayout.setBackgroundResource(R.drawable.long_bg);
+            	soundLongIns.start();
+            }
+        });
+		
+		soundLongIns.setOnCompletionListener(new OnCompletionListener() {
+            public void onCompletion(MediaPlayer soundLongIns) {
+            	longAns.setAnimation(myFadeOnceAnimation);
+            	myFadeOnceAnimation.setAnimationListener(new AnimationListener() {
+                     public void onAnimationStart(Animation anim)
+                     {
+                     };
+                     public void onAnimationRepeat(Animation anim)
+                     {
+                     };
+                     public void onAnimationEnd(Animation anim)
+                     {
+                    	 correctFace.setVisibility(View.VISIBLE);
+                    	 soundCorrect2.start();
+                     };
+                 });             
+            	
+            	longAns.startAnimation(myFadeOnceAnimation);
+            	
+            }
+        });
+		
+		soundCorrect2.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	
-            	Intent in = new Intent(getApplicationContext(),L1ScCalendar.class);
+            	Intent in = new Intent(getApplicationContext(),L1ScLongShort.class);
             	if(frombutton == 1){
-  				  in.putExtra("calen_tuto", 2);
+            		in.putExtra("longshort_tuto", 2);
+            		in.putExtra("numran", RandomNum);
+            		in.putExtra("numitem", item);
   				 
   				}
   			  	else{
-  				  in.putExtra("calen_tuto", 1);
+  				  in.putExtra("longshort_tuto", 1);
   			  	}
   			  	startActivity(in);
             }
@@ -93,22 +132,23 @@ public class L1ScLongShortTutorial extends Activity{
 	public boolean onTouchEvent (MotionEvent event) {
 		//final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
 		//final MediaPlayer soundIns = MediaPlayer.create(context, R.raw.ins_count_tuto);
-		soundCorrect.stop();
-		soundIns.stop();
+		soundCorrect1.stop();
+		soundCorrect2.stop();
+		soundShortIns.stop();
+		soundLongIns.stop();
+		
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			  
-			soundCorrect.stop();
-			soundIns.stop();
 			  
-			  Intent in = new Intent(getApplicationContext(),L1ScCalendar.class);
-			  //in.putExtra("tutorial", 1);
+			  Intent in = new Intent(getApplicationContext(),L1ScLongShort.class);
+			 
 			  if(frombutton == 1){
-				  in.putExtra("calen_tuto", 2);
-				 
-				  //finish();
+				  	in.putExtra("longshort_tuto", 2);
+          			in.putExtra("numran", RandomNum);
+          			in.putExtra("numitem", item);
 			  }
 			  else{
-				  in.putExtra("calen_tuto", 1);
+				  in.putExtra("longshort_tuto", 1);
 			  }
 			  startActivity(in);
 			

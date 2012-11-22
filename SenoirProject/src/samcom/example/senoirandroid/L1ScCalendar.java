@@ -486,7 +486,7 @@ public class L1ScCalendar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(L1ScCalendar.this,SchoolLevel2.class);
+				Intent intent = new Intent(L1ScCalendar.this,L1ScLongShort.class);
 				startActivity(intent);
 				
 			}

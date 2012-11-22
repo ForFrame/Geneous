@@ -1,6 +1,6 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/AbsoluteLayout1"
+    android:id="@+id/longshortLayoutTuto"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/short_bg" >
@@ -22,7 +22,25 @@
         android:layout_y="463dp"
         android:background="@drawable/rubber_shot"
         android:visibility="visible" />
+	
+    <ImageView
+        android:id="@+id/longcorrect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="246dp"
+        android:layout_y="346dp"
+        android:background="@drawable/longshort_tuto"
+        android:visibility="invisible" />
 
+    <ImageView
+        android:id="@+id/shortcorrect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="252dp"
+        android:layout_y="469dp"
+        android:background="@drawable/longshort_tuto"
+        android:visibility="invisible" />
+    
     <ImageView
         android:id="@+id/showcorrect"
         android:layout_width="500dp"
@@ -30,8 +48,8 @@
         android:layout_x="270dp"
         android:layout_y="87dp"
         android:background="@drawable/smile"
-        android:clickable="true"
         android:visibility="invisible" />
 
+   
 
 </AbsoluteLayout>

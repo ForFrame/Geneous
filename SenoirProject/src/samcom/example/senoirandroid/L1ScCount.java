@@ -597,64 +597,7 @@ public class L1ScCount extends Activity {
 		});
 	
 	}
-	protected void showPopup1(float scores){
-		
-		// custom dialog
-		final Dialog dialog = new Dialog(context);
-		dialog.setContentView(R.layout.activity_dialog_score_sclv1g1);
-		dialog.setCanceledOnTouchOutside(false);
-		
-		final myDBClass myDb = new myDBClass(this);
-		myDb.getReadableDatabase();
-		
-		RatingBar rb = (RatingBar) findViewById(R.id.ratingBar1);
-		rb.setRating(3.5f);
-		//rb.setRating((float)scores);
-		
-		
-		// if button is clicked, close the custom dialog
-		
-		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
-		dialogHomeBt.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				dialog.dismiss();
-				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
-				startActivity(intent);
-				
-				//finish();
-				
-			}
-		});
-		
-		Button dialogReplyBt = (Button)dialog.findViewById(R.id.scoreback);
-		dialogReplyBt.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				dialog.dismiss();
-				//int random = myDb.getLastNum();
-				myDb.getWritableDatabase();
-				myDb.emptyNumberTable();
-				myDb.close();
-				myDb.getReadableDatabase();
-				//Round = myDb.getNumRound("001", username);
-				game001();
-			}
-		});
-		
-		Button dialogNextBt = (Button)dialog.findViewById(R.id.scorenext);
-		dialogNextBt.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				dialog.dismiss();
-				Intent intent = new Intent(L1ScCount.this,L1ScCalendar.class);
-				startActivity(intent);
-				
-			}
-		});
-		dialog.show();
-			
-	}		
+	
 	
 	protected void showPopup(int scores){
 
