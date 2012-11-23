@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -62,7 +64,10 @@ public class L1ScCount extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_l1_sc_count);
+		
 		
 		final myDBClass myDb = new myDBClass(this);
 		
@@ -591,7 +596,7 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				countdown.cancel();
-				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
+				Intent intent = new Intent(L1ScCount.this,SelectSchoolLevel.class);
 				startActivity(intent);
 			}
 		});
@@ -602,9 +607,10 @@ public class L1ScCount extends Activity {
 	protected void showPopup(int scores){
 
 		// custom dialog
-		final Dialog dialog = new Dialog(context);
+		final Dialog dialog = new Dialog(context, R.style.FullHeightDialog);
 		dialog.setContentView(R.layout.activity_dialog_score_sclv1g1);
 		dialog.setCanceledOnTouchOutside(false);
+		dialog.setCancelable(false); 
 
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();

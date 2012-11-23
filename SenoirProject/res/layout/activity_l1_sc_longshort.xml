@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/short_bg" >
+
     <TextView
         android:id="@+id/textTime"
         android:layout_width="wrap_content"
@@ -12,7 +13,7 @@
         android:layout_y="14dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
     <TextView
         android:id="@+id/textUser"
         android:layout_width="200dp"
@@ -41,13 +42,13 @@
         android:layout_x="872dp"
         android:layout_y="1dp"
         android:background="@drawable/logout_txt" />
-    
+
     <Button
         android:id="@+id/longpic"
         android:layout_width="350dp"
         android:layout_height="120dp"
-        android:layout_x="334dp"
-        android:layout_y="356dp"
+        android:layout_x="320dp"
+        android:layout_y="401dp"
         android:background="@drawable/pencil_long"
         android:visibility="visible" />
 
@@ -55,8 +56,8 @@
         android:id="@+id/shortpic"
         android:layout_width="250dp"
         android:layout_height="130dp"
-        android:layout_x="389dp"
-        android:layout_y="463dp"
+        android:layout_x="375dp"
+        android:layout_y="508dp"
         android:background="@drawable/pencil_shot"
         android:visibility="visible" />
 
@@ -64,17 +65,17 @@
         android:id="@+id/currentitem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="827dp"
-        android:layout_y="306dp"
+        android:layout_x="808dp"
+        android:layout_y="330dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
     <ImageView
         android:id="@+id/showwrong"
         android:layout_width="500dp"
         android:layout_height="500dp"
-        android:layout_x="270dp"
-        android:layout_y="87dp"
+        android:layout_x="255dp"
+        android:layout_y="94dp"
         android:background="@drawable/weak"
         android:clickable="true"
         android:visibility="invisible" />
@@ -83,28 +84,26 @@
         android:id="@+id/showcorrect"
         android:layout_width="500dp"
         android:layout_height="500dp"
-        android:layout_x="270dp"
-        android:layout_y="87dp"
+        android:layout_x="255dp"
+        android:layout_y="94dp"
         android:background="@drawable/smile"
         android:clickable="true"
         android:visibility="invisible" />
-        
+
     <Button
         android:id="@+id/longshortHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="824dp"
-        android:layout_y="600dp"
+        android:layout_x="835dp"
+        android:layout_y="651dp"
         android:background="@drawable/icon_help2" />
 
     <Button
         android:id="@+id/longshortbackHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="927dp"
-        android:layout_y="600dp"
+        android:layout_x="938dp"
+        android:layout_y="651dp"
         android:background="@drawable/icon_home1" />
-
-    
 
 </AbsoluteLayout>

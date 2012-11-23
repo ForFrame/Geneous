@@ -15,6 +15,8 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -55,7 +57,10 @@ public class L1ScLongShort extends Activity {
 @Override
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
+	requestWindowFeature(Window.FEATURE_NO_TITLE);
+	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	setContentView(R.layout.activity_l1_sc_longshort);
+	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		username = myDb.SelectCurrentUser();
@@ -231,7 +236,7 @@ public class L1ScLongShort extends Activity {
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		
 		TextView current = (TextView) findViewById(R.id.currentitem);
-		current.setText(item +"/ 10");
+		current.setText(item +"/ 10 :"+Round);
 		
 		countdownTime.start();
 		
@@ -322,7 +327,7 @@ public class L1ScLongShort extends Activity {
 				// TODO Auto-generated method stub
 				countdownTime.cancel();
 				Intent intent = new Intent(L1ScLongShort.this,L1ScLongShortTutorial.class);
-				intent.putExtra("frombutt", 1);
+				intent.putExtra("putbutt", 1);
 				intent.putExtra("numran", RandomNum);
 				intent.putExtra("numitem", item);
 				startActivity(intent);
@@ -336,7 +341,7 @@ public class L1ScLongShort extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
-			Intent intent = new Intent(L1ScLongShort.this,SchoolLevel1.class);
+			Intent intent = new Intent(L1ScLongShort.this,SelectSchoolLevel.class);
 			startActivity(intent);
 		}
 		});
@@ -410,9 +415,10 @@ public class L1ScLongShort extends Activity {
 	protected void showPopup(int scores){
 
 		// custom dialog
-		final Dialog dialog = new Dialog(context);
+		final Dialog dialog = new Dialog(context, R.style.FullHeightDialog);
 		dialog.setContentView(R.layout.activity_dialog_score_sclv1g1);
 		dialog.setCanceledOnTouchOutside(false);
+		dialog.setCancelable(false); 
 		
 	
 		final myDBClass myDb = new myDBClass(this);
@@ -448,7 +454,7 @@ public class L1ScLongShort extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(L1ScLongShort.this,SchoolLevel1.class);
+				Intent intent = new Intent(L1ScLongShort.this,SchoolLevel3.class);
 				startActivity(intent);
 				
 				//finish();
@@ -486,8 +492,7 @@ public class L1ScLongShort extends Activity {
 				dialog.dismiss();
 				//Intent intent = new Intent(L1ScLongShort.this,L1ScCount.class);
 				//startActivity(intent);
-				myDb.getWritableDatabase();
-				myDb.ChangeHome(0);
+				
 				Intent intent = new Intent(L1ScLongShort.this,Main.class);
 				startActivity(intent);
 				
@@ -524,21 +529,12 @@ public class L1ScLongShort extends Activity {
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		//myDb.getReadableDatabase();
 		
-		//this comment for เธ•เธดเน�เธ� เน�เน�เน�เน�  continue (1,1) state
-		//Boolean isThisContinue;
-		//isThisContinue = myDb.isCurrentContinue();
-		//myDb.close();
-		//if(isThisContinue == true){
-		//	game002();
-		//}
-		//else{
-			myDb.getWritableDatabase();
-			myDb.ChangeHome(0);
-			Intent intent = new Intent(L1ScLongShort.this,Main.class);
-			startActivity(intent);
-		//}
+		myDb.getWritableDatabase();
+		myDb.ChangeHome(0);
+		Intent intent = new Intent(L1ScLongShort.this,Main.class);
+		startActivity(intent);
+		
 		
 		super.onRestart();
 	}

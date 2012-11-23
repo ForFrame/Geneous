@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -22,8 +24,10 @@ public class SchoolLevel1 extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_school_level1);
-	
+		
 		
 		schoolLevel1();
 		
@@ -102,7 +106,7 @@ public class SchoolLevel1 extends Activity {
 				startActivity(intent);
 			}
 		});
-		Button GameCalendar = (Button)findViewById(R.id.calendar);
+		/*Button GameCalendar = (Button)findViewById(R.id.calendar);
 		
 		//aniMate();
 		 
@@ -129,14 +133,15 @@ public class SchoolLevel1 extends Activity {
 				Intent intent = new Intent(SchoolLevel1.this,L1ScLongShort.class);
 				startActivity(intent);
 			}
-		});
+		});*/
 		
 		Button backButton = (Button)findViewById(R.id.backToselectSchool);
 		backButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(SchoolLevel1.this,Main.class);
+				//Intent intent = new Intent(SchoolLevel1.this,Main.class);
+				Intent intent = new Intent(SchoolLevel1.this,SelectSchoolLevel.class);
 				startActivity(intent);
 				//finish();
 			}

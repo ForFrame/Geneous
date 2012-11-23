@@ -3,14 +3,14 @@
     android:id="@+id/longshortLayoutTuto"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/short_bg" >
-    
+    android:background="@drawable/short_bg_help" >
+
     <Button
         android:id="@+id/longpic"
         android:layout_width="350dp"
         android:layout_height="120dp"
-        android:layout_x="334dp"
-        android:layout_y="356dp"
+        android:layout_x="326dp"
+        android:layout_y="401dp"
         android:background="@drawable/rubber_long"
         android:visibility="visible" />
 
@@ -18,17 +18,17 @@
         android:id="@+id/shortpic"
         android:layout_width="250dp"
         android:layout_height="130dp"
-        android:layout_x="389dp"
-        android:layout_y="463dp"
+        android:layout_x="381dp"
+        android:layout_y="508dp"
         android:background="@drawable/rubber_shot"
         android:visibility="visible" />
-	
+
     <ImageView
         android:id="@+id/longcorrect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="246dp"
-        android:layout_y="346dp"
+        android:layout_x="238dp"
+        android:layout_y="391dp"
         android:background="@drawable/longshort_tuto"
         android:visibility="invisible" />
 
@@ -36,20 +36,18 @@
         android:id="@+id/shortcorrect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="252dp"
-        android:layout_y="469dp"
+        android:layout_x="244dp"
+        android:layout_y="514dp"
         android:background="@drawable/longshort_tuto"
         android:visibility="invisible" />
-    
+
     <ImageView
         android:id="@+id/showcorrect"
         android:layout_width="500dp"
         android:layout_height="500dp"
-        android:layout_x="270dp"
-        android:layout_y="87dp"
+        android:layout_x="256dp"
+        android:layout_y="96dp"
         android:background="@drawable/smile"
         android:visibility="invisible" />
-
-   
 
 </AbsoluteLayout>

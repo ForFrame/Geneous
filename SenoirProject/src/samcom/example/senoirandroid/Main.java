@@ -33,6 +33,7 @@ final Context context2 = this;
 
 
 
+
 SQLiteDatabase db;
 
 /** Called when the activity is first created. */
@@ -213,9 +214,15 @@ SQLiteDatabase db;
 
 	void showLoginPopup(){
 	
-		final Dialog LoginPop = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
-				
+		//final Dialog LoginPop = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		
+		final Dialog LoginPop = new Dialog(context2, R.style.FullHeightDialog);
+		//LoginPop.setContentView(R.layout.activity_dialog_score_sclv1g1);
 		LoginPop.setContentView(R.layout.activity_popup_login);
+		LoginPop.setCanceledOnTouchOutside(false);
+		LoginPop.setCancelable(false); 
+				
+		
 		
 		
 		
@@ -299,15 +306,25 @@ SQLiteDatabase db;
 				// TODO Auto-generated method stub
 				LoginPop.dismiss();
 				popUpLogIn();
+				//notFromHomee = false;
+				//mainPage(0);
 			}
 		});
 			
 		LoginPop.show();
 	}
 	void showRegisPopup(String inputname){
+				
+		//final Dialog RegisPop = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		final Dialog RegisPop = new Dialog(context2, R.style.FullHeightDialog);
 		
-		final Dialog RegisPop = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		//dialog.setContentView(R.layout.activity_dialog_score_sclv1g1);
 		RegisPop.setContentView(R.layout.activity_popup_regis);
+		RegisPop.setCanceledOnTouchOutside(false);
+		RegisPop.setCancelable(false); 
+		
+		
+		
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/touchy_boy.ttf"); 
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
@@ -419,8 +436,13 @@ SQLiteDatabase db;
 	}
 	//Play popup
 	void popUpLogIn(){
-		final Dialog popLog =  new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		//final Dialog popLog =  new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		final Dialog popLog = new Dialog(context2, R.style.FullHeightDialog);
+		//popLog.setContentView(R.layout.activity_dialog_score_sclv1g1);
 		popLog.setContentView(R.layout.activity_popup_play);
+		popLog.setCanceledOnTouchOutside(false);
+		popLog.setCancelable(false); 
+		
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();

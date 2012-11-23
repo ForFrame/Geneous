@@ -12,6 +12,8 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,6 +53,9 @@ public class L1ScCalendar extends Activity {
 @Override
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
+	requestWindowFeature(Window.FEATURE_NO_TITLE);
+	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+	
 	setContentView(R.layout.activity_l1_sc_calendar);
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -177,7 +182,7 @@ public class L1ScCalendar extends Activity {
 			}
 			
 		});
-		if(Day < 8){
+		if(Day < 8){ //8
 			startTime = (30)*1000;
 			checkAns();
 		}
@@ -334,7 +339,7 @@ public class L1ScCalendar extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
-			Intent intent = new Intent(L1ScCalendar.this,SchoolLevel1.class);
+			Intent intent = new Intent(L1ScCalendar.this,SelectSchoolLevel.class);
 			startActivity(intent);
 		}
 		});
@@ -421,9 +426,11 @@ public class L1ScCalendar extends Activity {
 	protected void showPopup(int scores){
 
 		// custom dialog
-		final Dialog dialog = new Dialog(context);
+		
+		final Dialog dialog = new Dialog(context, R.style.FullHeightDialog);
 		dialog.setContentView(R.layout.activity_dialog_score_sclv1g1);
 		dialog.setCanceledOnTouchOutside(false);
+		dialog.setCancelable(false); 
 		
 	
 		final myDBClass myDb = new myDBClass(this);
@@ -454,7 +461,7 @@ public class L1ScCalendar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(L1ScCalendar.this,SchoolLevel1.class);
+				Intent intent = new Intent(L1ScCalendar.this,SchoolLevel2.class);
 				startActivity(intent);
 				
 				//finish();
