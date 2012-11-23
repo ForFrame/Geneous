@@ -81,9 +81,10 @@ public class L1ScLongShort extends Activity {
 				int thisitem = extras.getInt("numitem");
 				username = myDb.SelectCurrentUser();
 				
-				Round--;
+				//Round--;
 				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 				if(!(username.equals("Guest"))){
+					Round--;
 					TextView result = (TextView) findViewById(R.id.textUser);
 					result.setTypeface(type);
 					//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
@@ -104,7 +105,7 @@ public class L1ScLongShort extends Activity {
 					Button LoginBt = (Button) findViewById(R.id.loginn);
 					LoginBt.setVisibility(Button.VISIBLE);
 				}
-				checkAns(rannum,thisitem);
+				checkAnswer(rannum,thisitem);
 				
 			}
 		}
@@ -185,7 +186,7 @@ public class L1ScLongShort extends Activity {
 		});
 		if(count < 10){
 			Random = RanNum();
-			checkAns(Random,count+1);
+			checkAnswer(Random,count+1);
 		}
 		else{
 			scores = myDb.countScore("003", username, Round);
@@ -217,7 +218,7 @@ public class L1ScLongShort extends Activity {
 		return randomInt;
 	}
 	
-	void checkAns(final int RandomNum,final int item){
+	void checkAnswer(final int RandomNum,final int item){
 		
 		Button longAns = (Button)findViewById(R.id.longpic);
 		Button shortAns = (Button)findViewById(R.id.shortpic);
@@ -236,7 +237,7 @@ public class L1ScLongShort extends Activity {
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		
 		TextView current = (TextView) findViewById(R.id.currentitem);
-		current.setText(item +"/ 10 :"+Round);
+		current.setText(item +"/ 10");
 		
 		countdownTime.start();
 		

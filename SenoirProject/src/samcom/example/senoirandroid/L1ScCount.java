@@ -99,9 +99,11 @@ public class L1ScCount extends Activity {
 				username = myDb.SelectCurrentUser();
 				
 				//Round = myDb.getNumRound("001", username);
-				Round--;
+				
+				
 				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 				if(!(username.equals("Guest"))){
+					Round--;
 					TextView result = (TextView) findViewById(R.id.textUser);
 					result.setTypeface(type);
 					//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);

@@ -97,6 +97,16 @@
         android:layout_y="397dp"
         android:background="@drawable/sun3"
         android:visibility="visible" />
+    
+    <TextView
+        android:id="@+id/currentitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="808dp"
+        android:layout_y="330dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
     <ImageView
         android:id="@+id/showwrong"
         android:layout_width="500dp"

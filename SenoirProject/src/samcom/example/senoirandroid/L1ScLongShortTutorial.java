@@ -49,7 +49,7 @@ public class L1ScLongShortTutorial extends Activity{
 		//intent.putExtra("numitem", item);
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
-			frombutton = extras.getInt("frombutt");
+			frombutton = extras.getInt("putbutt");
 			RandomNum = extras.getInt("numran");
 			item = extras.getInt("numitem");
 			

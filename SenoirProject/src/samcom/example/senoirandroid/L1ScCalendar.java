@@ -83,9 +83,10 @@ public class L1ScCalendar extends Activity {
 				username = myDb.SelectCurrentUser();
 				
 				//Round = myDb.getNumRound("002", username);
-				Round--;
+				//Round--;
 				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 				if(!(username.equals("Guest"))){
+					Round--;
 					TextView result = (TextView) findViewById(R.id.textUser);
 					result.setTypeface(type);
 					//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
@@ -218,6 +219,10 @@ public class L1ScCalendar extends Activity {
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
+		
+		TextView current = (TextView) findViewById(R.id.currentitem);
+		current.setText(Day +"/ 7");
+		
 		countdownTime.start();
 		
 			answer = choice(Day);
@@ -327,6 +332,7 @@ public class L1ScCalendar extends Activity {
 				countdownTime.cancel();
 				Intent intent = new Intent(L1ScCalendar.this,L1ScCalendarTutorial.class);
 				intent.putExtra("frombutt", 1);
+				
 				intent.putExtra("today", Day);
 				startActivity(intent);
 			}
