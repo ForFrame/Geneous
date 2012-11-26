@@ -129,5 +129,14 @@ public class L1ScCountTutorial extends Activity{
 		return super.onTouchEvent(event);
 	}
 
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
+		myDb.ChangeHome(1);
+		
+		super.onDestroy();
+	}
 }
 

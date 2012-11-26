@@ -539,4 +539,14 @@ public class L1ScLongShort extends Activity {
 		
 		super.onRestart();
 	}
+	
+	/*@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
+		myDb.ChangeHome(0);
+		
+		super.onDestroy();
+	}*/
 }

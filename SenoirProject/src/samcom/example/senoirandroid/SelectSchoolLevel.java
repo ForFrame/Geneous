@@ -20,7 +20,7 @@ public class SelectSchoolLevel extends Activity {
 	super.onCreate(savedInstanceState);
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	setContentView(R.layout.activity_select_school_level);
+	setContentView(R.layout.activity_select_level);
 	
 		
 		selectLevel();
@@ -84,7 +84,7 @@ public class SelectSchoolLevel extends Activity {
 			
 		});
 
-		Button ScLv1 = (Button)findViewById(R.id.schoollevel1);
+		Button ScLv1 = (Button)findViewById(R.id.level1);
 		ScLv1.setOnClickListener(new View.OnClickListener() {
 			 
 
@@ -96,7 +96,7 @@ public class SelectSchoolLevel extends Activity {
 		});
 		
 		
-		Button ScLv2 = (Button)findViewById(R.id.schoollevel2);
+		Button ScLv2 = (Button)findViewById(R.id.level2);
 		ScLv2.setOnClickListener(new View.OnClickListener() {
 			 
 
@@ -107,7 +107,7 @@ public class SelectSchoolLevel extends Activity {
 			}
 		});
 		
-		Button ScLv3 = (Button)findViewById(R.id.schoollevel3);
+		Button ScLv3 = (Button)findViewById(R.id.level3);
 		ScLv3.setOnClickListener(new View.OnClickListener() {
 			 
 
@@ -153,6 +153,27 @@ public class SelectSchoolLevel extends Activity {
 		
 		super.onRestart();
 	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
+		myDb.ChangeHome(1);
+		
+		super.onDestroy();
+	}
+
+	/*@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
+		myDb.ChangeHome(1);
+		
+		super.onStop();
+	}*/
+	
 	
 	
 }

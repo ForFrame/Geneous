@@ -42,7 +42,16 @@
         android:layout_x="872dp"
         android:layout_y="1dp"
         android:background="@drawable/logout_txt" />
-
+    
+    <Button
+        android:id="@+id/charlen_int"
+        android:layout_width="490dp"
+        android:layout_height="120dp"
+        android:layout_x="274dp"
+        android:layout_y="109dp"
+        android:background="@drawable/saturday_add"
+        android:visibility="invisible" />
+    
     <Button
         android:id="@+id/Sunday_thai"
         android:layout_width="490dp"
@@ -143,6 +152,6 @@
         android:layout_y="654dp"
         android:background="@drawable/icon_home1" />
 
-   
+    
 
 </AbsoluteLayout>

@@ -21,7 +21,7 @@ public class L1ScCalendarTutorial extends Activity{
 	//MediaPlayer mp;
 	//AnimationDrawable animation;
 	final Context context = this;
-	int day = 0,frombutton =0 ;
+	int day = 0,frombutton =0, rannum = 0;
 	MediaPlayer soundCorrect;
 	MediaPlayer soundIns;
 	
@@ -44,6 +44,7 @@ public class L1ScCalendarTutorial extends Activity{
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
 			day = extras.getInt("today");
+			rannum = extras.getInt("numran");
 			frombutton = extras.getInt("frombutt");
 			
 		}
@@ -80,6 +81,8 @@ public class L1ScCalendarTutorial extends Activity{
             	if(frombutton == 1){
   				  in.putExtra("calen_tuto", 2);
   				  in.putExtra("today", day);
+  				  if(day>7)
+  					  in.putExtra("numran", rannum);
   				}
   			  	else{
   				  in.putExtra("calen_tuto", 1);
@@ -108,6 +111,8 @@ public class L1ScCalendarTutorial extends Activity{
 			  if(frombutton == 1){
 				  in.putExtra("calen_tuto", 2);
 				  in.putExtra("today", day);
+				  if(day>7)
+  					  in.putExtra("numran", rannum);
 				  //finish();
 			  }
 			  else{
@@ -120,6 +125,16 @@ public class L1ScCalendarTutorial extends Activity{
 		}
 		return super.onTouchEvent(event);
 	}
+	
+	/*@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
+		myDb.ChangeHome(0);
+		
+		super.onDestroy();
+	}*/
 
 }
 

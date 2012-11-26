@@ -1,6 +1,8 @@
 package samcom.example.senoirandroid;
 
 
+import java.util.Random;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -27,6 +29,7 @@ public class L1ScCalendar extends Activity {
 	float timeRemain;
 	int Round;
 	int Day = 1;
+	int ranDay=0;
 	
 	public class MyCountDown extends CountDownTimer {
 		public MyCountDown(long millisInFuture, long countDownInterval) {
@@ -60,11 +63,9 @@ public class L1ScCalendar extends Activity {
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		username = myDb.SelectCurrentUser();
-	
+		
 		//mediaPlayer.start();
 		Round = myDb.getNumRound("002", username);
-		
-		//game002();
 		
 		int valueCalenTutorial = 0;
 		Bundle extras = getIntent().getExtras();
@@ -75,21 +76,16 @@ public class L1ScCalendar extends Activity {
 			}
 			else if(valueCalenTutorial == 2){
 				
-				//in.putExtra("numran", RandomNum);
-				//  in.putExtra("numitem", item);
-				
 				Day = extras.getInt("today");
+				ranDay = extras.getInt("numran");
 				
 				username = myDb.SelectCurrentUser();
 				
-				//Round = myDb.getNumRound("002", username);
-				//Round--;
 				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 				if(!(username.equals("Guest"))){
 					Round--;
 					TextView result = (TextView) findViewById(R.id.textUser);
 					result.setTypeface(type);
-					//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
 					result.setTextColor(Color.rgb(2, 101, 203));
 					result.setVisibility(TextView.VISIBLE);
 					result.setText(username);
@@ -108,15 +104,15 @@ public class L1ScCalendar extends Activity {
 					LoginBt.setVisibility(Button.VISIBLE);
 				}
 				startTime = (30)*1000;
-				checkAns();
+				checkAns(true);
 				
 			}
 		}
 		else{
 						
-			//Round = myDb.getNumRound("002", username);
-			
 			if(Round == 1){
+				myDb.getWritableDatabase();
+				myDb.emptyNumberTable();
 				Intent intent2 = new Intent(L1ScCalendar.this,L1ScCalendarTutorial.class);
 				startActivity(intent2);
 			}
@@ -137,7 +133,6 @@ public class L1ScCalendar extends Activity {
 		if(!(username.equals("Guest"))){
 			TextView result = (TextView) findViewById(R.id.textUser);
 			result.setTypeface(type);
-			//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
 			result.setTextColor(Color.rgb(2, 101, 203));
 			result.setVisibility(TextView.VISIBLE);
 			result.setText(username);
@@ -163,8 +158,6 @@ public class L1ScCalendar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
-				//Intent intent = new Intent(L1ScCount.this,Main.class);
-				//startActivity(intent);
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -183,23 +176,26 @@ public class L1ScCalendar extends Activity {
 			}
 			
 		});
-		if(Day < 8){ //8
+		if(Day < 11){
 			startTime = (30)*1000;
-			checkAns();
+			checkAns(false);
 		}
 		else{
 			scores = myDb.countScore("002", username, Round);
-						
+			myDb.getWritableDatabase();
+			myDb.emptyNumberTable();
+					
 			if(username.equals("Guest")){
-				myDb.close();
-				myDb.getWritableDatabase();
 				myDb.deleteGuest();
 			}
 			
 			showPopup(scores);
 		}
 	}
-	void checkAns(){
+	
+	
+void checkAns(Boolean isInterupt){
+		
 		Button thai = (Button)findViewById(R.id.Sunday_thai);
 		Button eng = (Button)findViewById(R.id.Sunday_eng);
 		Button Ceng = (Button)findViewById(R.id.Sunday_Ceng);
@@ -213,7 +209,16 @@ public class L1ScCalendar extends Activity {
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
 		
-		startTime = (30)*1000;
+		if(Day<8){	
+			answer = choice(Day);
+			startTime = (20)*1000;
+		}
+		else{
+			answer = choiceExtra(isInterupt);
+			startTime = (30)*1000;
+		}
+		
+		
 		final MyCountDown countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
@@ -221,11 +226,12 @@ public class L1ScCalendar extends Activity {
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		
 		TextView current = (TextView) findViewById(R.id.currentitem);
-		current.setText(Day +"/ 7");
+		current.setText(Day +"/ 10");
+		
+		
 		
 		countdownTime.start();
 		
-			answer = choice(Day);
 				ans1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
@@ -334,6 +340,8 @@ public class L1ScCalendar extends Activity {
 				intent.putExtra("frombutt", 1);
 				
 				intent.putExtra("today", Day);
+				if(Day>7)
+					  intent.putExtra("numran", ranDay);
 				startActivity(intent);
 			}
 		});
@@ -352,7 +360,103 @@ public class L1ScCalendar extends Activity {
 	}
 	
 	
+	int choiceExtra(Boolean interupt){
+		int answerExtra,ExtraDay;
+		
+		Button ExtraInstruct = (Button)findViewById(R.id.charlen_int);
+		Button thaiExtra = (Button)findViewById(R.id.Sunday_thai);
+		Button engExtra = (Button)findViewById(R.id.Sunday_eng);
+		Button CengExtra = (Button)findViewById(R.id.Sunday_Ceng);
+		Button ans1 = (Button)findViewById(R.id.Sunday_ans1);
+		Button ans2 = (Button)findViewById(R.id.Sunday_ans2);
+		Button ans3 = (Button)findViewById(R.id.Sunday_ans3);
+		
+		thaiExtra.setVisibility(View.INVISIBLE);
+		engExtra.setVisibility(View.INVISIBLE);
+		CengExtra.setVisibility(View.INVISIBLE);
+		ExtraInstruct.setVisibility(View.VISIBLE);
+		
+		if(interupt==false){
+			ExtraDay = RanNum();
+			ranDay = ExtraDay;
+		}
+		else{
+			ExtraDay = ranDay;
+		}
+		
+		if(ExtraDay == 1){
+			answerExtra = 2;
+			ExtraInstruct.setBackgroundResource(R.drawable.sunday_add);
+			ans1.setBackgroundResource(R.drawable.sun1);
+			ans2.setBackgroundResource(R.drawable.sun2);
+			ans3.setBackgroundResource(R.drawable.sun3);
+		}
+		else if(ExtraDay == 2){
+			answerExtra = 2;
+			ExtraInstruct.setBackgroundResource(R.drawable.monday_add);
+			ans1.setBackgroundResource(R.drawable.mon1);
+			ans2.setBackgroundResource(R.drawable.mon2);
+			ans3.setBackgroundResource(R.drawable.mon3);
+		} 
+		else if(ExtraDay == 3){
+			answerExtra = 1;
+			ExtraInstruct.setBackgroundResource(R.drawable.tuesday_add);
+			ans1.setBackgroundResource(R.drawable.tue1);
+			ans2.setBackgroundResource(R.drawable.tue2);
+			ans3.setBackgroundResource(R.drawable.tue3);
+		}
+		else if(ExtraDay == 4){
+			answerExtra = 2;
+			ExtraInstruct.setBackgroundResource(R.drawable.wednesday_add);
+			ans1.setBackgroundResource(R.drawable.wed1);
+			ans2.setBackgroundResource(R.drawable.wed2);
+			ans3.setBackgroundResource(R.drawable.wed3);
+		}
+		else if(ExtraDay == 5){
+			answerExtra = 3;
+			ExtraInstruct.setBackgroundResource(R.drawable.thursday_add);
+			ans1.setBackgroundResource(R.drawable.thu1);
+			ans2.setBackgroundResource(R.drawable.thu2);
+			ans3.setBackgroundResource(R.drawable.thu3);
+		}
+		else if(ExtraDay == 6){
+			answerExtra = 1;
+			ExtraInstruct.setBackgroundResource(R.drawable.friday_add);
+			ans1.setBackgroundResource(R.drawable.fri1);
+			ans2.setBackgroundResource(R.drawable.fri2);
+			ans3.setBackgroundResource(R.drawable.fri3);
+		}
+		else{
+			answerExtra = 2;
+			ExtraInstruct.setBackgroundResource(R.drawable.saturday_add);
+			ans1.setBackgroundResource(R.drawable.sat1);
+			ans2.setBackgroundResource(R.drawable.sat2);
+			ans3.setBackgroundResource(R.drawable.sat3);
+		}
+		
+		return answerExtra;
+		
+	}
+	
+	int RanNum(){
+		int randomInt;
+		Boolean isExited;
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getReadableDatabase();
+		
+		do{
+			Random randomGenerator = new Random();
+			randomInt = randomGenerator.nextInt(7)+1;
+			isExited = myDb.checkNumber(randomInt);
+		}while(isExited);
+		myDb.close();
+		myDb.getWritableDatabase();
+		myDb.insertRanNumber(randomInt);
+		return randomInt;
+	}
+	
 	int choice(int days){
+		Button ExtraNo = (Button)findViewById(R.id.charlen_int);
 		Button thai = (Button)findViewById(R.id.Sunday_thai);
 		Button eng = (Button)findViewById(R.id.Sunday_eng);
 		Button Ceng = (Button)findViewById(R.id.Sunday_Ceng);
@@ -360,6 +464,11 @@ public class L1ScCalendar extends Activity {
 		Button ans2 = (Button)findViewById(R.id.Sunday_ans2);
 		Button ans3 = (Button)findViewById(R.id.Sunday_ans3);
 		int answer = 0;
+		
+		thai.setVisibility(View.VISIBLE);
+		eng.setVisibility(View.VISIBLE);
+		Ceng.setVisibility(View.VISIBLE);
+		ExtraNo.setVisibility(View.INVISIBLE);
 		
 		if(days == 1){
 			answer = 2;
@@ -443,23 +552,28 @@ public class L1ScCalendar extends Activity {
 		myDb.getReadableDatabase();
 		 
 		switch(scores){
-			case 0: ImageView score0 = (ImageView)dialog.findViewById(R.id.star0); 
-					score0.setVisibility(ImageView.VISIBLE);	break;
-				
-			case 4: ImageView score4 = (ImageView)dialog.findViewById(R.id.star4); 
-					score4.setVisibility(ImageView.VISIBLE);	break;			
-			
-			case 3: ImageView score3 = (ImageView)dialog.findViewById(R.id.star3); 
-					score3.setVisibility(ImageView.VISIBLE);	break;
-			
-			case 2: ImageView score2 = (ImageView)dialog.findViewById(R.id.star2); 
-					score2.setVisibility(ImageView.VISIBLE);	break;	
-			
-			case 1: ImageView score1 = (ImageView)dialog.findViewById(R.id.star1); 
-					score1.setVisibility(ImageView.VISIBLE);	break;
-			
-			default: ImageView score5 = (ImageView)dialog.findViewById(R.id.star5); 
-					score5.setVisibility(ImageView.VISIBLE);	break;		
+				case 10: ImageView score5 = (ImageView)dialog.findViewById(R.id.star5); 
+						score5.setVisibility(ImageView.VISIBLE);	break;
+				case 9: ImageView score4_5 = (ImageView)dialog.findViewById(R.id.star4_5); 
+						score4_5.setVisibility(ImageView.VISIBLE);	break;	
+				case 8: ImageView score4 = (ImageView)dialog.findViewById(R.id.star4); 
+						score4.setVisibility(ImageView.VISIBLE);	break;			
+				case 7: ImageView score3_5 = (ImageView)dialog.findViewById(R.id.star3_5); 
+						score3_5.setVisibility(ImageView.VISIBLE);	break;
+				case 6: ImageView score3 = (ImageView)dialog.findViewById(R.id.star3); 
+						score3.setVisibility(ImageView.VISIBLE);	break;
+				case 5: ImageView score2_5 = (ImageView)dialog.findViewById(R.id.star2_5); 
+						score2_5.setVisibility(ImageView.VISIBLE);	break;	
+				case 4: ImageView score2 = (ImageView)dialog.findViewById(R.id.star2); 
+						score2.setVisibility(ImageView.VISIBLE);	break;	
+				case 3: ImageView score1_5 = (ImageView)dialog.findViewById(R.id.star1_5); 
+						score1_5.setVisibility(ImageView.VISIBLE);	break;
+				case 2: ImageView score1 = (ImageView)dialog.findViewById(R.id.star1); 
+						score1.setVisibility(ImageView.VISIBLE);	break;
+				case 1: ImageView score0_5 = (ImageView)dialog.findViewById(R.id.star0_5); 
+						score0_5.setVisibility(ImageView.VISIBLE);	break;		
+				default: ImageView score0 = (ImageView)dialog.findViewById(R.id.star0); 
+						score0.setVisibility(ImageView.VISIBLE);	break;		
 		}
 		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
@@ -550,4 +664,16 @@ public class L1ScCalendar extends Activity {
 		
 		super.onRestart();
 	}
+	
+/*	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
+		myDb.ChangeHome(0);
+		
+		super.onDestroy();
+	}*/
+	
+	
 }

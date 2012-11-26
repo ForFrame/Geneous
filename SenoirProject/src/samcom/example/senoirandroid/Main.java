@@ -128,7 +128,7 @@ SQLiteDatabase db;
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(1);
-				Intent intent = new Intent(Main.this,PoliceLevel1.class);
+				Intent intent = new Intent(Main.this,SelectPoliceLevel.class);
 				startActivity(intent);
 			}
 		});
@@ -503,6 +503,17 @@ SQLiteDatabase db;
 		
 		super.onRestart();
 	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
+		myDb.ChangeHome(1);
+		
+		super.onDestroy();
+	}
+	
 	
 }
 
