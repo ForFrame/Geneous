@@ -1,143 +1,152 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_dialog"
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="874dp"
+    android:layout_height="618dp"
+    android:layout_gravity="center"
     android:background="@drawable/score_bg"
-    android:orientation="vertical"
-    android:padding="10dp" >
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        />
-    
-     <RatingBar
+        android:layout_height="wrap_content" />
+
+    <RatingBar
         android:id="@+id/ratingBar1"
         style="@style/starRatingBar"
         android:layout_width="575dp"
         android:layout_height="135dp"
-        android:layout_x="209dp"
-        android:layout_y="129dp"
+        android:layout_x="90dp"
+        android:layout_y="132dp"
         android:clickable="false"
         android:longClickable="false"
         android:numStars="5"
         android:visibility="invisible" />
-     
-     <ImageView
+
+    <ImageView
         android:id="@+id/star0"
-        android:layout_width="840dp"
-        android:layout_height="170dp"
-        android:layout_x="65dp"
-        android:layout_y="70dp"
+        android:layout_width="710dp"
+        android:layout_height="150dp"
+        android:layout_x="88dp"
+        android:layout_y="119dp"
         android:background="@drawable/star_collor_0"
         android:visibility="invisible" />
-      <ImageView
+
+    <ImageView
         android:id="@+id/star0_5"
-        android:layout_width="840dp"
-        android:layout_height="170dp"
-        android:layout_x="65dp"
-        android:layout_y="70dp"
+        android:layout_width="710dp"
+        android:layout_height="150dp"
+        android:layout_x="88dp"
+        android:layout_y="119dp"
         android:background="@drawable/star_collor_0_5"
         android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/star1"
-        android:layout_width="840dp"
-        android:layout_height="170dp"
-        android:layout_x="65dp"
-        android:layout_y="70dp"
-        android:background="@drawable/star_collor_1" 
-        android:visibility="invisible"/>
+        android:layout_width="710dp"
+        android:layout_height="150dp"
+        android:layout_x="88dp"
+        android:layout_y="119dp"
+        android:background="@drawable/star_collor_1"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/star1_5"
-        android:layout_width="840dp"
-        android:layout_height="170dp"
-        android:layout_x="65dp"
-        android:layout_y="70dp"
-        android:background="@drawable/star_collor_1_5" 
-        android:visibility="invisible"/>
+        android:layout_width="710dp"
+        android:layout_height="150dp"
+        android:layout_x="88dp"
+        android:layout_y="119dp"
+        android:background="@drawable/star_collor_1_5"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/star2"
-        android:layout_width="840dp"
-        android:layout_height="170dp"
-        android:layout_x="65dp"
-        android:layout_y="70dp"
-        android:background="@drawable/star_collor_2" 
-        android:visibility="invisible"/>
+        android:layout_width="710dp"
+        android:layout_height="150dp"
+        android:layout_x="88dp"
+        android:layout_y="119dp"
+        android:background="@drawable/star_collor_2"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/star2_5"
-        android:layout_width="840dp"
-        android:layout_height="170dp"
-        android:layout_x="65dp"
-        android:layout_y="70dp"
-        android:background="@drawable/star_collor_2_5" 
-        android:visibility="invisible"/>
+        android:layout_width="710dp"
+        android:layout_height="150dp"
+        android:layout_x="88dp"
+        android:layout_y="119dp"
+        android:background="@drawable/star_collor_2_5"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/star3"
-        android:layout_width="840dp"
-        android:layout_height="170dp"
-        android:layout_x="65dp"
-        android:layout_y="70dp"
-        android:background="@drawable/star_collor_3" 
-        android:visibility="invisible"/>
+        android:layout_width="710dp"
+        android:layout_height="150dp"
+        android:layout_x="88dp"
+        android:layout_y="119dp"
+        android:background="@drawable/star_collor_3"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/star3_5"
-        android:layout_width="840dp"
-        android:layout_height="170dp"
-        android:layout_x="65dp"
-        android:layout_y="70dp"
-        android:background="@drawable/star_collor_3_5" 
-        android:visibility="invisible"/>
+        android:layout_width="710dp"
+        android:layout_height="150dp"
+        android:layout_x="88dp"
+        android:layout_y="119dp"
+        android:background="@drawable/star_collor_3_5"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/star4"
-        android:layout_width="840dp"
-        android:layout_height="170dp"
-        android:layout_x="65dp"
-        android:layout_y="70dp"
-        android:background="@drawable/star_collor_4" 
-        android:visibility="invisible"/>
+        android:layout_width="710dp"
+        android:layout_height="150dp"
+        android:layout_x="88dp"
+        android:layout_y="119dp"
+        android:background="@drawable/star_collor_4"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/star4_5"
-        android:layout_width="840dp"
-        android:layout_height="170dp"
-        android:layout_x="65dp"
-        android:layout_y="70dp"
-        android:background="@drawable/star_collor_4_5" 
-        android:visibility="invisible"/>
+        android:layout_width="710dp"
+        android:layout_height="150dp"
+        android:layout_x="88dp"
+        android:layout_y="119dp"
+        android:background="@drawable/star_collor_4_5"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/star5"
-        android:layout_width="840dp"
-        android:layout_height="170dp"
-        android:layout_x="65dp"
-        android:layout_y="70dp"
-        android:background="@drawable/star_collor_5" 
-        android:visibility="invisible"/>
-     
+        android:layout_width="710dp"
+        android:layout_height="150dp"
+        android:layout_x="88dp"
+        android:layout_y="119dp"
+        android:background="@drawable/star_collor_5"
+        android:visibility="invisible" />
+    
     <Button
         android:id="@+id/scorehome"
         android:layout_width="165dp"
         android:layout_height="155dp"
-        android:layout_x="95dp"
-        android:layout_y="330dp"
+        android:layout_x="110dp"
+        android:layout_y="325dp"
         android:background="@drawable/score_home" />
-    
+
     <Button
         android:id="@+id/scorenext"
         android:layout_width="165dp"
         android:layout_height="155dp"
-        android:layout_x="695dp"
-        android:layout_y="330dp"
+        android:layout_x="607dp"
+        android:layout_y="324dp"
         android:background="@drawable/score_next" />
-
+    
     <Button
         android:id="@+id/scoreback"
         android:layout_width="165dp"
         android:layout_height="155dp"
-        android:layout_x="395dp"
-        android:layout_y="330dp"
+        android:layout_x="358dp"
+        android:layout_y="324dp"
         android:background="@drawable/score_back" />
 
-   
     
+
 </AbsoluteLayout>

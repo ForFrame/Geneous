@@ -5,12 +5,9 @@ import java.util.Date;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
-//import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
 public class myDBClass extends SQLiteOpenHelper{
@@ -341,7 +338,7 @@ int CountNumRan(){
 }
 
 //get last random number from game001 table
-int getLastNum(){
+int getLastNum(int end){
 	int indexLast;
 	int RanNum = 0;
 	try{
@@ -351,6 +348,9 @@ int getLastNum(){
 		indexLast = CountNumRan();
 		if(indexLast > 1){
 			indexLast--;
+			if(end == 10){
+				indexLast = 10;
+			}
 			//Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_GAME001+" WHERE No = "+(Integer.toString(indexLast))+";", null);
 			Cursor cursor = db.rawQuery("SELECT No, RanNum FROM "+TABLE_GAME001+" WHERE No = '"+indexLast+"' ;", null);
 				if(cursor.moveToFirst()) {
@@ -494,7 +494,7 @@ int getNumRound(String GNo,String user){
 }
 
 //count score
-int countScore(String GNo,String user,int Round,int ItemNo){
+int countScore(String GNo,String user,int Round){
 	
 	int scoree = 0;
 	try{

@@ -1,23 +1,157 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/AbsoluteLayout1"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/friday"
-    android:orientation="vertical" >
+    android:background="@drawable/school_level1_g2_bg" >
 
-<TextView 
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/school_intent"
-	/>
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="22dp"
+        android:layout_y="14dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textUser"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_x="656dp"
+        android:layout_y="1dp"
+        android:gravity="right|center_vertical"
+        android:text="Username"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16pt"
+        android:textStyle="bold"
+        android:typeface="sans" />
 
     <Button
-        android:id="@+id/calendarbutton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/home" />
+        android:id="@+id/loginn"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_x="872dp"
+        android:layout_y="1dp"
+        android:background="@drawable/login_txt" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_x="872dp"
+        android:layout_y="1dp"
+        android:background="@drawable/logout_txt" />
+    
+    <Button
+        android:id="@+id/charlen_int"
+        android:layout_width="490dp"
+        android:layout_height="120dp"
+        android:layout_x="274dp"
+        android:layout_y="109dp"
+        android:background="@drawable/saturday_add"
+        android:visibility="invisible" />
+    
+    <Button
+        android:id="@+id/Sunday_thai"
+        android:layout_width="490dp"
+        android:layout_height="105dp"
+        android:layout_x="242dp"
+        android:layout_y="87dp"
+        android:background="@drawable/thu_thai"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/Sunday_eng"
+        android:layout_width="259dp"
+        android:layout_height="69dp"
+        android:layout_x="264dp"
+        android:layout_y="193dp"
+        android:background="@drawable/wed_day_eng"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/Sunday_Ceng"
+        android:layout_width="202dp"
+        android:layout_height="69dp"
+        android:layout_x="563dp"
+        android:layout_y="188dp"
+        android:background="@drawable/mon_color_eng"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/Sunday_ans1"
+        android:layout_width="208dp"
+        android:layout_height="210dp"
+        android:layout_x="150dp"
+        android:layout_y="397dp"
+        android:background="@drawable/sun1"
+        android:visibility="visible" />
+     <Button
+        android:id="@+id/Sunday_ans2"
+        android:layout_width="210dp"
+        android:layout_height="209dp"
+        android:layout_x="410dp"
+        android:layout_y="397dp"
+        android:background="@drawable/sun2"
+        android:visibility="visible" />
+
+    
+
+    <Button
+        android:id="@+id/Sunday_ans3"
+        android:layout_width="210dp"
+        android:layout_height="208dp"
+        android:layout_x="670dp"
+        android:layout_y="397dp"
+        android:background="@drawable/sun3"
+        android:visibility="visible" />
+    
+    <TextView
+        android:id="@+id/currentitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="808dp"
+        android:layout_y="330dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <ImageView
+        android:id="@+id/showwrong"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_x="270dp"
+        android:layout_y="87dp"
+        android:background="@drawable/weak"
+        android:clickable="true"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/showcorrect"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_x="270dp"
+        android:layout_y="87dp"
+        android:background="@drawable/smile"
+        android:clickable="true"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/calendarHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="830dp"
+        android:layout_y="654dp"
+        android:background="@drawable/icon_help2" />
+
+    <Button
+        android:id="@+id/calendarbackHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="933dp"
+        android:layout_y="654dp"
+        android:background="@drawable/icon_home1" />
+
+    
+
+</AbsoluteLayout>

@@ -1,0 +1,28 @@
+<resources>
+
+    <string name="app_name">Geneous</string>
+   <!-- <string name="hello_world">Hello world!</string> --> 
+    <string name="menu_settings">Settings</string>
+    <string name="main_intent">Go to Market</string>
+ 	<string name="market_intent">Market</string>
+	<string name="school_intent">School</string>
+	<string name="farm_intent">Farm</string>
+	<string name="hospital_intent">Hospital</string>
+	<string name="police_intent">Police</string>
+	<string name="house_intent">House</string>
+	<string name="logout_button">ออกจากระบบ</string>
+	<string name="login_button">เข้าสู่ระบบ</string>
+	<string name="user_text">Username : </string>
+	<string name="girl"> หญิง</string>
+	<string name="boy"> ชาย</string>
+	
+	
+	<string name="continue_login">ให้ฉันอยู่ในระบบต่อไป</string>
+	<string-array name="year">
+	 	<item>2 ปี</item>
+	 	<item>3 ปี</item>
+	 	<item>4 ปี</item>
+	 	<item>5 ปี</item>
+	 	<item>6 ปี</item>
+	 </string-array>
+</resources>
