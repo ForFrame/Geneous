@@ -33,8 +33,19 @@
                   android:label="@string/app_name" 
                   android:screenOrientation="landscape"/>
         
+        <activity android:name=".SelectPoliceLevel"
+                  android:screenOrientation="landscape"/>
         <activity android:name=".PoliceLevel1"
-                  android:label="@string/app_name" 
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".PlL1Cross"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".PoliceLevel2"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".PlL2NearFar"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".PoliceLevel3"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".PlL3TypeCar"
                   android:screenOrientation="landscape"/>
         
         <activity android:name=".MarketLevel1"

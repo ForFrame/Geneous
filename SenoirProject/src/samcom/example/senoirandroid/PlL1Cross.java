@@ -16,20 +16,26 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
+@SuppressWarnings("deprecation")
 public class PlL1Cross extends Activity {
 
 	String username;
-	long startTime;
+	long startTime = (20)*1000;
 	final Context context = this;
 	float timeRemain;
 	int Round;
-	int Day = 1;
+	int Items = 1;
 	int ranDay=0;
+	
+	final MyCountDown countdownTime = new MyCountDown(startTime,1000);
 	
 	public class MyCountDown extends CountDownTimer {
 		public MyCountDown(long millisInFuture, long countDownInterval) {
@@ -59,15 +65,16 @@ public class PlL1Cross extends Activity {
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	
-	setContentView(R.layout.activity_l1_sc_calendar);
+	setContentView(R.layout.activity_pl_l1_cross);
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		username = myDb.SelectCurrentUser();
 		
 		//mediaPlayer.start();
-		Round = myDb.getNumRound("002", username);
 		
-		int valueCalenTutorial = 0;
+		Round = myDb.getNumRound("004", username);
+		
+		/*int valueCalenTutorial = 0;
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
 			valueCalenTutorial = extras.getInt("calen_tuto");
@@ -116,13 +123,13 @@ public class PlL1Cross extends Activity {
 				Intent intent2 = new Intent(PlL1Cross.this,L1ScCalendarTutorial.class);
 				startActivity(intent2);
 			}
-			else{
-				game002();
-			}
-		}
+			else{*/
+				game004();
+			//}
+		//}
 	}
 
-	void game002(){
+	void game004(){
 		int scores;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -176,14 +183,14 @@ public class PlL1Cross extends Activity {
 			}
 			
 		});
-		if(Day < 11){
-			startTime = (30)*1000;
+		if(Items < 11){
+			//startTime = (30)*1000;
 			checkAns(false);
 		}
 		else{
-			scores = myDb.countScore("002", username, Round);
+			scores = myDb.countScore("004", username, Round);
 			myDb.getWritableDatabase();
-			myDb.emptyNumberTable();
+			//myDb.emptyNumberTable();
 					
 			if(username.equals("Guest")){
 				myDb.deleteGuest();
@@ -196,112 +203,294 @@ public class PlL1Cross extends Activity {
 	
 void checkAns(Boolean isInterupt){
 		
-		Button thai = (Button)findViewById(R.id.Sunday_thai);
-		Button eng = (Button)findViewById(R.id.Sunday_eng);
-		Button Ceng = (Button)findViewById(R.id.Sunday_Ceng);
-		Button ans1 = (Button)findViewById(R.id.Sunday_ans1);
-		Button ans2 = (Button)findViewById(R.id.Sunday_ans2);
-		Button ans3 = (Button)findViewById(R.id.Sunday_ans3);
+		//Button inst1 = (Button)findViewById(R.id.tf_ins1);
+		//Button inst4 = (Button)findViewById(R.id.tf_ins4);
+		//Button inst6 = (Button)findViewById(R.id.tf_ins6);
+		//Button inst8 = (Button)findViewById(R.id.tf_ins8);
+		final Button ans1_1 = (Button)findViewById(R.id.tf_ans1_1);
+		final Button ans1_2 = (Button)findViewById(R.id.tf_ans1_2);
+		final Button ans1_3 = (Button)findViewById(R.id.tf_ans1_3);
+		Button answer4_1 = (Button)findViewById(R.id.tf_ans4_1);
+		Button answer4_2 = (Button)findViewById(R.id.tf_ans4_2);
+		Button answer5_1 = (Button)findViewById(R.id.tf_ans5_1);
+		Button answer5_2 = (Button)findViewById(R.id.tf_ans5_2);
+		Button answer6_1 = (Button)findViewById(R.id.tf_ans6_1);
+		Button answer6_2 = (Button)findViewById(R.id.tf_ans6_2);
+		Button answer8_1 = (Button)findViewById(R.id.tf_ans8_1);
+		Button answer8_2 = (Button)findViewById(R.id.tf_ans8_2);
+		final Button ans4_1 = (Button)findViewById(R.id.tf_ans4_1);
+		final Button ans4_2 = (Button)findViewById(R.id.tf_ans4_2);
+		final Button ans5_1 = (Button)findViewById(R.id.tf_ans5_1);
+		final Button ans5_2 = (Button)findViewById(R.id.tf_ans5_2);
+		final Button ans6_1 = (Button)findViewById(R.id.tf_ans6_1);
+		final Button ans6_2 = (Button)findViewById(R.id.tf_ans6_2);
+		final Button ans8_1 = (Button)findViewById(R.id.tf_ans8_1);
+		final Button ans8_2 = (Button)findViewById(R.id.tf_ans8_2);
+		
+		//help image
+		final ImageView trafficSign = (ImageView)findViewById(R.id.tf_ans1_help);
+		
+		
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 		final int answer;
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
+		final Animation myFadeOnceAnimation = AnimationUtils.loadAnimation(PlL1Cross.this, R.anim.tween_once);
 		
-		if(Day<8){	
-			answer = choice(Day);
-			startTime = (20)*1000;
-		}
-		else{
-			answer = choiceExtra(isInterupt);
-			startTime = (30)*1000;
-		}
-		
-		
-		final MyCountDown countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		
 		TextView current = (TextView) findViewById(R.id.currentitem);
-		current.setText(Day +"/ 10");
+		current.setText(Items +"/ 10");
 		
+		int currentItem = Items;
 		
+		answer = choice(currentItem);
 		
 		countdownTime.start();
-		
-				ans1.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						//mediaPlayer.stop();
-						if(answer == 1){
-							imgCorrect.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
-							soundCorrect.start();
-							myDb.addItemScore("002",username,Round,Day,1,(countTime - timeRemain));
-							
-						}
-						else{
-							imgWrong.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
-							soundWrong.start();
-							myDb.addItemScore("002",username,Round,Day,0,(countTime - timeRemain));
-						}
+			
+			ans1_1.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//mediaPlayer.stop();
+					ans1_2.setVisibility(View.INVISIBLE);
+					ans1_3.setVisibility(View.INVISIBLE);
+					if(answer == 1){
+						imgCorrect.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundCorrect.start();
+						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
 						
 					}
-				});
-				ans2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						//mediaPlayer.stop();
-						if(answer == 2){
-							imgCorrect.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
-							soundCorrect.start();
-							myDb.addItemScore("002",username,Round,Day,1,(countTime - timeRemain));
-							
-						}
-						else{
-							imgWrong.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
-							soundWrong.start();
-							myDb.addItemScore("002",username,Round,Day,0,(countTime - timeRemain));
-						}
+					else{
+						imgWrong.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundWrong.start();
+						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
 					}
-				});
-				ans3.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						//mediaPlayer.stop();
-						if(answer == 3){
-							imgCorrect.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
-							soundCorrect.start();
-							myDb.addItemScore("002",username,Round,Day,1,(countTime - timeRemain));
-							
-						}
-						else{
-							imgWrong.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
-							soundWrong.start();
-							myDb.addItemScore("002",username,Round,Day,0,(countTime - timeRemain));
-						}
+					
+				}
+			});
+			ans1_2.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//mediaPlayer.stop();
+					ans1_1.setVisibility(View.INVISIBLE);
+					ans1_3.setVisibility(View.INVISIBLE);
+					if(answer == 2){
+						imgCorrect.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundCorrect.start();
+						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
+						
 					}
-				});
-			
+					else{
+						imgWrong.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundWrong.start();
+						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
+					}
+					
+				}
+			});
+			ans1_3.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//mediaPlayer.stop();
+					ans1_1.setVisibility(View.INVISIBLE);
+					ans1_2.setVisibility(View.INVISIBLE);
+					if(answer == 3){
+						imgCorrect.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundCorrect.start();
+						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
+						
+					}
+					else{
+						imgWrong.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundWrong.start();
+						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
+					}
+					
+				}
+			});
+			answer4_1.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//mediaPlayer.stop();
+					if(answer == 1){
+						imgCorrect.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundCorrect.start();
+						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
+						
+					}
+					else{
+						imgWrong.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundWrong.start();
+						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
+					}
+					
+				}
+			});
+			answer4_2.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//mediaPlayer.stop();
+					if(answer == 2){
+						imgCorrect.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundCorrect.start();
+						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
+						
+					}
+					else{
+						imgWrong.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundWrong.start();
+						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
+					}
+					
+				}
+			});
+			answer5_1.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//mediaPlayer.stop();
+					if(answer == 1){
+						imgCorrect.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundCorrect.start();
+						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
+						
+					}
+					else{
+						imgWrong.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundWrong.start();
+						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
+					}
+					
+				}
+			});
+			answer5_2.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//mediaPlayer.stop();
+					if(answer == 2){
+						imgCorrect.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundCorrect.start();
+						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
+						
+					}
+					else{
+						imgWrong.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundWrong.start();
+						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
+					}
+					
+				}
+			});
+			answer6_1.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//mediaPlayer.stop();
+					if(answer == 1){
+						imgCorrect.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundCorrect.start();
+						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
+						
+					}
+					else{
+						imgWrong.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundWrong.start();
+						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
+					}
+					
+				}
+			});
+			answer6_2.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//mediaPlayer.stop();
+					if(answer == 2){
+						imgCorrect.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundCorrect.start();
+						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
+						
+					}
+					else{
+						imgWrong.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundWrong.start();
+						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
+					}
+					
+				}
+			});
+			answer8_1.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//mediaPlayer.stop();
+					if(answer == 1){
+						imgCorrect.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundCorrect.start();
+						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
+						
+					}
+					else{
+						imgWrong.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundWrong.start();
+						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
+					}
+					
+				}
+			});
+			answer8_2.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//mediaPlayer.stop();
+					if(answer == 2){
+						imgCorrect.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundCorrect.start();
+						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
+						
+					}
+					else{
+						imgWrong.setVisibility(View.VISIBLE);
+						countdownTime.cancel();
+						soundWrong.start();
+						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
+					}
+					
+				}
+			});
 		
 		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
 		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
+		
 		
 		imgWrongClick.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				soundWrong.stop();
 				imgWrong.setVisibility(View.INVISIBLE);
-				Day++;
-				game002();
+				Items++;
+				game004();
 			}
 		});
 		
@@ -309,51 +498,74 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				soundCorrect.stop();
 				imgCorrect.setVisibility(View.INVISIBLE);
-				Day++;
-				game002();
+				Items++;
+				game004();
 			}
 		});
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
-            	Day++;
-            	game002();
+            	Items++;
+            	game004();
             }
         });
 
 		soundWrong.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrong.setVisibility(View.INVISIBLE);
-            	Day++;
-            	game002();
+            	Items++;
+            	game004();
             }
         });
 		
-		Button HelpButton = (Button)findViewById(R.id.calendarHelp);
+		Button HelpButton = (Button)findViewById(R.id.crossHelp);
 		HelpButton.setOnClickListener(new View.OnClickListener() {
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				countdownTime.cancel();
-				Intent intent = new Intent(PlL1Cross.this,L1ScCalendarTutorial.class);
-				intent.putExtra("frombutt", 1);
 				
-				intent.putExtra("today", Day);
-				if(Day>7)
-					  intent.putExtra("numran", ranDay);
-				startActivity(intent);
+				
+				//ans4_1.setAnimation(myFadeOnceAnimation);
+				//ans4_2.setAnimation(myFadeOnceAnimation);
+				//ans5_1.setAnimation(myFadeOnceAnimation);
+				//ans5_2.setAnimation(myFadeOnceAnimation);
+				//ans6_1.setAnimation(myFadeOnceAnimation);
+				//ans6_2.setAnimation(myFadeOnceAnimation);
+				//ans8_1.setAnimation(myFadeOnceAnimation);
+				//ans8_2.setAnimation(myFadeOnceAnimation);
+				
+				if(Items < 4){
+					//trafficSign.setAnimation(myFadeOnceAnimation);
+					trafficSign.startAnimation(myFadeOnceAnimation);
+				}
+				else if(Items < 5){
+					ans4_1.startAnimation(myFadeOnceAnimation);
+					ans4_2.startAnimation(myFadeOnceAnimation);
+				}
+				else if(Items < 6){
+					ans5_1.startAnimation(myFadeOnceAnimation);
+					ans5_2.startAnimation(myFadeOnceAnimation);
+				}
+				else if(Items < 8){
+					ans6_1.startAnimation(myFadeOnceAnimation);
+					ans6_2.startAnimation(myFadeOnceAnimation);
+				}
+				else{
+					ans8_1.startAnimation(myFadeOnceAnimation);
+					ans8_2.startAnimation(myFadeOnceAnimation);
+				}
 			}
 		});
 		
-		Button calendarButton = (Button)findViewById(R.id.calendarbackHome);
-		calendarButton.setOnClickListener(new View.OnClickListener() {
+		Button crossButton = (Button)findViewById(R.id.crossbackHome);
+		crossButton.setOnClickListener(new View.OnClickListener() {
 		
 		
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
-			Intent intent = new Intent(PlL1Cross.this,SelectSchoolLevel.class);
+			Intent intent = new Intent(PlL1Cross.this,SelectPoliceLevel.class);
 			startActivity(intent);
 		}
 		});
@@ -455,83 +667,143 @@ void checkAns(Boolean isInterupt){
 		return randomInt;
 	}
 	
-	int choice(int days){
-		Button ExtraNo = (Button)findViewById(R.id.charlen_int);
-		Button thai = (Button)findViewById(R.id.Sunday_thai);
-		Button eng = (Button)findViewById(R.id.Sunday_eng);
-		Button Ceng = (Button)findViewById(R.id.Sunday_Ceng);
-		Button ans1 = (Button)findViewById(R.id.Sunday_ans1);
-		Button ans2 = (Button)findViewById(R.id.Sunday_ans2);
-		Button ans3 = (Button)findViewById(R.id.Sunday_ans3);
+	int choice(int itemNo){
+		
+		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.tf_layout);
+			
+	    	
+		Button inst1 = (Button)findViewById(R.id.tf_ins1);
+		Button inst4 = (Button)findViewById(R.id.tf_ins4);
+		Button inst6 = (Button)findViewById(R.id.tf_ins6);
+		Button inst8 = (Button)findViewById(R.id.tf_ins8);
+		Button ans1_1 = (Button)findViewById(R.id.tf_ans1_1);
+		Button ans1_2 = (Button)findViewById(R.id.tf_ans1_2);
+		Button ans1_3 = (Button)findViewById(R.id.tf_ans1_3);
+		Button ans4_1 = (Button)findViewById(R.id.tf_ans4_1);
+		Button ans4_2 = (Button)findViewById(R.id.tf_ans4_2);
+		Button ans5_1 = (Button)findViewById(R.id.tf_ans5_1);
+		Button ans5_2 = (Button)findViewById(R.id.tf_ans5_2);
+		Button ans6_1 = (Button)findViewById(R.id.tf_ans6_1);
+		Button ans6_2 = (Button)findViewById(R.id.tf_ans6_2);
+		Button ans8_1 = (Button)findViewById(R.id.tf_ans8_1);
+		Button ans8_2 = (Button)findViewById(R.id.tf_ans8_2);
+		
 		int answer = 0;
 		
-		thai.setVisibility(View.VISIBLE);
-		eng.setVisibility(View.VISIBLE);
-		Ceng.setVisibility(View.VISIBLE);
-		ExtraNo.setVisibility(View.INVISIBLE);
-		
-		if(days == 1){
-			answer = 2;
-			thai.setBackgroundResource(R.drawable.sun_thai);
-			eng.setBackgroundResource(R.drawable.sun_day_eng);
-			Ceng.setBackgroundResource(R.drawable.sun_color_eng);
-			ans1.setBackgroundResource(R.drawable.sun1);
-			ans2.setBackgroundResource(R.drawable.sun2);
-			ans3.setBackgroundResource(R.drawable.sun3);
+		inst1.setVisibility(View.INVISIBLE);
+		inst4.setVisibility(View.INVISIBLE);
+		inst6.setVisibility(View.INVISIBLE);
+		inst8.setVisibility(View.INVISIBLE);
+		ans1_1.setVisibility(View.INVISIBLE);
+		ans1_2.setVisibility(View.INVISIBLE);
+		ans1_3.setVisibility(View.INVISIBLE);
+		ans4_1.setVisibility(View.INVISIBLE);
+		ans4_2.setVisibility(View.INVISIBLE);
+		ans5_1.setVisibility(View.INVISIBLE);
+		ans5_2.setVisibility(View.INVISIBLE);
+		ans6_1.setVisibility(View.INVISIBLE);
+		ans6_2.setVisibility(View.INVISIBLE);
+		ans8_1.setVisibility(View.INVISIBLE);
+		ans8_2.setVisibility(View.INVISIBLE);
+				
+		if(itemNo < 4){
+			Thislayout.setBackgroundResource(R.drawable.pl1_bg1);
+			inst1.setVisibility(View.VISIBLE);
+			ans1_1.setVisibility(View.VISIBLE);
+			ans1_2.setVisibility(View.VISIBLE);
+			ans1_3.setVisibility(View.VISIBLE);
+			
+			ans1_1.setBackgroundResource(R.drawable.pl1_ans1_1);
+			ans1_2.setBackgroundResource(R.drawable.pl1_ans1_2);
+			ans1_3.setBackgroundResource(R.drawable.pl1_ans1_3);
+			if(itemNo == 1){
+				answer = 3;
+				inst1.setBackgroundResource(R.drawable.pl1_ins1);
+				
+			}
+			else if(itemNo == 2){
+				answer = 2;
+				inst1.setBackgroundResource(R.drawable.pl1_ins2);
+			} 
+			else if(itemNo == 3){
+				answer = 1;
+				inst1.setBackgroundResource(R.drawable.pl1_ins3);
+			}
 		}
-		else if(days == 2){
-			answer = 2;
-			thai.setBackgroundResource(R.drawable.mon_thai);
-			eng.setBackgroundResource(R.drawable.mon_day_eng);
-			Ceng.setBackgroundResource(R.drawable.mon_color_eng);
-			ans1.setBackgroundResource(R.drawable.mon1);
-			ans2.setBackgroundResource(R.drawable.mon2);
-			ans3.setBackgroundResource(R.drawable.mon3);
-		} 
-		else if(days == 3){
-			answer = 1;
-			thai.setBackgroundResource(R.drawable.tue_thai);
-			eng.setBackgroundResource(R.drawable.tue_day_eng);
-			Ceng.setBackgroundResource(R.drawable.tue_color_eng);
-			ans1.setBackgroundResource(R.drawable.tue1);
-			ans2.setBackgroundResource(R.drawable.tue2);
-			ans3.setBackgroundResource(R.drawable.tue3);
+		else if(itemNo < 6){
+			
+			inst4.setVisibility(View.VISIBLE);
+			
+						
+			if(itemNo == 4){
+				answer = 1;
+				ans4_1.setVisibility(View.VISIBLE);
+				ans4_2.setVisibility(View.VISIBLE);
+				Thislayout.setBackgroundResource(R.drawable.pl1_bg2);
+				inst4.setBackgroundResource(R.drawable.pl1_ins4);
+				//ans4_1.setBackgroundResource(R.drawable.pl1_ans4_1);
+				//ans4_2.setBackgroundResource(R.drawable.pl1_ans4_2);
+				
+			}
+			else if(itemNo == 5){
+				answer = 1;
+				ans5_1.setVisibility(View.VISIBLE);
+				ans5_2.setVisibility(View.VISIBLE);
+				Thislayout.setBackgroundResource(R.drawable.pl1_bg3);
+				inst4.setBackgroundResource(R.drawable.pl1_ins4);
+				//ans5_1.setBackgroundResource(R.drawable.pl1_ans4_1);
+				//ans5_2.setBackgroundResource(R.drawable.pl1_ans4_2);
+				
+			} 
 		}
-		else if(days == 4){
-			answer = 2;
-			thai.setBackgroundResource(R.drawable.wed_thai);
-			eng.setBackgroundResource(R.drawable.wed_day_eng);
-			Ceng.setBackgroundResource(R.drawable.wed_color_eng);
-			ans1.setBackgroundResource(R.drawable.wed1);
-			ans2.setBackgroundResource(R.drawable.wed2);
-			ans3.setBackgroundResource(R.drawable.wed3);
+		else if(itemNo < 8){
+			Thislayout.setBackgroundResource(R.drawable.pl1_bg4);
+			inst6.setVisibility(View.VISIBLE);
+			ans6_1.setVisibility(View.VISIBLE);
+			ans6_2.setVisibility(View.VISIBLE);
+						
+			if(itemNo == 6){
+				answer = 2;
+				inst6.setBackgroundResource(R.drawable.pl1_ins6);
+				ans6_1.setBackgroundResource(R.drawable.pl1_ans6_1);
+				ans6_2.setBackgroundResource(R.drawable.pl1_ans6_2);
+				
+			}
+			else if(itemNo == 7){
+				answer = 1;
+				inst6.setBackgroundResource(R.drawable.pl1_ins7);
+				ans6_1.setBackgroundResource(R.drawable.pl1_ans6_1);
+				ans6_2.setBackgroundResource(R.drawable.pl1_ans6_2);
+				
+			} 
 		}
-		else if(days == 5){
-			answer = 3;
-			thai.setBackgroundResource(R.drawable.thu_thai);
-			eng.setBackgroundResource(R.drawable.thu_day_eng);
-			Ceng.setBackgroundResource(R.drawable.thu_color_eng);
-			ans1.setBackgroundResource(R.drawable.thu1);
-			ans2.setBackgroundResource(R.drawable.thu2);
-			ans3.setBackgroundResource(R.drawable.thu3);
-		}
-		else if(days == 6){
-			answer = 1;
-			thai.setBackgroundResource(R.drawable.fri_thai);
-			eng.setBackgroundResource(R.drawable.fri_day_eng);
-			Ceng.setBackgroundResource(R.drawable.fri_color_eng);
-			ans1.setBackgroundResource(R.drawable.fri1);
-			ans2.setBackgroundResource(R.drawable.fri2);
-			ans3.setBackgroundResource(R.drawable.fri3);
-		}
-		else{
-			answer = 2;
-			thai.setBackgroundResource(R.drawable.sat_thai);
-			eng.setBackgroundResource(R.drawable.sat_day_eng);
-			Ceng.setBackgroundResource(R.drawable.sat_color_eng);
-			ans1.setBackgroundResource(R.drawable.sat1);
-			ans2.setBackgroundResource(R.drawable.sat2);
-			ans3.setBackgroundResource(R.drawable.sat3);
+		else {
+			Thislayout.setBackgroundResource(R.drawable.pl1_bg8);
+			inst8.setVisibility(View.VISIBLE);
+			ans8_1.setVisibility(View.VISIBLE);
+			ans8_2.setVisibility(View.VISIBLE);
+						
+			if(itemNo == 8){
+				answer = 2;
+				inst8.setBackgroundResource(R.drawable.pl1_ins8);
+				ans8_1.setBackgroundResource(R.drawable.pl1_ans8_1);
+				ans8_2.setBackgroundResource(R.drawable.pl1_ans8_2);
+				
+			}
+			else if(itemNo == 9){
+				answer = 1;
+				inst8.setBackgroundResource(R.drawable.pl1_ins9);
+				ans8_1.setBackgroundResource(R.drawable.pl1_9_1);
+				ans8_2.setBackgroundResource(R.drawable.pl1_ans9_2);
+				
+			} 
+			else{
+				answer = 2;
+				inst8.setBackgroundResource(R.drawable.pl1_ins10);
+				ans8_1.setBackgroundResource(R.drawable.pl1_ans10_1);
+				ans8_2.setBackgroundResource(R.drawable.pl1_ans10_2);
+				
+			} 
 		}
 		
 		return answer;
@@ -581,7 +853,7 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(PlL1Cross.this,SchoolLevel2.class);
+				Intent intent = new Intent(PlL1Cross.this,PoliceLevel1.class);
 				startActivity(intent);
 				
 				//finish();
@@ -601,10 +873,10 @@ void checkAns(Boolean isInterupt){
 				imgWrongpop.setVisibility(View.INVISIBLE);
 				imgCorrectpop.setVisibility(View.INVISIBLE);
 				
-				Round = myDb.getNumRound("002", username);
+				Round = myDb.getNumRound("004", username);
 				//Round++;
-				Day=1;
-				game002();
+				Items=1;
+				game004();
 			}
 		});
 		
@@ -613,7 +885,7 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(PlL1Cross.this,L1ScLongShort.class);
+				Intent intent = new Intent(PlL1Cross.this,PlL2NearFar.class);
 				startActivity(intent);
 				
 			}
@@ -629,7 +901,7 @@ void checkAns(Boolean isInterupt){
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
-		myDb.addItemScore("002",username,Round,Day,0,startTime);
+		myDb.addItemScore("004",username,Round,Items,0,startTime);
 		
 		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
 		soundWrongFin.start();
@@ -637,9 +909,22 @@ void checkAns(Boolean isInterupt){
 		soundWrongFin.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrongFin.setVisibility(View.INVISIBLE);
-            	game002();
+            	Items++;
+            	game004();
             }
         });
+		
+		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
+		
+		imgWrongClick.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				soundWrongFin.stop();
+				imgWrongFin.setVisibility(View.INVISIBLE);
+				Items++;
+				game004();
+			}
+		});
 		
 	}
 	
