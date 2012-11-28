@@ -1,0 +1,80 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_popup_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_regis"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/regUsertext"
+        android:layout_width="266dp"
+        android:layout_height="wrap_content"
+        android:layout_x="384dp"
+        android:layout_y="190dp"
+        android:ems="10"
+        android:hint="Username" >
+
+        <requestFocus />
+    </EditText>
+
+    <RadioGroup
+        android:id="@+id/radioSex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="387dp"
+        android:layout_y="266dp" >
+
+        <RadioButton
+            android:id="@+id/radioMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/boy"
+            android:textSize="10pt" />
+
+        <RadioButton
+            android:id="@+id/radioFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/girl"
+            android:textSize="10pt" />
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/ageSelection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="393dp"
+        android:layout_y="395dp"
+        android:entries="@array/year"
+        android:gravity="center"
+        android:textSize="10pt" />
+
+    <CheckBox
+        android:id="@+id/checkContinueLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="385dp"
+        android:layout_y="445dp"
+        android:text="@string/continue_login"
+        android:textSize="10pt"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/regisBt"
+        android:layout_width="138dp"
+        android:layout_height="69dp"
+        android:layout_x="383dp"
+        android:layout_y="505dp"
+        android:background="@drawable/button_regis" />
+
+    <Button
+        android:id="@+id/CancelReg"
+        android:layout_width="138dp"
+        android:layout_height="69dp"
+        android:layout_x="570dp"
+        android:layout_y="505dp"
+        android:background="@drawable/cancel" />
+
+</AbsoluteLayout>

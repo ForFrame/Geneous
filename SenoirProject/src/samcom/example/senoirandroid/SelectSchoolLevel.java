@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,7 +18,9 @@ public class SelectSchoolLevel extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.activity_select_school_level);
+	requestWindowFeature(Window.FEATURE_NO_TITLE);
+	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+	setContentView(R.layout.activity_select_level);
 	
 		
 		selectLevel();
@@ -60,8 +64,11 @@ public class SelectSchoolLevel extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
-				Intent intent = new Intent(SelectSchoolLevel.this,Main.class);
-				startActivity(intent);
+				//Intent intent = new Intent(SelectSchoolLevel.this,Main.class);
+				//startActivity(intent);
+				Intent in = new Intent(getApplicationContext(),Main.class);
+				in.putExtra("loginButt", 1);
+				startActivity(in);
 			}
 		});
 		
@@ -77,7 +84,7 @@ public class SelectSchoolLevel extends Activity {
 			
 		});
 
-		Button ScLv1 = (Button)findViewById(R.id.schoollevel1);
+		Button ScLv1 = (Button)findViewById(R.id.level1);
 		ScLv1.setOnClickListener(new View.OnClickListener() {
 			 
 
@@ -89,13 +96,24 @@ public class SelectSchoolLevel extends Activity {
 		});
 		
 		
-		Button ScLv2 = (Button)findViewById(R.id.schoollevel2);
+		Button ScLv2 = (Button)findViewById(R.id.level2);
 		ScLv2.setOnClickListener(new View.OnClickListener() {
 			 
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel2.class);
+				startActivity(intent);
+			}
+		});
+		
+		Button ScLv3 = (Button)findViewById(R.id.level3);
+		ScLv3.setOnClickListener(new View.OnClickListener() {
+			 
+
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel3.class);
 				startActivity(intent);
 			}
 		});
@@ -135,6 +153,27 @@ public class SelectSchoolLevel extends Activity {
 		
 		super.onRestart();
 	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
+		myDb.ChangeHome(1);
+		
+		super.onDestroy();
+	}
+
+	/*@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
+		myDb.ChangeHome(1);
+		
+		super.onStop();
+	}*/
+	
 	
 	
 }

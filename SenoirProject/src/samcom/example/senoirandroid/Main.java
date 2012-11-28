@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,6 +33,7 @@ final Context context2 = this;
 
 
 
+
 SQLiteDatabase db;
 
 /** Called when the activity is first created. */
@@ -39,16 +42,33 @@ SQLiteDatabase db;
 	@Override
  	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
+			
 		setContentView(R.layout.activity_main);
+		//remove title bar
+		//this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
+		//remove notification bar
+		//this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	
 		//final myDBClass myDb = new myDBClass(this);
 		//myDb.getWritableDatabase();
+		//myDb.ChangeHome(0);
 		
 		// SelectCurrentUser(); check MAX(No)loginStatus table on Status == 'Logout'-> No or 'Y' -> name 
-		mainPage();
+		int valueLogin = 0;
+		Bundle extras = getIntent().getExtras();
+		if(extras != null){
+			valueLogin = extras.getInt("loginButt");
+		}
+
+		
+		mainPage(valueLogin);
 	}
 	
-	void mainPage(){
+	void mainPage(int valueLogin){
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -58,8 +78,15 @@ SQLiteDatabase db;
 		   
 		CurrentUser = myDb.SelectCurrentUser();
 		Boolean notFromHomee = myDb.notFromHome();
-		if(notFromHomee == true){
-			popUpLogIn();
+		if(notFromHomee == true)
+		{
+			if(valueLogin == 1){
+				showLoginPopup();
+			}
+			else{
+				popUpLogIn();
+			}
+			
 		}
 		
 		if(!(CurrentUser.equals("Guest"))){
@@ -101,7 +128,7 @@ SQLiteDatabase db;
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(1);
-				Intent intent = new Intent(Main.this,PoliceLevel1.class);
+				Intent intent = new Intent(Main.this,SelectPoliceLevel.class);
 				startActivity(intent);
 			}
 		});
@@ -187,9 +214,15 @@ SQLiteDatabase db;
 
 	void showLoginPopup(){
 	
-		final Dialog LoginPop = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
-				
+		//final Dialog LoginPop = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		
+		final Dialog LoginPop = new Dialog(context2, R.style.FullHeightDialog);
+		//LoginPop.setContentView(R.layout.activity_dialog_score_sclv1g1);
 		LoginPop.setContentView(R.layout.activity_popup_login);
+		LoginPop.setCanceledOnTouchOutside(false);
+		LoginPop.setCancelable(false); 
+				
+		
 		
 		
 		
@@ -273,15 +306,25 @@ SQLiteDatabase db;
 				// TODO Auto-generated method stub
 				LoginPop.dismiss();
 				popUpLogIn();
+				//notFromHomee = false;
+				//mainPage(0);
 			}
 		});
 			
 		LoginPop.show();
 	}
 	void showRegisPopup(String inputname){
+				
+		//final Dialog RegisPop = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		final Dialog RegisPop = new Dialog(context2, R.style.FullHeightDialog);
 		
-		final Dialog RegisPop = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		//dialog.setContentView(R.layout.activity_dialog_score_sclv1g1);
 		RegisPop.setContentView(R.layout.activity_popup_regis);
+		RegisPop.setCanceledOnTouchOutside(false);
+		RegisPop.setCancelable(false); 
+		
+		
+		
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/touchy_boy.ttf"); 
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
@@ -393,8 +436,13 @@ SQLiteDatabase db;
 	}
 	//Play popup
 	void popUpLogIn(){
-		final Dialog popLog =  new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		//final Dialog popLog =  new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		final Dialog popLog = new Dialog(context2, R.style.FullHeightDialog);
+		//popLog.setContentView(R.layout.activity_dialog_score_sclv1g1);
 		popLog.setContentView(R.layout.activity_popup_play);
+		popLog.setCanceledOnTouchOutside(false);
+		popLog.setCancelable(false); 
+		
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
@@ -450,11 +498,22 @@ SQLiteDatabase db;
 			myDb.ChangeHome(0);
 		//}
 		
-		mainPage();
+		mainPage(0);
 			
 		
 		super.onRestart();
 	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getWritableDatabase();
+		myDb.ChangeHome(1);
+		
+		super.onDestroy();
+	}
+	
 	
 }
 

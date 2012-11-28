@@ -1,0 +1,80 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/school_bg_level1"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textUser"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_x="633dp"
+        android:layout_y="30dp"
+        android:gravity="right|center_vertical"
+        android:text="Username"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16pt"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <Button
+        android:id="@+id/loginn"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_x="849dp"
+        android:layout_y="32dp"
+        android:background="@drawable/login_txt" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_x="849dp"
+        android:layout_y="32dp"
+        android:background="@drawable/logout_txt" />
+
+     
+    
+    <ImageView
+        android:id="@+id/tableImg"
+        android:layout_width="685dp"
+        android:layout_height="196dp"
+        android:layout_x="118dp"
+        android:layout_y="445dp"
+        android:background="@drawable/sc_table_student2" />
+
+    <ImageView
+        android:id="@+id/calendarImg"
+        android:layout_width="150dp"
+        android:layout_height="140dp"
+        android:layout_x="834dp"
+        android:layout_y="165dp"
+        android:background="@drawable/sc_calender2_t" />
+    
+     <Button
+        android:id="@+id/board"
+        android:layout_width="150dp"
+        android:layout_height="140dp"
+        android:layout_x="41dp"
+        android:layout_y="167dp"
+        android:background="@drawable/sc_board_t" />
+    
+    <ImageView
+        android:id="@+id/boardImg"
+        android:layout_width="150dp"
+        android:layout_height="140dp"
+        android:layout_x="41dp"
+        android:layout_y="167dp"
+        android:background="@drawable/sc_board2_t" />
+
+
+    <Button
+        android:id="@+id/backToselectSchool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="892dp"
+        android:layout_y="646dp"
+        android:background="@drawable/icon_home" />
+
+</AbsoluteLayout>
