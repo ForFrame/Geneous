@@ -17,12 +17,15 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
+@SuppressWarnings("deprecation")
 public class PlL2NearFar extends Activity {
 
 	String username;
@@ -218,15 +221,15 @@ public class PlL2NearFar extends Activity {
 	
 	void checkAnswer(final int RandomNum,final int item){
 		
-		Button Answer1 = (Button)findViewById(R.id.picans1);
-		Button Answer2 = (Button)findViewById(R.id.picans2);
+		final Button Answer1 = (Button)findViewById(R.id.picans1);
+		final Button Answer2 = (Button)findViewById(R.id.picans2);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 		final int answer;
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
-		
+		final Animation myFadeOnceAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween_once);
 		startTime = (20)*1000;
 		final MyCountDown countdownTime = new MyCountDown(startTime,1000);
 		
@@ -319,19 +322,22 @@ public class PlL2NearFar extends Activity {
             }
         });
 		
-		/*Button HelpButton = (Button)findViewById(R.id.nearfarHelp);
+		Button HelpButton = (Button)findViewById(R.id.nearfarHelp);
 		HelpButton.setOnClickListener(new View.OnClickListener() {
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				countdownTime.cancel();
-				Intent intent = new Intent(PlL2NearFar.this,PlL2NearFarTutorial.class);
-				intent.putExtra("putbutt", 1);
-				intent.putExtra("numran", RandomNum);
-				intent.putExtra("numitem", item);
-				startActivity(intent);
+				//countdownTime.cancel();
+				//Intent intent = new Intent(PlL2NearFar.this,PlL2NearFarTutorial.class);
+				//intent.putExtra("putbutt", 1);
+				//intent.putExtra("numran", RandomNum);
+				//intent.putExtra("numitem", item);
+				//startActivity(intent);
+				
+				Answer1.startAnimation(myFadeOnceAnimation);
+				Answer2.startAnimation(myFadeOnceAnimation);
 			}
-		});*/
+		});
 		
 		Button nearfarButton = (Button)findViewById(R.id.nearfarbackHome);
 		nearfarButton.setOnClickListener(new View.OnClickListener() {
