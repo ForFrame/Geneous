@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
@@ -42,13 +41,13 @@ public class PlL2NearFar extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // à¹€à¸?â?¬à¹€à¸?à¸?à¹€à¸?à¸—à¹€à¸?ï¿½à¹€à¸?à¸?à¹€à¸?â€”à¹€à¸?à¸“à¹€à¸?ï¿½à¹€à¸?à¸’à¹€à¸?ï¿½à¹€à¸?â?¬à¹€à¸?à¸?à¹€à¸?à¸?à¹€à¸?ï¿½à¹€à¸?ï¿½à¹€à¸?à¸?à¹€à¸?à¸”à¹€à¸?ï¿½à¹€à¸?ï¿½
+		public void onFinish() { // à¹€ï¿½?ï¿½?ï¿½à¹€ï¿½?ï¿½?à¹€ï¿½?à¸—à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½?à¹€ï¿½?â€”à¹€ï¿½?à¸“à¹€ï¿½?ï¿½à¹€ï¿½?à¸’à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½?ï¿½à¹€ï¿½?ï¿½?à¹€ï¿½?ï¿½?à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½?à¹€ï¿½?à¸”à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½
 		// TODO Auto-generated method stub
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // à¹€à¸?ï¿½à¹€à¸?ï¿½à¹€à¸?ï¿½à¹€à¸?â€?à¹€à¸?à¸?à¹€à¸?â€”à¹€à¸?à¸•à¹€à¸?ï¿½à¹€à¸?â€”à¹€à¸?à¸“à¹€à¸?ï¿½à¹€à¸?à¸’à¹€à¸?ï¿½à¹€à¸?â€”à¹€à¸?à¸?à¹€à¸?ï¿½ à¹€à¸?ï¿½ à¹€à¸?ï¿½à¹€à¸?à¸?à¹€à¸?à¸‘à¹€à¸?ï¿½à¹€à¸?ï¿½
+		public void onTick(long remain) { // à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½?à¹€ï¿½?ï¿½?à¹€ï¿½?â€”à¹€ï¿½?à¸•à¹€ï¿½?ï¿½à¹€ï¿½?â€”à¹€ï¿½?à¸“à¹€ï¿½?ï¿½à¹€ï¿½?à¸’à¹€ï¿½?ï¿½à¹€ï¿½?â€”à¹€ï¿½?ï¿½?à¹€ï¿½?ï¿½ à¹€ï¿½?ï¿½ à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½?à¹€ï¿½?à¸‘à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textTime);
@@ -223,6 +222,7 @@ public class PlL2NearFar extends Activity {
 		
 		final Button Answer1 = (Button)findViewById(R.id.picans1);
 		final Button Answer2 = (Button)findViewById(R.id.picans2);
+		TextView insView = (TextView)findViewById(R.id.picView);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
@@ -230,6 +230,7 @@ public class PlL2NearFar extends Activity {
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
 		final Animation myFadeOnceAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween_once);
+		final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween);
 		startTime = (20)*1000;
 		final MyCountDown countdownTime = new MyCountDown(startTime,1000);
 		
@@ -243,6 +244,8 @@ public class PlL2NearFar extends Activity {
 		countdownTime.start();
 		
 			answer = choice(RandomNum);
+			insView.startAnimation(myFadeAnimation);
+			
 				Answer1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
@@ -356,7 +359,8 @@ public class PlL2NearFar extends Activity {
 		
 		Button ans1 = (Button)findViewById(R.id.picans1);
 		Button ans2 = (Button)findViewById(R.id.picans2);
-		Random randomGenerator = new Random();
+		TextView ansView = (TextView)findViewById(R.id.picView);
+		//Random randomGenerator = new Random();
 		//int nearOrfar = randomGenerator.nextInt(2)+1;
 		
 		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.nearfarLayout);
@@ -365,60 +369,70 @@ public class PlL2NearFar extends Activity {
 	    if(random == 1){
 	    	answer = 1;
 	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg1);
+	    	ansView.setBackgroundResource(R.drawable.pl2_tv1);
 			ans1.setBackgroundResource(R.drawable.pl2_choice1_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice1_2);
 		}
 		else if(random == 2){
 			answer = 2;
 	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg2);
+	    	ansView.setBackgroundResource(R.drawable.pl2_tv2);
 			ans1.setBackgroundResource(R.drawable.pl2_choice2_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice2_2);
 		}
 		else if(random == 3){
 			answer = 2;
 	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg3);
+	    	ansView.setBackgroundResource(R.drawable.pl2_tv3);
 			ans1.setBackgroundResource(R.drawable.pl2_choice3_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice3_2);
 		}
 		else if(random == 4){
 			answer = 1;
 	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg4);
+	    	ansView.setBackgroundResource(R.drawable.pl2_tv4);
 			ans1.setBackgroundResource(R.drawable.pl2_choice4_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice4_2);
 		}
 		else if(random == 5){
 			answer = 1;
 	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg5);
+	    	ansView.setBackgroundResource(R.drawable.pl2_tv5);
 			ans1.setBackgroundResource(R.drawable.pl2_choice5_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice5_2);
 		}
 		else if(random == 6){
 			answer = 1;
 	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg6);
+	    	ansView.setBackgroundResource(R.drawable.pl2_tv6);
 			ans1.setBackgroundResource(R.drawable.pl2_choice6_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice6_2);
 		}
 		else if(random == 7){
 			answer = 2;
 	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg7);
+	    	ansView.setBackgroundResource(R.drawable.pl2_tv7);
 			ans1.setBackgroundResource(R.drawable.pl2_choice7_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice7_2);
 		}
 		else if(random == 8){
 			answer = 1;
 	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg8);
+	    	ansView.setBackgroundResource(R.drawable.pl2_tv8);
 			ans1.setBackgroundResource(R.drawable.pl2_choice8_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice8_2);
 		}
 		else if(random == 9){
 			answer = 1;
 	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg9);
+	    	ansView.setBackgroundResource(R.drawable.pl2_tv9);
 			ans1.setBackgroundResource(R.drawable.pl2_choice9_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice9_2);
 		}
 		else{
 			answer = 2;
 	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg10);
+	    	ansView.setBackgroundResource(R.drawable.pl2_tv10);
 			ans1.setBackgroundResource(R.drawable.pl2_choice10_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice10_2);
 		}

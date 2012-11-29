@@ -105,12 +105,12 @@ public class PoliceLevel2 extends Activity {
 			}
 		});
 		
-		Button backButton = (Button)findViewById(R.id.backToselectSchool);
+		Button backButton = (Button)findViewById(R.id.backToselectPolice);
 		backButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(PoliceLevel2.this,SelectSchoolLevel.class);
+				Intent intent = new Intent(PoliceLevel2.this,SelectPoliceLevel.class);
 				startActivity(intent);
 				
 			}
