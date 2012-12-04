@@ -1,0 +1,240 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tf_layout"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/pl1_bg1" >
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="22dp"
+        android:layout_y="14dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textUser"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_x="656dp"
+        android:layout_y="1dp"
+        android:gravity="right|center_vertical"
+        android:text="Username"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16pt"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <Button
+        android:id="@+id/loginn"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_x="872dp"
+        android:layout_y="1dp"
+        android:background="@drawable/login_txt" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_x="872dp"
+        android:layout_y="1dp"
+        android:background="@drawable/logout_txt" />
+
+	<TextView
+        android:id="@+id/currentitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="21dp"
+        android:layout_y="51dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+<!--     answer button -->
+    
+    <ImageView
+        android:id="@+id/tf_ans1_help"
+        android:layout_width="366dp"
+        android:layout_height="500dp"
+        android:layout_x="500dp"
+        android:layout_y="-13dp"
+        android:background="@drawable/pl1_ans1_help"
+        android:visibility="invisible" />
+    
+    <Button
+        android:id="@+id/tf_ans1_1"
+        android:layout_width="117dp"
+        android:layout_height="106dp"
+        android:layout_x="626dp"
+        android:layout_y="72dp"
+        android:background="@drawable/pl1_ans1_1"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/tf_ans1_2"
+        android:layout_width="117dp"
+        android:layout_height="106dp"
+        android:layout_x="627dp"
+        android:layout_y="190dp"
+        android:background="@drawable/pl1_ans1_2"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/tf_ans1_3"
+        android:layout_width="117dp"
+        android:layout_height="106dp"
+        android:layout_x="627dp"
+        android:layout_y="310dp"
+        android:background="@drawable/pl1_ans1_3"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/tf_ans4_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="831dp"
+        android:layout_y="134dp"
+        android:background="@drawable/pl1_ans4_1"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/tf_ans4_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="629dp"
+        android:layout_y="296dp"
+        android:background="@drawable/pl1_ans4_2"
+        android:visibility="invisible" />
+     <Button
+        android:id="@+id/tf_ans5_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="719dp"
+        android:layout_y="187dp"
+        android:background="@drawable/pl1_ans4_1"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/tf_ans5_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="461dp"
+        android:layout_y="216dp"
+        android:background="@drawable/pl1_ans4_2"
+        android:visibility="invisible" />
+    
+    <Button
+        android:id="@+id/tf_ans6_1"
+        android:layout_width="255dp"
+        android:layout_height="208dp"
+        android:layout_x="243dp"
+        android:layout_y="160dp"
+        android:background="@drawable/pl1_ans6_1"
+        android:visibility="invisible" />
+    
+     <Button
+        android:id="@+id/tf_ans6_2"
+        android:layout_width="255dp"
+        android:layout_height="208dp"
+        android:layout_x="580dp"
+        android:layout_y="160dp"
+        android:background="@drawable/pl1_ans6_2"
+        android:visibility="invisible" />
+    
+      <Button
+          android:id="@+id/tf_ans8_1"
+          android:layout_width="156dp"
+          android:layout_height="158dp"
+          android:layout_x="130dp"
+          android:layout_y="111dp"
+          android:background="@drawable/pl1_ans8_1"
+          android:visibility="invisible" />
+
+      <Button
+          android:id="@+id/tf_ans8_2"
+          android:layout_width="156dp"
+          android:layout_height="158dp"
+          android:layout_x="130dp"
+          android:layout_y="269dp"
+          android:background="@drawable/pl1_ans8_2"
+          android:visibility="invisible" />
+     
+<!--     instruction button -->
+    
+    <Button
+        android:id="@+id/tf_ins1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="162dp"
+        android:layout_y="193dp"
+        android:background="@drawable/pl1_ins1"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/tf_ins4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="144dp"
+        android:layout_y="158dp"
+        android:background="@drawable/pl1_ins4"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/tf_ins6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="321dp"
+        android:layout_y="62dp"
+        android:background="@drawable/pl1_ins6"
+        android:visibility="invisible" />
+
+     <Button
+          android:id="@+id/tf_ins8"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_x="353dp"
+          android:layout_y="43dp"
+          android:background="@drawable/pl1_ins8"
+          android:visibility="invisible" />
+     
+     <ImageView
+        android:id="@+id/showwrong"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_x="270dp"
+        android:layout_y="87dp"
+        android:background="@drawable/weak"
+        android:clickable="true"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/showcorrect"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_x="270dp"
+        android:layout_y="87dp"
+        android:background="@drawable/smile"
+        android:clickable="true"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/crossHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="830dp"
+        android:layout_y="654dp"
+        android:background="@drawable/icon_help2" />
+
+    <Button
+        android:id="@+id/crossbackHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="933dp"
+        android:layout_y="654dp"
+        android:background="@drawable/icon_home1" />
+
+    
+
+</AbsoluteLayout>

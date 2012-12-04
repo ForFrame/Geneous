@@ -70,61 +70,29 @@ public class PlL2NearFar extends Activity {
 		//mediaPlayer.start();
 		Round = myDb.getNumRound("005", username);
 		
-		/*int valueCalenTutorial = 0;
+					
+		myDb.getWritableDatabase();
+		myDb.emptyNumberTable();
+		
+		int valueTutorial = 0;
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
-			valueCalenTutorial = extras.getInt("longshort_tuto");
-			if(valueCalenTutorial == 1){
-				game003();
-			}
-			else if(valueCalenTutorial == 2){
-				
-				int rannum = extras.getInt("numran");
-				int thisitem = extras.getInt("numitem");
-				username = myDb.SelectCurrentUser();
-				
-				//Round--;
-				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
-				if(!(username.equals("Guest"))){
-					Round--;
-					TextView result = (TextView) findViewById(R.id.textUser);
-					result.setTypeface(type);
-					//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
-					result.setTextColor(Color.rgb(2, 101, 203));
-					result.setVisibility(TextView.VISIBLE);
-					result.setText(username);
-					Button LogoutBt = (Button) findViewById(R.id.logout);
-					LogoutBt.setVisibility(Button.VISIBLE);
-					Button LoginBt = (Button) findViewById(R.id.loginn);
-					LoginBt.setVisibility(Button.INVISIBLE);
-				}
-				
-				if((username.equals("Guest"))){
-					TextView result = (TextView) findViewById(R.id.textUser);
-					result.setVisibility(TextView.INVISIBLE);
-					Button LogoutBt = (Button) findViewById(R.id.logout);
-					LogoutBt.setVisibility(Button.INVISIBLE);
-					Button LoginBt = (Button) findViewById(R.id.loginn);
-					LoginBt.setVisibility(Button.VISIBLE);
-				}
-				checkAnswer(rannum,thisitem);
-				
+			valueTutorial = extras.getInt("tutorial");
+		
+			if(valueTutorial == 1){
+				game005();
 			}
 		}
 		else{
-			myDb.getWritableDatabase();
-			myDb.addGameNo("003", "Short or Long", 1);
-			myDb.emptyNumberTable();
-			myDb.close();
-			
 			if(Round == 1){
-				Intent intent2 = new Intent(PlL2NearFar.this,L1ScLongShortTutorial.class);
+				
+				Intent intent2 = new Intent(PlL2NearFar.this,PlL2NearFarTutorial.class);
 				startActivity(intent2);
 			}
-			else{*/
+			else{
 				game005();
-			//}
-		//}
+			}
+		}
 	}
 
 	void game005(){
@@ -289,6 +257,8 @@ public class PlL2NearFar extends Activity {
 		
 		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
 		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
+		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween_once);
+		final View helpAnswer = (View)findViewById(R.id.showAnswer);
 		
 		imgWrongClick.setOnClickListener(new View.OnClickListener() {
 			
@@ -331,14 +301,7 @@ public class PlL2NearFar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				//countdownTime.cancel();
-				//Intent intent = new Intent(PlL2NearFar.this,PlL2NearFarTutorial.class);
-				//intent.putExtra("putbutt", 1);
-				//intent.putExtra("numran", RandomNum);
-				//intent.putExtra("numitem", item);
-				//startActivity(intent);
-				
-				Answer1.startAnimation(myFadeOnceAnimation);
-				Answer2.startAnimation(myFadeOnceAnimation);
+				helpAnswer.startAnimation(myFadeonceAnimation);
 			}
 		});
 		
