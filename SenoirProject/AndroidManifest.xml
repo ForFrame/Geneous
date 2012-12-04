@@ -43,6 +43,8 @@
                   android:screenOrientation="landscape"/>
         <activity android:name=".PlL2NearFar"
                   android:screenOrientation="landscape"/>
+        <activity android:name=".PlL2NearFarTutorial"
+                  android:screenOrientation="landscape"/>
         <activity android:name=".PoliceLevel3"
                   android:screenOrientation="landscape"/>
         <activity android:name=".PlL3TypeCar"

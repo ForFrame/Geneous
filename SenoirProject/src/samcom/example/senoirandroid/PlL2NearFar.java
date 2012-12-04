@@ -32,7 +32,7 @@ public class PlL2NearFar extends Activity {
 	final Context context = this;
 	float timeRemain;
 	int Round;
-	int Day = 1;
+	int Begin = 1;
 	
 	public class MyCountDown extends CountDownTimer {
 		public MyCountDown(long millisInFuture, long countDownInterval) {
@@ -74,7 +74,7 @@ public class PlL2NearFar extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-		int valueTutorial = 0;
+		/*int valueTutorial = 0;
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
 			valueTutorial = extras.getInt("tutorial");
@@ -83,16 +83,21 @@ public class PlL2NearFar extends Activity {
 				game005();
 			}
 		}
-		else{
+		else{*/
 			if(Round == 1){
-				
-				Intent intent2 = new Intent(PlL2NearFar.this,PlL2NearFarTutorial.class);
-				startActivity(intent2);
+				//Intent intent2 = new Intent(PlL2NearFar.this,PlL2NearFarTutorial.class);
+				//startActivity(intent2);
+				if(Begin == 1){
+					showBeginPopup();
+				}
+				else{
+					game005();
+				}
 			}
 			else{
 				game005();
 			}
-		}
+		//}
 	}
 
 	void game005(){
@@ -190,15 +195,15 @@ public class PlL2NearFar extends Activity {
 		
 		final Button Answer1 = (Button)findViewById(R.id.picans1);
 		final Button Answer2 = (Button)findViewById(R.id.picans2);
-		TextView insView = (TextView)findViewById(R.id.picView);
+		//TextView insView = (TextView)findViewById(R.id.picView);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 		final int answer;
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
-		final Animation myFadeOnceAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween_once);
-		final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween);
+		//final Animation myFadeOnceAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween_once);
+		//final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween);
 		startTime = (20)*1000;
 		final MyCountDown countdownTime = new MyCountDown(startTime,1000);
 		
@@ -212,7 +217,7 @@ public class PlL2NearFar extends Activity {
 		countdownTime.start();
 		
 			answer = choice(RandomNum);
-			insView.startAnimation(myFadeAnimation);
+			//insView.startAnimation(myFadeAnimation);
 			
 				Answer1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -528,6 +533,46 @@ public class PlL2NearFar extends Activity {
 		
 	}
 	
+	protected void showBeginPopup(){
+		final Dialog BeginPop = new Dialog(context, R.style.FullHeightDialog);
+		final MediaPlayer soundIns;
+		final MediaPlayer soundAns;
+		BeginPop.setContentView(R.layout.activity_pl_l2_nearfar_tutorial);
+		BeginPop.setCanceledOnTouchOutside(false);
+		BeginPop.setCancelable(false); 
+		
+		soundIns = MediaPlayer.create(context, R.raw.try_to_count);
+		soundAns = MediaPlayer.create(context, R.raw.choose_count);
+		final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween);
+		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);
+		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpNearFar);
+		
+		//soundWrong is instruction sound
+				instruct.startAnimation(myFadeAnimation);
+				soundIns.start();
+				
+				soundIns.setOnCompletionListener(new OnCompletionListener() {
+		            public void onCompletion(MediaPlayer soundIns) {
+		            	instruct.clearAnimation();
+		            	soundAns.start();
+		            	helpAns.startAnimation(myFadeAnimation);
+		            }
+		        });
+				
+				Button skipHelp = (Button)BeginPop.findViewById(R.id.bt_skip);
+				skipHelp.setOnClickListener(new View.OnClickListener() {
+					
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						soundIns.stop();
+						soundAns.stop();
+						//Begin = 2;
+						BeginPop.dismiss();
+						game005();
+					}
+				});
+			BeginPop.show();
+	}
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);

@@ -30,6 +30,7 @@ public class PlL2NearFarTutorial extends Activity{
 	    requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	    setContentView(R.layout.activity_pl_l2_nearfar_tutorial);
+	    setFinishOnTouchOutside(false); 
 	    
 	    soundIns = MediaPlayer.create(context, R.raw.try_to_count);
 		soundAns = MediaPlayer.create(context, R.raw.choose_count);
