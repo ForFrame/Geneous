@@ -6,115 +6,113 @@
     android:orientation="vertical" >
 
     
-    
 
     <ImageView
         android:id="@+id/buttonnumber1"
         android:layout_width="60dp"
         android:layout_height="70dp"
-        android:layout_x="150dp"
-        android:layout_y="124dp"
+        android:layout_x="162dp"
+        android:layout_y="126dp"
         android:background="@drawable/n1" />
 
     <ImageView
         android:id="@+id/buttonnumber2"
         android:layout_width="60dp"
         android:layout_height="70dp"
-        android:layout_x="220dp"
-        android:layout_y="124dp"
+        android:layout_x="232dp"
+        android:layout_y="126dp"
         android:background="@drawable/n2" />
 
     <ImageView
         android:id="@+id/buttonnumber3"
         android:layout_width="60dp"
         android:layout_height="70dp"
-        android:layout_x="290dp"
-        android:layout_y="124dp"
+        android:layout_x="302dp"
+        android:layout_y="126dp"
         android:background="@drawable/n3" />
 
     <ImageView
         android:id="@+id/buttonnumber4"
         android:layout_width="60dp"
         android:layout_height="70dp"
-        android:layout_x="360dp"
-        android:layout_y="124dp"
+        android:layout_x="372dp"
+        android:layout_y="126dp"
         android:background="@drawable/n4" />
+
     <ImageView
         android:id="@+id/buttonnumber5"
         android:layout_width="60dp"
         android:layout_height="70dp"
-        android:layout_x="430dp"
-        android:layout_y="124dp"
+        android:layout_x="442dp"
+        android:layout_y="126dp"
         android:background="@drawable/n5" />
 
     <ImageView
         android:id="@+id/buttonnumber6"
         android:layout_width="60dp"
         android:layout_height="70dp"
-        android:layout_x="500dp"
-        android:layout_y="124dp"
+        android:layout_x="512dp"
+        android:layout_y="126dp"
         android:background="@drawable/n6" />
-    
+
     <ImageView
         android:id="@+id/buttonnumber7"
         android:layout_width="60dp"
         android:layout_height="70dp"
-        android:layout_x="570dp"
-        android:layout_y="124dp"
+        android:layout_x="582dp"
+        android:layout_y="126dp"
         android:background="@drawable/n7" />
 
     <ImageView
         android:id="@+id/buttonnumber8"
         android:layout_width="60dp"
         android:layout_height="70dp"
-        android:layout_x="640dp"
-        android:layout_y="124dp"
+        android:layout_x="652dp"
+        android:layout_y="126dp"
         android:background="@drawable/n8" />
 
     <ImageView
         android:id="@+id/buttonnumber9"
         android:layout_width="60dp"
         android:layout_height="70dp"
-        android:layout_x="710dp"
-        android:layout_y="124dp"
+        android:layout_x="722dp"
+        android:layout_y="126dp"
         android:background="@drawable/n9" />
 
     <ImageView
         android:id="@+id/buttonnumber10"
         android:layout_width="60dp"
         android:layout_height="70dp"
-        android:layout_x="780dp"
-        android:layout_y="124dp"
+        android:layout_x="792dp"
+        android:layout_y="126dp"
         android:background="@drawable/n10" />
 
     <ImageView
         android:id="@+id/counttable5"
         android:layout_width="650dp"
         android:layout_height="240dp"
-        android:layout_x="193dp"
-        android:layout_y="371dp"
+        android:layout_x="210dp"
+        android:layout_y="373dp"
         android:background="@drawable/table5"
         android:visibility="visible" />
 
-
-
-    <ImageView
-        android:id="@+id/showcorrectnumber"
-        android:layout_width="500dp"
-        android:layout_height="500dp"
-        android:layout_x="241dp"
-        android:layout_y="109dp"
-        android:background="@drawable/smile"
-        android:clickable="true"
-        android:visibility="invisible" />
-    
     <ImageView
         android:id="@+id/helpNumber"
-        android:layout_width="100dp"
-        android:layout_height="124dp"
-        android:layout_x="410dp"
-        android:layout_y="98dp"
-        android:background="@drawable/help1"
+        android:layout_width="741dp"
+        android:layout_height="wrap_content"
+        android:layout_x="142dp"
+        android:layout_y="103dp"
+        android:background="@drawable/help_longrectang"
         android:visibility="invisible" />
+    
+    <Button
+        android:id="@+id/bt_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="908dp"
+        android:layout_y="653dp"
+        android:background="@drawable/icon_skip"
+        android:clickable="true"
+        android:visibility="visible" />
 
 </AbsoluteLayout>

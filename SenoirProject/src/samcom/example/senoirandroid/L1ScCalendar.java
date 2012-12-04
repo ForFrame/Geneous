@@ -16,6 +16,8 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -66,53 +68,21 @@ public class L1ScCalendar extends Activity {
 		
 		//mediaPlayer.start();
 		Round = myDb.getNumRound("002", username);
+		myDb.getWritableDatabase();
+		myDb.emptyNumberTable();
 		
-		int valueCalenTutorial = 0;
+		int valueTutorial = 0;
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
-			valueCalenTutorial = extras.getInt("calen_tuto");
-			if(valueCalenTutorial == 1){
+			valueTutorial = extras.getInt("tutorial");
+		
+			if(valueTutorial == 1){
 				game002();
-			}
-			else if(valueCalenTutorial == 2){
-				
-				Day = extras.getInt("today");
-				ranDay = extras.getInt("numran");
-				
-				username = myDb.SelectCurrentUser();
-				
-				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
-				if(!(username.equals("Guest"))){
-					Round--;
-					TextView result = (TextView) findViewById(R.id.textUser);
-					result.setTypeface(type);
-					result.setTextColor(Color.rgb(2, 101, 203));
-					result.setVisibility(TextView.VISIBLE);
-					result.setText(username);
-					Button LogoutBt = (Button) findViewById(R.id.logout);
-					LogoutBt.setVisibility(Button.VISIBLE);
-					Button LoginBt = (Button) findViewById(R.id.loginn);
-					LoginBt.setVisibility(Button.INVISIBLE);
-				}
-				
-				if((username.equals("Guest"))){
-					TextView result = (TextView) findViewById(R.id.textUser);
-					result.setVisibility(TextView.INVISIBLE);
-					Button LogoutBt = (Button) findViewById(R.id.logout);
-					LogoutBt.setVisibility(Button.INVISIBLE);
-					Button LoginBt = (Button) findViewById(R.id.loginn);
-					LoginBt.setVisibility(Button.VISIBLE);
-				}
-				startTime = (30)*1000;
-				checkAns(true);
-				
 			}
 		}
 		else{
-						
 			if(Round == 1){
-				myDb.getWritableDatabase();
-				myDb.emptyNumberTable();
+				
 				Intent intent2 = new Intent(L1ScCalendar.this,L1ScCalendarTutorial.class);
 				startActivity(intent2);
 			}
@@ -120,6 +90,8 @@ public class L1ScCalendar extends Activity {
 				game002();
 			}
 		}
+		
+		
 	}
 
 	void game002(){
@@ -294,6 +266,8 @@ void checkAns(Boolean isInterupt){
 		
 		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
 		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
+		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween_once);
+		final View helpAnswer = (View)findViewById(R.id.helpCalendar);
 		
 		imgWrongClick.setOnClickListener(new View.OnClickListener() {
 			
@@ -336,13 +310,7 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				countdownTime.cancel();
-				Intent intent = new Intent(L1ScCalendar.this,L1ScCalendarTutorial.class);
-				intent.putExtra("frombutt", 1);
-				
-				intent.putExtra("today", Day);
-				if(Day>7)
-					  intent.putExtra("numran", ranDay);
-				startActivity(intent);
+				helpAnswer.startAnimation(myFadeonceAnimation);
 			}
 		});
 		

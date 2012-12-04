@@ -4,23 +4,19 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.Random;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.LayoutInflater;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -78,64 +74,21 @@ public class L1ScCount extends Activity {
 		
 		//mediaPlayer.start();
 		Round = myDb.getNumRound("001", username);
-		//game001();
-		
+		myDb.getWritableDatabase();
+		myDb.addGameNo("001", "Count tables", 1);
+		myDb.emptyNumberTable();
+		myDb.close();
 		
 		int valueTutorial = 0;
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
 			valueTutorial = extras.getInt("tutorial");
+		
 			if(valueTutorial == 1){
-				
 				game001();
-			}
-			else if(valueTutorial == 2){
-				
-				//in.putExtra("numran", RandomNum);
-				//  in.putExtra("numitem", item);
-				
-				int rannum = extras.getInt("numran");
-				int thisitem = extras.getInt("numitem");
-				username = myDb.SelectCurrentUser();
-				
-				//Round = myDb.getNumRound("001", username);
-				
-				
-				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
-				if(!(username.equals("Guest"))){
-					Round--;
-					TextView result = (TextView) findViewById(R.id.textUser);
-					result.setTypeface(type);
-					//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
-					result.setTextColor(Color.rgb(2, 101, 203));
-					result.setVisibility(TextView.VISIBLE);
-					result.setText(username);
-					Button LogoutBt = (Button) findViewById(R.id.logout);
-					LogoutBt.setVisibility(Button.VISIBLE);
-					Button LoginBt = (Button) findViewById(R.id.loginn);
-					LoginBt.setVisibility(Button.INVISIBLE);
-				}
-				
-				if((username.equals("Guest"))){
-					TextView result = (TextView) findViewById(R.id.textUser);
-					result.setVisibility(TextView.INVISIBLE);
-					Button LogoutBt = (Button) findViewById(R.id.logout);
-					LogoutBt.setVisibility(Button.INVISIBLE);
-					Button LoginBt = (Button) findViewById(R.id.loginn);
-					LoginBt.setVisibility(Button.VISIBLE);
-				}
-				checkAns(rannum,thisitem);
-				
 			}
 		}
 		else{
-			myDb.getWritableDatabase();
-			myDb.addGameNo("001", "Count tables", 1);
-			myDb.emptyNumberTable();
-			myDb.close();
-			
-			//Round = myDb.getNumRound("001", username);
-			
 			if(Round == 1){
 				Intent intent = new Intent(L1ScCount.this,L1ScCountTutorial.class);
 				startActivity(intent);
@@ -153,25 +106,14 @@ public class L1ScCount extends Activity {
 		myDb.getReadableDatabase();
 		int count = myDb.CountNumRan();
 		int Random = 0;
-		int LastRanNum = 0;
 		int scores;
 		
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
-		 
-			
-		/*
-		 * if(NumfromReply !=0){
-			final View imgWrongpop = (View)findViewById(R.id.showwrongnumber); 
-			final View imgCorrectpop = (View)findViewById(R.id.showcorrectnumber);
-			imgWrongpop.setVisibility(View.INVISIBLE);
-			imgCorrectpop.setVisibility(View.INVISIBLE);
-		}
-		 * */
+		
 		username = myDb.SelectCurrentUser();
 		if(!(username.equals("Guest"))){
 			TextView result = (TextView) findViewById(R.id.textUser);
 			result.setTypeface(type);
-			//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
 			result.setTextColor(Color.rgb(2, 101, 203));
 			result.setVisibility(TextView.VISIBLE);
 			result.setText(username);
@@ -196,8 +138,6 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
-				//Intent intent = new Intent(L1ScCount.this,Main.class);
-				//startActivity(intent);
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -542,6 +482,8 @@ public class L1ScCount extends Activity {
 		
 		final View imgWrongClick = (View)findViewById(R.id.showwrongnumber); 
 		final View imgCorrectClick = (View)findViewById(R.id.showcorrectnumber);
+		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScCount.this, R.anim.tween_once);
+		final View helpAnswer = (View)findViewById(R.id.helpCount);
 		
 		imgWrongClick.setOnClickListener(new View.OnClickListener() {
 			
@@ -549,7 +491,6 @@ public class L1ScCount extends Activity {
 				// TODO Auto-generated method stub
 				soundWrong.stop();
 				imgWrong.setVisibility(View.INVISIBLE);
-				//imgCorrect.setVisibility(View.INVISIBLE);
 				game001();
 			}
 		});
@@ -557,7 +498,6 @@ public class L1ScCount extends Activity {
 		imgCorrectClick.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//imgWrong.setVisibility(View.INVISIBLE);
 				soundCorrect.stop();
 				imgCorrect.setVisibility(View.INVISIBLE);
 				game001();
@@ -584,11 +524,8 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				countdown.cancel();
-				Intent intent = new Intent(L1ScCount.this,L1ScCountTutorial.class);
-				intent.putExtra("putbutt", 1);
-				intent.putExtra("numran", RandomNum);
-				intent.putExtra("numitem", item);
-				startActivity(intent);
+				helpAnswer.startAnimation(myFadeonceAnimation);
+				
 			}
 		});
 		
@@ -642,9 +579,7 @@ public class L1ScCount extends Activity {
 			default: ImageView score0 = (ImageView)dialog.findViewById(R.id.star0); 
 					score0.setVisibility(ImageView.VISIBLE);	break;		
 		}
-		//ImageView image = (ImageView) dialog.findViewById(R.id.image);
-		//image.setImageResource(R.drawable.ic_launcher);
-
+		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
 		dialogHomeBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -652,8 +587,6 @@ public class L1ScCount extends Activity {
 				dialog.dismiss();
 				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
 				startActivity(intent);
-				
-				//finish();
 				
 			}
 		});
@@ -665,10 +598,8 @@ public class L1ScCount extends Activity {
 				dialog.dismiss();
 				
 				int LastRan = myDb.getLastNum(10);
-				//if(LastRan!= 0){
 					hideTables(LastRan);
-				//}
-				
+
 				myDb.getWritableDatabase();
 				myDb.emptyNumberTable();
 				myDb.close();
@@ -679,7 +610,6 @@ public class L1ScCount extends Activity {
 				imgCorrectpop.setVisibility(View.INVISIBLE);
 				
 				Round = myDb.getNumRound("001", username);
-				//Round++;
 				game001();
 			}
 		});

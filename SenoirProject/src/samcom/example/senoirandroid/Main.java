@@ -274,7 +274,10 @@ SQLiteDatabase db;
 				}
 				else{
 					//String strTxt = editT1.getText().toString();              
-					Toast.makeText(Main.this, username + " : not in user info", Toast.LENGTH_LONG).show(); 
+					//Toast.makeText(Main.this, "ชื่อของคุณยังไม่มีในระบบ กรุณาลงทะเบียนค่ะ", Toast.LENGTH_LONG).show(); 
+					Toast toast= Toast.makeText(getApplicationContext(), "ชื่อของคุณยังไม่มีในระบบ กรุณาลงทะเบียนค่ะ", Toast.LENGTH_SHORT);  
+					toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 40, 170);
+					toast.show();
 				}
 				
 				//CurrentUser = user.getText().toString();
@@ -385,15 +388,24 @@ SQLiteDatabase db;
 			
 				lenghtName = username.length();
 				if((lenghtName<1)){
-					Toast.makeText(Main.this, username + " : username must > 1", Toast.LENGTH_LONG).show();
+					//Toast.makeText(Main.this, "ชื่อผู้ใช้งานต้องมีอย่างน้อย  1 ตัวอักษรค่ะ", Toast.LENGTH_LONG).show();
+					Toast toast= Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานต้องมีอย่างน้อย  1 ตัวอักษรค่ะ", Toast.LENGTH_SHORT);  
+					toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 130);
+					toast.show();
 				}
 				else if((lenghtName>10)){
-					Toast.makeText(Main.this, username + " : username must < 10", Toast.LENGTH_LONG).show();
+					//Toast.makeText(Main.this, "ชื่อผู้ใช้งานต้อง  < 10  ตัวอักษรค่ะ", Toast.LENGTH_LONG).show();
+					Toast toast= Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานต้อง  < 10  ตัวอักษรค่ะ", Toast.LENGTH_SHORT);  
+					toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 150);
+					toast.show();
 				}
 				else{
 					checkUser = myDb.checkUserInfo(username);
 					if(checkUser == true){
-						Toast.makeText(Main.this, username + " : same as in user info", Toast.LENGTH_LONG).show(); 
+						//Toast.makeText(Main.this, "ชื่อนี้ถูกใช้แล้ว กรุณากรอกชื่ออื่นค่ะ ", Toast.LENGTH_LONG).show();
+						Toast toast= Toast.makeText(getApplicationContext(), "ชื่อนี้ถูกใช้แล้ว กรุณากรอกชื่ออื่นค่ะ ", Toast.LENGTH_SHORT);  
+						toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 150);
+						toast.show();
 						
 					}
 					else{
