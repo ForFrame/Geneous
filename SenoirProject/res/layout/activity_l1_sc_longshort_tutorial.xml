@@ -22,32 +22,33 @@
         android:layout_y="508dp"
         android:background="@drawable/rubber_shot"
         android:visibility="visible" />
+    
+    <ImageView
+        android:id="@+id/ansLong"
+        android:layout_width="wrap_content"
+        android:layout_height="289dp"
+        android:layout_x="255dp"
+        android:layout_y="376dp"
+        android:background="@drawable/help_rectang2"
+        android:visibility="invisible" />
 
     <ImageView
-        android:id="@+id/longcorrect"
+        android:id="@+id/insLong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="238dp"
-        android:layout_y="391dp"
-        android:background="@drawable/longshort_tuto"
+        android:layout_x="692dp"
+        android:layout_y="143dp"
+        android:background="@drawable/pin_long"
         android:visibility="invisible" />
-
-    <ImageView
-        android:id="@+id/shortcorrect"
+    
+    <Button
+        android:id="@+id/bt_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="244dp"
-        android:layout_y="514dp"
-        android:background="@drawable/longshort_tuto"
-        android:visibility="invisible" />
-
-    <ImageView
-        android:id="@+id/showcorrect"
-        android:layout_width="500dp"
-        android:layout_height="500dp"
-        android:layout_x="256dp"
-        android:layout_y="96dp"
-        android:background="@drawable/smile"
-        android:visibility="invisible" />
+        android:layout_x="908dp"
+        android:layout_y="653dp"
+        android:background="@drawable/icon_skip"
+        android:clickable="true"
+        android:visibility="visible" />
 
 </AbsoluteLayout>

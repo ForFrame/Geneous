@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
@@ -17,12 +16,15 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
+@SuppressWarnings("deprecation")
 public class L1ScLongShort extends Activity {
 
 	String username;
@@ -64,58 +66,30 @@ public class L1ScLongShort extends Activity {
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		username = myDb.SelectCurrentUser();
+		
+		myDb.getWritableDatabase();
+		myDb.addGameNo("003", "Short or Long", 1);
+		myDb.emptyNumberTable();
+		myDb.close();
 	
 		//mediaPlayer.start();
 		Round = myDb.getNumRound("003", username);
 		
-		int valueCalenTutorial = 0;
+		myDb.getWritableDatabase();
+		myDb.emptyNumberTable();
+		
+		int valueTutorial = 0;
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
-			valueCalenTutorial = extras.getInt("longshort_tuto");
-			if(valueCalenTutorial == 1){
+			valueTutorial = extras.getInt("tutorial");
+		
+			if(valueTutorial == 1){
 				game003();
-			}
-			else if(valueCalenTutorial == 2){
-				
-				int rannum = extras.getInt("numran");
-				int thisitem = extras.getInt("numitem");
-				username = myDb.SelectCurrentUser();
-				
-				//Round--;
-				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
-				if(!(username.equals("Guest"))){
-					Round--;
-					TextView result = (TextView) findViewById(R.id.textUser);
-					result.setTypeface(type);
-					//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
-					result.setTextColor(Color.rgb(2, 101, 203));
-					result.setVisibility(TextView.VISIBLE);
-					result.setText(username);
-					Button LogoutBt = (Button) findViewById(R.id.logout);
-					LogoutBt.setVisibility(Button.VISIBLE);
-					Button LoginBt = (Button) findViewById(R.id.loginn);
-					LoginBt.setVisibility(Button.INVISIBLE);
-				}
-				
-				if((username.equals("Guest"))){
-					TextView result = (TextView) findViewById(R.id.textUser);
-					result.setVisibility(TextView.INVISIBLE);
-					Button LogoutBt = (Button) findViewById(R.id.logout);
-					LogoutBt.setVisibility(Button.INVISIBLE);
-					Button LoginBt = (Button) findViewById(R.id.loginn);
-					LoginBt.setVisibility(Button.VISIBLE);
-				}
-				checkAnswer(rannum,thisitem);
-				
 			}
 		}
 		else{
-			myDb.getWritableDatabase();
-			myDb.addGameNo("003", "Short or Long", 1);
-			myDb.emptyNumberTable();
-			myDb.close();
-			
 			if(Round == 1){
+				
 				Intent intent2 = new Intent(L1ScLongShort.this,L1ScLongShortTutorial.class);
 				startActivity(intent2);
 			}
@@ -123,6 +97,8 @@ public class L1ScLongShort extends Activity {
 				game003();
 			}
 		}
+		
+		
 	}
 
 	void game003(){
@@ -285,6 +261,8 @@ public class L1ScLongShort extends Activity {
 		
 		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
 		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
+		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween_once);
+		final View helpAnswer = (View)findViewById(R.id.helpLong);
 		
 		imgWrongClick.setOnClickListener(new View.OnClickListener() {
 			
@@ -327,11 +305,7 @@ public class L1ScLongShort extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				countdownTime.cancel();
-				Intent intent = new Intent(L1ScLongShort.this,L1ScLongShortTutorial.class);
-				intent.putExtra("putbutt", 1);
-				intent.putExtra("numran", RandomNum);
-				intent.putExtra("numitem", item);
-				startActivity(intent);
+				helpAnswer.startAnimation(myFadeonceAnimation);
 			}
 		});
 		
