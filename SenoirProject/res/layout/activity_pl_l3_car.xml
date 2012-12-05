@@ -1,0 +1,130 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/carLayout"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/pl3_bg1" >
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="22dp"
+        android:layout_y="14dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textUser"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_x="656dp"
+        android:layout_y="1dp"
+        android:gravity="right|center_vertical"
+        android:text="Username"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16pt"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <Button
+        android:id="@+id/loginn"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_x="872dp"
+        android:layout_y="1dp"
+        android:background="@drawable/login_txt" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_x="872dp"
+        android:layout_y="1dp"
+        android:background="@drawable/logout_txt" />
+    
+      <Button
+        android:id="@+id/picans1"
+        android:layout_width="238dp"
+        android:layout_height="202dp"
+        android:layout_x="160dp"
+        android:layout_y="200dp"
+        android:background="@drawable/pl3_choice1"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/picans2"
+        android:layout_width="238dp"
+        android:layout_height="202dp"
+        android:layout_x="410dp"
+        android:layout_y="200dp"
+        android:background="@drawable/pl3_choice2"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/picans3"
+        android:layout_width="238dp"
+        android:layout_height="202dp"
+        android:layout_x="665dp"
+        android:layout_y="200dp"
+        android:background="@drawable/pl3_choice3"
+        android:visibility="visible" />
+    <ImageView
+        android:id="@+id/showAnswer"
+        android:layout_width="804dp"
+        android:layout_height="251dp"
+        android:layout_x="128dp"
+        android:layout_y="179dp"
+        android:background="@drawable/help_rectang2"
+        android:visibility="visible" />
+    
+    <TextView
+        android:id="@+id/currentitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="20dp"
+        android:layout_y="54dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <ImageView
+        android:id="@+id/showwrong"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_x="255dp"
+        android:layout_y="94dp"
+        android:background="@drawable/weak"
+        android:clickable="true"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/showcorrect"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_x="255dp"
+        android:layout_y="94dp"
+        android:background="@drawable/smile"
+        android:clickable="true"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/carHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="835dp"
+        android:layout_y="651dp"
+        android:background="@drawable/icon_help2" />
+
+    <Button
+        android:id="@+id/carbackHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="938dp"
+        android:layout_y="651dp"
+        android:background="@drawable/icon_home1" />
+
+  
+
+    
+
+</AbsoluteLayout>

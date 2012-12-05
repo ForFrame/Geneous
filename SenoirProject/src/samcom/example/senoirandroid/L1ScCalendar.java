@@ -40,13 +40,13 @@ public class L1ScCalendar extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // เน€เธกเธทเน�เธญเธ—เธณเธ�เธฒเธ�เน€เธชเธฃเน�เธ�เธชเธดเน�เธ�
+		public void onFinish() { // เน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ—เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ�เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // เน�เธ�เธ�เธ“เธฐเธ—เธตเน�เธ—เธณเธ�เธฒเธ�เธ—เธธเธ� เน� เธ�เธฃเธฑเน�เธ�
+		public void onTick(long remain) { // เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�โ€�เน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ•เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ�เน€เธ�๏ฟฝ เน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ‘เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textTime);
@@ -71,25 +71,14 @@ public class L1ScCalendar extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-		int valueTutorial = 0;
-		Bundle extras = getIntent().getExtras();
-		if(extras != null){
-			valueTutorial = extras.getInt("tutorial");
-		
-			if(valueTutorial == 1){
-				game002();
-			}
+		if(Round == 1){
+			
+			showBeginPopup();
 		}
 		else{
-			if(Round == 1){
-				
-				Intent intent2 = new Intent(L1ScCalendar.this,L1ScCalendarTutorial.class);
-				startActivity(intent2);
-			}
-			else{
-				game002();
-			}
+			game002();
 		}
+	
 		
 		
 	}
@@ -309,7 +298,7 @@ void checkAns(Boolean isInterupt){
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				countdownTime.cancel();
+				//countdownTime.cancel();
 				helpAnswer.startAnimation(myFadeonceAnimation);
 			}
 		});
@@ -590,6 +579,47 @@ void checkAns(Boolean isInterupt){
 
 	}	
 	
+	protected void showBeginPopup(){
+		final Dialog BeginPop = new Dialog(context, R.style.FullHeightDialog);
+		final MediaPlayer soundIns;
+		final MediaPlayer soundAns;
+		BeginPop.setContentView(R.layout.activity_l1_sc_calendar_tutorial);
+		BeginPop.setCanceledOnTouchOutside(false);
+		BeginPop.setCancelable(false); 
+		
+		soundIns = MediaPlayer.create(context, R.raw.try_to_count);
+		soundAns = MediaPlayer.create(context, R.raw.choose_count);
+		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween);
+		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.answer);
+		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.hand);
+		
+		//soundWrong is instruction sound
+				instruct.startAnimation(myFadeAnimation);
+				soundIns.start();
+				
+				soundIns.setOnCompletionListener(new OnCompletionListener() {
+		            public void onCompletion(MediaPlayer soundIns) {
+		            	instruct.clearAnimation();
+		            	soundAns.start();
+		            	helpAns.startAnimation(myFadeAnimation);
+		            }
+		        });
+				
+				Button skipHelp = (Button)BeginPop.findViewById(R.id.bt_skip);
+				skipHelp.setOnClickListener(new View.OnClickListener() {
+					
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						soundIns.stop();
+						soundAns.stop();
+						//Begin = 2;
+						BeginPop.dismiss();
+						game002();
+					}
+				});
+			BeginPop.show();
+	}
+	
 	void showTimeout(){
 		
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
@@ -616,7 +646,7 @@ void checkAns(Boolean isInterupt){
 		final myDBClass myDb = new myDBClass(this);
 		//myDb.getReadableDatabase();
 		
-		//this comment for เธ•เธดเน�เธ� เน�เน�เน�เน�  continue (1,1) state
+		//this comment for เน€เธ�โ€ขเน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝ  continue (1,1) state
 		//Boolean isThisContinue;
 		//isThisContinue = myDb.isCurrentContinue();
 		//myDb.close();

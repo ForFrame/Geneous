@@ -87,12 +87,12 @@ public class PlL2NearFar extends Activity {
 			if(Round == 1){
 				//Intent intent2 = new Intent(PlL2NearFar.this,PlL2NearFarTutorial.class);
 				//startActivity(intent2);
-				if(Begin == 1){
+				//if(Begin == 1){
 					showBeginPopup();
-				}
-				else{
-					game005();
-				}
+				//}
+				//else{
+				//	game005();
+				//}
 			}
 			else{
 				game005();

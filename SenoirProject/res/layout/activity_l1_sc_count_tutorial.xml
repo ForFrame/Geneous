@@ -1,11 +1,10 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="874dp"
+    android:layout_height="618dp"
+    android:layout_gravity="center"
     android:background="@drawable/bg_help"
     android:orientation="vertical" >
-
-    
 
     <ImageView
         android:id="@+id/buttonnumber1"
@@ -104,13 +103,13 @@
         android:layout_y="103dp"
         android:background="@drawable/help_longrectang"
         android:visibility="invisible" />
-    
+
     <Button
         android:id="@+id/bt_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="908dp"
-        android:layout_y="653dp"
+        android:layout_x="757dp"
+        android:layout_y="542dp"
         android:background="@drawable/icon_skip"
         android:clickable="true"
         android:visibility="visible" />

@@ -1,11 +1,10 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/AbsoluteLayout1"
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="874dp"
+    android:layout_height="618dp"
+    android:layout_gravity="center"
     android:background="@drawable/school_level1_g2_tu" >
-
-   
 
     <ImageView
         android:id="@+id/Sunday_thai"
@@ -76,17 +75,15 @@
         android:layout_y="400dp"
         android:background="@drawable/mon3"
         android:visibility="visible" />
-    
+
     <Button
         android:id="@+id/bt_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="908dp"
-        android:layout_y="653dp"
+        android:layout_x="755dp"
+        android:layout_y="551dp"
         android:background="@drawable/icon_skip"
         android:clickable="true"
         android:visibility="visible" />
-
-    
 
 </AbsoluteLayout>

@@ -41,13 +41,13 @@ public class L1ScLongShort extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // เน€เธกเธทเน�เธญเธ—เธณเธ�เธฒเธ�เน€เธชเธฃเน�เธ�เธชเธดเน�เธ�
+		public void onFinish() { // เน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ—เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ�เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // เน�เธ�เธ�เธ“เธฐเธ—เธตเน�เธ—เธณเธ�เธฒเธ�เธ—เธธเธ� เน� เธ�เธฃเธฑเน�เธ�
+		public void onTick(long remain) { // เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�โ€�เน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ•เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ�เน€เธ�๏ฟฝ เน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ‘เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textTime);
@@ -78,24 +78,12 @@ public class L1ScLongShort extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-		int valueTutorial = 0;
-		Bundle extras = getIntent().getExtras();
-		if(extras != null){
-			valueTutorial = extras.getInt("tutorial");
-		
-			if(valueTutorial == 1){
-				game003();
-			}
+		if(Round == 1){
+			
+			showBeginPopup();
 		}
 		else{
-			if(Round == 1){
-				
-				Intent intent2 = new Intent(L1ScLongShort.this,L1ScLongShortTutorial.class);
-				startActivity(intent2);
-			}
-			else{
-				game003();
-			}
+			game003();
 		}
 		
 		
@@ -304,7 +292,7 @@ public class L1ScLongShort extends Activity {
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				countdownTime.cancel();
+				//countdownTime.cancel();
 				helpAnswer.startAnimation(myFadeonceAnimation);
 			}
 		});
@@ -476,6 +464,47 @@ public class L1ScLongShort extends Activity {
 		dialog.show();
 
 	}	
+	
+	protected void showBeginPopup(){
+		final Dialog BeginPop = new Dialog(context, R.style.FullHeightDialog);
+		final MediaPlayer soundIns;
+		final MediaPlayer soundAns;
+		BeginPop.setContentView(R.layout.activity_l1_sc_longshort_tutorial);
+		BeginPop.setCanceledOnTouchOutside(false);
+		BeginPop.setCancelable(false); 
+		
+		soundIns = MediaPlayer.create(context, R.raw.try_to_count);
+		soundAns = MediaPlayer.create(context, R.raw.choose_count);
+		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween);
+		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.ansLong);
+		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.insLong);
+		
+		//soundWrong is instruction sound
+				instruct.startAnimation(myFadeAnimation);
+				soundIns.start();
+				
+				soundIns.setOnCompletionListener(new OnCompletionListener() {
+		            public void onCompletion(MediaPlayer soundIns) {
+		            	instruct.clearAnimation();
+		            	soundAns.start();
+		            	helpAns.startAnimation(myFadeAnimation);
+		            }
+		        });
+				
+				Button skipHelp = (Button)BeginPop.findViewById(R.id.bt_skip);
+				skipHelp.setOnClickListener(new View.OnClickListener() {
+					
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						soundIns.stop();
+						soundAns.stop();
+						//Begin = 2;
+						BeginPop.dismiss();
+						game003();
+					}
+				});
+			BeginPop.show();
+	}
 	
 	void showTimeout(){
 		

@@ -34,6 +34,7 @@ public class PlL1Cross extends Activity {
 	int Round;
 	int Items = 1;
 	int ranDay=0;
+	int Begin = 1;
 	
 	final MyCountDown countdownTime = new MyCountDown(startTime,1000);
 	
@@ -44,13 +45,13 @@ public class PlL1Cross extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // เน€เธกเธทเน�เธญเธ—เธณเธ�เธฒเธ�เน€เธชเธฃเน�เธ�เธชเธดเน�เธ�
+		public void onFinish() { // เน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ—เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ�เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // เน�เธ�เธ�เธ“เธฐเธ—เธตเน�เธ—เธณเธ�เธฒเธ�เธ—เธธเธ� เน� เธ�เธฃเธฑเน�เธ�
+		public void onTick(long remain) { // เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�โ€�เน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ•เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ�เน€เธ�๏ฟฝ เน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ‘เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textTime);
@@ -74,59 +75,8 @@ public class PlL1Cross extends Activity {
 		
 		Round = myDb.getNumRound("004", username);
 		
-		/*int valueCalenTutorial = 0;
-		Bundle extras = getIntent().getExtras();
-		if(extras != null){
-			valueCalenTutorial = extras.getInt("calen_tuto");
-			if(valueCalenTutorial == 1){
-				game002();
-			}
-			else if(valueCalenTutorial == 2){
-				
-				Day = extras.getInt("today");
-				ranDay = extras.getInt("numran");
-				
-				username = myDb.SelectCurrentUser();
-				
-				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
-				if(!(username.equals("Guest"))){
-					Round--;
-					TextView result = (TextView) findViewById(R.id.textUser);
-					result.setTypeface(type);
-					result.setTextColor(Color.rgb(2, 101, 203));
-					result.setVisibility(TextView.VISIBLE);
-					result.setText(username);
-					Button LogoutBt = (Button) findViewById(R.id.logout);
-					LogoutBt.setVisibility(Button.VISIBLE);
-					Button LoginBt = (Button) findViewById(R.id.loginn);
-					LoginBt.setVisibility(Button.INVISIBLE);
-				}
-				
-				if((username.equals("Guest"))){
-					TextView result = (TextView) findViewById(R.id.textUser);
-					result.setVisibility(TextView.INVISIBLE);
-					Button LogoutBt = (Button) findViewById(R.id.logout);
-					LogoutBt.setVisibility(Button.INVISIBLE);
-					Button LoginBt = (Button) findViewById(R.id.loginn);
-					LoginBt.setVisibility(Button.VISIBLE);
-				}
-				startTime = (30)*1000;
-				checkAns(true);
-				
-			}
-		}
-		else{
-						
-			if(Round == 1){
-				myDb.getWritableDatabase();
-				myDb.emptyNumberTable();
-				Intent intent2 = new Intent(PlL1Cross.this,L1ScCalendarTutorial.class);
-				startActivity(intent2);
-			}
-			else{*/
-				game004();
-			//}
-		//}
+		game004();
+		
 	}
 
 	void game004(){
@@ -185,7 +135,29 @@ public class PlL1Cross extends Activity {
 		});
 		if(Items < 11){
 			//startTime = (30)*1000;
-			checkAns(false);
+			if(Round == 1){
+				if(Begin == 1){
+					if(Items == 1){
+						showBeginPopup(1);
+					}
+					else if(Items == 4){
+						showBeginPopup(4);
+					}
+					else if(Items == 6){
+						showBeginPopup(6);
+					}
+					else if(Items == 8){
+						showBeginPopup(8);
+					}
+					else{
+						checkAns(false);
+					}
+				}
+				else{
+					checkAns(false);
+				}
+			}
+			else{checkAns(false);}
 		}
 		else{
 			scores = myDb.countScore("004", username, Round);
@@ -257,6 +229,7 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					//mediaPlayer.stop();
+					Begin = 1;
 					ans1_2.setVisibility(View.INVISIBLE);
 					ans1_3.setVisibility(View.INVISIBLE);
 					if(answer == 1){
@@ -279,6 +252,7 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					//mediaPlayer.stop();
+					Begin = 1;
 					ans1_1.setVisibility(View.INVISIBLE);
 					ans1_3.setVisibility(View.INVISIBLE);
 					if(answer == 2){
@@ -301,6 +275,7 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					//mediaPlayer.stop();
+					Begin = 1;
 					ans1_1.setVisibility(View.INVISIBLE);
 					ans1_2.setVisibility(View.INVISIBLE);
 					if(answer == 3){
@@ -323,6 +298,7 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					//mediaPlayer.stop();
+					Begin = 1;
 					if(answer == 1){
 						imgCorrect.setVisibility(View.VISIBLE);
 						countdownTime.cancel();
@@ -343,6 +319,7 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					//mediaPlayer.stop();
+					Begin = 1;
 					if(answer == 2){
 						imgCorrect.setVisibility(View.VISIBLE);
 						countdownTime.cancel();
@@ -403,6 +380,7 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					//mediaPlayer.stop();
+					Begin = 1;
 					if(answer == 1){
 						imgCorrect.setVisibility(View.VISIBLE);
 						countdownTime.cancel();
@@ -423,6 +401,7 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					//mediaPlayer.stop();
+					Begin = 1;
 					if(answer == 2){
 						imgCorrect.setVisibility(View.VISIBLE);
 						countdownTime.cancel();
@@ -443,6 +422,7 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					//mediaPlayer.stop();
+					Begin = 1;
 					if(answer == 1){
 						imgCorrect.setVisibility(View.VISIBLE);
 						countdownTime.cancel();
@@ -463,6 +443,7 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					//mediaPlayer.stop();
+					Begin = 1;
 					if(answer == 2){
 						imgCorrect.setVisibility(View.VISIBLE);
 						countdownTime.cancel();
@@ -524,17 +505,6 @@ void checkAns(Boolean isInterupt){
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
-				
-				//ans4_1.setAnimation(myFadeOnceAnimation);
-				//ans4_2.setAnimation(myFadeOnceAnimation);
-				//ans5_1.setAnimation(myFadeOnceAnimation);
-				//ans5_2.setAnimation(myFadeOnceAnimation);
-				//ans6_1.setAnimation(myFadeOnceAnimation);
-				//ans6_2.setAnimation(myFadeOnceAnimation);
-				//ans8_1.setAnimation(myFadeOnceAnimation);
-				//ans8_2.setAnimation(myFadeOnceAnimation);
-				
 				if(Items < 4){
 					//trafficSign.setAnimation(myFadeOnceAnimation);
 					trafficSign.startAnimation(myFadeOnceAnimation);
@@ -650,6 +620,7 @@ void checkAns(Boolean isInterupt){
 		
 	}
 	
+
 	int RanNum(){
 		int randomInt;
 		Boolean isExited;
@@ -894,6 +865,59 @@ void checkAns(Boolean isInterupt){
 
 	}	
 	
+	protected void showBeginPopup(int itemm){
+		final Dialog BeginPop = new Dialog(context, R.style.FullHeightDialog);
+		final MediaPlayer soundIns;
+		final MediaPlayer soundAns;
+		if(itemm == 1){
+			BeginPop.setContentView(R.layout.activity_pl_l1_cross_tutorial1);
+		}
+		else if(itemm == 4){
+			BeginPop.setContentView(R.layout.activity_pl_l1_cross_tutorial4);
+		}
+		else if(itemm == 6){
+			BeginPop.setContentView(R.layout.activity_pl_l1_cross_tutorial6);
+		}
+		else if(itemm == 8){
+			BeginPop.setContentView(R.layout.activity_pl_l1_cross_tutorial8);
+		}
+		
+		BeginPop.setCanceledOnTouchOutside(false);
+		BeginPop.setCancelable(false); 
+		
+		soundIns = MediaPlayer.create(context, R.raw.try_to_count);
+		soundAns = MediaPlayer.create(context, R.raw.choose_count);
+		final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL1Cross.this, R.anim.tween);
+		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);
+		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpCross);
+		
+		//soundWrong is instruction sound
+				instruct.startAnimation(myFadeAnimation);
+				soundIns.start();
+				
+				soundIns.setOnCompletionListener(new OnCompletionListener() {
+		            public void onCompletion(MediaPlayer soundIns) {
+		            	instruct.clearAnimation();
+		            	soundAns.start();
+		            	helpAns.startAnimation(myFadeAnimation);
+		            }
+		        });
+				
+				Button skipHelp = (Button)BeginPop.findViewById(R.id.bt_skip);
+				skipHelp.setOnClickListener(new View.OnClickListener() {
+					
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						soundIns.stop();
+						soundAns.stop();
+						Begin = 2;
+						BeginPop.dismiss();
+						game004();
+					}
+				});
+			BeginPop.show();
+	}
+	
 	void showTimeout(){
 		
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
@@ -933,7 +957,7 @@ void checkAns(Boolean isInterupt){
 		final myDBClass myDb = new myDBClass(this);
 		//myDb.getReadableDatabase();
 		
-		//this comment for เธ•เธดเน�เธ� เน�เน�เน�เน�  continue (1,1) state
+		//this comment for เน€เธ�โ€ขเน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝ  continue (1,1) state
 		//Boolean isThisContinue;
 		//isThisContinue = myDb.isCurrentContinue();
 		//myDb.close();

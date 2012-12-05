@@ -97,7 +97,7 @@ public class PoliceLevel3 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(PoliceLevel3.this,PlL3TypeCar.class);
+				Intent intent = new Intent(PoliceLevel3.this,PlL3Car.class);
 				startActivity(intent);
 			}
 		});
