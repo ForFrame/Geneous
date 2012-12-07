@@ -560,7 +560,7 @@ public class PlL3Car extends Activity {
 		soundAns = MediaPlayer.create(context, R.raw.choose_count);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL3Car.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);
-		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpNearFar);
+		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpCar);
 		
 		//soundWrong is instruction sound
 				instruct.startAnimation(myFadeAnimation);

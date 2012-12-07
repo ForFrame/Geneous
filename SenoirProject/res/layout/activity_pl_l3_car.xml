@@ -76,7 +76,7 @@
         android:layout_x="128dp"
         android:layout_y="179dp"
         android:background="@drawable/help_rectang2"
-        android:visibility="visible" />
+        android:visibility="invisible" />
     
     <TextView
         android:id="@+id/currentitem"

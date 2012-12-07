@@ -47,7 +47,7 @@
                   android:screenOrientation="landscape"/>
         <activity android:name=".PoliceLevel3"
                   android:screenOrientation="landscape"/>
-        <activity android:name=".PlL3TypeCar"
+        <activity android:name=".PlL3Car"
                   android:screenOrientation="landscape"/>
         
         <activity android:name=".MarketLevel1"
