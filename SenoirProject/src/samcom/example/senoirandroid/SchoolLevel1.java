@@ -30,7 +30,7 @@ import android.widget.TextView;
 public class SchoolLevel1 extends Activity {
 	
 	String CurrentUser;
-	Context context;
+	final Context context = this;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -201,32 +201,48 @@ public class SchoolLevel1 extends Activity {
 	
 	protected void showListViewHighScore(){
 		final Dialog HighPop = new Dialog(context, R.style.FullHeightDialog);
-		
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getReadableDatabase();
 		HighPop.setContentView(R.layout.activity_highscore);
 		HighPop.setCanceledOnTouchOutside(false);
 		HighPop.setCancelable(false); 
 		
-        ListView lv= (ListView)HighPop.findViewById(R.id.listview);
+        ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 
         // create the grid item mapping
-        String[] from = new String[] {"rowid", "col_1", "col_2", "col_3"};
+        //String[] from = new String[] {"rowid", "col_1", "col_2", "col_3"};
         int[] to = new int[] { R.id.item1, R.id.item2, R.id.item3, R.id.item4 };
-
+        String[] title = new String[] {"rowid", "col_1", "col_2", "col_3"};
+        String from[][] = new String[15][5];
+        int lengths;
+        lengths = myDb.getGameHighScore("001",from);
+        //int lengths = from.length;
         // prepare the list of all records
         List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < lengths; i++){
         	HashMap<String, String> map = new HashMap<String, String>();
-        	map.put("rowid", "" + i);
-        	map.put("col_1", "col_1_item_" + i);
-        	map.put("col_2", "col_2_item_" + i);
-        	map.put("col_3", "col_3_item_" + i);
+        	map.put("rowid", "" + (i+1));
+        	map.put("col_1", from[i][0]);
+        	map.put("col_2", from[i][1]);
+        	map.put("col_3", from[i][2]);
         	fillMaps.add(map);
         }
 
         // fill in the grid_item layout
-        SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.grid_item, from, to);
+        SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.grid_item, title, to);
         lv.setAdapter(adapter);
+        
+        Button skipButton = (Button)HighPop.findViewById(R.id.button1);
+		skipButton.setOnClickListener(new View.OnClickListener() {
 
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				HighPop.dismiss();
+				schoolLevel1();
+			}
+		});
+        
+        HighPop.show();
 
 	}
 	

@@ -233,15 +233,15 @@ public void InsertCurrent(String CurrentUser,Date d,int continueLoginState){
 		String datetime = d.toString();
 		int state;
 		int homee = 0;
-		if(CurrentUser.equals("Guest")){
-			state = 0;
-		}
-		else{
+		//if(CurrentUser.equals("Guest")){
+		//	state = 0;
+		//}
+		//else{
 			state = 1;
 			if(continueLoginState == 1){
 				homee = 1;
 			}
-		}
+		//}
 		ContentValues Val = new ContentValues();
 		Val.put("Username", CurrentUser);
 		Val.put("Status", state);
@@ -297,7 +297,7 @@ void addGameNo(String GNo,String GName,int Glevel){
 		ContentValues Val = new ContentValues();
 		Val.put("GameNo", GNo);
 		Val.put("GameName", GName);
-		Val.put("Date", Glevel);
+		Val.put("Level", Glevel);
 		
 		long rows = db.insert(TABLE_LEVEL, null, Val);
 		
@@ -462,10 +462,10 @@ void addItemScore(String GNo,String user,int round,int item,int correct,float ti
 int getNumRound(String GNo,String user){
 	
 	int round = 0;
-	if(user.equals("Guest")){
-		round = 1;
-	}
-	else{
+	//if(user.equals("Guest")){
+	//	round = 1;
+	//}
+	//else{
 		try{
 			
 		    SQLiteDatabase db;
@@ -489,7 +489,7 @@ int getNumRound(String GNo,String user){
 		}catch (Exception e){
 			round = 0;
 		}
-	}
+	//}
 	return round;
 }
 
@@ -517,6 +517,45 @@ int countScore(String GNo,String user,int Round){
 		scoree = 0;
 	}
 	return scoree;
+}
+
+//@SuppressWarnings("null")
+int getGameHighScore(String game,String value[][]){
+	//String value[][] = new String[15][5];
+	int i=0;
+	try{
+		int totalscore;
+		float totaltime;
+		String getUsername;
+	    SQLiteDatabase db;
+		db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery("SELECT Round, Username, Sum(Time), Sum(Score) FROM scItem WHERE GameNo = '"+game+"' Group by Round Order by Sum(Score) DESC , Sum(Time);", null);
+		//SELECT Round, Username, Sum(Time), Sum(Score) FROM scItem WHERE GameNo = '001' Group by Round;
+	      
+		if(cursor != null){
+			i=0;
+			cursor.moveToFirst();
+			while (cursor.isAfterLast() == false) {
+				getUsername = cursor.getString(1);
+				value[i][0] = getUsername;
+		        totaltime = cursor.getFloat(2);
+		        value[i][1] = String.valueOf(totaltime/10);
+		        totalscore = cursor.getInt(3);
+		        value[i][2] = String.valueOf(totalscore);
+		        
+		        cursor.moveToNext();
+		        i++;
+			}
+			cursor.close();
+		}
+		else{
+			i = 0;
+		}
+	    
+	}catch (Exception e){
+		i = 0;
+	}
+	return i;
 }
 
 void deleteGuest(){

@@ -51,7 +51,7 @@ public class L1ScCount extends Activity {
 			
 			TextView result = (TextView) findViewById(R.id.textView1);
 			//timeRemain = (float) remain / 1000;
-			int timeRemain = (int) (remain) / 1000;
+			timeRemain = (int) (remain) / 1000;
 			result.setText(" Rest: " + timeRemain);
 		}
 	}
@@ -160,14 +160,15 @@ public class L1ScCount extends Activity {
 			scores = myDb.countScore("001", username, Round);
 			int LastRan = myDb.getLastNum(10);
 			//if(LastRan!= 0){
-				hideTables(LastRan);
+			hideTables(LastRan);
+			//scores = scores%10;
 			//}
 			
-			if(username.equals("Guest")){
+			/*if(username.equals("Guest")){
 				myDb.close();
 				myDb.getWritableDatabase();
 				myDb.deleteGuest();
-			}
+			}*/
 			
 			showPopup(scores);
 		}
