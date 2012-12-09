@@ -76,6 +76,12 @@
         android:layout_y="646dp"
         android:background="@drawable/icon_home" />
 
-    
+    <Button
+        android:id="@+id/showGameHighScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="2dp"
+        android:layout_y="645dp"
+        android:background="@drawable/icon_home" />
 
 </AbsoluteLayout>

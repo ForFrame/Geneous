@@ -1,9 +1,16 @@
 package samcom.example.senoirandroid;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -15,12 +22,15 @@ import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 
 public class SchoolLevel1 extends Activity {
 	
 	String CurrentUser;
+	Context context;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -106,34 +116,6 @@ public class SchoolLevel1 extends Activity {
 				startActivity(intent);
 			}
 		});
-		/*Button GameCalendar = (Button)findViewById(R.id.calendar);
-		
-		//aniMate();
-		 
-		 //ImageView myImageView = (ImageView) findViewById(R.id.imageView2); 
-		 
-		 GameCalendar.startAnimation(myFadeInAnimation);
-		
-		
-		GameCalendar.setOnClickListener(new View.OnClickListener() {
-			 
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(SchoolLevel1.this,L1ScCalendar.class);
-				startActivity(intent);
-			}
-		});
-		
-		Button GameBoard = (Button)findViewById(R.id.board);
-		GameBoard.setOnClickListener(new View.OnClickListener() {
-			 
-
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(SchoolLevel1.this,L1ScLongShort.class);
-				startActivity(intent);
-			}
-		});*/
 		
 		Button backButton = (Button)findViewById(R.id.backToselectSchool);
 		backButton.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +128,16 @@ public class SchoolLevel1 extends Activity {
 				//finish();
 			}
 		});
+		
+		Button getHighScore = (Button)findViewById(R.id.showGameHighScore);
+		getHighScore.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				showListViewHighScore();
+			}
+		});
+		
 	}
 	public void aniMate(){
 		final Button GameCalendar = (Button)findViewById(R.id.calendar);
@@ -205,6 +197,37 @@ public class SchoolLevel1 extends Activity {
 	    });
 
 	    GameCalendar.startAnimation(animation1);
+	}
+	
+	protected void showListViewHighScore(){
+		final Dialog HighPop = new Dialog(context, R.style.FullHeightDialog);
+		
+		HighPop.setContentView(R.layout.activity_highscore);
+		HighPop.setCanceledOnTouchOutside(false);
+		HighPop.setCancelable(false); 
+		
+        ListView lv= (ListView)HighPop.findViewById(R.id.listview);
+
+        // create the grid item mapping
+        String[] from = new String[] {"rowid", "col_1", "col_2", "col_3"};
+        int[] to = new int[] { R.id.item1, R.id.item2, R.id.item3, R.id.item4 };
+
+        // prepare the list of all records
+        List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
+        for(int i = 0; i < 10; i++){
+        	HashMap<String, String> map = new HashMap<String, String>();
+        	map.put("rowid", "" + i);
+        	map.put("col_1", "col_1_item_" + i);
+        	map.put("col_2", "col_2_item_" + i);
+        	map.put("col_3", "col_3_item_" + i);
+        	fillMaps.add(map);
+        }
+
+        // fill in the grid_item layout
+        SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.grid_item, from, to);
+        lv.setAdapter(adapter);
+
+
 	}
 	
 	@Override
