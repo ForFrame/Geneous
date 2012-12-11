@@ -29,7 +29,7 @@ public class L1ScCount extends Activity {
 	long startTime;
 	final Context context = this;
 	String username;
-	float timeRemain;
+	int timeRemain;
 	int Round;
 	//MyCountDown countdown ;
 	
@@ -79,7 +79,7 @@ public class L1ScCount extends Activity {
 		myDb.emptyNumberTable();
 		myDb.close();
 		
-		if(Round == 1){
+		if((Round == 1)||(username.equals("Guest"))){
 			showBeginPopup();
 		}
 		else{
@@ -206,8 +206,6 @@ public class L1ScCount extends Activity {
 		//final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.correct_sound);
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
-		//MediaPlayer mp = MediaPlayer.create(this,Uri.parse("android.resource://emad.app/raw/seven_chimes"));
-		
 		
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrongnumber); 

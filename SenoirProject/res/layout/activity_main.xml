@@ -84,6 +84,13 @@
              android1:textStyle="bold"
              android1:typeface="sans" />
 
+     <Button
+        android:id="@+id/showHighScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="2dp"
+        android:layout_y="645dp"
+        android:background="@drawable/icon_highscore" />
       
 
 </AbsoluteLayout>

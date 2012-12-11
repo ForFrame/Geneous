@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Geneous</string>
+    <string name="app_name">Genius Beyond Kids</string>
    <!-- <string name="hello_world">Hello world!</string> --> 
     <string name="menu_settings">Settings</string>
     <string name="main_intent">Go to Market</string>
@@ -15,6 +15,7 @@
 	<string name="user_text">Username : </string>
 	<string name="girl"> หญิง</string>
 	<string name="boy"> ชาย</string>
+	<string name="selectgame"> เลือกเกมส์ที่ต้องการ</string>
 	
 	
 	<string name="continue_login">ให้ฉันอยู่ในระบบต่อไป</string>
@@ -25,4 +26,27 @@
 	 	<item>5 ปี</item>
 	 	<item>6 ปี</item>
 	 </string-array>
+	 
+	<string-array name="game">
+	    <item>001 เกมส์มานับโต๊ะกันเถอะ</item>
+	    <item>002 เกมส์สีประจำวันทั้ง 7 สีมีอะไรบ้างน้า</item>
+		<item>003 เกมส์มารู้จักขนาดสั้น-ยาวกันเถอะ</item>
+	    <item>004 เกมส์มารู้จักการใช้ถนนกันเถอะ</item>
+		<item>005 เกมส์ใกล้-ไกลคืออะไรน้า</item>
+		<item>006 เกมส์มารู้จักยานพาหนะประเภทต่างๆกันเถอะ</item>
+		<item>007 เกมส์มานับเหรียญกันเถอะ</item>
+		<item>008 เกมส์ควรเลือกรับประทานอาหารอะไรดีน้า</item>
+		<item>009 เกมส์มารู้จักการใช้เงินกันเถอะ</item>
+		<item>010 เกมส์มารู้จักการนับเลขและสีต่างๆกันเถอะ</item>
+		<item>011 เกมส์เครื่องใช้ไฟฟ้ามีประโยชน์ยังไงน้า</item>
+		<item>012 เกมส์มารู้จักอาชีพในชุมชนของเรากันเถอะ</item>
+		<item>013 เกมส์มารู้จักร่างการของเรากันเถอะ</item>
+		<item>014 เกมส์เมื่อเราป่วยควรทำยังไงเอ่ย</item>
+		<item>015 เกมส์แต่ละฤดูต่างกันยังไงน้า</item>
+		<item>016 เกมส์มานับจำนวนสัตว์กันเถอะ</item>
+		<item>017 เกมส์เงานี้เป็นของใครน้า</item>
+		<item>018 เกมส์รู้ไหมเอ่ยว่าสัตว์มีกี่ประเภท</item>
+		
+	</string-array>
+	    
 </resources>

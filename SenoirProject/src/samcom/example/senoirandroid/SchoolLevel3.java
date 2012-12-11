@@ -1,9 +1,16 @@
 package samcom.example.senoirandroid;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -15,12 +22,16 @@ import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 
 public class SchoolLevel3 extends Activity {
 	
 	String CurrentUser;
+	Context context = this;
+	MediaPlayer soundPage;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,7 +50,8 @@ public class SchoolLevel3 extends Activity {
 		myDb.getReadableDatabase();
 		ImageView imgLogo;  
 	    Animation animCalendar;  
-	     
+	    soundPage = MediaPlayer.create(context, R.raw.page);
+	    soundPage.start();
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
 		   
@@ -74,8 +86,7 @@ public class SchoolLevel3 extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
-				//Intent intent = new Intent(SchoolLevel1.this,Main.class);
-				//startActivity(intent);
+				soundPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -88,41 +99,13 @@ public class SchoolLevel3 extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(CurrentUser);
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent intent = new Intent(SchoolLevel3.this,Main.class);
 				startActivity(intent);
 			}
 			
 		});
 		Animation myFadeInAnimation = AnimationUtils.loadAnimation(SchoolLevel3.this, R.anim.tween);
-		//Animation myFadeOutAnimation = AnimationUtils.loadAnimation(SchoolLevel1.this, R.anim.tween_reverse);
-		/*Button CountTable = (Button)findViewById(R.id.table);
-		 CountTable.startAnimation(myFadeInAnimation);
-		CountTable.setOnClickListener(new View.OnClickListener() {
-			 
-
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(SchoolLevel3.this,L1ScCount.class);
-				startActivity(intent);
-			}
-		});
-		Button GameCalendar = (Button)findViewById(R.id.calendar);
-		
-		//aniMate();
-		 
-		 //ImageView myImageView = (ImageView) findViewById(R.id.imageView2); 
-		 
-		 GameCalendar.startAnimation(myFadeInAnimation);
-		
-		
-		GameCalendar.setOnClickListener(new View.OnClickListener() {
-			 
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(SchoolLevel3.this,L1ScCalendar.class);
-				startActivity(intent);
-			}
-		});*/
 		
 		Button GameBoard = (Button)findViewById(R.id.board);
 		GameBoard.startAnimation(myFadeInAnimation);
@@ -131,6 +114,7 @@ public class SchoolLevel3 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				soundPage.stop();
 				Intent intent = new Intent(SchoolLevel3.this,L1ScLongShort.class);
 				startActivity(intent);
 			}
@@ -141,10 +125,19 @@ public class SchoolLevel3 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//Intent intent = new Intent(SchoolLevel3.this,Main.class);
+				soundPage.stop();
 				Intent intent = new Intent(SchoolLevel3.this,SelectSchoolLevel.class);
 				startActivity(intent);
 				//finish();
+			}
+		});
+		
+		Button getHighScore = (Button)findViewById(R.id.showGameHighScore);
+		getHighScore.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				showListViewHighScore();
 			}
 		});
 	}
@@ -206,6 +199,57 @@ public class SchoolLevel3 extends Activity {
 	    });
 
 	    GameCalendar.startAnimation(animation1);
+	}
+	
+	protected void showListViewHighScore(){
+		final Dialog HighPop = new Dialog(context, R.style.FullHeightDialog);
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getReadableDatabase();
+		HighPop.setContentView(R.layout.activity_highscore);
+		HighPop.setCanceledOnTouchOutside(false);
+		HighPop.setCancelable(false); 
+		
+		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
+		gt.setText("เกมส์มารู้จักขนาดสั้น-ยาวกันเถอะ");
+		
+        ListView lv = (ListView)HighPop.findViewById(R.id.listview);
+
+        // create the grid item mapping
+        //String[] from = new String[] {"rowid", "col_1", "col_2", "col_3"};
+        int[] to = new int[] { R.id.item1, R.id.item2, R.id.item3, R.id.item4 };
+        String[] title = new String[] {"rowid", "col_1", "col_2", "col_3"};
+        String from[][] = new String[15][5];
+        int lengths;
+        lengths = myDb.getGameHighScore("003",from);
+        //int lengths = from.length;
+        // prepare the list of all records
+        List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
+        for(int i = 0; i < lengths; i++){
+        	HashMap<String, String> map = new HashMap<String, String>();
+        	map.put("rowid", "" + (i+1));
+        	map.put("col_1", from[i][0]);
+        	map.put("col_2", from[i][2]);
+        	map.put("col_3", from[i][1]);
+        	fillMaps.add(map);
+        }
+
+        // fill in the grid_item layout
+        SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.grid_item, title, to);
+        lv.setAdapter(adapter);
+        
+        Button skipButton = (Button)HighPop.findViewById(R.id.button1);
+		skipButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				soundPage.stop();
+				HighPop.dismiss();
+				schoolLevel3();
+			}
+		});
+        
+        HighPop.show();
+
 	}
 	
 	@Override

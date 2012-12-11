@@ -1,9 +1,11 @@
 package samcom.example.senoirandroid;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 public class SelectSchoolLevel extends Activity {
 
 	String CurrentUser;
+	Context context = this;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -31,7 +34,8 @@ public class SelectSchoolLevel extends Activity {
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		
+		final MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
+		soundPage.start();
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
 		   
@@ -64,8 +68,7 @@ public class SelectSchoolLevel extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
-				//Intent intent = new Intent(SelectSchoolLevel.this,Main.class);
-				//startActivity(intent);
+				soundPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -78,6 +81,7 @@ public class SelectSchoolLevel extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(CurrentUser);
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,Main.class);
 				startActivity(intent);
 			}
@@ -90,6 +94,7 @@ public class SelectSchoolLevel extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				soundPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel1.class);
 				startActivity(intent);
 			}
@@ -102,6 +107,7 @@ public class SelectSchoolLevel extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				soundPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel2.class);
 				startActivity(intent);
 			}
@@ -113,6 +119,7 @@ public class SelectSchoolLevel extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				soundPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel3.class);
 				startActivity(intent);
 			}
@@ -123,6 +130,7 @@ public class SelectSchoolLevel extends Activity {
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				soundPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,Main.class);
 				startActivity(intent);
 			}
@@ -135,7 +143,7 @@ public class SelectSchoolLevel extends Activity {
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		//this comment for ติ๊ก ๆๆๆๆ  continue (1,1) state
+		//this comment for เธ•เธดเน�เธ� เน�เน�เน�เน�  continue (1,1) state
 		//myDb.getReadableDatabase();
 		//
 		//Boolean isThisContinue;

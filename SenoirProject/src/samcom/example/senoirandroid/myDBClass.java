@@ -519,7 +519,43 @@ int countScore(String GNo,String user,int Round){
 	return scoree;
 }
 
-//@SuppressWarnings("null")
+int getIdvHighScore(String game,String name,String value[][]){
+	//String value[][] = new String[15][5];
+	int i=0;
+	try{
+		int totalscore;
+		float totaltime;
+		String getUsername;
+	    SQLiteDatabase db;
+		db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery("SELECT Round, Username, Sum(Score), Sum(Time) FROM scItem WHERE GameNo = '"+game+"'and Username = '"+name+"' Group by Round Order by Sum(Score) DESC , Sum(Time);", null);
+		//SELECT Round, Username, Sum(Time), Sum(Score) FROM scItem WHERE GameNo = '001' Group by Round;
+	      
+		if(cursor != null){
+			i=0;
+			cursor.moveToFirst();
+			while (cursor.isAfterLast() == false) {
+				getUsername = cursor.getString(1);
+				value[i][0] = getUsername;
+		        totaltime = cursor.getFloat(3);
+		        value[i][1] = String.valueOf(totaltime/10);
+		        totalscore = cursor.getInt(2);
+		        value[i][2] = String.valueOf(totalscore);
+		        
+		        cursor.moveToNext();
+		        i++;
+			}
+			cursor.close();
+		}
+		else{
+			i = 0;
+		}
+	    
+	}catch (Exception e){
+		i = 0;
+	}
+	return i;
+}
 int getGameHighScore(String game,String value[][]){
 	//String value[][] = new String[15][5];
 	int i=0;

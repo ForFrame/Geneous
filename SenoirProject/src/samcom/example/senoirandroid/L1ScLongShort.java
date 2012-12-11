@@ -30,7 +30,7 @@ public class L1ScLongShort extends Activity {
 	String username;
 	long startTime;
 	final Context context = this;
-	float timeRemain;
+	int timeRemain;
 	int Round;
 	int Day = 1;
 	
@@ -51,7 +51,7 @@ public class L1ScLongShort extends Activity {
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textTime);
-			int timeRemain = (int) (remain) / 1000;
+			timeRemain = (int) (remain) / 1000;
 			result.setText(" Times: " + timeRemain);
 		}
 	}
@@ -78,7 +78,7 @@ public class L1ScLongShort extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-		if(Round == 1){
+		if((Round == 1)||(username.equals("Guest"))){
 			
 			showBeginPopup();
 		}
@@ -155,11 +155,11 @@ public class L1ScLongShort extends Activity {
 		else{
 			scores = myDb.countScore("003", username, Round);
 						
-			if(username.equals("Guest")){
-				myDb.close();
-				myDb.getWritableDatabase();
-				myDb.deleteGuest();
-			}
+			//if(username.equals("Guest")){
+			//	myDb.close();
+			//	myDb.getWritableDatabase();
+			//	myDb.deleteGuest();
+			//}
 			
 			showPopup(scores);
 		}

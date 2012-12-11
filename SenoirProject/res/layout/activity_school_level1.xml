@@ -82,6 +82,6 @@
         android:layout_height="wrap_content"
         android:layout_x="2dp"
         android:layout_y="645dp"
-        android:background="@drawable/icon_home" />
+        android:background="@drawable/icon_highscore" />
 
 </AbsoluteLayout>

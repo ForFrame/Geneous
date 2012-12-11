@@ -31,6 +31,7 @@ public class SchoolLevel1 extends Activity {
 	
 	String CurrentUser;
 	final Context context = this;
+	MediaPlayer soundPage;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,7 +50,8 @@ public class SchoolLevel1 extends Activity {
 		myDb.getReadableDatabase();
 		ImageView imgLogo;  
 	    Animation animCalendar;  
-	     
+	    final MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
+	    soundPage.start(); 
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
 		   
@@ -84,6 +86,7 @@ public class SchoolLevel1 extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
+				soundPage.stop(); 
 				//Intent intent = new Intent(SchoolLevel1.this,Main.class);
 				//startActivity(intent);
 				Intent in = new Intent(getApplicationContext(),Main.class);
@@ -98,6 +101,7 @@ public class SchoolLevel1 extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(CurrentUser);
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent intent = new Intent(SchoolLevel1.this,Main.class);
 				startActivity(intent);
 			}
@@ -112,6 +116,7 @@ public class SchoolLevel1 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				soundPage.stop();
 				Intent intent = new Intent(SchoolLevel1.this,L1ScCount.class);
 				startActivity(intent);
 			}
@@ -122,10 +127,10 @@ public class SchoolLevel1 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//Intent intent = new Intent(SchoolLevel1.this,Main.class);
+				soundPage.stop();
 				Intent intent = new Intent(SchoolLevel1.this,SelectSchoolLevel.class);
 				startActivity(intent);
-				//finish();
+				
 			}
 		});
 		
@@ -203,9 +208,15 @@ public class SchoolLevel1 extends Activity {
 		final Dialog HighPop = new Dialog(context, R.style.FullHeightDialog);
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
+		
+		soundPage = MediaPlayer.create(context, R.raw.page); 
+		    
 		HighPop.setContentView(R.layout.activity_highscore);
 		HighPop.setCanceledOnTouchOutside(false);
 		HighPop.setCancelable(false); 
+		
+		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
+		gt.setText("‡°¡ Ï¡“π—∫‚µÍ–°—π‡∂Õ–");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 
@@ -223,8 +234,8 @@ public class SchoolLevel1 extends Activity {
         	HashMap<String, String> map = new HashMap<String, String>();
         	map.put("rowid", "" + (i+1));
         	map.put("col_1", from[i][0]);
-        	map.put("col_2", from[i][1]);
-        	map.put("col_3", from[i][2]);
+        	map.put("col_2", from[i][2]);
+        	map.put("col_3", from[i][1]);
         	fillMaps.add(map);
         }
 
@@ -237,6 +248,7 @@ public class SchoolLevel1 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				soundPage.stop();
 				HighPop.dismiss();
 				schoolLevel1();
 			}

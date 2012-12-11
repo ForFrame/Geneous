@@ -28,7 +28,7 @@ public class L1ScCalendar extends Activity {
 	String username;
 	long startTime;
 	final Context context = this;
-	float timeRemain;
+	int timeRemain;
 	int Round;
 	int Day = 1;
 	int ranDay=0;
@@ -50,7 +50,7 @@ public class L1ScCalendar extends Activity {
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textTime);
-			int timeRemain = (int) (remain) / 1000;
+			timeRemain = (int) (remain) / 1000;
 			result.setText(" Times: " + timeRemain);
 		}
 	}
@@ -71,7 +71,7 @@ public class L1ScCalendar extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-		if(Round == 1){
+		if((Round == 1)||(username.equals("Guest"))){
 			
 			showBeginPopup();
 		}
@@ -143,12 +143,12 @@ public class L1ScCalendar extends Activity {
 		}
 		else{
 			scores = myDb.countScore("002", username, Round);
-			myDb.getWritableDatabase();
-			myDb.emptyNumberTable();
+			//myDb.getWritableDatabase();
+			//myDb.emptyNumberTable();
 					
-			if(username.equals("Guest")){
-				myDb.deleteGuest();
-			}
+			//if(username.equals("Guest")){
+			//	myDb.deleteGuest();
+			//}
 			
 			showPopup(scores);
 		}
