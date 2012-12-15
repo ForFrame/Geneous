@@ -1,9 +1,16 @@
 package samcom.example.senoirandroid;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -11,12 +18,18 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 
 public class PoliceLevel3 extends Activity {
 	
 	String CurrentUser;
+	final Context context = this;
+	MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
+	MediaPlayer instructPage = MediaPlayer.create(context, R.raw.select_level);
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,7 +46,9 @@ public class PoliceLevel3 extends Activity {
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-	     
+		
+	    soundPage.start();
+	    instructPage.start();
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
 		CurrentUser = myDb.SelectCurrentUser();
@@ -66,6 +81,8 @@ public class PoliceLevel3 extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
+				soundPage.stop();
+				instructPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -78,6 +95,8 @@ public class PoliceLevel3 extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(CurrentUser);
 				myDb.ChangeHome(0);
+				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(PoliceLevel3.this,Main.class);
 				startActivity(intent);
 			}
@@ -93,6 +112,8 @@ public class PoliceLevel3 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(PoliceLevel3.this,PlL3Car.class);
 				startActivity(intent);
 			}
@@ -104,10 +125,75 @@ public class PoliceLevel3 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(PoliceLevel3.this,SelectPoliceLevel.class);
 				startActivity(intent);
 			}
 		});
+		Button getHighScore = (Button)findViewById(R.id.showGameHighScore);
+		getHighScore.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				instructPage.stop();
+				showListViewHighScore();
+			}
+		});
+	}
+	
+	protected void showListViewHighScore(){
+		final Dialog HighPop = new Dialog(context, R.style.FullHeightDialog);
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getReadableDatabase();
+		
+		//soundPage = MediaPlayer.create(context, R.raw.page); 
+		    
+		HighPop.setContentView(R.layout.activity_highscore);
+		HighPop.setCanceledOnTouchOutside(false);
+		HighPop.setCancelable(false); 
+		
+		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
+		gt.setText("เกมส์มมารู้จักยานพาหนะประเภทต่างๆกันเถอะ");
+		
+        ListView lv = (ListView)HighPop.findViewById(R.id.listview);
+
+        // create the grid item mapping
+        //String[] from = new String[] {"rowid", "col_1", "col_2", "col_3"};
+        int[] to = new int[] { R.id.item1, R.id.item2, R.id.item3, R.id.item4 };
+        String[] title = new String[] {"rowid", "col_1", "col_2", "col_3"};
+        String from[][] = new String[15][5];
+        int lengths;
+        lengths = myDb.getGameHighScore("006",from);
+        //int lengths = from.length;
+        // prepare the list of all records
+        List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
+        for(int i = 0; i < lengths; i++){
+        	HashMap<String, String> map = new HashMap<String, String>();
+        	map.put("rowid", "" + (i+1));
+        	map.put("col_1", from[i][0]);
+        	map.put("col_2", from[i][2]);
+        	map.put("col_3", from[i][1]);
+        	fillMaps.add(map);
+        }
+
+        // fill in the grid_item layout
+        SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.grid_item, title, to);
+        lv.setAdapter(adapter);
+        
+        Button skipButton = (Button)HighPop.findViewById(R.id.button1);
+		skipButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				soundPage.stop();
+				HighPop.dismiss();
+				policeLevel3();
+			}
+		});
+        
+        HighPop.show();
+
 	}
 	
 	@Override

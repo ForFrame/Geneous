@@ -31,7 +31,8 @@ public class L1ScCount extends Activity {
 	String username;
 	int timeRemain;
 	int Round;
-	//MyCountDown countdown ;
+	MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
+	MediaPlayer instructPage;
 	
 	public class MyCountDown extends CountDownTimer {
 		public MyCountDown(long millisInFuture, long countDownInterval) {
@@ -64,6 +65,8 @@ public class L1ScCount extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_l1_sc_count);
 		
+		soundPage.start();
+		soundPage.setLooping(true);
 		
 		final myDBClass myDb = new myDBClass(this);
 		
@@ -127,6 +130,7 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -140,6 +144,7 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent intent = new Intent(L1ScCount.this,Main.class);
 				startActivity(intent);
 			}
@@ -159,16 +164,7 @@ public class L1ScCount extends Activity {
 		else{
 			scores = myDb.countScore("001", username, Round);
 			int LastRan = myDb.getLastNum(10);
-			//if(LastRan!= 0){
 			hideTables(LastRan);
-			//scores = scores%10;
-			//}
-			
-			/*if(username.equals("Guest")){
-				myDb.close();
-				myDb.getWritableDatabase();
-				myDb.deleteGuest();
-			}*/
 			
 			showPopup(scores);
 		}
@@ -207,6 +203,19 @@ public class L1ScCount extends Activity {
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
 		
+		Random randomGenerator = new Random();
+		int randomSound = randomGenerator.nextInt(3)+1;
+		if(randomSound == 1){
+			instructPage= MediaPlayer.create(context, R.raw.ins_sclv1_1);
+		}
+		else if(randomSound == 2){
+			instructPage= MediaPlayer.create(context, R.raw.ins_sclv1_2);
+		}
+		else {
+			instructPage= MediaPlayer.create(context, R.raw.ins_sclv1_3);
+		}
+		instructPage.start();
+		
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrongnumber); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrectnumber);
@@ -222,7 +231,7 @@ public class L1ScCount extends Activity {
 		selectButton1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//mediaPlayer.stop();
+				instructPage.stop();
 								
 				if(RandomNum == 1){
 					imgWrong.setVisibility(View.INVISIBLE);
@@ -239,7 +248,6 @@ public class L1ScCount extends Activity {
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				//game001();
 			}
 		});
 		
@@ -247,7 +255,7 @@ public class L1ScCount extends Activity {
 		selectButton2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//mediaPlayer.stop();
+				instructPage.stop();
 				
 				if(RandomNum == 2){
 					imgWrong.setVisibility(View.INVISIBLE);
@@ -264,7 +272,6 @@ public class L1ScCount extends Activity {
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				//game001();
 			}
 		});
 		
@@ -272,7 +279,7 @@ public class L1ScCount extends Activity {
 		selectButton3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//mediaPlayer.stop();
+				instructPage.stop();
 				
 				if(RandomNum == 3){
 					imgWrong.setVisibility(View.INVISIBLE);
@@ -289,7 +296,6 @@ public class L1ScCount extends Activity {
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				//game001();
 			}
 		});
 		
@@ -297,7 +303,7 @@ public class L1ScCount extends Activity {
 		selectButton4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//mediaPlayer.stop();
+				instructPage.stop();
 				
 				if(RandomNum == 4){
 					imgWrong.setVisibility(View.INVISIBLE);
@@ -314,7 +320,6 @@ public class L1ScCount extends Activity {
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				//game001();
 			}
 		});
 		
@@ -322,7 +327,7 @@ public class L1ScCount extends Activity {
 		selectButton5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//mediaPlayer.stop();
+				instructPage.stop();
 				
 				if(RandomNum == 5){
 					imgWrong.setVisibility(View.INVISIBLE);
@@ -339,7 +344,6 @@ public class L1ScCount extends Activity {
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				//game001();
 			}
 		});
 		
@@ -347,7 +351,7 @@ public class L1ScCount extends Activity {
 		selectButton6.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//mediaPlayer.stop();
+				instructPage.stop();
 				
 				if(RandomNum == 6){
 					imgWrong.setVisibility(View.INVISIBLE);
@@ -364,7 +368,6 @@ public class L1ScCount extends Activity {
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				//game001();
 			}
 		});
 		
@@ -372,7 +375,7 @@ public class L1ScCount extends Activity {
 		selectButton7.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//mediaPlayer.stop();
+				instructPage.stop();
 				
 				if(RandomNum == 7){
 					imgWrong.setVisibility(View.INVISIBLE);
@@ -389,7 +392,6 @@ public class L1ScCount extends Activity {
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				//game001();
 			}
 		});
 		
@@ -397,7 +399,7 @@ public class L1ScCount extends Activity {
 		selectButton8.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//mediaPlayer.stop();
+				instructPage.stop();
 				
 				if(RandomNum == 8){
 					imgWrong.setVisibility(View.INVISIBLE);
@@ -414,7 +416,6 @@ public class L1ScCount extends Activity {
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				//game001();
 			}
 		});
 		
@@ -422,7 +423,7 @@ public class L1ScCount extends Activity {
 		selectButton9.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//mediaPlayer.stop();
+				instructPage.stop();
 				
 				if(RandomNum == 9){
 					imgWrong.setVisibility(View.INVISIBLE);
@@ -439,7 +440,6 @@ public class L1ScCount extends Activity {
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				//game001();
 			}
 		});
 		
@@ -447,7 +447,7 @@ public class L1ScCount extends Activity {
 		selectButton10.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//mediaPlayer.stop();
+				instructPage.stop();
 				
 				if(RandomNum == 10){
 					imgWrong.setVisibility(View.INVISIBLE);
@@ -464,7 +464,6 @@ public class L1ScCount extends Activity {
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
-				//game001();
 			}
 		});
 		
@@ -523,6 +522,8 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				countdown.cancel();
+				instructPage.stop();
+				soundPage.stop();
 				Intent intent = new Intent(L1ScCount.this,SelectSchoolLevel.class);
 				startActivity(intent);
 			}
@@ -573,6 +574,7 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
+				soundPage.stop();
 				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
 				startActivity(intent);
 				
@@ -584,7 +586,7 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				
+				//soundPage.stop();
 				int LastRan = myDb.getLastNum(10);
 					hideTables(LastRan);
 
@@ -607,6 +609,7 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
+				soundPage.stop();
 				Intent intent = new Intent(L1ScCount.this,L1ScCalendar.class);
 				startActivity(intent);
 				
@@ -677,8 +680,8 @@ public class L1ScCount extends Activity {
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
-		soundIns = MediaPlayer.create(context, R.raw.try_to_count);
-		soundAns = MediaPlayer.create(context, R.raw.choose_count);
+		soundIns = MediaPlayer.create(context, R.raw.ins_sclv1_1);
+		soundAns = MediaPlayer.create(context, R.raw.ins_sclv1_3);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCount.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.helpNumber);
 		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.counttable5);

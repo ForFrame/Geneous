@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -33,6 +34,8 @@ public class L1ScLongShort extends Activity {
 	int timeRemain;
 	int Round;
 	int Day = 1;
+	MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
+	MediaPlayer instructPage;
 	
 	public class MyCountDown extends CountDownTimer {
 		public MyCountDown(long millisInFuture, long countDownInterval) {
@@ -62,6 +65,9 @@ public class L1ScLongShort extends Activity {
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	setContentView(R.layout.activity_l1_sc_longshort);
+	
+	soundPage.start();
+	soundPage.setLooping(true);
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -128,8 +134,7 @@ public class L1ScLongShort extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
-				//Intent intent = new Intent(L1ScCount.this,Main.class);
-				//startActivity(intent);
+				soundPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -143,6 +148,7 @@ public class L1ScLongShort extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent intent = new Intent(L1ScLongShort.this,Main.class);
 				startActivity(intent);
 			}
@@ -206,10 +212,19 @@ public class L1ScLongShort extends Activity {
 		countdownTime.start();
 		
 			answer = choice(RandomNum);
+			if(answer == 1){
+				instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_long);
+				instructPage.start();
+			}
+			else{
+				instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_short);
+				instructPage.start();
+			}
+			
 				longAns.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						//mediaPlayer.stop();
+						instructPage.stop();
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
 							countdownTime.cancel();
@@ -229,7 +244,7 @@ public class L1ScLongShort extends Activity {
 				shortAns.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						//mediaPlayer.stop();
+						instructPage.stop();
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
 							countdownTime.cancel();
@@ -304,6 +319,8 @@ public class L1ScLongShort extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
+			instructPage.stop();
+			soundPage.stop();
 			Intent intent = new Intent(L1ScLongShort.this,SelectSchoolLevel.class);
 			startActivity(intent);
 		}
@@ -417,6 +434,7 @@ public class L1ScLongShort extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
+				soundPage.stop();
 				Intent intent = new Intent(L1ScLongShort.this,SchoolLevel3.class);
 				startActivity(intent);
 				
@@ -453,8 +471,7 @@ public class L1ScLongShort extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				//Intent intent = new Intent(L1ScLongShort.this,L1ScCount.class);
-				//startActivity(intent);
+				soundPage.stop();
 				
 				Intent intent = new Intent(L1ScLongShort.this,Main.class);
 				startActivity(intent);
@@ -473,8 +490,8 @@ public class L1ScLongShort extends Activity {
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
-		soundIns = MediaPlayer.create(context, R.raw.try_to_count);
-		soundAns = MediaPlayer.create(context, R.raw.choose_count);
+		soundIns = MediaPlayer.create(context, R.raw.ins_sclv3_long);
+		soundAns = MediaPlayer.create(context, R.raw.ins_sclv3_short);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.ansLong);
 		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.insLong);
@@ -543,13 +560,9 @@ public class L1ScLongShort extends Activity {
 		super.onRestart();
 	}
 	
-	/*@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		final myDBClass myDb = new myDBClass(this);
-		myDb.getWritableDatabase();
-		myDb.ChangeHome(0);
-		
-		super.onDestroy();
-	}*/
+	public boolean onTouchEvent (MotionEvent event) {
+		instructPage.start();
+		return super.onTouchEvent(event);
+	}
+
 }

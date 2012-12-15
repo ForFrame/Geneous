@@ -33,6 +33,12 @@ public class L1ScCalendar extends Activity {
 	int Day = 1;
 	int ranDay=0;
 	
+	MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
+	MediaPlayer instructPage;
+	MediaPlayer instructThai;
+	MediaPlayer instructEng;
+	MediaPlayer instructColor;
+		
 	public class MyCountDown extends CountDownTimer {
 		public MyCountDown(long millisInFuture, long countDownInterval) {
 		super(millisInFuture, countDownInterval);
@@ -62,6 +68,10 @@ public class L1ScCalendar extends Activity {
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	
 	setContentView(R.layout.activity_l1_sc_calendar);
+	
+	soundPage.start();
+	soundPage.setLooping(true);
+	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		username = myDb.SelectCurrentUser();
@@ -119,6 +129,7 @@ public class L1ScCalendar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -132,6 +143,7 @@ public class L1ScCalendar extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent intent = new Intent(L1ScCalendar.this,Main.class);
 				startActivity(intent);
 			}
@@ -155,8 +167,14 @@ public class L1ScCalendar extends Activity {
 	}
 	
 	
+	void stopSound(){
+		instructPage.stop();
+		instructThai.stop();
+		instructEng.stop();
+		instructColor.stop();
+	}
 void checkAns(Boolean isInterupt){
-		
+		Button ExtraInstruct = (Button)findViewById(R.id.charlen_int);
 		Button thai = (Button)findViewById(R.id.Sunday_thai);
 		Button eng = (Button)findViewById(R.id.Sunday_eng);
 		Button Ceng = (Button)findViewById(R.id.Sunday_Ceng);
@@ -170,13 +188,17 @@ void checkAns(Boolean isInterupt){
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
 		
+		
+		
 		if(Day<8){	
 			answer = choice(Day);
 			startTime = (20)*1000;
+			instructThai.start();
 		}
 		else{
 			answer = choiceExtra(isInterupt);
 			startTime = (30)*1000;
+			instructPage.start();
 		}
 		
 		
@@ -189,14 +211,41 @@ void checkAns(Boolean isInterupt){
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(Day +"/ 10");
 		
-		
+		thai.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				stopSound();
+				instructThai.start();
+			}
+		});
+		eng.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				stopSound();
+				instructEng.start();
+			}
+		});
+		Ceng.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				stopSound();
+				instructColor.start();
+			}
+		});
+		ExtraInstruct.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				stopSound();
+				instructPage.start();
+			}
+		});
 		
 		countdownTime.start();
 		
 				ans1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						//mediaPlayer.stop();
+						stopSound();
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
 							countdownTime.cancel();
@@ -216,7 +265,7 @@ void checkAns(Boolean isInterupt){
 				ans2.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						//mediaPlayer.stop();
+						stopSound();
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
 							countdownTime.cancel();
@@ -235,7 +284,7 @@ void checkAns(Boolean isInterupt){
 				ans3.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						//mediaPlayer.stop();
+						stopSound();
 						if(answer == 3){
 							imgCorrect.setVisibility(View.VISIBLE);
 							countdownTime.cancel();
@@ -310,6 +359,8 @@ void checkAns(Boolean isInterupt){
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
+			stopSound();
+			soundPage.stop();
 			Intent intent = new Intent(L1ScCalendar.this,SelectSchoolLevel.class);
 			startActivity(intent);
 		}
@@ -347,6 +398,7 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.sun1);
 			ans2.setBackgroundResource(R.drawable.sun2);
 			ans3.setBackgroundResource(R.drawable.sun3);
+			instructPage = MediaPlayer.create(context, R.raw.ins_sclv2_sun);
 		}
 		else if(ExtraDay == 2){
 			answerExtra = 2;
@@ -354,6 +406,7 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.mon1);
 			ans2.setBackgroundResource(R.drawable.mon2);
 			ans3.setBackgroundResource(R.drawable.mon3);
+			instructPage = MediaPlayer.create(context, R.raw.ins_sclv2_mon);
 		} 
 		else if(ExtraDay == 3){
 			answerExtra = 1;
@@ -361,6 +414,7 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.tue1);
 			ans2.setBackgroundResource(R.drawable.tue2);
 			ans3.setBackgroundResource(R.drawable.tue3);
+			instructPage = MediaPlayer.create(context, R.raw.ins_sclv2_tue);
 		}
 		else if(ExtraDay == 4){
 			answerExtra = 2;
@@ -368,6 +422,7 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.wed1);
 			ans2.setBackgroundResource(R.drawable.wed2);
 			ans3.setBackgroundResource(R.drawable.wed3);
+			instructPage = MediaPlayer.create(context, R.raw.ins_sclv2_wed);
 		}
 		else if(ExtraDay == 5){
 			answerExtra = 3;
@@ -375,6 +430,7 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.thu1);
 			ans2.setBackgroundResource(R.drawable.thu2);
 			ans3.setBackgroundResource(R.drawable.thu3);
+			instructPage = MediaPlayer.create(context, R.raw.ins_sclv2_thu);
 		}
 		else if(ExtraDay == 6){
 			answerExtra = 1;
@@ -382,6 +438,7 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.fri1);
 			ans2.setBackgroundResource(R.drawable.fri2);
 			ans3.setBackgroundResource(R.drawable.fri3);
+			instructPage = MediaPlayer.create(context, R.raw.ins_sclv2_fri);
 		}
 		else{
 			answerExtra = 2;
@@ -389,6 +446,7 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.sat1);
 			ans2.setBackgroundResource(R.drawable.sat2);
 			ans3.setBackgroundResource(R.drawable.sat3);
+			instructPage = MediaPlayer.create(context, R.raw.ins_sclv2_sat);
 		}
 		
 		return answerExtra;
@@ -435,6 +493,9 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.sun1);
 			ans2.setBackgroundResource(R.drawable.sun2);
 			ans3.setBackgroundResource(R.drawable.sun3);
+			instructThai = MediaPlayer.create(context, R.raw.sclv2_sun_thai);
+			instructEng = MediaPlayer.create(context, R.raw.sclv2_sunday);
+			instructColor = MediaPlayer.create(context, R.raw.sclv2_red);
 		}
 		else if(days == 2){
 			answer = 2;
@@ -444,6 +505,9 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.mon1);
 			ans2.setBackgroundResource(R.drawable.mon2);
 			ans3.setBackgroundResource(R.drawable.mon3);
+			instructThai = MediaPlayer.create(context, R.raw.sclv2_mon_thai);
+			instructEng = MediaPlayer.create(context, R.raw.sclv2_monday);
+			instructColor = MediaPlayer.create(context, R.raw.sclv2_yellow);
 		} 
 		else if(days == 3){
 			answer = 1;
@@ -453,6 +517,9 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.tue1);
 			ans2.setBackgroundResource(R.drawable.tue2);
 			ans3.setBackgroundResource(R.drawable.tue3);
+			instructThai = MediaPlayer.create(context, R.raw.sclv2_tue_thai);
+			instructEng = MediaPlayer.create(context, R.raw.sclv2_tuesday);
+			instructColor = MediaPlayer.create(context, R.raw.sclv2_pink);
 		}
 		else if(days == 4){
 			answer = 2;
@@ -462,6 +529,9 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.wed1);
 			ans2.setBackgroundResource(R.drawable.wed2);
 			ans3.setBackgroundResource(R.drawable.wed3);
+			instructThai = MediaPlayer.create(context, R.raw.sclv2_wed_thai);
+			instructEng = MediaPlayer.create(context, R.raw.sclv2_wednesday);
+			instructColor = MediaPlayer.create(context, R.raw.sclv2_green);
 		}
 		else if(days == 5){
 			answer = 3;
@@ -471,6 +541,9 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.thu1);
 			ans2.setBackgroundResource(R.drawable.thu2);
 			ans3.setBackgroundResource(R.drawable.thu3);
+			instructThai = MediaPlayer.create(context, R.raw.sclv2_thur_thai);
+			instructEng = MediaPlayer.create(context, R.raw.sclv2_thursday);
+			instructColor = MediaPlayer.create(context, R.raw.sclv2_orange);
 		}
 		else if(days == 6){
 			answer = 1;
@@ -480,6 +553,9 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.fri1);
 			ans2.setBackgroundResource(R.drawable.fri2);
 			ans3.setBackgroundResource(R.drawable.fri3);
+			instructThai = MediaPlayer.create(context, R.raw.sclv2_fri_thai);
+			instructEng = MediaPlayer.create(context, R.raw.sclv2_friday);
+			instructColor = MediaPlayer.create(context, R.raw.blue);
 		}
 		else{
 			answer = 2;
@@ -489,6 +565,9 @@ void checkAns(Boolean isInterupt){
 			ans1.setBackgroundResource(R.drawable.sat1);
 			ans2.setBackgroundResource(R.drawable.sat2);
 			ans3.setBackgroundResource(R.drawable.sat3);
+			instructThai = MediaPlayer.create(context, R.raw.sclv2_sat_thai);
+			instructEng = MediaPlayer.create(context, R.raw.sclv2_saturday);
+			instructColor = MediaPlayer.create(context, R.raw.sclv2_purple);
 		}
 		
 		return answer;
@@ -538,6 +617,7 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
+				soundPage.stop();
 				Intent intent = new Intent(L1ScCalendar.this,SchoolLevel2.class);
 				startActivity(intent);
 				
@@ -551,7 +631,7 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				
+				//soundPage.stop();
 				myDb.getReadableDatabase();
 				final View imgWrongpop = (View)findViewById(R.id.showwrong); 
 				final View imgCorrectpop = (View)findViewById(R.id.showcorrect);
@@ -570,6 +650,7 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
+				soundPage.stop();
 				Intent intent = new Intent(L1ScCalendar.this,L1ScLongShort.class);
 				startActivity(intent);
 				
@@ -587,8 +668,9 @@ void checkAns(Boolean isInterupt){
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
-		soundIns = MediaPlayer.create(context, R.raw.try_to_count);
-		soundAns = MediaPlayer.create(context, R.raw.choose_count);
+		soundIns = MediaPlayer.create(context, R.raw.ins_sclv1_2);
+		//soundIns = MediaPlayer.create(context, R.raw.try_to_count);
+		soundAns = MediaPlayer.create(context, R.raw.ins_sclv1_1);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.answer);
 		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.hand);

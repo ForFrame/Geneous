@@ -31,7 +31,8 @@ public class SchoolLevel1 extends Activity {
 	
 	String CurrentUser;
 	final Context context = this;
-	MediaPlayer soundPage;
+	MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
+	MediaPlayer instructPage = MediaPlayer.create(context, R.raw.select_level);
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,10 +49,9 @@ public class SchoolLevel1 extends Activity {
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		ImageView imgLogo;  
-	    Animation animCalendar;  
-	    soundPage = MediaPlayer.create(context, R.raw.page);
+		
 	    soundPage.start(); 
+	    instructPage.start();
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
 		   
@@ -87,8 +87,7 @@ public class SchoolLevel1 extends Activity {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
 				soundPage.stop(); 
-				//Intent intent = new Intent(SchoolLevel1.this,Main.class);
-				//startActivity(intent);
+				instructPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -102,21 +101,21 @@ public class SchoolLevel1 extends Activity {
 				myDb.logoutUser(CurrentUser);
 				myDb.ChangeHome(0);
 				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(SchoolLevel1.this,Main.class);
 				startActivity(intent);
 			}
 			
 		});
 		Animation myFadeInAnimation = AnimationUtils.loadAnimation(SchoolLevel1.this, R.anim.tween);
-		//Animation myFadeOutAnimation = AnimationUtils.loadAnimation(SchoolLevel1.this, R.anim.tween_reverse);
 		Button CountTable = (Button)findViewById(R.id.table);
-		 CountTable.startAnimation(myFadeInAnimation);
+		
+		CountTable.startAnimation(myFadeInAnimation);
 		CountTable.setOnClickListener(new View.OnClickListener() {
-			 
-
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(SchoolLevel1.this,L1ScCount.class);
 				startActivity(intent);
 			}
@@ -128,6 +127,7 @@ public class SchoolLevel1 extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(SchoolLevel1.this,SelectSchoolLevel.class);
 				startActivity(intent);
 				
@@ -139,6 +139,7 @@ public class SchoolLevel1 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				instructPage.stop();
 				showListViewHighScore();
 			}
 		});
@@ -208,26 +209,23 @@ public class SchoolLevel1 extends Activity {
 		final Dialog HighPop = new Dialog(context, R.style.FullHeightDialog);
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		
-		//soundPage = MediaPlayer.create(context, R.raw.page); 
 		    
 		HighPop.setContentView(R.layout.activity_highscore);
 		HighPop.setCanceledOnTouchOutside(false);
 		HighPop.setCancelable(false); 
 		
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
-		gt.setText("มานับโต๊ะกันเถอะ");
+		gt.setText("�����ҹѺ��Сѹ���");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 
         // create the grid item mapping
-        //String[] from = new String[] {"rowid", "col_1", "col_2", "col_3"};
         int[] to = new int[] { R.id.item1, R.id.item2, R.id.item3, R.id.item4 };
         String[] title = new String[] {"rowid", "col_1", "col_2", "col_3"};
         String from[][] = new String[15][5];
         int lengths;
         lengths = myDb.getGameHighScore("001",from);
-        //int lengths = from.length;
+       
         // prepare the list of all records
         List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
         for(int i = 0; i < lengths; i++){
