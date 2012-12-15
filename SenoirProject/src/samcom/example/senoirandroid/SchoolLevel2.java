@@ -213,7 +213,7 @@ public class SchoolLevel2 extends Activity {
 		HighPop.setCancelable(false); 
 		
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
-		gt.setText("‡°¡ Ï ’ª√–®”«—π∑—Èß 7  ’¡’Õ–‰√∫È“ßπÈ“");
+		gt.setText("‡πÄ‡∏Å‡∏°‡∏™‡πå‡∏™‡∏µ‡∏õ‡∏£‡∏∞‡∏à‡∏≥‡∏ß‡∏±‡∏ô‡∏ó‡∏±‡πâ‡∏á 7 ‡∏™‡∏µ‡∏°‡∏µ‡∏≠‡∏∞‡πÑ‡∏£‡∏ö‡πâ‡∏≤‡∏á‡∏ô‡πâ‡∏≤");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 
@@ -245,6 +245,7 @@ public class SchoolLevel2 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				soundPage.stop();
 				HighPop.dismiss();
 				schoolLevel2();
 			}

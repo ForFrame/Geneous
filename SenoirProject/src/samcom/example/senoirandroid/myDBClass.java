@@ -63,6 +63,37 @@ public void onCreate(SQLiteDatabase db) {
 	"RanNum INTEGER);");
 	
 	Log.d("CREATE TABLE","Create Table Successfully.");
+	int i=0;
+	//long rows;
+	try{
+	
+		db = this.getWritableDatabase();
+		//String gameName[];
+		
+		String[] gameName = {"เกมส์มานับโต๊ะกันเถอะ","เกมส์สีประจำวันทั้ง 7 สีมีอะไรบ้างน้า","มารู้จักขนาดสั้น-ยาวกันเถอะ","มารู้จักการใช้ถนนกันเถอะ",
+							"ใกล้-ไกลคืออะไรน้า","มารู้จักยานพาหนะประเภทต่างๆกันเถอะ","มานับเหรียญกันเถอะ","ควรเลือกรับประทานอาหารอะไรดีน้า",
+							"มารู้จักการใช้เงินกันเถอะ","มารู้จักการนับเลขและสีต่างๆกันเถอะ","เครื่องใช้ไฟฟ้ามีประโยชน์ยังไงน้า","มารู้จักอาชีพในชุมชนของเรากันเถอะ",
+							"มารู้จักร่างการของเรากันเถอะ","เมื่อเราป่วยควรทำยังไงเอ่ย","แต่ละฤดูต่างกันยังไงน้า","มานับจำนวนสัตว์กันเถอะ","เงานี้เป็นของใครน้า","รู้ไหมเอ่ยว่าสัตว์มีกี่ประเภท"};
+		int level=1;
+
+		ContentValues Val = new ContentValues();
+		for(i=0;i<18;i++){
+			if(level>3){
+				level = 1;
+			}
+			Val.put("GameNo", ("00"+(i+1)));
+			Val.put("GameName", gameName[i]);
+			Val.put("Level", level);
+			
+			db.insert(TABLE_LEVEL, null, Val);
+			level++;
+		}
+		
+		db.close();
+	
+	} catch (Exception e){
+	
+	}
 }
 
 // select current user -> return username / guest

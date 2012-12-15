@@ -75,7 +75,7 @@ public class L1ScCount extends Activity {
 		//mediaPlayer.start();
 		Round = myDb.getNumRound("001", username);
 		myDb.getWritableDatabase();
-		myDb.addGameNo("001", "Count tables", 1);
+		//myDb.addGameNo("001", "Count tables", 1);
 		myDb.emptyNumberTable();
 		myDb.close();
 		

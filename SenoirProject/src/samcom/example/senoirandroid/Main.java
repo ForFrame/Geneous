@@ -39,7 +39,7 @@ public class Main extends Activity {
 String CurrentUser;
 int chooseSex = 0;
 final Context context2 = this;
-
+MediaPlayer soundMain;
 
 
 
@@ -71,7 +71,7 @@ SQLiteDatabase db;
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		final MediaPlayer soundMain;
+		
 		
 		soundMain = MediaPlayer.create(context2, R.raw.main);
 		soundMain.start();
@@ -84,11 +84,11 @@ SQLiteDatabase db;
 		if(notFromHomee == true)
 		{
 			if(valueLogin == 1){
-				soundMain.stop();
+				//soundMain.stop();
 				showLoginPopup();
 			}
 			else{
-				soundMain.stop();
+				//soundMain.stop();
 				popUpLogIn();
 			}
 			
@@ -124,7 +124,7 @@ SQLiteDatabase db;
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundMain.stop();
+				//soundMain.stop();
 				showLoginPopup();
 			}
 		});
@@ -246,12 +246,12 @@ SQLiteDatabase db;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 		
-		final MediaPlayer soundIntro;
-		final MediaPlayer soundMain;
+		//final MediaPlayer soundIntro;
+		//final MediaPlayer soundMain;
 		
-		soundMain = MediaPlayer.create(context2, R.raw.main);
-		soundIntro = MediaPlayer.create(context2, R.raw.intro);
-		soundIntro.start();
+		//soundMain = MediaPlayer.create(context2, R.raw.main);
+		//soundIntro = MediaPlayer.create(context2, R.raw.intro);
+		//soundIntro.start();
 		
 		Button LoginnBt = (Button)LoginPop.findViewById(R.id.LoginBt);
 		LoginnBt.setOnClickListener(new View.OnClickListener() {
@@ -275,8 +275,8 @@ SQLiteDatabase db;
 				//check user info if got -> insert status table(name,date) ,no -> message Toast 
 				checkUser = myDb.checkUserInfo(username);
 				if(checkUser == true){
-					soundIntro.stop();
-					soundMain.start();
+					//soundIntro.stop();
+					//soundMain.stop();
 					LoginPop.dismiss();
 					
 					CurrentUser = username;
@@ -294,12 +294,14 @@ SQLiteDatabase db;
 							LogoutBt.setVisibility(Button.VISIBLE);
 							Button LoginBt = (Button) findViewById(R.id.loginn);
 							LoginBt.setVisibility(Button.INVISIBLE);
+							Button getHighScore = (Button)findViewById(R.id.showHighScore);
+							getHighScore.setVisibility(TextView.VISIBLE);
 					}
 				}
 				else{
 					//String strTxt = editT1.getText().toString();              
-					//Toast.makeText(Main.this, "เธ�เธทเน�เธญเธ�เธญเธ�เธ�เธธเธ“เธขเธฑเธ�เน�เธกเน�เธกเธตเน�เธ�เธฃเธฐเธ�เธ� เธ�เธฃเธธเธ“เธฒเธฅเธ�เธ—เธฐเน€เธ�เธตเธขเธ�เธ�เน�เธฐ", Toast.LENGTH_LONG).show(); 
-					Toast toast= Toast.makeText(getApplicationContext(), "เธ�เธทเน�เธญเธ�เธญเธ�เธ�เธธเธ“เธขเธฑเธ�เน�เธกเน�เธกเธตเน�เธ�เธฃเธฐเธ�เธ� เธ�เธฃเธธเธ“เธฒเธฅเธ�เธ—เธฐเน€เธ�เธตเธขเธ�เธ�เน�เธฐ", Toast.LENGTH_SHORT);  
+					 
+					Toast toast= Toast.makeText(getApplicationContext(), "ชื่อของคุณยังไม่มีในระบบ กรุณาลงทะเบียนค่ะ", Toast.LENGTH_SHORT);  
 					toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 40, 170);
 					toast.show();
 				}
@@ -332,7 +334,7 @@ SQLiteDatabase db;
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundIntro.stop();
+				//soundIntro.stop();
 				LoginPop.dismiss();
 				popUpLogIn();
 				//notFromHomee = false;
@@ -376,9 +378,7 @@ SQLiteDatabase db;
 				 
 				//Username
 				EditText user = (EditText)RegisPop.findViewById(R.id.regUsertext);
-				//user.setTypeface(type);
 				username = user.getText().toString();
-				
 				
 				//Choose sex (boy/girl)
 				
@@ -386,7 +386,6 @@ SQLiteDatabase db;
 						 
 				int selectedId = radioSexGroup.getCheckedRadioButtonId();
 				RadioButton radioSexButton = (RadioButton)RegisPop.findViewById(selectedId);
-				//radioSexButton.setTypeface(type);		
 				if(radioSexButton.equals("radioMale")){
 					chooseSex = 1;
 				}
@@ -415,13 +414,13 @@ SQLiteDatabase db;
 				lenghtName = username.length();
 				if((lenghtName<1)){
 					//Toast.makeText(Main.this, "เธ�เธทเน�เธญเธ�เธนเน�เน�เธ�เน�เธ�เธฒเธ�เธ•เน�เธญเธ�เธกเธตเธญเธขเน�เธฒเธ�เธ�เน�เธญเธข  1 เธ•เธฑเธงเธญเธฑเธ�เธฉเธฃเธ�เน�เธฐ", Toast.LENGTH_LONG).show();
-					Toast toast= Toast.makeText(getApplicationContext(), "เธ�เธทเน�เธญเธ�เธนเน�เน�เธ�เน�เธ�เธฒเธ�เธ•เน�เธญเธ�เธกเธตเธญเธขเน�เธฒเธ�เธ�เน�เธญเธข  1 เธ•เธฑเธงเธญเธฑเธ�เธฉเธฃเธ�เน�เธฐ", Toast.LENGTH_SHORT);  
+					Toast toast= Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานต้องมีอย่างน้อย  1 ตัวอักษรค่ะ", Toast.LENGTH_SHORT);  
 					toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 130);
 					toast.show();
 				}
 				else if((lenghtName>10)){
 					//Toast.makeText(Main.this, "เธ�เธทเน�เธญเธ�เธนเน�เน�เธ�เน�เธ�เธฒเธ�เธ•เน�เธญเธ�  < 10  เธ•เธฑเธงเธญเธฑเธ�เธฉเธฃเธ�เน�เธฐ", Toast.LENGTH_LONG).show();
-					Toast toast= Toast.makeText(getApplicationContext(), "เธ�เธทเน�เธญเธ�เธนเน�เน�เธ�เน�เธ�เธฒเธ�เธ•เน�เธญเธ�  < 10  เธ•เธฑเธงเธญเธฑเธ�เธฉเธฃเธ�เน�เธฐ", Toast.LENGTH_SHORT);  
+					Toast toast= Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานต้อง  < 10  ตัวอักษรค่ะ", Toast.LENGTH_SHORT);  
 					toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 150);
 					toast.show();
 				}
@@ -429,7 +428,7 @@ SQLiteDatabase db;
 					checkUser = myDb.checkUserInfo(username);
 					if(checkUser == true){
 						//Toast.makeText(Main.this, "เธ�เธทเน�เธญเธ�เธตเน�เธ–เธนเธ�เน�เธ�เน�เน�เธฅเน�เธง เธ�เธฃเธธเธ“เธฒเธ�เธฃเธญเธ�เธ�เธทเน�เธญเธญเธทเน�เธ�เธ�เน�เธฐ ", Toast.LENGTH_LONG).show();
-						Toast toast= Toast.makeText(getApplicationContext(), "เธ�เธทเน�เธญเธ�เธตเน�เธ–เธนเธ�เน�เธ�เน�เน�เธฅเน�เธง เธ�เธฃเธธเธ“เธฒเธ�เธฃเธญเธ�เธ�เธทเน�เธญเธญเธทเน�เธ�เธ�เน�เธฐ ", Toast.LENGTH_SHORT);  
+						Toast toast= Toast.makeText(getApplicationContext(), "ชื่อนี้ถูกใช้แล้ว กรุณากรอกชื่ออื่นค่ะ ", Toast.LENGTH_SHORT);  
 						toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 150);
 						toast.show();
 						
@@ -451,6 +450,8 @@ SQLiteDatabase db;
 							LogoutBt.setVisibility(Button.VISIBLE);
 							Button LoginBt = (Button) findViewById(R.id.loginn);
 							LoginBt.setVisibility(Button.INVISIBLE);
+							Button getHighScore = (Button)findViewById(R.id.showHighScore);
+							getHighScore.setVisibility(TextView.VISIBLE);
 						}
 					}
 				}	
@@ -481,20 +482,20 @@ SQLiteDatabase db;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 		
-		final MediaPlayer soundIntro;
-		final MediaPlayer soundMain;
+		//final MediaPlayer soundIntro;
+		//final MediaPlayer soundMain;
 		
-		soundMain = MediaPlayer.create(context2, R.raw.main);
-		soundIntro = MediaPlayer.create(context2, R.raw.intro);
-		soundIntro.start();
+		//soundMain = MediaPlayer.create(context2, R.raw.main);
+		//soundIntro = MediaPlayer.create(context2, R.raw.intro);
+		//soundIntro.start();
 		
 		Button PlayyBt = (Button)popLog.findViewById(R.id.playBt);
 		PlayyBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				final Date d = new Date();
-				soundIntro.stop();
-				soundMain.start();
+				//soundIntro.stop();
+				//soundMain.stop();
 				popLog.dismiss();
 				
 				myDb.InsertCurrent("Guest",d,0);
@@ -504,6 +505,8 @@ SQLiteDatabase db;
 				LogoutBt.setVisibility(Button.INVISIBLE);
 				Button LoginBt = (Button) findViewById(R.id.loginn);
 				LoginBt.setVisibility(Button.VISIBLE);
+				Button getHighScore = (Button)findViewById(R.id.showHighScore);
+				getHighScore.setVisibility(TextView.INVISIBLE);
 			}
 		});
 		
@@ -511,7 +514,7 @@ SQLiteDatabase db;
 		LoginnBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundIntro.stop();
+				//soundIntro.stop();
 				popLog.dismiss();
 				showLoginPopup();
 				
@@ -527,53 +530,38 @@ SQLiteDatabase db;
 		final Dialog HighPop = new Dialog(context2, R.style.FullHeightDialog);
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		int[] to = new int[] { R.id.item1, R.id.item2, R.id.item3, R.id.item4 };
-        String[] title = new String[] {"rowid", "col_1", "col_2", "col_3"};
+		int[] to = new int[] { R.id.item1, R.id.item2, R.id.item3, R.id.item4, R.id.item5  };
+        String[] title = new String[] {"rowid", "col_1", "col_2", "col_3","col_4"};
         
-		final List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
-		final SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.grid_item, title, to);
-		final MediaPlayer soundMain;
-		String selectedGame ;//= "เลือกเกมส์ที่ต้องการ";
+		final List<HashMap<String, String>> fillMaps2 = new ArrayList<HashMap<String, String>>();
+		final SimpleAdapter adapter2 = new SimpleAdapter(this, fillMaps2, R.layout.grid_item2, title, to);
+		//final MediaPlayer soundMain;
+		//String selectedGame = "เลือกเกมส์ที่ต้องการ";
 		final Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
-		soundMain = MediaPlayer.create(context2, R.raw.main);
+		//soundMain = MediaPlayer.create(context2, R.raw.main);
 		    
 		HighPop.setContentView(R.layout.activity_highscore_individual);
 		HighPop.setCanceledOnTouchOutside(false);
 		HighPop.setCancelable(false); 
 		
 		final Spinner spin1 = (Spinner)HighPop.findViewById(R.id.gameSelection);
-		
-		//spin1.setOnItemSelectedListener(this);
-		
-		//selectedGame = String.valueOf(spin1.getSelectedItem());
 		final TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
-		//TextView gtt = (TextView)spin1.getSelectedView();
-		//String result = gtt.getText().toString();
+		//gt.setText(selectedGame);
 		
-		//String game[] = selectedGame.split(" ");
-		final String gameNo = null; //= game[0];
-		final int index;
-		//selectedGame = game[1];
 		spin1.setOnItemSelectedListener(new OnItemSelectedListener() {
-			public void onNothingSelected(AdapterView<?> parent) {
-				gt.setText("");
-			}
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 			        
-			    	String selected = spin1.getItemAtPosition(pos).toString();
+					String selected = spin1.getItemAtPosition(pos).toString();
 			    	gt.setText(selected);
 			    	//keepGameNo = "00"+(pos+1);
 			    	//index = pos;
 			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				gt.setText("เลือกเกมส์ที่ต้องการ");
+			}
 		});
-		//gameNo = "00";
-		
-		//spin1.setOnItemSelectedListener(new View.)
-		
-		//gt.setText(selectedGame);
-		//gt.setText(result);
-		
-		
 		
 		//view high score
 		Button viewIvdHigh = (Button)HighPop.findViewById(R.id.viewHighscore);
@@ -581,18 +569,21 @@ SQLiteDatabase db;
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				HighPop.setContentView(R.layout.activity_highscore_individual);
-				HighPop.setCanceledOnTouchOutside(false);
-				HighPop.setCancelable(false);
+				//HighPop.setContentView(R.layout.activity_highscore_individual);
+				//HighPop.setCanceledOnTouchOutside(false);
+				//HighPop.setCancelable(false);
 				
 				ListView lv = (ListView)HighPop.findViewById(R.id.listview);
-
+				
 		        // create the grid item mapping
 		        String from[][] = new String[15][5];
 		        int lengths;
+		        String getCurrentSelected = gt.getText().toString();
+		        String game[] = getCurrentSelected.split(" ");
+		        String gameNo = game[0];
 		        lengths = myDb.getIdvHighScore(gameNo,CurrentUser,from);
 		        // prepare the list of all records
-		        
+		        fillMaps2.removeAll(fillMaps2);
 		        for(int i = 0; (i < lengths)&&(i<6); i++){
 		        	HashMap<String, String> map = new HashMap<String, String>();
 		        	map.put("rowid", "" + (i+1));
@@ -600,11 +591,11 @@ SQLiteDatabase db;
 		        	map.put("col_2", from[i][1]);
 		        	map.put("col_3", from[i][2]);
 		        	map.put("col_4", from[i][3]);
-		        	fillMaps.add(map);
+		        	fillMaps2.add(map);
 		        }
 
 		        // fill in the grid_item layout
-		        lv.setAdapter(adapter);
+		        lv.setAdapter(adapter2);
 			}
 		});
 		//Button viewIvdGraph = (Button)HighPop.findViewById(R.id.viewGraph);
@@ -619,7 +610,7 @@ SQLiteDatabase db;
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundMain.stop();
+				//soundMain.stop();
 				HighPop.dismiss();
 				
 				TextView result = (TextView) findViewById(R.id.textUser);
@@ -673,7 +664,7 @@ SQLiteDatabase db;
 		super.onDestroy();
 	}
 
-	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+	/*public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
 		// TODO Auto-generated method stub
 		
@@ -682,7 +673,7 @@ SQLiteDatabase db;
 	public void onNothingSelected(AdapterView<?> arg0) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 	
 	
 }

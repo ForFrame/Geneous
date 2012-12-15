@@ -340,84 +340,84 @@ public class PlL3Car extends Activity {
 		int answer=0;
 	    
 	    if(random == 1){
-	    	answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.pl3_bg1);
+	    	answer = 2;
+	    	Thislayout.setBackgroundResource(R.drawable.pl3_bg2);
 	    	
-			ans1.setBackgroundResource(R.drawable.pl3_choice1);
-			ans2.setBackgroundResource(R.drawable.pl3_choice2);
-			ans3.setBackgroundResource(R.drawable.pl3_choice3);
+			ans1.setBackgroundResource(R.drawable.pl3_choice4);
+			ans2.setBackgroundResource(R.drawable.pl3_choice6);
+			ans3.setBackgroundResource(R.drawable.pl3_choice5);
 		}
 		else if(random == 2){
-			answer = 2;
-			Thislayout.setBackgroundResource(R.drawable.pl3_bg2);
+			answer = 3;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg6);
 	    	
-			ans1.setBackgroundResource(R.drawable.pl3_choice1);
-			ans2.setBackgroundResource(R.drawable.pl3_choice2);
-			ans3.setBackgroundResource(R.drawable.pl3_choice3);
+			ans1.setBackgroundResource(R.drawable.pl3_choice2);
+			ans2.setBackgroundResource(R.drawable.pl3_choice1);
+			ans3.setBackgroundResource(R.drawable.pl3_choice4);
 		}
 		else if(random == 3){
-			answer = 2;
-			Thislayout.setBackgroundResource(R.drawable.pl3_bg2);
+			answer = 1;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg3);
 	    	
-			ans1.setBackgroundResource(R.drawable.pl3_choice1);
-			ans2.setBackgroundResource(R.drawable.pl3_choice2);
-			ans3.setBackgroundResource(R.drawable.pl3_choice3);
+			ans1.setBackgroundResource(R.drawable.pl3_choice6);
+			ans2.setBackgroundResource(R.drawable.pl3_choice7);
+			ans3.setBackgroundResource(R.drawable.pl3_choice5);
 		}
 		else if(random == 4){
-			answer = 1;
-			Thislayout.setBackgroundResource(R.drawable.pl3_bg2);
+			answer = 2;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg4);
 	    	
 			ans1.setBackgroundResource(R.drawable.pl3_choice1);
-			ans2.setBackgroundResource(R.drawable.pl3_choice2);
-			ans3.setBackgroundResource(R.drawable.pl3_choice3);
+			ans2.setBackgroundResource(R.drawable.pl3_choice3);
+			ans3.setBackgroundResource(R.drawable.pl3_choice6);
 		}
 		else if(random == 5){
-			answer = 1;
-			Thislayout.setBackgroundResource(R.drawable.pl3_bg2);
+			answer = 3;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg5);
 	    	
-			ans1.setBackgroundResource(R.drawable.pl3_choice1);
-			ans2.setBackgroundResource(R.drawable.pl3_choice2);
-			ans3.setBackgroundResource(R.drawable.pl3_choice3);
+			ans1.setBackgroundResource(R.drawable.pl3_choice3);
+			ans2.setBackgroundResource(R.drawable.pl3_choice4);
+			ans3.setBackgroundResource(R.drawable.pl3_choice5);
 		}
 		else if(random == 6){
 			answer = 1;
 			Thislayout.setBackgroundResource(R.drawable.pl3_bg2);
 	    	
-			ans1.setBackgroundResource(R.drawable.pl3_choice1);
-			ans2.setBackgroundResource(R.drawable.pl3_choice2);
-			ans3.setBackgroundResource(R.drawable.pl3_choice3);
+			ans1.setBackgroundResource(R.drawable.pl3_choice2);
+			ans2.setBackgroundResource(R.drawable.pl3_choice4);
+			ans3.setBackgroundResource(R.drawable.pl3_choice7);
 		}
 		else if(random == 7){
-			answer = 2;
-			Thislayout.setBackgroundResource(R.drawable.pl3_bg2);
+			answer = 3;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg1);
 	    	
-			ans1.setBackgroundResource(R.drawable.pl3_choice1);
-			ans2.setBackgroundResource(R.drawable.pl3_choice2);
-			ans3.setBackgroundResource(R.drawable.pl3_choice3);
+			ans1.setBackgroundResource(R.drawable.pl3_choice6);
+			ans2.setBackgroundResource(R.drawable.pl3_choice1);
+			ans3.setBackgroundResource(R.drawable.pl3_choice5);
 		}
 		else if(random == 8){
 			answer = 1;
-			Thislayout.setBackgroundResource(R.drawable.pl3_bg2);
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg6);
 	    	
-			ans1.setBackgroundResource(R.drawable.pl3_choice1);
-			ans2.setBackgroundResource(R.drawable.pl3_choice2);
-			ans3.setBackgroundResource(R.drawable.pl3_choice3);
+			ans1.setBackgroundResource(R.drawable.pl3_choice3);
+			ans2.setBackgroundResource(R.drawable.pl3_choice5);
+			ans3.setBackgroundResource(R.drawable.pl3_choice6);
 		}
 		else if(random == 9){
-			answer = 1;
+			answer = 3;
 			Thislayout.setBackgroundResource(R.drawable.pl3_bg2);
 	    	
-			ans1.setBackgroundResource(R.drawable.pl3_choice1);
-			ans2.setBackgroundResource(R.drawable.pl3_choice2);
-			ans3.setBackgroundResource(R.drawable.pl3_choice3);
+			ans1.setBackgroundResource(R.drawable.pl3_choice7);
+			ans2.setBackgroundResource(R.drawable.pl3_choice4);
+			ans3.setBackgroundResource(R.drawable.pl3_choice1);
 		}
 		else{
-			answer = 2;
-			Thislayout.setBackgroundResource(R.drawable.pl3_bg2);
+			answer = 1;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg1);
 	    	
-			ans1.setBackgroundResource(R.drawable.pl3_choice1);
-			ans2.setBackgroundResource(R.drawable.pl3_choice2);
-			ans3.setBackgroundResource(R.drawable.pl3_choice3);
+			ans1.setBackgroundResource(R.drawable.pl3_choice7);
+			ans2.setBackgroundResource(R.drawable.pl3_choice3);
+			ans3.setBackgroundResource(R.drawable.pl3_choice2);
 		}
 		
 		return answer;

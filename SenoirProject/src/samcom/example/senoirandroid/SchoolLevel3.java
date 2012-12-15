@@ -210,7 +210,7 @@ public class SchoolLevel3 extends Activity {
 		HighPop.setCancelable(false); 
 		
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
-		gt.setText("‡°¡ Ï¡“√ŸÈ®—°¢π“¥ —Èπ-¬“«°—π‡∂Õ–");
+		gt.setText("‡∏°‡∏≤‡∏£‡∏π‡πâ‡∏à‡∏±‡∏Å‡∏Ç‡∏ô‡∏≤‡∏î‡∏™‡∏±‡πâ‡∏ô-‡∏¢‡∏≤‡∏ß‡∏Å‡∏±‡∏ô‡πÄ‡∏ñ‡∏≠‡∏∞");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 

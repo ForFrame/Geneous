@@ -50,7 +50,7 @@ public class SchoolLevel1 extends Activity {
 		myDb.getReadableDatabase();
 		ImageView imgLogo;  
 	    Animation animCalendar;  
-	    final MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
+	    soundPage = MediaPlayer.create(context, R.raw.page);
 	    soundPage.start(); 
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
@@ -209,14 +209,14 @@ public class SchoolLevel1 extends Activity {
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		
-		soundPage = MediaPlayer.create(context, R.raw.page); 
+		//soundPage = MediaPlayer.create(context, R.raw.page); 
 		    
 		HighPop.setContentView(R.layout.activity_highscore);
 		HighPop.setCanceledOnTouchOutside(false);
 		HighPop.setCancelable(false); 
 		
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
-		gt.setText("�����ҹѺ��Сѹ���");
+		gt.setText("มานับโต๊ะกันเถอะ");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 

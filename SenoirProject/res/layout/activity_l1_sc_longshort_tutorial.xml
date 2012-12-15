@@ -25,15 +25,15 @@
         android:layout_y="436dp"
         android:background="@drawable/rubber_shot"
         android:visibility="visible" />
-
+    
     <ImageView
         android:id="@+id/ansLong"
-        android:layout_width="wrap_content"
-        android:layout_height="289dp"
-        android:layout_x="185dp"
-        android:layout_y="296dp"
+        android:layout_width="585dp"
+        android:layout_height="347dp"
+        android:layout_x="137dp"
+        android:layout_y="260dp"
         android:background="@drawable/help_rectang2"
-        android:visibility="invisible" />
+        android:visibility="visible" />
     
     <ImageView
         android:id="@+id/insLong"
@@ -53,5 +53,7 @@
         android:background="@drawable/icon_skip"
         android:clickable="true"
         android:visibility="visible" />
+
+    
 
 </AbsoluteLayout>
