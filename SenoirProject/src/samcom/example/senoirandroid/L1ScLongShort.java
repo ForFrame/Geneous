@@ -34,7 +34,7 @@ public class L1ScLongShort extends Activity {
 	int timeRemain;
 	int Round;
 	int Day = 1;
-	MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
+	MediaPlayer soundPage;
 	MediaPlayer instructPage;
 	
 	public class MyCountDown extends CountDownTimer {
@@ -65,7 +65,7 @@ public class L1ScLongShort extends Activity {
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	setContentView(R.layout.activity_l1_sc_longshort);
-	
+	soundPage = MediaPlayer.create(context, R.raw.page);
 	soundPage.start();
 	soundPage.setLooping(true);
 	
@@ -321,7 +321,7 @@ public class L1ScLongShort extends Activity {
 			countdownTime.cancel();
 			instructPage.stop();
 			soundPage.stop();
-			Intent intent = new Intent(L1ScLongShort.this,SelectSchoolLevel.class);
+			Intent intent = new Intent(L1ScLongShort.this,SchoolLevel3.class);
 			startActivity(intent);
 		}
 		});
@@ -491,7 +491,7 @@ public class L1ScLongShort extends Activity {
 		BeginPop.setCancelable(false); 
 		
 		soundIns = MediaPlayer.create(context, R.raw.ins_sclv3_long);
-		soundAns = MediaPlayer.create(context, R.raw.ins_sclv3_short);
+		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.ansLong);
 		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.insLong);

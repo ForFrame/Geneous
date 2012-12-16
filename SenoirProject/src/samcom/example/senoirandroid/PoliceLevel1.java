@@ -31,9 +31,8 @@ public class PoliceLevel1 extends Activity {
 	
 	String CurrentUser;
 	Context context = this;
-	MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
-	MediaPlayer instructPage = MediaPlayer.create(context, R.raw.select_level);
-	
+	MediaPlayer soundPage;
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,6 +40,7 @@ public class PoliceLevel1 extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_police_level1);
 		
+		soundPage = MediaPlayer.create(context, R.raw.page);
 		
 		policeLevel1();
 		
@@ -50,11 +50,8 @@ public class PoliceLevel1 extends Activity {
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		ImageView imgLogo;  
-	    Animation animCalendar;  
+		soundPage.start(); 
 	    
-	    soundPage.start(); 
-	    instructPage.start();
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
 		   
@@ -89,7 +86,6 @@ public class PoliceLevel1 extends Activity {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
 				soundPage.stop();
-				instructPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -101,7 +97,6 @@ public class PoliceLevel1 extends Activity {
 			 
 			public void onClick(View v) {	
 				soundPage.stop();
-				instructPage.stop();
 				myDb.logoutUser(CurrentUser);
 				myDb.ChangeHome(0);
 				Intent intent = new Intent(PoliceLevel1.this,Main.class);
@@ -119,7 +114,6 @@ public class PoliceLevel1 extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				soundPage.stop();
-				instructPage.stop();
 				Intent intent = new Intent(PoliceLevel1.this,PlL1Cross.class);
 				startActivity(intent);
 			}
@@ -131,7 +125,6 @@ public class PoliceLevel1 extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				soundPage.stop();
-				instructPage.stop();
 				Intent intent = new Intent(PoliceLevel1.this,SelectPoliceLevel.class);
 				startActivity(intent);
 				
@@ -143,7 +136,6 @@ public class PoliceLevel1 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				instructPage.stop();
 				showListViewHighScore();
 			}
 		});
@@ -161,7 +153,7 @@ public class PoliceLevel1 extends Activity {
 		HighPop.setCancelable(false); 
 		
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
-		gt.setText("‡°¡ Ï¡“√ŸÈ®—°°“√„™È∂ππ°—π‡∂Õ–");
+		gt.setText("‡πÄ‡∏Å‡∏°‡∏™‡πå‡∏°‡∏≤‡∏£‡∏π‡πâ‡∏à‡∏±‡∏Å‡∏Å‡∏≤‡∏£‡πÉ‡∏ä‡πâ‡∏ñ‡∏ô‡∏ô‡∏Å‡∏±‡∏ô‡πÄ‡∏ñ‡∏≠‡∏∞");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 

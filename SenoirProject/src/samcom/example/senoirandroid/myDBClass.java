@@ -554,7 +554,7 @@ int getIdvHighScore(String game,String name,String value[][]){
 	//String value[][] = new String[15][5];
 	int i=0;
 	try{
-		int totalscore;
+		int totalscore,roundd;
 		float totaltime;
 		String getUsername;
 	    SQLiteDatabase db;
@@ -566,10 +566,12 @@ int getIdvHighScore(String game,String name,String value[][]){
 			i=0;
 			cursor.moveToFirst();
 			while (cursor.isAfterLast() == false) {
+				roundd = cursor.getInt(0);
+				value[i][0] = String.valueOf(roundd);
 				getUsername = cursor.getString(1);
-				value[i][0] = getUsername;
+				value[i][1] = "  "+getUsername;
 		        totaltime = cursor.getFloat(3);
-		        value[i][1] = String.valueOf(totaltime/10);
+		        value[i][3] = String.valueOf(totaltime)+" วินาที";
 		        totalscore = cursor.getInt(2);
 		        value[i][2] = String.valueOf(totalscore);
 		        
@@ -604,9 +606,9 @@ int getGameHighScore(String game,String value[][]){
 			cursor.moveToFirst();
 			while (cursor.isAfterLast() == false) {
 				getUsername = cursor.getString(1);
-				value[i][0] = getUsername;
+				value[i][0] = "  "+getUsername;
 		        totaltime = cursor.getFloat(2);
-		        value[i][1] = String.valueOf(totaltime/10);
+		        value[i][1] = String.valueOf(totaltime)+" วินาที";
 		        totalscore = cursor.getInt(3);
 		        value[i][2] = String.valueOf(totalscore);
 		        
@@ -625,7 +627,7 @@ int getGameHighScore(String game,String value[][]){
 	return i;
 }
 
-void deleteGuest(){
+/*void deleteGuest(){
 	try{
 		
 		SQLiteDatabase db;
@@ -638,7 +640,7 @@ void deleteGuest(){
 	} catch (Exception e){
 	
 	}
-}
+}*/
 @Override
 public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 //TODO Auto-generated method stub

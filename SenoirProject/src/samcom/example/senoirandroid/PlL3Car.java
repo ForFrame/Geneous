@@ -33,6 +33,8 @@ public class PlL3Car extends Activity {
 	float timeRemain;
 	int Round;
 	int Begin = 1;
+	MediaPlayer soundPage;
+	MediaPlayer instructPage;
 	
 	public class MyCountDown extends CountDownTimer {
 		public MyCountDown(long millisInFuture, long countDownInterval) {
@@ -62,6 +64,9 @@ public class PlL3Car extends Activity {
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	setContentView(R.layout.activity_pl_l3_car);
+	soundPage = MediaPlayer.create(context, R.raw.page);
+	soundPage.start();
+	soundPage.setLooping(true);
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -124,6 +129,7 @@ public class PlL3Car extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -137,6 +143,7 @@ public class PlL3Car extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent intent = new Intent(PlL3Car.this,Main.class);
 				startActivity(intent);
 			}
@@ -148,15 +155,11 @@ public class PlL3Car extends Activity {
 		}
 		else{
 			scores = myDb.countScore("006", username, Round);
-						
-			if(username.equals("Guest")){
-				myDb.close();
-				myDb.getWritableDatabase();
-				myDb.deleteGuest();
-			}
-			
+
 			showPopup(scores);
 		}
+		
+		
 	}
 	
 	int RanNum(){
@@ -202,12 +205,12 @@ public class PlL3Car extends Activity {
 		countdownTime.start();
 		
 			answer = choice(RandomNum);
-			//insView.startAnimation(myFadeAnimation);
+			instructPage.start();
 			
 				Answer1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						//mediaPlayer.stop();
+						instructPage.stop();
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
 							countdownTime.cancel();
@@ -227,7 +230,7 @@ public class PlL3Car extends Activity {
 				Answer2.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						//mediaPlayer.stop();
+						instructPage.stop();
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
 							countdownTime.cancel();
@@ -246,7 +249,7 @@ public class PlL3Car extends Activity {
 				Answer3.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						//mediaPlayer.stop();
+						instructPage.stop();
 						if(answer == 3){
 							imgCorrect.setVisibility(View.VISIBLE);
 							countdownTime.cancel();
@@ -321,7 +324,9 @@ public class PlL3Car extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
-			Intent intent = new Intent(PlL3Car.this,SelectPoliceLevel.class);
+			instructPage.stop();
+			soundPage.stop();
+			Intent intent = new Intent(PlL3Car.this,PoliceLevel3.class);
 			startActivity(intent);
 		}
 		});
@@ -333,9 +338,6 @@ public class PlL3Car extends Activity {
 		Button ans2 = (Button)findViewById(R.id.picans2);
 		Button ans3 = (Button)findViewById(R.id.picans3);
 		
-		//Random randomGenerator = new Random();
-		//int nearOrfar = randomGenerator.nextInt(2)+1;
-		
 		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.carLayout);
 		int answer=0;
 	    
@@ -346,6 +348,7 @@ public class PlL3Car extends Activity {
 			ans1.setBackgroundResource(R.drawable.pl3_choice4);
 			ans2.setBackgroundResource(R.drawable.pl3_choice6);
 			ans3.setBackgroundResource(R.drawable.pl3_choice5);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_land);
 		}
 		else if(random == 2){
 			answer = 3;
@@ -354,6 +357,7 @@ public class PlL3Car extends Activity {
 			ans1.setBackgroundResource(R.drawable.pl3_choice2);
 			ans2.setBackgroundResource(R.drawable.pl3_choice1);
 			ans3.setBackgroundResource(R.drawable.pl3_choice4);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_water);
 		}
 		else if(random == 3){
 			answer = 1;
@@ -362,6 +366,7 @@ public class PlL3Car extends Activity {
 			ans1.setBackgroundResource(R.drawable.pl3_choice6);
 			ans2.setBackgroundResource(R.drawable.pl3_choice7);
 			ans3.setBackgroundResource(R.drawable.pl3_choice5);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_not_sky);
 		}
 		else if(random == 4){
 			answer = 2;
@@ -370,6 +375,7 @@ public class PlL3Car extends Activity {
 			ans1.setBackgroundResource(R.drawable.pl3_choice1);
 			ans2.setBackgroundResource(R.drawable.pl3_choice3);
 			ans3.setBackgroundResource(R.drawable.pl3_choice6);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_not_land);
 		}
 		else if(random == 5){
 			answer = 3;
@@ -378,6 +384,7 @@ public class PlL3Car extends Activity {
 			ans1.setBackgroundResource(R.drawable.pl3_choice3);
 			ans2.setBackgroundResource(R.drawable.pl3_choice4);
 			ans3.setBackgroundResource(R.drawable.pl3_choice5);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_not_water);
 		}
 		else if(random == 6){
 			answer = 1;
@@ -386,6 +393,7 @@ public class PlL3Car extends Activity {
 			ans1.setBackgroundResource(R.drawable.pl3_choice2);
 			ans2.setBackgroundResource(R.drawable.pl3_choice4);
 			ans3.setBackgroundResource(R.drawable.pl3_choice7);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_land);
 		}
 		else if(random == 7){
 			answer = 3;
@@ -394,6 +402,7 @@ public class PlL3Car extends Activity {
 			ans1.setBackgroundResource(R.drawable.pl3_choice6);
 			ans2.setBackgroundResource(R.drawable.pl3_choice1);
 			ans3.setBackgroundResource(R.drawable.pl3_choice5);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_sky);
 		}
 		else if(random == 8){
 			answer = 1;
@@ -402,6 +411,7 @@ public class PlL3Car extends Activity {
 			ans1.setBackgroundResource(R.drawable.pl3_choice3);
 			ans2.setBackgroundResource(R.drawable.pl3_choice5);
 			ans3.setBackgroundResource(R.drawable.pl3_choice6);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_water);
 		}
 		else if(random == 9){
 			answer = 3;
@@ -410,6 +420,7 @@ public class PlL3Car extends Activity {
 			ans1.setBackgroundResource(R.drawable.pl3_choice7);
 			ans2.setBackgroundResource(R.drawable.pl3_choice4);
 			ans3.setBackgroundResource(R.drawable.pl3_choice1);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_land);
 		}
 		else{
 			answer = 1;
@@ -418,6 +429,7 @@ public class PlL3Car extends Activity {
 			ans1.setBackgroundResource(R.drawable.pl3_choice7);
 			ans2.setBackgroundResource(R.drawable.pl3_choice3);
 			ans3.setBackgroundResource(R.drawable.pl3_choice2);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_sky);
 		}
 		
 		return answer;
@@ -466,6 +478,7 @@ public class PlL3Car extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
+				soundPage.stop();
 				Intent intent = new Intent(PlL3Car.this,PoliceLevel3.class);
 				startActivity(intent);
 				
@@ -502,7 +515,7 @@ public class PlL3Car extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				
+				soundPage.stop();
 				Intent intent = new Intent(PlL3Car.this,Main.class);
 				startActivity(intent);
 				
@@ -556,8 +569,8 @@ public class PlL3Car extends Activity {
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
-		soundIns = MediaPlayer.create(context, R.raw.try_to_count);
-		soundAns = MediaPlayer.create(context, R.raw.choose_count);
+		soundIns = MediaPlayer.create(context, R.raw.ins_pll3_not_sky);
+		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL3Car.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);
 		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpCar);

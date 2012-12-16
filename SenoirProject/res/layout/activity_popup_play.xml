@@ -1,8 +1,8 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_popup_login"
-    android:layout_width="1024dp"
-    android:layout_height="768dp"
+    android:layout_width="874dp"
+    android:layout_height="618dp"
     android:layout_gravity="center"
     android:background="@drawable/bg_play"
     android:orientation="vertical" >
@@ -11,16 +11,16 @@
         android:id="@+id/playBt"
         android:layout_width="333dp"
         android:layout_height="353dp"
-        android:layout_x="328dp"
-        android:layout_y="124dp"
+        android:layout_x="269dp"
+        android:layout_y="90dp"
         android:background="@drawable/button_play" />
 
     <Button
         android:id="@+id/LogRegisBt"
         android:layout_width="318dp"
         android:layout_height="73dp"
-        android:layout_x="635dp"
-        android:layout_y="558dp"
+        android:layout_x="547dp"
+        android:layout_y="531dp"
         android:background="@drawable/txt_play" />
 
 </AbsoluteLayout>

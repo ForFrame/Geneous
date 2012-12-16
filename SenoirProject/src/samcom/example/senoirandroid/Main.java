@@ -13,9 +13,7 @@ import android.view.WindowManager;
 
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -38,9 +36,9 @@ import java.util.List;
 public class Main extends Activity {
 String CurrentUser;
 int chooseSex = 0;
-final Context context2 = this;
-MediaPlayer soundMain = MediaPlayer.create(context2, R.raw.main);
-MediaPlayer instrucMain = MediaPlayer.create(context2, R.raw.select_mode);
+Context context2 = this;
+MediaPlayer soundMain;
+MediaPlayer instrucMain;
 
 SQLiteDatabase db;
 
@@ -52,9 +50,10 @@ SQLiteDatabase db;
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		
 			
 		setContentView(R.layout.activity_main);
+		instrucMain = MediaPlayer.create(context2, R.raw.select_mode);
+		soundMain = MediaPlayer.create(context2, R.raw.main);
 		
 		int valueLogin = 0;
 		Bundle extras = getIntent().getExtras();
@@ -552,6 +551,30 @@ SQLiteDatabase db;
 			        
 					String selected = spin1.getItemAtPosition(pos).toString();
 			    	gt.setText(selected);
+			    	
+			    	ListView lv = (ListView)HighPop.findViewById(R.id.listview);
+					
+			        // create the grid item mapping
+			        String from[][] = new String[15][5];
+			        int lengths;
+			       
+			        String game[] = selected.split(" ");
+			        String gameNo = game[0];
+			        lengths = myDb.getIdvHighScore(gameNo,CurrentUser,from);
+			        // prepare the list of all records
+			        fillMaps2.removeAll(fillMaps2);
+			        for(int i = 0; (i < lengths)&&(i<6); i++){
+			        	HashMap<String, String> map = new HashMap<String, String>();
+			        	map.put("rowid", "" + (i+1));
+			        	map.put("col_1", from[i][0]);
+			        	map.put("col_2", from[i][1]);
+			        	map.put("col_3", from[i][2]);
+			        	map.put("col_4", from[i][3]);
+			        	fillMaps2.add(map);
+			        }
+
+			        // fill in the grid_item layout
+			        lv.setAdapter(adapter2);
 			}
 
 			public void onNothingSelected(AdapterView<?> arg0) {
@@ -565,7 +588,7 @@ SQLiteDatabase db;
 		viewIvdHigh.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				 //TODO Auto-generated method stub
 				
 				ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 				
@@ -592,8 +615,15 @@ SQLiteDatabase db;
 		        lv.setAdapter(adapter2);
 			}
 		});
-		//Button viewIvdGraph = (Button)HighPop.findViewById(R.id.viewGraph);
-		//view graph
+		
+		Button viewIvdGraph = (Button)HighPop.findViewById(R.id.viewGraph);
+		viewIvdGraph.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
         Button skipButton = (Button)HighPop.findViewById(R.id.button1);
 		skipButton.setOnClickListener(new View.OnClickListener() {

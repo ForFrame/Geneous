@@ -121,7 +121,7 @@
         android:layout_x="88dp"
         android:layout_y="119dp"
         android:background="@drawable/star_collor_5"
-        android:visibility="invisible" />
+        android:visibility="visible" />
     
     <Button
         android:id="@+id/scorehome"
@@ -147,6 +147,32 @@
         android:layout_y="324dp"
         android:background="@drawable/score_back" />
 
-    
+    <ImageView
+        android:id="@+id/headScore"
+        android:layout_width="480dp"
+        android:layout_height="100dp"
+        android:layout_x="201dp"
+        android:layout_y="29dp"
+        android:src="@drawable/score_head" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="373dp"
+        android:layout_y="69dp"
+        android:text="10 ข้อ"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="27sp" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="491dp"
+        android:layout_y="69dp"
+        android:text="10 ข้อ"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="27sp" />
 
 </AbsoluteLayout>

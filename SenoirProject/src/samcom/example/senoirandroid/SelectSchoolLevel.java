@@ -18,6 +18,9 @@ public class SelectSchoolLevel extends Activity {
 
 	String CurrentUser;
 	Context context = this;
+	MediaPlayer soundPage;
+	MediaPlayer instructPage;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -25,7 +28,8 @@ public class SelectSchoolLevel extends Activity {
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	setContentView(R.layout.activity_select_level);
 	
-		
+		soundPage = MediaPlayer.create(context, R.raw.page);
+		instructPage = MediaPlayer.create(context, R.raw.select_level);
 		selectLevel();
 	
 	}
@@ -34,11 +38,12 @@ public class SelectSchoolLevel extends Activity {
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		final MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
-		soundPage.start();
+		
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
-		   
+		soundPage.start();
+		instructPage.start();
+		
 		CurrentUser = myDb.SelectCurrentUser();
 		if(!(CurrentUser.equals("Guest"))){
 			TextView result = (TextView) findViewById(R.id.textUser);
@@ -69,6 +74,7 @@ public class SelectSchoolLevel extends Activity {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
 				soundPage.stop();
+				instructPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -82,6 +88,7 @@ public class SelectSchoolLevel extends Activity {
 				myDb.logoutUser(CurrentUser);
 				myDb.ChangeHome(0);
 				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,Main.class);
 				startActivity(intent);
 			}
@@ -95,6 +102,7 @@ public class SelectSchoolLevel extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel1.class);
 				startActivity(intent);
 			}
@@ -108,6 +116,7 @@ public class SelectSchoolLevel extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel2.class);
 				startActivity(intent);
 			}
@@ -120,6 +129,7 @@ public class SelectSchoolLevel extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel3.class);
 				startActivity(intent);
 			}
@@ -131,6 +141,7 @@ public class SelectSchoolLevel extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,Main.class);
 				startActivity(intent);
 			}

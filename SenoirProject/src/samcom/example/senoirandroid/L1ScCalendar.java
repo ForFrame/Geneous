@@ -33,7 +33,7 @@ public class L1ScCalendar extends Activity {
 	int Day = 1;
 	int ranDay=0;
 	
-	MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
+	MediaPlayer soundPage;
 	MediaPlayer instructPage;
 	MediaPlayer instructThai;
 	MediaPlayer instructEng;
@@ -68,6 +68,11 @@ public class L1ScCalendar extends Activity {
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	
 	setContentView(R.layout.activity_l1_sc_calendar);
+	soundPage = MediaPlayer.create(context, R.raw.page);
+	instructThai = MediaPlayer.create(context, R.raw.sclv2_sun_thai);
+	instructEng = MediaPlayer.create(context, R.raw.sclv2_sunday);
+	instructColor = MediaPlayer.create(context, R.raw.sclv2_red);
+	instructPage = MediaPlayer.create(context, R.raw.ins_sclv2_sun);
 	
 	soundPage.start();
 	soundPage.setLooping(true);
@@ -155,12 +160,6 @@ public class L1ScCalendar extends Activity {
 		}
 		else{
 			scores = myDb.countScore("002", username, Round);
-			//myDb.getWritableDatabase();
-			//myDb.emptyNumberTable();
-					
-			//if(username.equals("Guest")){
-			//	myDb.deleteGuest();
-			//}
 			
 			showPopup(scores);
 		}
@@ -168,10 +167,18 @@ public class L1ScCalendar extends Activity {
 	
 	
 	void stopSound(){
-		instructPage.stop();
-		instructThai.stop();
-		instructEng.stop();
-		instructColor.stop();
+		if(instructPage.isPlaying()){
+			instructPage.stop();
+		}
+		if(instructThai.isPlaying()){
+			instructThai.stop();
+		}
+		if(instructEng.isPlaying()){
+			instructEng.stop();
+		}
+		if(instructColor.isPlaying()){
+			instructColor.stop();
+		}
 	}
 void checkAns(Boolean isInterupt){
 		Button ExtraInstruct = (Button)findViewById(R.id.charlen_int);
@@ -211,34 +218,34 @@ void checkAns(Boolean isInterupt){
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(Day +"/ 10");
 		
-		thai.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				stopSound();
-				instructThai.start();
-			}
-		});
-		eng.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				stopSound();
-				instructEng.start();
-			}
-		});
-		Ceng.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				stopSound();
-				instructColor.start();
-			}
-		});
 		ExtraInstruct.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				stopSound();
-				instructPage.start();
-			}
-		});
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					stopSound();
+					instructPage.start();
+				}
+			});
+			thai.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					stopSound();
+					instructThai.start();
+				}
+			});
+			eng.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					stopSound();
+					instructEng.start();
+				}
+			});
+			Ceng.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					stopSound();
+					instructColor.start();
+				}
+			});
 		
 		countdownTime.start();
 		
@@ -361,7 +368,7 @@ void checkAns(Boolean isInterupt){
 			countdownTime.cancel();
 			stopSound();
 			soundPage.stop();
-			Intent intent = new Intent(L1ScCalendar.this,SelectSchoolLevel.class);
+			Intent intent = new Intent(L1ScCalendar.this,SchoolLevel2.class);
 			startActivity(intent);
 		}
 		});
@@ -669,8 +676,7 @@ void checkAns(Boolean isInterupt){
 		BeginPop.setCancelable(false); 
 		
 		soundIns = MediaPlayer.create(context, R.raw.ins_sclv1_2);
-		//soundIns = MediaPlayer.create(context, R.raw.try_to_count);
-		soundAns = MediaPlayer.create(context, R.raw.ins_sclv1_1);
+		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.answer);
 		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.hand);

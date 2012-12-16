@@ -10,6 +10,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:gravity="center"
+            android:textSize="22sp"
             android:width="70dip" />
         
         <TextView
@@ -17,26 +18,31 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:gravity="center"
-            android:width="70dip" />
+            android:textSize="22sp"
+            android:width="120dip" />
 
         <TextView
             android:id="@+id/item3"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:width="250dp" />
+            android:gravity="left"
+            android:textSize="22sp"
+            android:width="180dp" />
 
 	    <TextView
 	        android:id="@+id/item4"
 	        android:layout_width="wrap_content"
 	        android:layout_height="fill_parent"
 	        android:gravity="center"
-	        android:width="125dp" />
+	        android:textSize="22sp"
+	        android:width="130dp" />
 
 	    <TextView
 	        android:id="@+id/item5"
 	        android:layout_width="wrap_content"
 	        android:layout_height="fill_parent"
 	        android:gravity="center"
-	        android:width="125dp" />
+	        android:textSize="22sp"
+	        android:width="150dp" />
 
 </LinearLayout>

@@ -35,6 +35,9 @@ public class PlL1Cross extends Activity {
 	int Items = 1;
 	int ranDay=0;
 	int Begin = 1;
+	MediaPlayer soundPage;
+	MediaPlayer instructPage;
+	MediaPlayer soundIns;
 	
 	final MyCountDown countdownTime = new MyCountDown(startTime,1000);
 	
@@ -67,6 +70,10 @@ public class PlL1Cross extends Activity {
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	
 	setContentView(R.layout.activity_pl_l1_cross);
+	soundPage = MediaPlayer.create(context, R.raw.page);
+	soundPage.start();
+	soundPage.setLooping(true);
+	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		username = myDb.SelectCurrentUser();
@@ -115,6 +122,7 @@ public class PlL1Cross extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -128,6 +136,7 @@ public class PlL1Cross extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent intent = new Intent(PlL1Cross.this,Main.class);
 				startActivity(intent);
 			}
@@ -161,12 +170,6 @@ public class PlL1Cross extends Activity {
 		}
 		else{
 			scores = myDb.countScore("004", username, Round);
-			myDb.getWritableDatabase();
-			//myDb.emptyNumberTable();
-					
-			if(username.equals("Guest")){
-				myDb.deleteGuest();
-			}
 			
 			showPopup(scores);
 		}
@@ -175,10 +178,6 @@ public class PlL1Cross extends Activity {
 	
 void checkAns(Boolean isInterupt){
 		
-		//Button inst1 = (Button)findViewById(R.id.tf_ins1);
-		//Button inst4 = (Button)findViewById(R.id.tf_ins4);
-		//Button inst6 = (Button)findViewById(R.id.tf_ins6);
-		//Button inst8 = (Button)findViewById(R.id.tf_ins8);
 		final Button ans1_1 = (Button)findViewById(R.id.tf_ans1_1);
 		final Button ans1_2 = (Button)findViewById(R.id.tf_ans1_2);
 		final Button ans1_3 = (Button)findViewById(R.id.tf_ans1_3);
@@ -222,13 +221,14 @@ void checkAns(Boolean isInterupt){
 		int currentItem = Items;
 		
 		answer = choice(currentItem);
+		instructPage.start();
 		
 		countdownTime.start();
 			
 			ans1_1.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					//mediaPlayer.stop();
+					instructPage.stop();
 					Begin = 1;
 					ans1_2.setVisibility(View.INVISIBLE);
 					ans1_3.setVisibility(View.INVISIBLE);
@@ -251,7 +251,7 @@ void checkAns(Boolean isInterupt){
 			ans1_2.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					//mediaPlayer.stop();
+					instructPage.stop();
 					Begin = 1;
 					ans1_1.setVisibility(View.INVISIBLE);
 					ans1_3.setVisibility(View.INVISIBLE);
@@ -274,7 +274,7 @@ void checkAns(Boolean isInterupt){
 			ans1_3.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					//mediaPlayer.stop();
+					instructPage.stop();
 					Begin = 1;
 					ans1_1.setVisibility(View.INVISIBLE);
 					ans1_2.setVisibility(View.INVISIBLE);
@@ -297,7 +297,7 @@ void checkAns(Boolean isInterupt){
 			answer4_1.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					//mediaPlayer.stop();
+					instructPage.stop();
 					Begin = 1;
 					if(answer == 1){
 						imgCorrect.setVisibility(View.VISIBLE);
@@ -318,7 +318,7 @@ void checkAns(Boolean isInterupt){
 			answer4_2.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					//mediaPlayer.stop();
+					instructPage.stop();
 					Begin = 1;
 					if(answer == 2){
 						imgCorrect.setVisibility(View.VISIBLE);
@@ -339,7 +339,7 @@ void checkAns(Boolean isInterupt){
 			answer5_1.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					//mediaPlayer.stop();
+					instructPage.stop();
 					if(answer == 1){
 						imgCorrect.setVisibility(View.VISIBLE);
 						countdownTime.cancel();
@@ -359,7 +359,7 @@ void checkAns(Boolean isInterupt){
 			answer5_2.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					//mediaPlayer.stop();
+					instructPage.stop();
 					if(answer == 2){
 						imgCorrect.setVisibility(View.VISIBLE);
 						countdownTime.cancel();
@@ -379,7 +379,7 @@ void checkAns(Boolean isInterupt){
 			answer6_1.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					//mediaPlayer.stop();
+					instructPage.stop();
 					Begin = 1;
 					if(answer == 1){
 						imgCorrect.setVisibility(View.VISIBLE);
@@ -400,7 +400,7 @@ void checkAns(Boolean isInterupt){
 			answer6_2.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					//mediaPlayer.stop();
+					instructPage.stop();
 					Begin = 1;
 					if(answer == 2){
 						imgCorrect.setVisibility(View.VISIBLE);
@@ -421,7 +421,7 @@ void checkAns(Boolean isInterupt){
 			answer8_1.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					//mediaPlayer.stop();
+					instructPage.stop();
 					Begin = 1;
 					if(answer == 1){
 						imgCorrect.setVisibility(View.VISIBLE);
@@ -442,7 +442,7 @@ void checkAns(Boolean isInterupt){
 			answer8_2.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					//mediaPlayer.stop();
+					instructPage.stop();
 					Begin = 1;
 					if(answer == 2){
 						imgCorrect.setVisibility(View.VISIBLE);
@@ -535,92 +535,15 @@ void checkAns(Boolean isInterupt){
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
-			Intent intent = new Intent(PlL1Cross.this,SelectPoliceLevel.class);
+			instructPage.stop();
+			soundPage.stop();
+			Intent intent = new Intent(PlL1Cross.this,PoliceLevel1.class);
 			startActivity(intent);
 		}
 		});
 	}
 	
 	
-	int choiceExtra(Boolean interupt){
-		int answerExtra,ExtraDay;
-		
-		Button ExtraInstruct = (Button)findViewById(R.id.charlen_int);
-		Button thaiExtra = (Button)findViewById(R.id.Sunday_thai);
-		Button engExtra = (Button)findViewById(R.id.Sunday_eng);
-		Button CengExtra = (Button)findViewById(R.id.Sunday_Ceng);
-		Button ans1 = (Button)findViewById(R.id.Sunday_ans1);
-		Button ans2 = (Button)findViewById(R.id.Sunday_ans2);
-		Button ans3 = (Button)findViewById(R.id.Sunday_ans3);
-		
-		thaiExtra.setVisibility(View.INVISIBLE);
-		engExtra.setVisibility(View.INVISIBLE);
-		CengExtra.setVisibility(View.INVISIBLE);
-		ExtraInstruct.setVisibility(View.VISIBLE);
-		
-		if(interupt==false){
-			ExtraDay = RanNum();
-			ranDay = ExtraDay;
-		}
-		else{
-			ExtraDay = ranDay;
-		}
-		
-		if(ExtraDay == 1){
-			answerExtra = 2;
-			ExtraInstruct.setBackgroundResource(R.drawable.sunday_add);
-			ans1.setBackgroundResource(R.drawable.sun1);
-			ans2.setBackgroundResource(R.drawable.sun2);
-			ans3.setBackgroundResource(R.drawable.sun3);
-		}
-		else if(ExtraDay == 2){
-			answerExtra = 2;
-			ExtraInstruct.setBackgroundResource(R.drawable.monday_add);
-			ans1.setBackgroundResource(R.drawable.mon1);
-			ans2.setBackgroundResource(R.drawable.mon2);
-			ans3.setBackgroundResource(R.drawable.mon3);
-		} 
-		else if(ExtraDay == 3){
-			answerExtra = 1;
-			ExtraInstruct.setBackgroundResource(R.drawable.tuesday_add);
-			ans1.setBackgroundResource(R.drawable.tue1);
-			ans2.setBackgroundResource(R.drawable.tue2);
-			ans3.setBackgroundResource(R.drawable.tue3);
-		}
-		else if(ExtraDay == 4){
-			answerExtra = 2;
-			ExtraInstruct.setBackgroundResource(R.drawable.wednesday_add);
-			ans1.setBackgroundResource(R.drawable.wed1);
-			ans2.setBackgroundResource(R.drawable.wed2);
-			ans3.setBackgroundResource(R.drawable.wed3);
-		}
-		else if(ExtraDay == 5){
-			answerExtra = 3;
-			ExtraInstruct.setBackgroundResource(R.drawable.thursday_add);
-			ans1.setBackgroundResource(R.drawable.thu1);
-			ans2.setBackgroundResource(R.drawable.thu2);
-			ans3.setBackgroundResource(R.drawable.thu3);
-		}
-		else if(ExtraDay == 6){
-			answerExtra = 1;
-			ExtraInstruct.setBackgroundResource(R.drawable.friday_add);
-			ans1.setBackgroundResource(R.drawable.fri1);
-			ans2.setBackgroundResource(R.drawable.fri2);
-			ans3.setBackgroundResource(R.drawable.fri3);
-		}
-		else{
-			answerExtra = 2;
-			ExtraInstruct.setBackgroundResource(R.drawable.saturday_add);
-			ans1.setBackgroundResource(R.drawable.sat1);
-			ans2.setBackgroundResource(R.drawable.sat2);
-			ans3.setBackgroundResource(R.drawable.sat3);
-		}
-		
-		return answerExtra;
-		
-	}
-	
-
 	int RanNum(){
 		int randomInt;
 		Boolean isExited;
@@ -690,21 +613,24 @@ void checkAns(Boolean isInterupt){
 			if(itemNo == 1){
 				answer = 3;
 				inst1.setBackgroundResource(R.drawable.pl1_ins1);
+				instructPage = MediaPlayer.create(context, R.raw.ins_pll1_1);
 				
 			}
 			else if(itemNo == 2){
 				answer = 2;
 				inst1.setBackgroundResource(R.drawable.pl1_ins2);
+				instructPage = MediaPlayer.create(context, R.raw.ins_pll1_2);
 			} 
 			else if(itemNo == 3){
 				answer = 1;
 				inst1.setBackgroundResource(R.drawable.pl1_ins3);
+				instructPage = MediaPlayer.create(context, R.raw.ins_pll1_3);
 			}
 		}
 		else if(itemNo < 6){
 			
 			inst4.setVisibility(View.VISIBLE);
-			
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll1_4);
 						
 			if(itemNo == 4){
 				answer = 1;
@@ -712,8 +638,6 @@ void checkAns(Boolean isInterupt){
 				ans4_2.setVisibility(View.VISIBLE);
 				Thislayout.setBackgroundResource(R.drawable.pl1_bg2);
 				inst4.setBackgroundResource(R.drawable.pl1_ins4);
-				//ans4_1.setBackgroundResource(R.drawable.pl1_ans4_1);
-				//ans4_2.setBackgroundResource(R.drawable.pl1_ans4_2);
 				
 			}
 			else if(itemNo == 5){
@@ -722,9 +646,6 @@ void checkAns(Boolean isInterupt){
 				ans5_2.setVisibility(View.VISIBLE);
 				Thislayout.setBackgroundResource(R.drawable.pl1_bg3);
 				inst4.setBackgroundResource(R.drawable.pl1_ins4);
-				//ans5_1.setBackgroundResource(R.drawable.pl1_ans4_1);
-				//ans5_2.setBackgroundResource(R.drawable.pl1_ans4_2);
-				
 			} 
 		}
 		else if(itemNo < 8){
@@ -738,14 +659,14 @@ void checkAns(Boolean isInterupt){
 				inst6.setBackgroundResource(R.drawable.pl1_ins6);
 				ans6_1.setBackgroundResource(R.drawable.pl1_ans6_1);
 				ans6_2.setBackgroundResource(R.drawable.pl1_ans6_2);
-				
+				instructPage = MediaPlayer.create(context, R.raw.ins_pll1_7);
 			}
 			else if(itemNo == 7){
 				answer = 1;
 				inst6.setBackgroundResource(R.drawable.pl1_ins7);
 				ans6_1.setBackgroundResource(R.drawable.pl1_ans6_1);
 				ans6_2.setBackgroundResource(R.drawable.pl1_ans6_2);
-				
+				instructPage = MediaPlayer.create(context, R.raw.ins_pll1_6);
 			} 
 		}
 		else {
@@ -759,21 +680,21 @@ void checkAns(Boolean isInterupt){
 				inst8.setBackgroundResource(R.drawable.pl1_ins8);
 				ans8_1.setBackgroundResource(R.drawable.pl1_ans8_1);
 				ans8_2.setBackgroundResource(R.drawable.pl1_ans8_2);
-				
+				instructPage = MediaPlayer.create(context, R.raw.ins_pll1_8);
 			}
 			else if(itemNo == 9){
 				answer = 1;
 				inst8.setBackgroundResource(R.drawable.pl1_ins9);
 				ans8_1.setBackgroundResource(R.drawable.pl1_9_1);
 				ans8_2.setBackgroundResource(R.drawable.pl1_ans9_2);
-				
+				instructPage = MediaPlayer.create(context, R.raw.ins_pll1_9);
 			} 
 			else{
 				answer = 2;
 				inst8.setBackgroundResource(R.drawable.pl1_ins10);
 				ans8_1.setBackgroundResource(R.drawable.pl1_ans10_1);
 				ans8_2.setBackgroundResource(R.drawable.pl1_ans10_2);
-				
+				instructPage = MediaPlayer.create(context, R.raw.ins_pll1_10);
 			} 
 		}
 		
@@ -824,6 +745,7 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
+				soundPage.stop();
 				Intent intent = new Intent(PlL1Cross.this,PoliceLevel1.class);
 				startActivity(intent);
 				
@@ -856,6 +778,7 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
+				soundPage.stop();
 				Intent intent = new Intent(PlL1Cross.this,PlL2NearFar.class);
 				startActivity(intent);
 				
@@ -867,26 +790,29 @@ void checkAns(Boolean isInterupt){
 	
 	protected void showBeginPopup(int itemm){
 		final Dialog BeginPop = new Dialog(context, R.style.FullHeightDialog);
-		final MediaPlayer soundIns;
 		final MediaPlayer soundAns;
 		if(itemm == 1){
 			BeginPop.setContentView(R.layout.activity_pl_l1_cross_tutorial1);
+			soundIns = MediaPlayer.create(context, R.raw.ins_pll1_1);
 		}
 		else if(itemm == 4){
 			BeginPop.setContentView(R.layout.activity_pl_l1_cross_tutorial4);
+			soundIns = MediaPlayer.create(context, R.raw.ins_pll1_4);
 		}
 		else if(itemm == 6){
 			BeginPop.setContentView(R.layout.activity_pl_l1_cross_tutorial6);
+			soundIns = MediaPlayer.create(context, R.raw.ins_pll1_6);
 		}
 		else if(itemm == 8){
 			BeginPop.setContentView(R.layout.activity_pl_l1_cross_tutorial8);
+			soundIns = MediaPlayer.create(context, R.raw.ins_pll1_8);
 		}
 		
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
-		soundIns = MediaPlayer.create(context, R.raw.try_to_count);
-		soundAns = MediaPlayer.create(context, R.raw.choose_count);
+		
+		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL1Cross.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);
 		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpCross);

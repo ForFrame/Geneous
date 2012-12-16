@@ -33,6 +33,8 @@ public class PlL2NearFar extends Activity {
 	float timeRemain;
 	int Round;
 	int Begin = 1;
+	MediaPlayer soundPage;
+	MediaPlayer instructPage;
 	
 	public class MyCountDown extends CountDownTimer {
 		public MyCountDown(long millisInFuture, long countDownInterval) {
@@ -62,6 +64,9 @@ public class PlL2NearFar extends Activity {
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	setContentView(R.layout.activity_pl_l2_nearfar);
+	soundPage = MediaPlayer.create(context, R.raw.page);
+	soundPage.start();
+	soundPage.setLooping(true);
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -74,30 +79,13 @@ public class PlL2NearFar extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-		/*int valueTutorial = 0;
-		Bundle extras = getIntent().getExtras();
-		if(extras != null){
-			valueTutorial = extras.getInt("tutorial");
-		
-			if(valueTutorial == 1){
-				game005();
-			}
-		}
-		else{*/
 			if(Round == 1){
-				//Intent intent2 = new Intent(PlL2NearFar.this,PlL2NearFarTutorial.class);
-				//startActivity(intent2);
-				//if(Begin == 1){
 					showBeginPopup();
-				//}
-				//else{
-				//	game005();
-				//}
 			}
 			else{
 				game005();
 			}
-		//}
+		
 	}
 
 	void game005(){
@@ -139,6 +127,7 @@ public class PlL2NearFar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -152,6 +141,7 @@ public class PlL2NearFar extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
 				myDb.ChangeHome(0);
+				soundPage.stop();
 				Intent intent = new Intent(PlL2NearFar.this,Main.class);
 				startActivity(intent);
 			}
@@ -163,15 +153,10 @@ public class PlL2NearFar extends Activity {
 		}
 		else{
 			scores = myDb.countScore("005", username, Round);
-						
-			if(username.equals("Guest")){
-				myDb.close();
-				myDb.getWritableDatabase();
-				myDb.deleteGuest();
-			}
 			
 			showPopup(scores);
 		}
+
 	}
 	
 	int RanNum(){
@@ -217,12 +202,12 @@ public class PlL2NearFar extends Activity {
 		countdownTime.start();
 		
 			answer = choice(RandomNum);
-			//insView.startAnimation(myFadeAnimation);
+			instructPage.start();
 			
 				Answer1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						//mediaPlayer.stop();
+						instructPage.stop();
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
 							countdownTime.cancel();
@@ -242,7 +227,7 @@ public class PlL2NearFar extends Activity {
 				Answer2.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						//mediaPlayer.stop();
+						instructPage.stop();
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
 							countdownTime.cancel();
@@ -317,7 +302,9 @@ public class PlL2NearFar extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
-			Intent intent = new Intent(PlL2NearFar.this,SelectPoliceLevel.class);
+			instructPage.stop();
+			soundPage.stop();
+			Intent intent = new Intent(PlL2NearFar.this,PoliceLevel2.class);
 			startActivity(intent);
 		}
 		});
@@ -340,6 +327,7 @@ public class PlL2NearFar extends Activity {
 	    	ansView.setBackgroundResource(R.drawable.pl2_tv1);
 			ans1.setBackgroundResource(R.drawable.pl2_choice1_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice1_2);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_1);
 		}
 		else if(random == 2){
 			answer = 2;
@@ -347,6 +335,7 @@ public class PlL2NearFar extends Activity {
 	    	ansView.setBackgroundResource(R.drawable.pl2_tv2);
 			ans1.setBackgroundResource(R.drawable.pl2_choice2_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice2_2);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_2);
 		}
 		else if(random == 3){
 			answer = 2;
@@ -354,6 +343,7 @@ public class PlL2NearFar extends Activity {
 	    	ansView.setBackgroundResource(R.drawable.pl2_tv3);
 			ans1.setBackgroundResource(R.drawable.pl2_choice3_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice3_2);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_3);
 		}
 		else if(random == 4){
 			answer = 1;
@@ -361,6 +351,7 @@ public class PlL2NearFar extends Activity {
 	    	ansView.setBackgroundResource(R.drawable.pl2_tv4);
 			ans1.setBackgroundResource(R.drawable.pl2_choice4_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice4_2);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
 		}
 		else if(random == 5){
 			answer = 1;
@@ -368,6 +359,7 @@ public class PlL2NearFar extends Activity {
 	    	ansView.setBackgroundResource(R.drawable.pl2_tv5);
 			ans1.setBackgroundResource(R.drawable.pl2_choice5_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice5_2);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
 		}
 		else if(random == 6){
 			answer = 1;
@@ -375,6 +367,7 @@ public class PlL2NearFar extends Activity {
 	    	ansView.setBackgroundResource(R.drawable.pl2_tv6);
 			ans1.setBackgroundResource(R.drawable.pl2_choice6_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice6_2);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
 		}
 		else if(random == 7){
 			answer = 2;
@@ -382,6 +375,7 @@ public class PlL2NearFar extends Activity {
 	    	ansView.setBackgroundResource(R.drawable.pl2_tv7);
 			ans1.setBackgroundResource(R.drawable.pl2_choice7_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice7_2);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_7);
 		}
 		else if(random == 8){
 			answer = 1;
@@ -389,6 +383,7 @@ public class PlL2NearFar extends Activity {
 	    	ansView.setBackgroundResource(R.drawable.pl2_tv8);
 			ans1.setBackgroundResource(R.drawable.pl2_choice8_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice8_2);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_8);
 		}
 		else if(random == 9){
 			answer = 1;
@@ -396,6 +391,7 @@ public class PlL2NearFar extends Activity {
 	    	ansView.setBackgroundResource(R.drawable.pl2_tv9);
 			ans1.setBackgroundResource(R.drawable.pl2_choice9_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice9_2);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_9);
 		}
 		else{
 			answer = 2;
@@ -403,6 +399,7 @@ public class PlL2NearFar extends Activity {
 	    	ansView.setBackgroundResource(R.drawable.pl2_tv10);
 			ans1.setBackgroundResource(R.drawable.pl2_choice10_1);
 			ans2.setBackgroundResource(R.drawable.pl2_choice10_2);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
 		}
 		
 		return answer;
@@ -451,6 +448,7 @@ public class PlL2NearFar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
+				soundPage.stop();
 				Intent intent = new Intent(PlL2NearFar.this,PoliceLevel2.class);
 				startActivity(intent);
 				
@@ -487,8 +485,8 @@ public class PlL2NearFar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				
-				Intent intent = new Intent(PlL2NearFar.this,Main.class);
+				soundPage.stop();
+				Intent intent = new Intent(PlL2NearFar.this,PlL3Car.class);
 				startActivity(intent);
 				
 			}
@@ -541,8 +539,8 @@ public class PlL2NearFar extends Activity {
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
-		soundIns = MediaPlayer.create(context, R.raw.try_to_count);
-		soundAns = MediaPlayer.create(context, R.raw.choose_count);
+		soundIns = MediaPlayer.create(context, R.raw.ins_pll2_5);
+		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);
 		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpNearFar);

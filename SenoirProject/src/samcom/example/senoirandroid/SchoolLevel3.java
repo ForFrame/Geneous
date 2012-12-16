@@ -31,14 +31,15 @@ public class SchoolLevel3 extends Activity {
 	
 	String CurrentUser;
 	Context context = this;
-	MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
-	MediaPlayer instructPage = MediaPlayer.create(context, R.raw.select_level);
+	MediaPlayer soundPage;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_school_level3);
+		
+		soundPage = MediaPlayer.create(context, R.raw.page);
 		
 		
 		schoolLevel3();
@@ -49,11 +50,10 @@ public class SchoolLevel3 extends Activity {
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		ImageView imgLogo;  
-	    Animation animCalendar;  
+		
 	    
 	    soundPage.start();
-	    instructPage.start();
+	    
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
 		   
@@ -89,7 +89,7 @@ public class SchoolLevel3 extends Activity {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
 				soundPage.stop();
-				instructPage.stop();
+		
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -103,7 +103,6 @@ public class SchoolLevel3 extends Activity {
 				myDb.logoutUser(CurrentUser);
 				myDb.ChangeHome(0);
 				soundPage.stop();
-				instructPage.stop();
 				Intent intent = new Intent(SchoolLevel3.this,Main.class);
 				startActivity(intent);
 			}
@@ -119,7 +118,6 @@ public class SchoolLevel3 extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				soundPage.stop();
-				instructPage.stop();
 				Intent intent = new Intent(SchoolLevel3.this,L1ScLongShort.class);
 				startActivity(intent);
 			}
@@ -131,7 +129,6 @@ public class SchoolLevel3 extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				soundPage.stop();
-				instructPage.stop();
 				Intent intent = new Intent(SchoolLevel3.this,SelectSchoolLevel.class);
 				startActivity(intent);
 				//finish();
@@ -143,7 +140,6 @@ public class SchoolLevel3 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				instructPage.stop();
 				showListViewHighScore();
 			}
 		});
@@ -217,7 +213,7 @@ public class SchoolLevel3 extends Activity {
 		HighPop.setCancelable(false); 
 		
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
-		gt.setText("�����ѡ��Ҵ���-��ǡѹ���");
+		gt.setText("เกมส์มารู้จักขนาดสั้น-ยาวกันเถอะ");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 

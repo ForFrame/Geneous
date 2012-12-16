@@ -31,7 +31,7 @@ public class L1ScCount extends Activity {
 	String username;
 	int timeRemain;
 	int Round;
-	MediaPlayer soundPage = MediaPlayer.create(context, R.raw.page);
+	MediaPlayer soundPage;
 	MediaPlayer instructPage;
 	
 	public class MyCountDown extends CountDownTimer {
@@ -64,7 +64,7 @@ public class L1ScCount extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_l1_sc_count);
-		
+		soundPage = MediaPlayer.create(context, R.raw.page);
 		soundPage.start();
 		soundPage.setLooping(true);
 		
@@ -524,7 +524,7 @@ public class L1ScCount extends Activity {
 				countdown.cancel();
 				instructPage.stop();
 				soundPage.stop();
-				Intent intent = new Intent(L1ScCount.this,SelectSchoolLevel.class);
+				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
 				startActivity(intent);
 			}
 		});
@@ -681,7 +681,7 @@ public class L1ScCount extends Activity {
 		BeginPop.setCancelable(false); 
 		
 		soundIns = MediaPlayer.create(context, R.raw.ins_sclv1_1);
-		soundAns = MediaPlayer.create(context, R.raw.ins_sclv1_3);
+		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCount.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.helpNumber);
 		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.counttable5);
