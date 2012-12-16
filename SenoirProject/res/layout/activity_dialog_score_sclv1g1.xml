@@ -121,7 +121,7 @@
         android:layout_x="88dp"
         android:layout_y="119dp"
         android:background="@drawable/star_collor_5"
-        android:visibility="visible" />
+        android:visibility="invisible" />
     
     <Button
         android:id="@+id/scorehome"
@@ -156,7 +156,7 @@
         android:src="@drawable/score_head" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/ScoreCorrect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="373dp"
@@ -166,7 +166,7 @@
         android:textSize="27sp" />
 
     <TextView
-        android:id="@+id/TextView01"
+        android:id="@+id/ScoreWrong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="491dp"

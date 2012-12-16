@@ -319,13 +319,14 @@ public final class R {
         public static final int GameText=0x7f0a0017;
         public static final int LogRegisBt=0x7f0a0093;
         public static final int LoginBt=0x7f0a008f;
+        public static final int ScoreCorrect=0x7f0a0012;
+        public static final int ScoreWrong=0x7f0a0013;
         public static final int Sunday_Ceng=0x7f0a0029;
         public static final int Sunday_ans1=0x7f0a002a;
         public static final int Sunday_ans2=0x7f0a002b;
         public static final int Sunday_ans3=0x7f0a002c;
         public static final int Sunday_eng=0x7f0a0028;
         public static final int Sunday_thai=0x7f0a0027;
-        public static final int TextView01=0x7f0a0013;
         public static final int ageSelection=0x7f0a0098;
         public static final int ansLong=0x7f0a0057;
         public static final int answer=0x7f0a0034;
@@ -462,7 +463,6 @@ public final class R {
         public static final int textTime=0x7f0a0022;
         public static final int textUser=0x7f0a0023;
         public static final int textView1=0x7f0a0001;
-        public static final int textView2=0x7f0a0012;
         public static final int tf_ans1_1=0x7f0a0064;
         public static final int tf_ans1_2=0x7f0a0065;
         public static final int tf_ans1_3=0x7f0a0066;

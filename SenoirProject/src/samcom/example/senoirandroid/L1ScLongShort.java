@@ -429,6 +429,16 @@ public class L1ScLongShort extends Activity {
 						score0.setVisibility(ImageView.VISIBLE);	break;			
 		}
 		
+		TextView textCorrect = (TextView)dialog.findViewById(R.id.ScoreCorrect);
+		TextView textWrong = (TextView)dialog.findViewById(R.id.ScoreWrong);
+		textCorrect.setTextColor(Color.GREEN);
+		textWrong.setTextColor(Color.MAGENTA);
+		String number;
+		number = String.valueOf(scores);
+		textCorrect.setText(number+" ข้อ");
+		number = String.valueOf(10-scores);
+		textWrong.setText(number+" ข้อ");
+		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
 		dialogHomeBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -490,7 +500,7 @@ public class L1ScLongShort extends Activity {
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
-		soundIns = MediaPlayer.create(context, R.raw.ins_sclv3_long);
+		soundIns = MediaPlayer.create(context, R.raw.ins_sclv3_short);
 		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.ansLong);
@@ -533,7 +543,7 @@ public class L1ScLongShort extends Activity {
 		int item = myDb.CountNumRan();
 		myDb.close();
 		myDb.getWritableDatabase();
-		myDb.addItemScore("003",username,Round,item,0,startTime);
+		myDb.addItemScore("003",username,Round,item,0,startTime/1000);
 		
 		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
 		soundWrongFin.start();

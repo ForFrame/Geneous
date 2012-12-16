@@ -569,6 +569,16 @@ public class L1ScCount extends Activity {
 					score0.setVisibility(ImageView.VISIBLE);	break;		
 		}
 		
+		TextView textCorrect = (TextView)dialog.findViewById(R.id.ScoreCorrect);
+		TextView textWrong = (TextView)dialog.findViewById(R.id.ScoreWrong);
+		textCorrect.setTextColor(Color.GREEN);
+		textWrong.setTextColor(Color.MAGENTA);
+		String number;
+		number = String.valueOf(scores);
+		textCorrect.setText(number+" ข้อ");
+		number = String.valueOf(10-scores);
+		textWrong.setText(number+" ข้อ");
+		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
 		dialogHomeBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -724,7 +734,7 @@ public class L1ScCount extends Activity {
 		//int item = count+1;
 		myDb.close();
 		myDb.getWritableDatabase();
-		myDb.addItemScore("001",username,Round,item,0,startTime);
+		myDb.addItemScore("001",username,Round,item,0,startTime/1000);
 		
 		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
 		soundWrongFin.start();

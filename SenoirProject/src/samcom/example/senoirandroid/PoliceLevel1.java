@@ -153,7 +153,7 @@ public class PoliceLevel1 extends Activity {
 		HighPop.setCancelable(false); 
 		
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
-		gt.setText("เกมส์มารู้จักการใช้ถนนกันเถอะ");
+		gt.setText("เน€เธ�เธกเธชเน�เธกเธฒเธฃเธนเน�เธ�เธฑเธ�เธ�เธฒเธฃเน�เธ�เน�เธ–เธ�เธ�เธ�เธฑเธ�เน€เธ–เธญเธฐ");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 
@@ -198,30 +198,30 @@ public class PoliceLevel1 extends Activity {
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		myDb.getReadableDatabase();
-		Boolean isThisContinue;
-		isThisContinue = myDb.isCurrentContinue();
-		myDb.close();
-		if(isThisContinue == true){
-			policeLevel1();
-		}
-		else{
+		///myDb.getReadableDatabase();
+		//Boolean isThisContinue;
+		//isThisContinue = myDb.isCurrentContinue();
+		//myDb.close();
+		//if(isThisContinue == true){
+		//	policeLevel1();
+		//}
+		//else{
 			myDb.getWritableDatabase();
 			myDb.ChangeHome(0);
 			Intent intent = new Intent(PoliceLevel1.this,Main.class);
 			startActivity(intent);
-		}
+		//}
 		
 		super.onRestart();
 	}
 	
-	@Override
-	protected void onDestroy() {
+//	@Override
+	/*protected void onDestroy() {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 		myDb.ChangeHome(1);
 		
 		super.onDestroy();
-	}
+	}*/
 }

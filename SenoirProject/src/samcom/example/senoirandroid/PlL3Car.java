@@ -30,7 +30,7 @@ public class PlL3Car extends Activity {
 	String username;
 	long startTime;
 	final Context context = this;
-	float timeRemain;
+	int timeRemain;
 	int Round;
 	int Begin = 1;
 	MediaPlayer soundPage;
@@ -53,7 +53,7 @@ public class PlL3Car extends Activity {
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textTime);
-			int timeRemain = (int) (remain) / 1000;
+			timeRemain = (int) (remain) / 1000;
 			result.setText(" Times: " + timeRemain);
 		}
 	}
@@ -473,6 +473,16 @@ public class PlL3Car extends Activity {
 						score0.setVisibility(ImageView.VISIBLE);	break;			
 		}
 		
+		TextView textCorrect = (TextView)dialog.findViewById(R.id.ScoreCorrect);
+		TextView textWrong = (TextView)dialog.findViewById(R.id.ScoreWrong);
+		textCorrect.setTextColor(Color.GREEN);
+		textWrong.setTextColor(Color.MAGENTA);
+		String number;
+		number = String.valueOf(scores);
+		textCorrect.setText(number+" ข้อ");
+		number = String.valueOf(10-scores);
+		textWrong.setText(number+" ข้อ");
+		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
 		dialogHomeBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -535,7 +545,7 @@ public class PlL3Car extends Activity {
 		int item = myDb.CountNumRan();
 		myDb.close();
 		myDb.getWritableDatabase();
-		myDb.addItemScore("003",username,Round,item,0,startTime);
+		myDb.addItemScore("003",username,Round,item,0,startTime/1000);
 		
 		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
 		soundWrongFin.start();

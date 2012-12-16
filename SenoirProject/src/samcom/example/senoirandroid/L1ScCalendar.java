@@ -155,7 +155,7 @@ public class L1ScCalendar extends Activity {
 			
 		});
 		if(Day < 11){
-			startTime = (30)*1000;
+			//startTime = (30)*1000;
 			checkAns(false);
 		}
 		else{
@@ -619,6 +619,16 @@ void checkAns(Boolean isInterupt){
 						score0.setVisibility(ImageView.VISIBLE);	break;		
 		}
 		
+		TextView textCorrect = (TextView)dialog.findViewById(R.id.ScoreCorrect);
+		TextView textWrong = (TextView)dialog.findViewById(R.id.ScoreWrong);
+		textCorrect.setTextColor(Color.GREEN);
+		textWrong.setTextColor(Color.MAGENTA);
+		String number;
+		number = String.valueOf(scores);
+		textCorrect.setText(number+" ข้อ");
+		number = String.valueOf(10-scores);
+		textWrong.setText(number+" ข้อ");
+		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
 		dialogHomeBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -675,7 +685,7 @@ void checkAns(Boolean isInterupt){
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
-		soundIns = MediaPlayer.create(context, R.raw.ins_sclv1_2);
+		soundIns = MediaPlayer.create(context, R.raw.sclv2_mon_thai);
 		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.answer);
@@ -715,7 +725,7 @@ void checkAns(Boolean isInterupt){
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
-		myDb.addItemScore("002",username,Round,Day,0,startTime);
+		myDb.addItemScore("002",username,Round,Day,0,startTime/1000);
 		
 		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
 		soundWrongFin.start();

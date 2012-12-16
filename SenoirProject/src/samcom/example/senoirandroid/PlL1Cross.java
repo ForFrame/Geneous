@@ -30,7 +30,7 @@ public class PlL1Cross extends Activity {
 	String username;
 	long startTime = (20)*1000;
 	final Context context = this;
-	float timeRemain;
+	int timeRemain;
 	int Round;
 	int Items = 1;
 	int ranDay=0;
@@ -58,7 +58,7 @@ public class PlL1Cross extends Activity {
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textTime);
-			int timeRemain = (int) (remain) / 1000;
+			timeRemain = (int) (remain) / 1000;
 			result.setText(" Times: " + timeRemain);
 		}
 	}
@@ -83,6 +83,8 @@ public class PlL1Cross extends Activity {
 		Round = myDb.getNumRound("004", username);
 		
 		game004();
+		
+		
 		
 	}
 
@@ -144,7 +146,8 @@ public class PlL1Cross extends Activity {
 		});
 		if(Items < 11){
 			//startTime = (30)*1000;
-			if(Round == 1){
+			//if(Round == 1){
+			if((Round == 1)||(username.equals("Guest"))){
 				if(Begin == 1){
 					if(Items == 1){
 						showBeginPopup(1);
@@ -740,6 +743,16 @@ void checkAns(Boolean isInterupt){
 						score0.setVisibility(ImageView.VISIBLE);	break;		
 		}
 		
+		TextView textCorrect = (TextView)dialog.findViewById(R.id.ScoreCorrect);
+		TextView textWrong = (TextView)dialog.findViewById(R.id.ScoreWrong);
+		textCorrect.setTextColor(Color.GREEN);
+		textWrong.setTextColor(Color.MAGENTA);
+		String number;
+		number = String.valueOf(scores);
+		textCorrect.setText(number+" ข้อ");
+		number = String.valueOf(10-scores);
+		textWrong.setText(number+" ข้อ");
+		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
 		dialogHomeBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -851,7 +864,7 @@ void checkAns(Boolean isInterupt){
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
-		myDb.addItemScore("004",username,Round,Items,0,startTime);
+		myDb.addItemScore("004",username,Round,Items,0,startTime/1000);
 		
 		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
 		soundWrongFin.start();
