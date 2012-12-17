@@ -66,17 +66,13 @@
         android:layout_x="671dp"
         android:layout_y="245dp"
         android:background="@drawable/blevel3" />
-    
+
     <Button
         android:id="@+id/backToHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="892dp"
-        android:layout_y="649dp"
+        android:layout_x="896dp"
+        android:layout_y="653dp"
         android:background="@drawable/icon_home" />
-
-    
-
-   
 
 </AbsoluteLayout>

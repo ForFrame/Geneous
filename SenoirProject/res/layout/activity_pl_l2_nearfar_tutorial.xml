@@ -28,8 +28,8 @@
         android:id="@+id/bt_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="750dp"
-        android:layout_y="543dp"
+        android:layout_x="757dp"
+        android:layout_y="550dp"
         android:background="@drawable/icon_skip"
         android:clickable="true"
         android:visibility="visible" />

@@ -151,9 +151,10 @@ public class PoliceLevel1 extends Activity {
 		HighPop.setContentView(R.layout.activity_highscore);
 		HighPop.setCanceledOnTouchOutside(false);
 		HighPop.setCancelable(false); 
-		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
-		gt.setText("เน€เธ�เธกเธชเน�เธกเธฒเธฃเธนเน�เธ�เธฑเธ�เธ�เธฒเธฃเน�เธ�เน�เธ–เธ�เธ�เธ�เธฑเธ�เน€เธ–เธญเธฐ");
+		gt.setTypeface(type);
+		gt.setText("เกมส์มารู้จักการใช้ถนนกันเถอะ");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 

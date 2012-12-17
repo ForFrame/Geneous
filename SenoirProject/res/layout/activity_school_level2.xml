@@ -33,15 +33,13 @@
         android:layout_x="849dp"
         android:layout_y="32dp"
         android:background="@drawable/logout_txt" />
-
-     
     
     <ImageView
         android:id="@+id/tableImg"
         android:layout_width="685dp"
         android:layout_height="196dp"
-        android:layout_x="118dp"
-        android:layout_y="445dp"
+        android:layout_x="141dp"
+        android:layout_y="455dp"
         android:background="@drawable/sc_table_student2" />
     
      <Button
@@ -68,20 +66,24 @@
         android:layout_y="167dp"
         android:background="@drawable/sc_board2_t" />
 
+    
     <Button
         android:id="@+id/backToselectSchool"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="892dp"
-        android:layout_y="646dp"
+        android:layout_x="894dp"
+        android:layout_y="647dp"
         android:background="@drawable/icon_home" />
+    
     
     <Button
         android:id="@+id/showGameHighScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="2dp"
-        android:layout_y="645dp"
+        android:layout_x="-3dp"
+        android:layout_y="649dp"
         android:background="@drawable/icon_highscore" />
+
+    
 
 </AbsoluteLayout>

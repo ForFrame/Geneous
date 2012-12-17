@@ -123,38 +123,42 @@
         android:background="@drawable/star_collor_5"
         android:visibility="invisible" />
     
+    
     <Button
         android:id="@+id/scorehome"
-        android:layout_width="165dp"
-        android:layout_height="155dp"
-        android:layout_x="110dp"
-        android:layout_y="325dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_x="63dp"
+        android:layout_y="326dp"
         android:background="@drawable/score_home" />
 
     <Button
         android:id="@+id/scorenext"
-        android:layout_width="165dp"
-        android:layout_height="155dp"
-        android:layout_x="607dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_x="601dp"
         android:layout_y="324dp"
         android:background="@drawable/score_next" />
     
-    <Button
+    
+        <Button
         android:id="@+id/scoreback"
-        android:layout_width="165dp"
-        android:layout_height="155dp"
-        android:layout_x="358dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_x="330dp"
         android:layout_y="324dp"
         android:background="@drawable/score_back" />
-
-    <ImageView
+        
+        
+    
+	 <ImageView
         android:id="@+id/headScore"
         android:layout_width="480dp"
         android:layout_height="100dp"
         android:layout_x="201dp"
         android:layout_y="29dp"
         android:src="@drawable/score_head" />
-
+    
     <TextView
         android:id="@+id/ScoreCorrect"
         android:layout_width="wrap_content"
@@ -163,7 +167,7 @@
         android:layout_y="69dp"
         android:text="10 ข้อ"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="27sp" />
+        android:textSize="18pt" />
 
     <TextView
         android:id="@+id/ScoreWrong"
@@ -173,6 +177,8 @@
         android:layout_y="69dp"
         android:text="10 ข้อ"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="27sp" />
+        android:textSize="18pt" />
+
+   
 
 </AbsoluteLayout>

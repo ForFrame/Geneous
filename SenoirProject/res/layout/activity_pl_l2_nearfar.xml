@@ -9,11 +9,11 @@
         android:id="@+id/textTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="22dp"
-        android:layout_y="14dp"
+        android:layout_x="88dp"
+        android:layout_y="26dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+    
     <TextView
         android:id="@+id/textUser"
         android:layout_width="200dp"
@@ -82,11 +82,10 @@
         android:id="@+id/currentitem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="20dp"
-        android:layout_y="54dp"
+        android:layout_x="103dp"
+        android:layout_y="56dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
     <ImageView
         android:id="@+id/showwrong"
         android:layout_width="500dp"
@@ -111,17 +110,19 @@
         android:id="@+id/nearfarHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="835dp"
-        android:layout_y="651dp"
+        android:layout_x="827dp"
+        android:layout_y="667dp"
         android:background="@drawable/icon_help2" />
 
     <Button
         android:id="@+id/nearfarbackHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="938dp"
-        android:layout_y="651dp"
+        android:layout_x="928dp"
+        android:layout_y="666dp"
         android:background="@drawable/icon_home1" />
+
+    
 
     
 

@@ -71,7 +71,7 @@ SQLiteDatabase db;
 		myDb.getReadableDatabase();
 		
 		soundMain.start();
-		instrucMain.start();
+		
 		
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
@@ -89,6 +89,9 @@ SQLiteDatabase db;
 				popUpLogIn();
 			}
 			
+		}
+		else{
+			instrucMain.start();
 		}
 		
 		if(!(CurrentUser.equals("Guest"))){
@@ -544,12 +547,14 @@ SQLiteDatabase db;
 		
 		final Spinner spin1 = (Spinner)HighPop.findViewById(R.id.gameSelection);
 		final TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
-		//gt.setText(selectedGame);
+		final Typeface type2 = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
+		gt.setTypeface(type2);
 		
 		spin1.setOnItemSelectedListener(new OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 			        
 					String selected = spin1.getItemAtPosition(pos).toString();
+					gt.setTypeface(type2);
 			    	gt.setText(selected);
 			    	
 			    	ListView lv = (ListView)HighPop.findViewById(R.id.listview);

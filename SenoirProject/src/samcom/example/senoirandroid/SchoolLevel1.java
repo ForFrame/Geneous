@@ -216,7 +216,9 @@ public class SchoolLevel1 extends Activity {
 		HighPop.setCanceledOnTouchOutside(false);
 		HighPop.setCancelable(false); 
 		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
+		gt.setTypeface(type);
 		gt.setText("เกมส์มานับโต๊ะกันเถอะ");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);

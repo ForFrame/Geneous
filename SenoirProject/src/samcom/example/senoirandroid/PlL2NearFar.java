@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -443,15 +444,18 @@ public class PlL2NearFar extends Activity {
 						score0.setVisibility(ImageView.VISIBLE);	break;			
 		}
 		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		TextView textCorrect = (TextView)dialog.findViewById(R.id.ScoreCorrect);
 		TextView textWrong = (TextView)dialog.findViewById(R.id.ScoreWrong);
-		textCorrect.setTextColor(Color.GREEN);
-		textWrong.setTextColor(Color.MAGENTA);
+		textCorrect.setTypeface(type);
+		textWrong.setTypeface(type);
+		textCorrect.setTextColor(Color.BLACK);
+		textWrong.setTextColor(Color.BLACK);
 		String number;
 		number = String.valueOf(scores);
-		textCorrect.setText(number+" ¢éÍ");
+		textCorrect.setText(number+" à¸‚à¹‰à¸­");
 		number = String.valueOf(10-scores);
-		textWrong.setText(number+" ¢éÍ");
+		textWrong.setText(number+" à¸‚à¹‰à¸­");
 		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
 		dialogHomeBt.setOnClickListener(new View.OnClickListener() {
@@ -581,6 +585,13 @@ public class PlL2NearFar extends Activity {
 				});
 			BeginPop.show();
 	}
+	
+	public boolean onTouchEvent (MotionEvent event) {
+		instructPage.stop();
+		instructPage.start();
+		return super.onTouchEvent(event);
+	}
+	
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);

@@ -153,7 +153,9 @@ public class PoliceLevel3 extends Activity {
 		HighPop.setCanceledOnTouchOutside(false);
 		HighPop.setCancelable(false); 
 		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
+		gt.setTypeface(type);
 		gt.setText("เกมส์มารู้จักยานพาหนะประเภทต่างๆกันเถอะ");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);

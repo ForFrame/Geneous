@@ -569,10 +569,13 @@ public class L1ScCount extends Activity {
 					score0.setVisibility(ImageView.VISIBLE);	break;		
 		}
 		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		TextView textCorrect = (TextView)dialog.findViewById(R.id.ScoreCorrect);
 		TextView textWrong = (TextView)dialog.findViewById(R.id.ScoreWrong);
-		textCorrect.setTextColor(Color.GREEN);
-		textWrong.setTextColor(Color.MAGENTA);
+		textCorrect.setTypeface(type);
+		textWrong.setTypeface(type);
+		textCorrect.setTextColor(Color.BLACK);
+		textWrong.setTextColor(Color.BLACK);
 		String number;
 		number = String.valueOf(scores);
 		textCorrect.setText(number+" ข้อ");

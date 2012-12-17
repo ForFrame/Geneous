@@ -16,52 +16,52 @@
             android1:background="@drawable/login_txt" />
       
        <Button
-          android1:id="@+id/maintopolice1"
-          android1:layout_width="146dp"
-          android1:layout_height="113dp"
-          android1:layout_x="41dp"
-          android1:layout_y="65dp"
-          android1:background="@drawable/policestation_main" />
+           android1:id="@+id/maintopolice1"
+           android1:layout_width="175dp"
+           android1:layout_height="132dp"
+           android1:layout_x="9dp"
+           android1:layout_y="43dp"
+           android1:background="@drawable/policestation_main" />
        
         <Button
-          android1:id="@+id/maintomarket1"
-          android1:layout_width="158dp"
-          android1:layout_height="142dp"
-          android1:layout_x="44dp"
-          android1:layout_y="401dp"
-          android1:background="@drawable/market_main" />
+            android1:id="@+id/maintomarket1"
+            android1:layout_width="206dp"
+            android1:layout_height="142dp"
+            android1:layout_x="25dp"
+            android1:layout_y="401dp"
+            android1:background="@drawable/market_main" />
 
-      <Button
-          android1:id="@+id/maintohouse1"
-          android1:layout_width="188dp"
-          android1:layout_height="149dp"
-          android1:layout_x="303dp"
-          android1:layout_y="243dp"
-          android1:background="@drawable/home_main" />
-
+        <Button
+         android1:id="@+id/maintohouse1"
+         android1:layout_width="188dp"
+         android1:layout_height="149dp"
+         android1:layout_x="308dp"
+         android1:layout_y="240dp"
+         android1:background="@drawable/home_main" />
+        
        <Button
-          android1:id="@+id/maintoschool"
-          android1:layout_width="228dp"
-          android1:layout_height="122dp"
-          android1:layout_x="305dp"
-          android1:layout_y="53dp"
-          android1:background="@drawable/school_main" />
+           android1:id="@+id/maintoschool"
+           android1:layout_width="222dp"
+           android1:layout_height="122dp"
+           android1:layout_x="305dp"
+           android1:layout_y="53dp"
+           android1:background="@drawable/school_main" />
 
       <Button
           android1:id="@+id/maintofarm1"
-          android1:layout_width="175dp"
-          android1:layout_height="139dp"
+          android1:layout_width="199dp"
+          android1:layout_height="143dp"
           android1:layout_x="777dp"
           android1:layout_y="263dp"
           android1:background="@drawable/farm_main" />
-
+      
       <Button
-          android1:id="@+id/maintohospital1"
-          android1:layout_width="158dp"
-          android1:layout_height="143dp"
-          android1:layout_x="486dp"
-          android1:layout_y="456dp"
-          android1:background="@drawable/hospital_main" />
+         android1:id="@+id/maintohospital1"
+         android1:layout_width="170dp"
+         android1:layout_height="148dp"
+         android1:layout_x="482dp"
+         android1:layout_y="479dp"
+         android1:background="@drawable/hospital_main" />
       
       <Button
             android1:id="@+id/logout"
@@ -85,12 +85,11 @@
              android1:typeface="sans" />
 
      <Button
-        android:id="@+id/showHighScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="2dp"
-        android:layout_y="645dp"
-        android:background="@drawable/icon_highscore" />
-      
+         android1:id="@+id/showHighScore"
+         android1:layout_width="wrap_content"
+         android1:layout_height="wrap_content"
+         android1:layout_x="-5dp"
+         android1:layout_y="650dp"
+         android1:background="@drawable/icon_highscore" />
 
 </AbsoluteLayout>

@@ -51,13 +51,12 @@
         android:layout_y="109dp"
         android:background="@drawable/saturday_add"
         android:visibility="invisible" />
-    
     <Button
         android:id="@+id/Sunday_thai"
         android:layout_width="490dp"
         android:layout_height="105dp"
-        android:layout_x="242dp"
-        android:layout_y="87dp"
+        android:layout_x="262dp"
+        android:layout_y="88dp"
         android:background="@drawable/thu_thai"
         android:visibility="visible" />
 
@@ -120,8 +119,8 @@
         android:id="@+id/currentitem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="808dp"
-        android:layout_y="330dp"
+        android:layout_x="841dp"
+        android:layout_y="334dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
@@ -160,6 +159,8 @@
         android:layout_x="933dp"
         android:layout_y="654dp"
         android:background="@drawable/icon_home1" />
+
+    
 
     
 

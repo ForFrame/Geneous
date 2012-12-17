@@ -24,17 +24,15 @@
         android:layout_y="68dp"
         android:background="@drawable/finger"
         android:visibility="invisible" />
-    
+
     <Button
         android:id="@+id/bt_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="750dp"
-        android:layout_y="543dp"
+        android:layout_x="755dp"
+        android:layout_y="552dp"
         android:background="@drawable/icon_skip"
         android:clickable="true"
         android:visibility="visible" />
-
-    
 
 </AbsoluteLayout>
