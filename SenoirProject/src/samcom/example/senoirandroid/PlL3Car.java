@@ -44,13 +44,13 @@ public class PlL3Car extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // à¹€ï¿½?ï¿½?ï¿½à¹€ï¿½?ï¿½?à¹€ï¿½?à¸—à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½?à¹€ï¿½?â€”à¹€ï¿½?à¸“à¹€ï¿½?ï¿½à¹€ï¿½?à¸’à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½?ï¿½à¹€ï¿½?ï¿½?à¹€ï¿½?ï¿½?à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½?à¹€ï¿½?à¸”à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½
+		public void onFinish() { // ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?ร ยธโ€”ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?รขโ�ฌโ€�ร ยนโ�ฌรฏยฟยฝ?ร ยธโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?ร ยธโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?ร ยธโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ
 		// TODO Auto-generated method stub
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½?à¹€ï¿½?ï¿½?à¹€ï¿½?â€”à¹€ï¿½?à¸•à¹€ï¿½?ï¿½à¹€ï¿½?â€”à¹€ï¿½?à¸“à¹€ï¿½?ï¿½à¹€ï¿½?à¸’à¹€ï¿½?ï¿½à¹€ï¿½?â€”à¹€ï¿½?ï¿½?à¹€ï¿½?ï¿½ à¹€ï¿½?ï¿½ à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½?à¹€ï¿½?à¸‘à¹€ï¿½?ï¿½à¹€ï¿½?ï¿½
+		public void onTick(long remain) { // ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?รขโ�ฌโ€�ร ยนโ�ฌรฏยฟยฝ?ร ยธโ€ขร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รขโ�ฌโ€�ร ยนโ�ฌรฏยฟยฝ?ร ยธโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?ร ยธโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รขโ�ฌโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?ร ยธโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textTime);
@@ -483,9 +483,9 @@ public class PlL3Car extends Activity {
 		textWrong.setTextColor(Color.BLACK);
 		String number;
 		number = String.valueOf(scores);
-		textCorrect.setText(number+" ข้อ");
+		textCorrect.setText(number+" เธ�เน�เธญ");
 		number = String.valueOf(10-scores);
-		textWrong.setText(number+" ข้อ");
+		textWrong.setText(number+" เธ�เน�เธญ");
 		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
 		dialogHomeBt.setOnClickListener(new View.OnClickListener() {
@@ -616,8 +616,13 @@ public class PlL3Car extends Activity {
 			BeginPop.show();
 	}
 	public boolean onTouchEvent (MotionEvent event) {
-		instructPage.stop();
-		instructPage.start();
+		//if(instructPage.isPlaying()){
+		//	instructPage.stop();
+		//	instructPage.start();
+		//}
+		//else{
+			instructPage.start();
+		//}
 		return super.onTouchEvent(event);
 	}
 	

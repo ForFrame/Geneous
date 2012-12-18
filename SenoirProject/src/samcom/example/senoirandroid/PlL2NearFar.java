@@ -44,13 +44,13 @@ public class PlL2NearFar extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // เ�?�?�เ�?�?เ�?ทเ�?�เ�?�?เ�?—เ�?ณเ�?�เ�?ฒเ�?�เ�?�?�เ�?�?เ�?�?เ�?�เ�?�เ�?�?เ�?ดเ�?�เ�?�
+		public void onFinish() { // เน€๏ฟฝ?๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ—เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ“เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?เธ’เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ”เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ
 		// TODO Auto-generated method stub
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // เ�?�เ�?�เ�?�เ�?�?เ�?�?เ�?—เ�?ตเ�?�เ�?—เ�?ณเ�?�เ�?ฒเ�?�เ�?—เ�?�?เ�?� เ�?� เ�?�เ�?�?เ�?ฑเ�?�เ�?�
+		public void onTick(long remain) { // เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ•เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ“เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?เธ’เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?โ€”เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ เน€๏ฟฝ?๏ฟฝ เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ‘เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textTime);
@@ -453,9 +453,9 @@ public class PlL2NearFar extends Activity {
 		textWrong.setTextColor(Color.BLACK);
 		String number;
 		number = String.valueOf(scores);
-		textCorrect.setText(number+" ข้อ");
+		textCorrect.setText(number+" เธ�เน�เธญ");
 		number = String.valueOf(10-scores);
-		textWrong.setText(number+" ข้อ");
+		textWrong.setText(number+" เธ�เน�เธญ");
 		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
 		dialogHomeBt.setOnClickListener(new View.OnClickListener() {
@@ -587,8 +587,13 @@ public class PlL2NearFar extends Activity {
 	}
 	
 	public boolean onTouchEvent (MotionEvent event) {
-		instructPage.stop();
-		instructPage.start();
+		//if(instructPage.isPlaying()){
+		//	instructPage.stop();
+		//	instructPage.start();
+		//}
+		//else{
+			instructPage.start();
+		//}
 		return super.onTouchEvent(event);
 	}
 	
@@ -604,6 +609,7 @@ public class PlL2NearFar extends Activity {
 		
 		super.onRestart();
 	}
+	
 	
 	/*@Override
 	protected void onDestroy() {

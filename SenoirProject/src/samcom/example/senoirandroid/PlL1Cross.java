@@ -895,8 +895,13 @@ void checkAns(Boolean isInterupt){
 		
 	}
 	public boolean onTouchEvent (MotionEvent event) {
-		instructPage.stop();
-		instructPage.start();
+		//if(instructPage.isPlaying()){
+		//	instructPage.stop();
+		//	instructPage.start();
+		//}
+		//else{
+			instructPage.start();
+		//}
 		return super.onTouchEvent(event);
 	}
 	

@@ -110,16 +110,16 @@
         android:id="@+id/nearfarHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="827dp"
-        android:layout_y="667dp"
+        android:layout_x="830dp"
+        android:layout_y="654dp"
         android:background="@drawable/icon_help2" />
 
     <Button
         android:id="@+id/nearfarbackHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="928dp"
-        android:layout_y="666dp"
+        android:layout_x="933dp"
+        android:layout_y="654dp"
         android:background="@drawable/icon_home1" />
 
     

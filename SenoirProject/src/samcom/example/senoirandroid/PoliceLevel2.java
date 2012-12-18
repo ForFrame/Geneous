@@ -156,7 +156,7 @@ public class PoliceLevel2 extends Activity {
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
 		gt.setTypeface(type);
-		gt.setText("‡πÄ‡∏Å‡∏°‡∏™‡πå‡πÉ‡∏Å‡∏•‡πâ-‡πÑ‡∏Å‡∏•‡∏Ñ‡∏∑‡∏≠‡∏≠‡∏∞‡πÑ‡∏£‡∏ô‡πâ‡∏≤");
+		gt.setText("‡°¡ Ï„°≈È-‰°≈§◊ÕÕ–‰√πÈ“");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 

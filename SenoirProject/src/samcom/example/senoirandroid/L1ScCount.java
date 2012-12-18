@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -775,7 +776,7 @@ public class L1ScCount extends Activity {
 		super.onRestart();
 	}
 	
-	@Override
+	/*@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
@@ -783,6 +784,17 @@ public class L1ScCount extends Activity {
 		myDb.ChangeHome(1);
 		
 		super.onDestroy();
+	}*/
+	
+	public boolean onTouchEvent (MotionEvent event) {
+		//if(instructPage.isPlaying()){
+		//	instructPage.stop();
+		//	instructPage.start();
+		//}
+		//else{
+			instructPage.start();
+		//}
+		return super.onTouchEvent(event);
 	}
 }
 	

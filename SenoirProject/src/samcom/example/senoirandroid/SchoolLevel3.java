@@ -215,7 +215,7 @@ public class SchoolLevel3 extends Activity {
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
 		gt.setTypeface(type);
-		gt.setText("‡πÄ‡∏Å‡∏°‡∏™‡πå‡∏°‡∏≤‡∏£‡∏π‡πâ‡∏à‡∏±‡∏Å‡∏Ç‡∏ô‡∏≤‡∏î‡∏™‡∏±‡πâ‡∏ô-‡∏¢‡∏≤‡∏ß‡∏Å‡∏±‡∏ô‡πÄ‡∏ñ‡∏≠‡∏∞");
+		gt.setText("‡°¡ Ï¡“√ŸÈ®—°¢π“¥ —Èπ-¬“«°—π‡∂Õ–");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 

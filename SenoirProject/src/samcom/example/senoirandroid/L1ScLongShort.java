@@ -574,8 +574,13 @@ public class L1ScLongShort extends Activity {
 	}
 	
 	public boolean onTouchEvent (MotionEvent event) {
-		instructPage.stop();
-		instructPage.start();
+		//if(instructPage.isPlaying()){
+		//	instructPage.stop();
+		//	instructPage.start();
+		//}
+		//else{
+			instructPage.start();
+		//}
 		return super.onTouchEvent(event);
 	}
 
