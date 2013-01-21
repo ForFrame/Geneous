@@ -32,7 +32,7 @@ public class L1ScCount extends Activity {
 	String username;
 	int timeRemain;
 	int Round;
-	MediaPlayer soundPage;
+	//MediaPlayer soundPage;
 	MediaPlayer instructPage;
 	
 	public class MyCountDown extends CountDownTimer {
@@ -65,9 +65,9 @@ public class L1ScCount extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_l1_sc_count);
-		soundPage = MediaPlayer.create(context, R.raw.page);
-		soundPage.start();
-		soundPage.setLooping(true);
+		//soundPage = MediaPlayer.create(context, R.raw.page);
+		//soundPage.start();
+		//soundPage.setLooping(true);
 		
 		final myDBClass myDb = new myDBClass(this);
 		
@@ -131,7 +131,7 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
-				soundPage.stop();
+				//soundPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
 				startActivity(in);
@@ -145,7 +145,7 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
 				myDb.ChangeHome(0);
-				soundPage.stop();
+				//soundPage.stop();
 				Intent intent = new Intent(L1ScCount.this,Main.class);
 				startActivity(intent);
 			}
@@ -524,7 +524,7 @@ public class L1ScCount extends Activity {
 				// TODO Auto-generated method stub
 				countdown.cancel();
 				instructPage.stop();
-				soundPage.stop();
+				//soundPage.stop();
 				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
 				startActivity(intent);
 			}
@@ -588,7 +588,7 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				soundPage.stop();
+				//soundPage.stop();
 				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
 				startActivity(intent);
 				
@@ -623,7 +623,7 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				soundPage.stop();
+				//soundPage.stop();
 				Intent intent = new Intent(L1ScCount.this,L1ScCalendar.class);
 				startActivity(intent);
 				

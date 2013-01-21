@@ -53,31 +53,35 @@ SQLiteDatabase db;
 			
 		setContentView(R.layout.activity_main);
 		instrucMain = MediaPlayer.create(context2, R.raw.select_mode);
+		instrucMain.setVolume(50, 50);
 		soundMain = MediaPlayer.create(context2, R.raw.main);
 		
-		int valueLogin = 0;
+		int valueSelectLV = 0;
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
-			valueLogin = extras.getInt("loginButt");
+			valueSelectLV = extras.getInt("selectLV");
+			
+		}
+		else{
+			soundMain.start();
+			soundMain.setLooping(true);
+			soundMain.setVolume(30, 30);
 		}
 
 		
-		mainPage(valueLogin);
+		mainPage(valueSelectLV);
 	}
 	
 	void mainPage(int valueLogin){
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		
-		soundMain.start();
-		
-		
+				
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
 		   
 		CurrentUser = myDb.SelectCurrentUser();
-		Boolean notFromHomee = myDb.notFromHome();
+		/*Boolean notFromHomee = myDb.notFromHome();
 		if(notFromHomee == true)
 		{
 			if(valueLogin == 1){
@@ -89,6 +93,14 @@ SQLiteDatabase db;
 				popUpLogIn();
 			}
 			
+		}
+		else{
+			instrucMain.start();
+		}
+		*/
+		
+		if(valueLogin == 0){
+			popUpLogIn();
 		}
 		else{
 			instrucMain.start();
@@ -182,7 +194,7 @@ SQLiteDatabase db;
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instrucMain.stop();
-				soundMain.stop();
+				//soundMain.stop();
 				myDb.ChangeHome(1);
 				Intent intent = new Intent(Main.this,SelectSchoolLevel.class);
 				startActivity(intent);
@@ -254,13 +266,6 @@ SQLiteDatabase db;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 		
-		//final MediaPlayer soundIntro;
-		//final MediaPlayer soundMain;
-		
-		//soundMain = MediaPlayer.create(context2, R.raw.main);
-		//soundIntro = MediaPlayer.create(context2, R.raw.intro);
-		//soundIntro.start();
-		
 		Button LoginnBt = (Button)LoginPop.findViewById(R.id.LoginBt);
 		LoginnBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -272,14 +277,7 @@ SQLiteDatabase db;
 				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 				EditText user = (EditText)LoginPop.findViewById(R.id.usertext);
 				username = user.getText().toString();
-				
-				/*CheckBox checkbox = (CheckBox)LoginPop.findViewById(R.id.checkContinueLogin);
-				//checkbox.setTypeface(type);
-				if(checkbox.isChecked())
-				{
-					continueLoginState = 1;
-
-				}*/
+		
 				//check user info if got -> insert status table(name,date) ,no -> message Toast 
 				checkUser = myDb.checkUserInfo(username);
 				if(checkUser == true){
@@ -292,9 +290,7 @@ SQLiteDatabase db;
 					if(!(CurrentUser.equals("Guest"))){
 							TextView result = (TextView) findViewById(R.id.textUser);
 							result.setTypeface(type); 
-							//result.setTextColor(Color.WHITE);
 							result.setTextColor(Color.rgb(2, 101, 203));
-							//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
 							result.setVisibility(TextView.VISIBLE);
 							result.setText(CurrentUser);
 							Button LogoutBt = (Button) findViewById(R.id.logout);
@@ -307,14 +303,11 @@ SQLiteDatabase db;
 					instrucMain.start();
 				}
 				else{
-					//String strTxt = editT1.getText().toString();              
 					 
 					Toast toast= Toast.makeText(getApplicationContext(), "ชื่อของคุณยังไม่มีในระบบ กรุณาลงทะเบียนค่ะ", Toast.LENGTH_SHORT);  
 					toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 40, 170);
 					toast.show();
 				}
-				
-				//CurrentUser = user.getText().toString();
 				
 			}
 		});
@@ -338,22 +331,17 @@ SQLiteDatabase db;
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//soundIntro.stop();
 				LoginPop.dismiss();
 				popUpLogIn();
-				//notFromHomee = false;
-				//mainPage(0);
 			}
 		});
 			
 		LoginPop.show();
 	}
 	void showRegisPopup(String inputname){
-				
-		//final Dialog RegisPop = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		
 		final Dialog RegisPop = new Dialog(context2, R.style.FullHeightDialog);
 		
-		//dialog.setContentView(R.layout.activity_dialog_score_sclv1g1);
 		RegisPop.setContentView(R.layout.activity_popup_regis);
 		RegisPop.setCanceledOnTouchOutside(false);
 		RegisPop.setCancelable(false); 
@@ -365,7 +353,6 @@ SQLiteDatabase db;
 		myDb.getWritableDatabase();
 				
 		EditText user = (EditText)RegisPop.findViewById(R.id.regUsertext);
-		//user.setTypeface(type);
 		user.setText(inputname);
 		
 		//Regis Button
@@ -406,14 +393,6 @@ SQLiteDatabase db;
 					String ages[] = selectedAge.split(" ");
 					int age = Integer.parseInt(ages[0]);
 
-				//Continue Login
-				/*CheckBox checkboxx = (CheckBox)RegisPop.findViewById(R.id.checkContinueLogin);
-				//checkboxx.setTypeface(type);
-				if(checkboxx.isChecked())
-				{
-					continueLoginState = 1;
-
-				}*/
 			
 				lenghtName = username.length();
 				if((lenghtName<1)){
@@ -484,20 +463,11 @@ SQLiteDatabase db;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 		
-		//final MediaPlayer soundIntro;
-		//final MediaPlayer soundMain;
-		
-		//soundMain = MediaPlayer.create(context2, R.raw.main);
-		//soundIntro = MediaPlayer.create(context2, R.raw.intro);
-		//soundIntro.start();
-		
 		Button PlayyBt = (Button)popLog.findViewById(R.id.playBt);
 		PlayyBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				final Date d = new Date();
-				//soundIntro.stop();
-				//soundMain.stop();
 				popLog.dismiss();
 				
 				myDb.InsertCurrent("Guest",d,0);
@@ -518,7 +488,6 @@ SQLiteDatabase db;
 		LoginnBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//soundIntro.stop();
 				popLog.dismiss();
 				showLoginPopup();
 				
@@ -662,21 +631,9 @@ SQLiteDatabase db;
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		//myDb.getReadableDatabase();
-		//this comment for เธ•เธดเน�เธ� เน�เน�เน�เน�  continue (1,1) state
-		//Boolean isThisContinue;
-		
-		//isThisContinue = myDb.isCurrentContinue();
-		//myDb.close();
-		
-				
-		//if(isThisContinue == false){
-			myDb.getWritableDatabase();
-			myDb.ChangeHome(0);
-		//}
-		
+		myDb.getWritableDatabase();
+		myDb.ChangeHome(0);
 		mainPage(0);
-			
 		
 		super.onRestart();
 	}

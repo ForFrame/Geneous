@@ -18,7 +18,7 @@ public class SelectSchoolLevel extends Activity {
 
 	String CurrentUser;
 	Context context = this;
-	MediaPlayer soundPage;
+	//MediaPlayer soundPage;
 	MediaPlayer instructPage;
 	
 	@Override
@@ -28,7 +28,7 @@ public class SelectSchoolLevel extends Activity {
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	setContentView(R.layout.activity_select_level);
 	
-		soundPage = MediaPlayer.create(context, R.raw.page);
+		//soundPage = MediaPlayer.create(context, R.raw.page);
 		instructPage = MediaPlayer.create(context, R.raw.select_level);
 		selectLevel();
 	
@@ -38,10 +38,12 @@ public class SelectSchoolLevel extends Activity {
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
+		final LoginManage myUser = new LoginManage(this);
+		
 		
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
-		soundPage.start();
+		//soundPage.start();
 		instructPage.start();
 		
 		CurrentUser = myDb.SelectCurrentUser();
@@ -72,12 +74,15 @@ public class SelectSchoolLevel extends Activity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				myDb.ChangeHome(0);
-				soundPage.stop();
+				/*myDb.ChangeHome(0);
 				instructPage.stop();
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
-				startActivity(in);
+				startActivity(in);*/
+				
+				myUser.showLoginPopup();
+				CurrentUser = myDb.SelectCurrentUser();
+				selectLevel();
 			}
 		});
 		
@@ -86,11 +91,13 @@ public class SelectSchoolLevel extends Activity {
 			 
 			public void onClick(View v) {	
 				myDb.logoutUser(CurrentUser);
-				myDb.ChangeHome(0);
-				soundPage.stop();
+				/*myDb.ChangeHome(0);
+				//soundPage.stop();
 				instructPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,Main.class);
-				startActivity(intent);
+				startActivity(intent);*/
+				
+				myUser.popUpLogIn();
 			}
 			
 		});
@@ -101,7 +108,7 @@ public class SelectSchoolLevel extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundPage.stop();
+				//soundPage.stop();
 				instructPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel1.class);
 				startActivity(intent);
@@ -115,7 +122,7 @@ public class SelectSchoolLevel extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundPage.stop();
+				//soundPage.stop();
 				instructPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel2.class);
 				startActivity(intent);
@@ -128,7 +135,7 @@ public class SelectSchoolLevel extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundPage.stop();
+				//soundPage.stop();
 				instructPage.stop();
 				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel3.class);
 				startActivity(intent);
@@ -140,10 +147,13 @@ public class SelectSchoolLevel extends Activity {
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundPage.stop();
+				//soundPage.stop();
 				instructPage.stop();
-				Intent intent = new Intent(SelectSchoolLevel.this,Main.class);
-				startActivity(intent);
+				//Intent intent = new Intent(SelectSchoolLevel.this,Main.class);
+				//startActivity(intent);
+				Intent in = new Intent(SelectSchoolLevel.this,Main.class);
+				in.putExtra("selectLV", 1);
+				startActivity(in);
 			}
 		});
 
@@ -154,21 +164,11 @@ public class SelectSchoolLevel extends Activity {
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		//this comment for เธ•เธดเน�เธ� เน�เน�เน�เน�  continue (1,1) state
-		//myDb.getReadableDatabase();
-		//
-		//Boolean isThisContinue;
-		//isThisContinue = myDb.isCurrentContinue();
-		//myDb.close();
-		//if(isThisContinue == true){
-		//	selectLevel();
-		//}
-		//else{
+		
 			myDb.getWritableDatabase();
 			myDb.ChangeHome(0);
 			Intent intent = new Intent(SelectSchoolLevel.this,Main.class);
 			startActivity(intent);
-		//}
 		
 		super.onRestart();
 	}

@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,13 +26,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class SchoolLevel1 extends Activity {
 	
 	String CurrentUser;
 	final Context context = this;
-	MediaPlayer soundPage;
+	//MediaPlayer soundPage;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class SchoolLevel1 extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_school_level1);
 		
-		soundPage = MediaPlayer.create(context, R.raw.page);
+		//soundPage = MediaPlayer.create(context, R.raw.page);
 		
 		
 		schoolLevel1();
@@ -52,7 +54,7 @@ public class SchoolLevel1 extends Activity {
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		
-	    soundPage.start(); 
+	    //soundPage.start(); 
 	    
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
@@ -88,7 +90,7 @@ public class SchoolLevel1 extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
-				soundPage.stop(); 
+				//soundPage.stop(); 
 				
 				Intent in = new Intent(getApplicationContext(),Main.class);
 				in.putExtra("loginButt", 1);
@@ -102,7 +104,7 @@ public class SchoolLevel1 extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(CurrentUser);
 				myDb.ChangeHome(0);
-				soundPage.stop();
+				//soundPage.stop();
 				
 				Intent intent = new Intent(SchoolLevel1.this,Main.class);
 				startActivity(intent);
@@ -116,7 +118,7 @@ public class SchoolLevel1 extends Activity {
 		CountTable.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundPage.stop();
+				//soundPage.stop();
 				
 				Intent intent = new Intent(SchoolLevel1.this,L1ScCount.class);
 				startActivity(intent);
@@ -128,7 +130,7 @@ public class SchoolLevel1 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundPage.stop();
+				//soundPage.stop();
 				
 				Intent intent = new Intent(SchoolLevel1.this,SelectSchoolLevel.class);
 				startActivity(intent);
@@ -250,7 +252,7 @@ public class SchoolLevel1 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundPage.stop();
+				//soundPage.stop();
 				HighPop.dismiss();
 				schoolLevel1();
 			}
@@ -290,4 +292,38 @@ public class SchoolLevel1 extends Activity {
 		
 		super.onDestroy();
 	}
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		Toast toast= Toast.makeText(getApplicationContext(), "onPause active", Toast.LENGTH_SHORT);  
+		toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 40, 170);
+		toast.show();
+		
+		MediaPlayer soundPage;
+		soundPage = MediaPlayer.create(context, R.raw.page);
+		if(soundPage.isPlaying()){
+			soundPage.stop();
+			
+		}
+		
+		super.onPause();
+		
+		
+	}
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		Toast toast= Toast.makeText(getApplicationContext(), "onStop active", Toast.LENGTH_SHORT);  
+		toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 40, 170);
+		toast.show();
+		
+		MediaPlayer soundPage;
+		soundPage = MediaPlayer.create(context, R.raw.page);
+		if(soundPage.isPlaying()){
+			soundPage.stop();
+		}
+		
+		super.onStop();
+	}
+	
 }
