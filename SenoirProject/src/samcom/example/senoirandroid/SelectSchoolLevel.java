@@ -50,7 +50,6 @@ public class SelectSchoolLevel extends Activity {
 		if(!(CurrentUser.equals("Guest"))){
 			TextView result = (TextView) findViewById(R.id.textUser);
 			result.setTypeface(type);
-			//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
 			result.setTextColor(Color.rgb(2, 101, 203));
 			result.setVisibility(TextView.VISIBLE);
 			result.setText(CurrentUser);
@@ -74,15 +73,30 @@ public class SelectSchoolLevel extends Activity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				/*myDb.ChangeHome(0);
-				instructPage.stop();
-				Intent in = new Intent(getApplicationContext(),Main.class);
-				in.putExtra("loginButt", 1);
-				startActivity(in);*/
+			
+				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 				
 				myUser.showLoginPopup();
-				CurrentUser = myDb.SelectCurrentUser();
-				selectLevel();
+			
+					CurrentUser = myDb.SelectCurrentUser();
+					TextView result = (TextView) findViewById(R.id.textUser);
+					result.setTypeface(type);
+					result.setTextColor(Color.rgb(2, 101, 203));
+					Button LogoutBt = (Button) findViewById(R.id.logout);
+					Button LoginBt = (Button) findViewById(R.id.loginn);
+					
+					if(!(CurrentUser.equals("Guest"))){
+						result.setVisibility(TextView.VISIBLE);
+						result.setText(CurrentUser);
+						LogoutBt.setVisibility(Button.VISIBLE);
+						LoginBt.setVisibility(Button.INVISIBLE);
+					}
+					if((CurrentUser.equals("Guest"))){
+						result.setVisibility(TextView.INVISIBLE);
+						LogoutBt.setVisibility(Button.INVISIBLE);
+						LoginBt.setVisibility(Button.VISIBLE);
+					}
+			
 			}
 		});
 		

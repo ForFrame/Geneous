@@ -41,9 +41,7 @@ public void showLoginPopup(){
 	LoginPop.setContentView(R.layout.activity_popup_login);
 	LoginPop.setCanceledOnTouchOutside(false);
 	LoginPop.setCancelable(false); 
-	
 	final myDBClass myDb = new myDBClass(context);
-	
 	Button LoginnBt = (Button)LoginPop.findViewById(R.id.LoginBt);
 	LoginnBt.setOnClickListener(new View.OnClickListener() {
 		public void onClick(View v) {
@@ -61,6 +59,7 @@ public void showLoginPopup(){
 			if(checkUser == true){
 				myDb.getWritableDatabase();
 				myDb.InsertCurrent(username,d,continueLoginState);
+				
 				LoginPop.dismiss();
 				finish();
 			}
@@ -72,6 +71,7 @@ public void showLoginPopup(){
 			}
 			
 		}
+		
 	});
 	
 	Button RegissBt = (Button)LoginPop.findViewById(R.id.regisBt);
@@ -99,6 +99,7 @@ public void showLoginPopup(){
 	});
 		
 	LoginPop.show();
+
 }
 public void showRegisPopup(String inputname){
 	
