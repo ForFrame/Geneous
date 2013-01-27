@@ -36,7 +36,7 @@ public class PlL1Cross extends Activity {
 	int Items = 1;
 	int ranDay=0;
 	int Begin = 1;
-	MediaPlayer soundPage;
+
 	MediaPlayer instructPage;
 	MediaPlayer soundIns;
 	
@@ -71,9 +71,6 @@ public class PlL1Cross extends Activity {
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	
 	setContentView(R.layout.activity_pl_l1_cross);
-	soundPage = MediaPlayer.create(context, R.raw.page);
-	soundPage.start();
-	soundPage.setLooping(true);
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -93,7 +90,7 @@ public class PlL1Cross extends Activity {
 		int scores;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		
+		final LoginManage myUser = new LoginManage(this);
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf");
 		
 		username = myDb.SelectCurrentUser();
@@ -124,11 +121,8 @@ public class PlL1Cross extends Activity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				myDb.ChangeHome(0);
-				soundPage.stop();
-				Intent in = new Intent(getApplicationContext(),Main.class);
-				in.putExtra("loginButt", 1);
-				startActivity(in);
+				instructPage.stop();
+				myUser.showLoginPopup();
 
 			}
 		});
@@ -138,9 +132,9 @@ public class PlL1Cross extends Activity {
 			 
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
-				myDb.ChangeHome(0);
-				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(PlL1Cross.this,Main.class);
+				intent.putExtra("Logout", 1);
 				startActivity(intent);
 			}
 			
@@ -468,7 +462,9 @@ void checkAns(Boolean isInterupt){
 		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
 		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
 		
-		
+		imgWrongClick.setClickable(false);
+		imgCorrectClick.setClickable(false);
+		/*
 		imgWrongClick.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
@@ -487,7 +483,7 @@ void checkAns(Boolean isInterupt){
 				game004();
 			}
 		});
-		
+		*/
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
@@ -540,7 +536,6 @@ void checkAns(Boolean isInterupt){
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
 			instructPage.stop();
-			soundPage.stop();
 			Intent intent = new Intent(PlL1Cross.this,PoliceLevel1.class);
 			startActivity(intent);
 		}
@@ -762,7 +757,6 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				soundPage.stop();
 				Intent intent = new Intent(PlL1Cross.this,PoliceLevel1.class);
 				startActivity(intent);
 				
@@ -795,7 +789,6 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				soundPage.stop();
 				Intent intent = new Intent(PlL1Cross.this,PlL2NearFar.class);
 				startActivity(intent);
 				
@@ -895,47 +888,48 @@ void checkAns(Boolean isInterupt){
 		
 	}
 	public boolean onTouchEvent (MotionEvent event) {
-		//if(instructPage.isPlaying()){
-		//	instructPage.stop();
-		//	instructPage.start();
-		//}
-		//else{
-			instructPage.start();
-		//}
+		instructPage.start();
+		
 		return super.onTouchEvent(event);
 	}
 	
 	protected void onRestart() {
 		// TODO Auto-generated method stub
-		final myDBClass myDb = new myDBClass(this);
-		//myDb.getReadableDatabase();
 		
-		//this comment for เน€เธ�โ€ขเน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝ  continue (1,1) state
-		//Boolean isThisContinue;
-		//isThisContinue = myDb.isCurrentContinue();
-		//myDb.close();
-		//if(isThisContinue == true){
-		//	game002();
-		//}
-		//else{
-			myDb.getWritableDatabase();
-			myDb.ChangeHome(0);
-			Intent intent = new Intent(PlL1Cross.this,Main.class);
-			startActivity(intent);
-		//}
+		Intent intent = new Intent(PlL1Cross.this,Main.class);
+		startActivity(intent);
 		
 		super.onRestart();
 	}
-	
-/*	@Override
-	protected void onDestroy() {
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		myDb.getWritableDatabase();
-		myDb.ChangeHome(0);
+		myDb.getReadableDatabase();
 		
-		super.onDestroy();
-	}*/
-	
+		username = myDb.SelectCurrentUser();
+		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf");
+		TextView result = (TextView) findViewById(R.id.textUser);
+		result.setTypeface(type);
+		result.setTextColor(Color.rgb(2, 101, 203));
+		Button LogoutBt = (Button) findViewById(R.id.logout);
+		Button LoginBt = (Button) findViewById(R.id.loginn);
+		
+		if(!(username.equals("Guest"))){
+			result.setVisibility(TextView.VISIBLE);
+			result.setText(username);
+			LogoutBt.setVisibility(Button.VISIBLE);
+			LoginBt.setVisibility(Button.INVISIBLE);
+		}
+		if((username.equals("Guest"))){
+			result.setVisibility(TextView.INVISIBLE);
+			LogoutBt.setVisibility(Button.INVISIBLE);
+			LoginBt.setVisibility(Button.VISIBLE);
+		}
+		
+		super.onWindowFocusChanged(hasFocus);
+	}
 	
 }

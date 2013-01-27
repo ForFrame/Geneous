@@ -32,7 +32,6 @@ public class L1ScCount extends Activity {
 	String username;
 	int timeRemain;
 	int Round;
-	//MediaPlayer soundPage;
 	MediaPlayer instructPage;
 	
 	public class MyCountDown extends CountDownTimer {
@@ -42,13 +41,13 @@ public class L1ScCount extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // เน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ—เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ�เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
+		public void onFinish() { 
 		// TODO Auto-generated method stub
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�โ€�เน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ•เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ�เน€เธ�๏ฟฝ เน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ‘เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
+		public void onTick(long remain) { 
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textView1);
@@ -65,21 +64,14 @@ public class L1ScCount extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_l1_sc_count);
-		//soundPage = MediaPlayer.create(context, R.raw.page);
-		//soundPage.start();
-		//soundPage.setLooping(true);
 		
 		final myDBClass myDb = new myDBClass(this);
-		
+
 		myDb.getReadableDatabase();
 		username = myDb.SelectCurrentUser();
 		
-		
-		
-		//mediaPlayer.start();
 		Round = myDb.getNumRound("001", username);
 		myDb.getWritableDatabase();
-		//myDb.addGameNo("001", "Count tables", 1);
 		myDb.emptyNumberTable();
 		myDb.close();
 		
@@ -97,6 +89,7 @@ public class L1ScCount extends Activity {
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
+		final LoginManage myUser = new LoginManage(this);
 		int count = myDb.CountNumRan();
 		int Random = 0;
 		int scores;
@@ -130,11 +123,7 @@ public class L1ScCount extends Activity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				myDb.ChangeHome(0);
-				//soundPage.stop();
-				Intent in = new Intent(getApplicationContext(),Main.class);
-				in.putExtra("loginButt", 1);
-				startActivity(in);
+				myUser.showLoginPopup();
 
 			}
 		});
@@ -144,9 +133,8 @@ public class L1ScCount extends Activity {
 			 
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
-				myDb.ChangeHome(0);
-				//soundPage.stop();
 				Intent intent = new Intent(L1ScCount.this,Main.class);
+				intent.putExtra("Logout", 1);
 				startActivity(intent);
 			}
 			
@@ -470,9 +458,11 @@ public class L1ScCount extends Activity {
 		
 		final View imgWrongClick = (View)findViewById(R.id.showwrongnumber); 
 		final View imgCorrectClick = (View)findViewById(R.id.showcorrectnumber);
+		imgWrongClick.setClickable(false);
+		imgCorrectClick.setClickable(false);
 		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScCount.this, R.anim.tween_once);
 		final View helpAnswer = (View)findViewById(R.id.helpCount);
-		
+		/*
 		imgWrongClick.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
@@ -491,6 +481,7 @@ public class L1ScCount extends Activity {
 				game001();
 			}
 		});
+		*/
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
@@ -755,45 +746,44 @@ public class L1ScCount extends Activity {
 	@Override
 	protected void onRestart() {
 		// TODO Auto-generated method stub
-		final myDBClass myDb = new myDBClass(this);
-		
-		//this comment for เน€เธ�โ€ขเน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝ  continue (1,1) state
-		//myDb.getReadableDatabase();
-		//Boolean isThisContinue;
-		//isThisContinue = myDb.isCurrentContinue();
-		//myDb.close();
-		
-		//if(isThisContinue == true){
-		//	game001();
-		//}
-		//else{
-			myDb.getWritableDatabase();
-			myDb.ChangeHome(0);
-			Intent intent = new Intent(L1ScCount.this,Main.class);
-			startActivity(intent);
-		//}
+		Intent intent = new Intent(L1ScCount.this,Main.class);
+		startActivity(intent);
 		
 		super.onRestart();
 	}
 	
-	/*@Override
-	protected void onDestroy() {
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		myDb.getWritableDatabase();
-		myDb.ChangeHome(1);
+		myDb.getReadableDatabase();
 		
-		super.onDestroy();
-	}*/
+		username = myDb.SelectCurrentUser();
+		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf");
+		TextView result = (TextView) findViewById(R.id.textUser);
+		result.setTypeface(type);
+		result.setTextColor(Color.rgb(2, 101, 203));
+		Button LogoutBt = (Button) findViewById(R.id.logout);
+		Button LoginBt = (Button) findViewById(R.id.loginn);
+		
+		if(!(username.equals("Guest"))){
+			result.setVisibility(TextView.VISIBLE);
+			result.setText(username);
+			LogoutBt.setVisibility(Button.VISIBLE);
+			LoginBt.setVisibility(Button.INVISIBLE);
+		}
+		if((username.equals("Guest"))){
+			result.setVisibility(TextView.INVISIBLE);
+			LogoutBt.setVisibility(Button.INVISIBLE);
+			LoginBt.setVisibility(Button.VISIBLE);
+		}
+		super.onWindowFocusChanged(hasFocus);
+	}
 	
 	public boolean onTouchEvent (MotionEvent event) {
-		//if(instructPage.isPlaying()){
-		//	instructPage.stop();
-		//	instructPage.start();
-		//}
-		//else{
-			instructPage.start();
-		//}
+		instructPage.start();
+
 		return super.onTouchEvent(event);
 	}
 }

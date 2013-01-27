@@ -33,7 +33,6 @@ public class SchoolLevel1 extends Activity {
 	
 	String CurrentUser;
 	final Context context = this;
-	//MediaPlayer soundPage;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +40,6 @@ public class SchoolLevel1 extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_school_level1);
-		
-		//soundPage = MediaPlayer.create(context, R.raw.page);
-		
 		
 		schoolLevel1();
 		
@@ -53,9 +49,7 @@ public class SchoolLevel1 extends Activity {
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		
-	    //soundPage.start(); 
-	    
+		final LoginManage myUser = new LoginManage(this);
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
 		   
@@ -63,7 +57,6 @@ public class SchoolLevel1 extends Activity {
 		if(!(CurrentUser.equals("Guest"))){
 			TextView result = (TextView) findViewById(R.id.textUser);
 			result.setTypeface(type);
-			//result.setTextAppearance(getApplicationContext(),R.style.AudioFileInfoOverlayText);
 			result.setTextColor(Color.rgb(2, 101, 203));
 			result.setVisibility(TextView.VISIBLE);
 			result.setText(CurrentUser);
@@ -89,12 +82,7 @@ public class SchoolLevel1 extends Activity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				myDb.ChangeHome(0);
-				//soundPage.stop(); 
-				
-				Intent in = new Intent(getApplicationContext(),Main.class);
-				in.putExtra("loginButt", 1);
-				startActivity(in);
+				myUser.showLoginPopup();
 			}
 		});
 		
@@ -103,11 +91,11 @@ public class SchoolLevel1 extends Activity {
 			 
 			public void onClick(View v) {	
 				myDb.logoutUser(CurrentUser);
-				myDb.ChangeHome(0);
-				//soundPage.stop();
 				
 				Intent intent = new Intent(SchoolLevel1.this,Main.class);
+				intent.putExtra("Logout", 1);
 				startActivity(intent);
+
 			}
 			
 		});
@@ -118,7 +106,6 @@ public class SchoolLevel1 extends Activity {
 		CountTable.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//soundPage.stop();
 				
 				Intent intent = new Intent(SchoolLevel1.this,L1ScCount.class);
 				startActivity(intent);
@@ -130,7 +117,6 @@ public class SchoolLevel1 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//soundPage.stop();
 				
 				Intent intent = new Intent(SchoolLevel1.this,SelectSchoolLevel.class);
 				startActivity(intent);
@@ -148,65 +134,6 @@ public class SchoolLevel1 extends Activity {
 			}
 		});
 		
-	}
-	public void aniMate(){
-		final Button GameCalendar = (Button)findViewById(R.id.calendar);
-		
-		AnimationSet animationSet = new AnimationSet(true);
-		
-		Animation animation1 = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
-		Animation animation2 = AnimationUtils.loadAnimation(this, android.R.anim.fade_out);
-		
-		animation1 = new AlphaAnimation(0.0f, 1.0f);
-		animation1.setDuration(1000);
-		animation1.setStartOffset(5000);
-
-	    //animation1 AnimationListener
-		
-	    animation1.setAnimationListener(new AnimationListener(){
-	    	Animation animation2 = new AlphaAnimation(1.0f, 0.0f);
-	        public void onAnimationEnd(Animation arg0) {
-	            // start animation2 when animation1 ends (continue)
-	            GameCalendar.startAnimation(animation2);
-	        }
-
-	        public void onAnimationRepeat(Animation arg0) {
-	            // TODO Auto-generated method stub
-
-	        }
-
-	        public void onAnimationStart(Animation arg0) {
-	            // TODO Auto-generated method stub
-
-	        }
-
-	    });
-
-	    animation2 = new AlphaAnimation(1.0f, 0.0f);
-	    animation2.setDuration(1000);
-	    animation2.setStartOffset(5000);
-
-	    //animation2 AnimationListener
-	    animation2.setAnimationListener(new AnimationListener(){
-	    	Animation animation1 = new AlphaAnimation(0.0f, 1.0f);
-	        public void onAnimationEnd(Animation arg0) {
-	            // start animation1 when animation2 ends (repeat)
-	            GameCalendar.startAnimation(animation1);
-	        }
-
-	        public void onAnimationRepeat(Animation arg0) {
-	            // TODO Auto-generated method stub
-
-	        }
-
-	        public void onAnimationStart(Animation arg0) {
-	            // TODO Auto-generated method stub
-
-	        }
-
-	    });
-
-	    GameCalendar.startAnimation(animation1);
 	}
 	
 	protected void showListViewHighScore(){
@@ -265,65 +192,47 @@ public class SchoolLevel1 extends Activity {
 	@Override
 	protected void onRestart() {
 		// TODO Auto-generated method stub
-		final myDBClass myDb = new myDBClass(this);
-		myDb.getReadableDatabase();
-		Boolean isThisContinue;
-		isThisContinue = myDb.isCurrentContinue();
-		myDb.close();
-		if(isThisContinue == true){
-			schoolLevel1();
-		}
-		else{
-			myDb.getWritableDatabase();
-			myDb.ChangeHome(0);
-			Intent intent = new Intent(SchoolLevel1.this,Main.class);
-			startActivity(intent);
-		}
+		Intent intent = new Intent(SchoolLevel1.this,Main.class);
+		startActivity(intent);
 		
 		super.onRestart();
 	}
 	
 	@Override
-	protected void onDestroy() {
+	public void onWindowFocusChanged(boolean hasFocus) {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		myDb.getWritableDatabase();
-		myDb.ChangeHome(1);
+		myDb.getReadableDatabase();
+		
+		CurrentUser = myDb.SelectCurrentUser();
+		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf");
+		TextView result = (TextView) findViewById(R.id.textUser);
+		result.setTypeface(type);
+		result.setTextColor(Color.rgb(2, 101, 203));
+		Button LogoutBt = (Button) findViewById(R.id.logout);
+		Button LoginBt = (Button) findViewById(R.id.loginn);
+		
+		if(!(CurrentUser.equals("Guest"))){
+			result.setVisibility(TextView.VISIBLE);
+			result.setText(CurrentUser);
+			LogoutBt.setVisibility(Button.VISIBLE);
+			LoginBt.setVisibility(Button.INVISIBLE);
+		}
+		if((CurrentUser.equals("Guest"))){
+			result.setVisibility(TextView.INVISIBLE);
+			LogoutBt.setVisibility(Button.INVISIBLE);
+			LoginBt.setVisibility(Button.VISIBLE);
+		}
+
+		super.onWindowFocusChanged(hasFocus);
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
 		
 		super.onDestroy();
-	}
-	@Override
-	protected void onPause() {
-		// TODO Auto-generated method stub
-		Toast toast= Toast.makeText(getApplicationContext(), "onPause active", Toast.LENGTH_SHORT);  
-		toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 40, 170);
-		toast.show();
-		
-		MediaPlayer soundPage;
-		soundPage = MediaPlayer.create(context, R.raw.page);
-		if(soundPage.isPlaying()){
-			soundPage.stop();
-			
-		}
-		
-		super.onPause();
-		
-		
-	}
-	@Override
-	protected void onStop() {
-		// TODO Auto-generated method stub
-		Toast toast= Toast.makeText(getApplicationContext(), "onStop active", Toast.LENGTH_SHORT);  
-		toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 40, 170);
-		toast.show();
-		
-		MediaPlayer soundPage;
-		soundPage = MediaPlayer.create(context, R.raw.page);
-		if(soundPage.isPlaying()){
-			soundPage.stop();
-		}
-		
-		super.onStop();
 	}
 	
 }

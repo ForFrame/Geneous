@@ -31,16 +31,13 @@ public class PoliceLevel2 extends Activity {
 	
 	String CurrentUser;
 	final Context context = this;
-	MediaPlayer soundPage;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_police_level2);
-		
-		soundPage = MediaPlayer.create(context, R.raw.page);
 		
 		policeLevel2();
 		
@@ -50,8 +47,8 @@ public class PoliceLevel2 extends Activity {
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		
-	    soundPage.start(); 
+		final LoginManage myUser = new LoginManage(this);
+
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 		   
 		   
@@ -84,11 +81,7 @@ public class PoliceLevel2 extends Activity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				myDb.ChangeHome(0);
-				soundPage.stop(); 
-				Intent in = new Intent(getApplicationContext(),Main.class);
-				in.putExtra("loginButt", 1);
-				startActivity(in);
+				myUser.showLoginPopup();
 			}
 		});
 		
@@ -97,9 +90,9 @@ public class PoliceLevel2 extends Activity {
 			 
 			public void onClick(View v) {	
 				myDb.logoutUser(CurrentUser);
-				myDb.ChangeHome(0);
-				soundPage.stop(); 
+				
 				Intent intent = new Intent(PoliceLevel2.this,Main.class);
+				intent.putExtra("Logout", 1);
 				startActivity(intent);
 			}
 			
@@ -114,7 +107,6 @@ public class PoliceLevel2 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundPage.stop(); 
 				Intent intent = new Intent(PoliceLevel2.this,PlL2NearFar.class);
 				startActivity(intent);
 			}
@@ -125,7 +117,6 @@ public class PoliceLevel2 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundPage.stop(); 
 				Intent intent = new Intent(PoliceLevel2.this,SelectPoliceLevel.class);
 				startActivity(intent);
 				
@@ -188,7 +179,6 @@ public class PoliceLevel2 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				soundPage.stop();
 				HighPop.dismiss();
 				policeLevel2();
 			}
@@ -201,31 +191,39 @@ public class PoliceLevel2 extends Activity {
 	@Override
 	protected void onRestart() {
 		// TODO Auto-generated method stub
-		final myDBClass myDb = new myDBClass(this);
-		myDb.getReadableDatabase();
-		Boolean isThisContinue;
-		isThisContinue = myDb.isCurrentContinue();
-		myDb.close();
-		if(isThisContinue == true){
-			policeLevel2();
-		}
-		else{
-			myDb.getWritableDatabase();
-			myDb.ChangeHome(0);
-			Intent intent = new Intent(PoliceLevel2.this,Main.class);
-			startActivity(intent);
-		}
+		Intent intent = new Intent(PoliceLevel2.this,Main.class);
+		startActivity(intent);
 		
 		super.onRestart();
 	}
 	
 	@Override
-	protected void onDestroy() {
+	public void onWindowFocusChanged(boolean hasFocus) {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		myDb.getWritableDatabase();
-		myDb.ChangeHome(1);
+		myDb.getReadableDatabase();
 		
-		super.onDestroy();
+		CurrentUser = myDb.SelectCurrentUser();
+		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf");
+		TextView result = (TextView) findViewById(R.id.textUser);
+		result.setTypeface(type);
+		result.setTextColor(Color.rgb(2, 101, 203));
+		Button LogoutBt = (Button) findViewById(R.id.logout);
+		Button LoginBt = (Button) findViewById(R.id.loginn);
+		
+		if(!(CurrentUser.equals("Guest"))){
+			result.setVisibility(TextView.VISIBLE);
+			result.setText(CurrentUser);
+			LogoutBt.setVisibility(Button.VISIBLE);
+			LoginBt.setVisibility(Button.INVISIBLE);
+		}
+		if((CurrentUser.equals("Guest"))){
+			result.setVisibility(TextView.INVISIBLE);
+			LogoutBt.setVisibility(Button.INVISIBLE);
+			LoginBt.setVisibility(Button.VISIBLE);
+		}
+		
+		super.onWindowFocusChanged(hasFocus);
 	}
 }

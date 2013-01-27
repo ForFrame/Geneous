@@ -56,11 +56,12 @@ SQLiteDatabase db;
 		instrucMain.setVolume(50, 50);
 		soundMain = MediaPlayer.create(context2, R.raw.main);
 		
-		int valueSelectLV = 0;
+		int valueShowPopup = 0;
+		//int backToMain = 0;
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
-			valueSelectLV = extras.getInt("selectLV");
-			
+			valueShowPopup = extras.getInt("showPopup");
+			//backToMain = extras.getInt("ToMain");
 		}
 		else{
 			soundMain.start();
@@ -69,7 +70,7 @@ SQLiteDatabase db;
 		}
 
 		
-		mainPage(valueSelectLV);
+		mainPage(valueShowPopup);
 	}
 	
 	void mainPage(int valueLogin){
@@ -81,23 +82,6 @@ SQLiteDatabase db;
 		   
 		   
 		CurrentUser = myDb.SelectCurrentUser();
-		/*Boolean notFromHomee = myDb.notFromHome();
-		if(notFromHomee == true)
-		{
-			if(valueLogin == 1){
-				//soundMain.stop();
-				showLoginPopup();
-			}
-			else{
-				//soundMain.stop();
-				popUpLogIn();
-			}
-			
-		}
-		else{
-			instrucMain.start();
-		}
-		*/
 		
 		if(valueLogin == 0){
 			popUpLogIn();
@@ -641,23 +625,10 @@ SQLiteDatabase db;
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		final myDBClass myDb = new myDBClass(this);
-		myDb.getWritableDatabase();
-		myDb.ChangeHome(1);
-		
 		super.onDestroy();
 	}
-
-	/*public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
-			long arg3) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
-		
-	}*/
+	
+	
 	
 	
 }

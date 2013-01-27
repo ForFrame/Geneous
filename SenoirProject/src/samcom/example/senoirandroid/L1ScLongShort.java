@@ -34,7 +34,6 @@ public class L1ScLongShort extends Activity {
 	int timeRemain;
 	int Round;
 	int Day = 1;
-	MediaPlayer soundPage;
 	MediaPlayer instructPage;
 	
 	public class MyCountDown extends CountDownTimer {
@@ -65,9 +64,7 @@ public class L1ScLongShort extends Activity {
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	setContentView(R.layout.activity_l1_sc_longshort);
-	soundPage = MediaPlayer.create(context, R.raw.page);
-	soundPage.start();
-	soundPage.setLooping(true);
+
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -99,6 +96,7 @@ public class L1ScLongShort extends Activity {
 		int scores;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
+		final LoginManage myUser = new LoginManage(this);
 		int count = myDb.CountNumRan();
 		int Random = 0;
 		
@@ -133,11 +131,8 @@ public class L1ScLongShort extends Activity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				myDb.ChangeHome(0);
-				soundPage.stop();
-				Intent in = new Intent(getApplicationContext(),Main.class);
-				in.putExtra("loginButt", 1);
-				startActivity(in);
+				instructPage.stop();
+				myUser.showLoginPopup();
 
 			}
 		});
@@ -147,9 +142,9 @@ public class L1ScLongShort extends Activity {
 			 
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
-				myDb.ChangeHome(0);
-				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(L1ScLongShort.this,Main.class);
+				intent.putExtra("Logout", 1);
 				startActivity(intent);
 			}
 			
@@ -160,13 +155,6 @@ public class L1ScLongShort extends Activity {
 		}
 		else{
 			scores = myDb.countScore("003", username, Round);
-						
-			//if(username.equals("Guest")){
-			//	myDb.close();
-			//	myDb.getWritableDatabase();
-			//	myDb.deleteGuest();
-			//}
-			
 			showPopup(scores);
 		}
 	}
@@ -264,9 +252,12 @@ public class L1ScLongShort extends Activity {
 		
 		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
 		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
+		imgWrongClick.setClickable(false);
+		imgCorrectClick.setClickable(false);
+		
 		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween_once);
 		final View helpAnswer = (View)findViewById(R.id.helpLong);
-		
+		/*
 		imgWrongClick.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
@@ -285,7 +276,7 @@ public class L1ScLongShort extends Activity {
 				game003();
 			}
 		});
-		
+		*/
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
@@ -320,7 +311,6 @@ public class L1ScLongShort extends Activity {
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
 			instructPage.stop();
-			soundPage.stop();
 			Intent intent = new Intent(L1ScLongShort.this,SchoolLevel3.class);
 			startActivity(intent);
 		}
@@ -447,11 +437,8 @@ public class L1ScLongShort extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				soundPage.stop();
 				Intent intent = new Intent(L1ScLongShort.this,SchoolLevel3.class);
 				startActivity(intent);
-				
-				//finish();
 				
 			}
 		});
@@ -484,7 +471,6 @@ public class L1ScLongShort extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				soundPage.stop();
 				
 				Intent intent = new Intent(L1ScLongShort.this,Main.class);
 				startActivity(intent);
@@ -562,26 +548,46 @@ public class L1ScLongShort extends Activity {
 	
 	protected void onRestart() {
 		// TODO Auto-generated method stub
-		final myDBClass myDb = new myDBClass(this);
-		
-		myDb.getWritableDatabase();
-		myDb.ChangeHome(0);
 		Intent intent = new Intent(L1ScLongShort.this,Main.class);
 		startActivity(intent);
-		
-		
+
 		super.onRestart();
 	}
 	
 	public boolean onTouchEvent (MotionEvent event) {
-		//if(instructPage.isPlaying()){
-		//	instructPage.stop();
-		//	instructPage.start();
-		//}
-		//else{
-			instructPage.start();
-		//}
+		instructPage.start();
+
 		return super.onTouchEvent(event);
 	}
+	
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		// TODO Auto-generated method stub
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getReadableDatabase();
+		
+		username = myDb.SelectCurrentUser();
+		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf");
+		TextView result = (TextView) findViewById(R.id.textUser);
+		result.setTypeface(type);
+		result.setTextColor(Color.rgb(2, 101, 203));
+		Button LogoutBt = (Button) findViewById(R.id.logout);
+		Button LoginBt = (Button) findViewById(R.id.loginn);
+		
+		if(!(username.equals("Guest"))){
+			result.setVisibility(TextView.VISIBLE);
+			result.setText(username);
+			LogoutBt.setVisibility(Button.VISIBLE);
+			LoginBt.setVisibility(Button.INVISIBLE);
+		}
+		if((username.equals("Guest"))){
+			result.setVisibility(TextView.INVISIBLE);
+			LogoutBt.setVisibility(Button.INVISIBLE);
+			LoginBt.setVisibility(Button.VISIBLE);
+		}
+		super.onWindowFocusChanged(hasFocus);
+	}
+	
 
 }

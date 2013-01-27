@@ -5,11 +5,14 @@ import java.util.Date;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -20,7 +23,7 @@ import android.widget.Toast;
 
 public class LoginManage extends Activity {
 
-Context context;
+Context context = this;
 String CurrentUser;
 int chooseSex = 0;
 
@@ -32,7 +35,18 @@ public LoginManage(Context context2) {
 
 public void onCreate(Bundle savedInstanceState) {
 //TODO Auto-generated method stub
+/*	requestWindowFeature(Window.FEATURE_NO_TITLE);
+	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+	setContentView(R.layout.activity_select_level);
 	
+	Bundle bundle = this.getIntent().getExtras();
+	if(bundle != null){
+		String param1 = bundle.getString("param1");
+		if(param1.equals("login")){
+			showLoginPopup();
+		}
+	}*/
+
 }
 
 public void showLoginPopup(){
@@ -43,6 +57,7 @@ public void showLoginPopup(){
 	LoginPop.setCancelable(false); 
 	final myDBClass myDb = new myDBClass(context);
 	Button LoginnBt = (Button)LoginPop.findViewById(R.id.LoginBt);
+	
 	LoginnBt.setOnClickListener(new View.OnClickListener() {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
@@ -62,6 +77,7 @@ public void showLoginPopup(){
 				
 				LoginPop.dismiss();
 				finish();
+				
 			}
 			else{
 				 

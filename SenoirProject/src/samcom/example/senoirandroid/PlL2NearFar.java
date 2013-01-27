@@ -34,7 +34,6 @@ public class PlL2NearFar extends Activity {
 	int timeRemain;
 	int Round;
 	int Begin = 1;
-	MediaPlayer soundPage;
 	MediaPlayer instructPage;
 	
 	public class MyCountDown extends CountDownTimer {
@@ -65,9 +64,6 @@ public class PlL2NearFar extends Activity {
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	setContentView(R.layout.activity_pl_l2_nearfar);
-	soundPage = MediaPlayer.create(context, R.raw.page);
-	soundPage.start();
-	soundPage.setLooping(true);
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -95,7 +91,7 @@ public class PlL2NearFar extends Activity {
 		myDb.getReadableDatabase();
 		int count = myDb.CountNumRan();
 		int Random = 0;
-		
+		final LoginManage myUser = new LoginManage(this);
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf");
 		
 		username = myDb.SelectCurrentUser();
@@ -127,11 +123,8 @@ public class PlL2NearFar extends Activity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				myDb.ChangeHome(0);
-				soundPage.stop();
-				Intent in = new Intent(getApplicationContext(),Main.class);
-				in.putExtra("loginButt", 1);
-				startActivity(in);
+				instructPage.stop();
+				myUser.showLoginPopup();
 
 			}
 		});
@@ -141,9 +134,9 @@ public class PlL2NearFar extends Activity {
 			 
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
-				myDb.ChangeHome(0);
-				soundPage.stop();
+				instructPage.stop();
 				Intent intent = new Intent(PlL2NearFar.this,Main.class);
+				intent.putExtra("Logout", 1);
 				startActivity(intent);
 			}
 			
@@ -248,9 +241,12 @@ public class PlL2NearFar extends Activity {
 		
 		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
 		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
+		imgWrongClick.setClickable(false);
+		imgCorrectClick.setClickable(false);
+		
 		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween_once);
 		final View helpAnswer = (View)findViewById(R.id.showAnswer);
-		
+		/*
 		imgWrongClick.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
@@ -269,7 +265,7 @@ public class PlL2NearFar extends Activity {
 				game005();
 			}
 		});
-		
+		*/
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
@@ -304,7 +300,6 @@ public class PlL2NearFar extends Activity {
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
 			instructPage.stop();
-			soundPage.stop();
 			Intent intent = new Intent(PlL2NearFar.this,PoliceLevel2.class);
 			startActivity(intent);
 		}
@@ -462,7 +457,6 @@ public class PlL2NearFar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				soundPage.stop();
 				Intent intent = new Intent(PlL2NearFar.this,PoliceLevel2.class);
 				startActivity(intent);
 				
@@ -499,7 +493,6 @@ public class PlL2NearFar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				soundPage.stop();
 				Intent intent = new Intent(PlL2NearFar.this,PlL3Car.class);
 				startActivity(intent);
 				
@@ -587,22 +580,14 @@ public class PlL2NearFar extends Activity {
 	}
 	
 	public boolean onTouchEvent (MotionEvent event) {
-		//if(instructPage.isPlaying()){
-		//	instructPage.stop();
-		//	instructPage.start();
-		//}
-		//else{
-			instructPage.start();
-		//}
+		
+		instructPage.start();
 		return super.onTouchEvent(event);
 	}
 	
 	protected void onRestart() {
 		// TODO Auto-generated method stub
-		final myDBClass myDb = new myDBClass(this);
 		
-		myDb.getWritableDatabase();
-		myDb.ChangeHome(0);
 		Intent intent = new Intent(PlL2NearFar.this,Main.class);
 		startActivity(intent);
 		
@@ -610,14 +595,33 @@ public class PlL2NearFar extends Activity {
 		super.onRestart();
 	}
 	
-	
-	/*@Override
-	protected void onDestroy() {
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		myDb.getWritableDatabase();
-		myDb.ChangeHome(0);
+		myDb.getReadableDatabase();
 		
-		super.onDestroy();
-	}*/
+		username = myDb.SelectCurrentUser();
+		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf");
+		TextView result = (TextView) findViewById(R.id.textUser);
+		result.setTypeface(type);
+		result.setTextColor(Color.rgb(2, 101, 203));
+		Button LogoutBt = (Button) findViewById(R.id.logout);
+		Button LoginBt = (Button) findViewById(R.id.loginn);
+		
+		if(!(username.equals("Guest"))){
+			result.setVisibility(TextView.VISIBLE);
+			result.setText(username);
+			LogoutBt.setVisibility(Button.VISIBLE);
+			LoginBt.setVisibility(Button.INVISIBLE);
+		}
+		if((username.equals("Guest"))){
+			result.setVisibility(TextView.INVISIBLE);
+			LogoutBt.setVisibility(Button.INVISIBLE);
+			LoginBt.setVisibility(Button.VISIBLE);
+		}
+		
+		super.onWindowFocusChanged(hasFocus);
+	}
 }

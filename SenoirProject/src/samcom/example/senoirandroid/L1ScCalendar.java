@@ -33,7 +33,6 @@ public class L1ScCalendar extends Activity {
 	int Day = 1;
 	int ranDay=0;
 	
-	MediaPlayer soundPage;
 	MediaPlayer instructPage;
 	MediaPlayer instructThai;
 	MediaPlayer instructEng;
@@ -68,14 +67,12 @@ public class L1ScCalendar extends Activity {
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	
 	setContentView(R.layout.activity_l1_sc_calendar);
-	soundPage = MediaPlayer.create(context, R.raw.page);
+	
 	instructThai = MediaPlayer.create(context, R.raw.sclv2_sun_thai);
 	instructEng = MediaPlayer.create(context, R.raw.sclv2_sunday);
 	instructColor = MediaPlayer.create(context, R.raw.sclv2_red);
 	instructPage = MediaPlayer.create(context, R.raw.ins_sclv2_sun);
 	
-	soundPage.start();
-	soundPage.setLooping(true);
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -102,7 +99,8 @@ public class L1ScCalendar extends Activity {
 		int scores;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		
+		final LoginManage myUser = new LoginManage(this);
+
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf");
 		
 		username = myDb.SelectCurrentUser();
@@ -134,10 +132,8 @@ public class L1ScCalendar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myDb.ChangeHome(0);
-				soundPage.stop();
-				Intent in = new Intent(getApplicationContext(),Main.class);
-				in.putExtra("loginButt", 1);
-				startActivity(in);
+				stopSound();
+				myUser.showLoginPopup();
 
 			}
 		});
@@ -147,9 +143,9 @@ public class L1ScCalendar extends Activity {
 			 
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
-				myDb.ChangeHome(0);
-				soundPage.stop();
+				stopSound();
 				Intent intent = new Intent(L1ScCalendar.this,Main.class);
+				intent.putExtra("Logout", 1);
 				startActivity(intent);
 			}
 			
@@ -309,11 +305,14 @@ void checkAns(Boolean isInterupt){
 				});
 			
 		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
+		final View imgWrongClick = (View)findViewById(R.id.showwrong);
 		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
+		imgWrongClick.setClickable(false);
+		imgCorrectClick.setClickable(false);
+		
 		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween_once);
 		final View helpAnswer = (View)findViewById(R.id.helpCalendar);
-		
+		/*
 		imgWrongClick.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
@@ -332,6 +331,7 @@ void checkAns(Boolean isInterupt){
 				game002();
 			}
 		});
+		*/
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
@@ -367,7 +367,6 @@ void checkAns(Boolean isInterupt){
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
 			stopSound();
-			soundPage.stop();
 			Intent intent = new Intent(L1ScCalendar.this,SchoolLevel2.class);
 			startActivity(intent);
 		}
@@ -636,7 +635,6 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				soundPage.stop();
 				Intent intent = new Intent(L1ScCalendar.this,SchoolLevel2.class);
 				startActivity(intent);
 				
@@ -669,7 +667,6 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				soundPage.stop();
 				Intent intent = new Intent(L1ScCalendar.this,L1ScLongShort.class);
 				startActivity(intent);
 				
@@ -743,35 +740,40 @@ void checkAns(Boolean isInterupt){
 	
 	protected void onRestart() {
 		// TODO Auto-generated method stub
-		final myDBClass myDb = new myDBClass(this);
-		//myDb.getReadableDatabase();
-		
-		//this comment for เน€เธ�โ€ขเน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝ  continue (1,1) state
-		//Boolean isThisContinue;
-		//isThisContinue = myDb.isCurrentContinue();
-		//myDb.close();
-		//if(isThisContinue == true){
-		//	game002();
-		//}
-		//else{
-			myDb.getWritableDatabase();
-			myDb.ChangeHome(0);
-			Intent intent = new Intent(L1ScCalendar.this,Main.class);
-			startActivity(intent);
-		//}
+		Intent intent = new Intent(L1ScCalendar.this,Main.class);
+		startActivity(intent);
 		
 		super.onRestart();
 	}
 	
-/*	@Override
-	protected void onDestroy() {
+	public void onWindowFocusChanged(boolean hasFocus) {
 		// TODO Auto-generated method stub
 		final myDBClass myDb = new myDBClass(this);
-		myDb.getWritableDatabase();
-		myDb.ChangeHome(0);
+		myDb.getReadableDatabase();
 		
-		super.onDestroy();
-	}*/
+		username = myDb.SelectCurrentUser();
+		
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf");
+		TextView result = (TextView) findViewById(R.id.textUser);
+		result.setTypeface(type);
+		result.setTextColor(Color.rgb(2, 101, 203));
+		Button LogoutBt = (Button) findViewById(R.id.logout);
+		Button LoginBt = (Button) findViewById(R.id.loginn);
+		
+		if(!(username.equals("Guest"))){
+			result.setVisibility(TextView.VISIBLE);
+			result.setText(username);
+			LogoutBt.setVisibility(Button.VISIBLE);
+			LoginBt.setVisibility(Button.INVISIBLE);
+		}
+		if((username.equals("Guest"))){
+			result.setVisibility(TextView.INVISIBLE);
+			LogoutBt.setVisibility(Button.INVISIBLE);
+			LoginBt.setVisibility(Button.VISIBLE);
+		}
+
+		super.onWindowFocusChanged(hasFocus);
+	}
 	
 	
 }
