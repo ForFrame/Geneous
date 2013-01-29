@@ -74,9 +74,12 @@ public void showLoginPopup(){
 			if(checkUser == true){
 				myDb.getWritableDatabase();
 				myDb.InsertCurrent(username,d,continueLoginState);
-				
+				myDb.close();
 				LoginPop.dismiss();
-				finish();
+				//finish();
+				Intent in = new Intent(context,Main.class);
+				in.putExtra("showPopup", 1);
+				context.startActivity(in);
 				
 			}
 			else{
@@ -195,9 +198,13 @@ public void showRegisPopup(String inputname){
 					
 					myDb.InsertUser(CurrentUser,age,chooseSex);
 					myDb.InsertCurrent(CurrentUser,d,continueLoginState);
-					
+					myDb.close();
 					RegisPop.dismiss();
-					finish();
+					//finish();
+					
+					Intent in = new Intent(context,Main.class);
+					in.putExtra("showPopup", 1);
+					context.startActivity(in);
 				}
 			}	
 			

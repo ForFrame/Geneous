@@ -8,7 +8,11 @@ import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,11 +21,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class SelectSchoolLevel extends Activity {
+public class SelectSchoolLevel extends Activity implements OnGestureListener {
 
 	String CurrentUser;
 	Context context = this;
 	MediaPlayer instructPage;
+	
+	GestureDetector gd;
+	private static final int SWIPE_MIN_DISTANCE = 120;
+	private static final int SWIPE_MAX_OFF_PATH = 250;
+	private static final int SWIPE_THRESHOLD_VELOCITY = 100;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +38,11 @@ public class SelectSchoolLevel extends Activity {
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	setContentView(R.layout.activity_select_level);
-	
+		gd = new GestureDetector(this, this);
 		instructPage = MediaPlayer.create(context, R.raw.select_level);
 		selectLevel();
 	
-	}
+	}	
 	
 	void selectLevel(){
 		
@@ -143,6 +152,88 @@ public class SelectSchoolLevel extends Activity {
 
 			
 	}
+	
+		@Override
+		public boolean onTouchEvent(MotionEvent event) {
+			if (gd.onTouchEvent(event))
+				return true;
+			else
+				return false;
+		}
+	
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,	float velocityY) {
+		// TODO Auto-generated method stub
+	
+			try {
+				if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
+					return false;
+				// right to left swipe
+				if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+			
+					Toast.makeText(SelectSchoolLevel.this, "<---- Left Swipe", Toast.LENGTH_SHORT).show();
+					instructPage.stop();
+					Intent in = new Intent(SelectSchoolLevel.this,SchoolLevel1.class);
+					startActivity(in);
+					
+				} 
+				else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+			
+					Toast.makeText(SelectSchoolLevel.this, "----> Right Swipe", Toast.LENGTH_SHORT).show();
+					instructPage.stop();
+					Intent in = new Intent(SelectSchoolLevel.this,Main.class);
+					in.putExtra("showPopup", 1);
+					startActivity(in);
+				}
+				else if(e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+			
+					Toast.makeText(SelectSchoolLevel.this, "Swipe up", Toast.LENGTH_SHORT).show();
+			
+				}  
+				else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+			
+					Toast.makeText(SelectSchoolLevel.this, "Swipe down", Toast.LENGTH_SHORT).show();
+			
+				}
+				} catch (Exception e) {
+				// nothing
+			}
+			return true;
+		}
+	
+		public boolean onDown(MotionEvent e) {
+			// TODO Auto-generated method stub
+			//Toast.makeText(MainActivity.this, "onDown", Toast.LENGTH_SHORT).show();
+			return false;
+		}
+
+		public void onLongPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+			Toast.makeText(SelectSchoolLevel.this, "onLongPress", Toast.LENGTH_SHORT).show();
+		}
+
+		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+			float distanceY) {
+			// TODO Auto-generated method stub
+			//Toast.makeText(MainActivity.this, "onScroll", Toast.LENGTH_SHORT).show();
+			return false;
+		}
+
+		public void onShowPress(MotionEvent e) {
+		// TODO Auto-generated method stub
+		//Toast.makeText(MainActivity.this, "onShowPress", Toast.LENGTH_SHORT).show();
+		}
+
+		public boolean onSingleTapUp(MotionEvent e) {
+		// TODO Auto-generated method stub
+		//Toast.makeText(MainActivity.this, "onSingleTapUp", Toast.LENGTH_SHORT).show();
+			return false;
+		}
+
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			getMenuInflater().inflate(R.menu.activity_main, menu);
+			return true;
+		}
 
 	@Override
 	protected void onRestart() {
