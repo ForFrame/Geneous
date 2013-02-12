@@ -1,0 +1,56 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bestfoodLayout"
+    android:layout_width="874dp"
+    android:layout_height="618dp"
+    android:layout_gravity="center"
+    android:background="@drawable/ml1_help_bg" >
+
+    <Button
+        android:id="@+id/picans2"
+        android:layout_width="214dp"
+        android:layout_height="194dp"
+        android:layout_x="446dp"
+        android:layout_y="189dp"
+        android:background="@drawable/ml1_choice1_2"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/picans1"
+        android:layout_width="220dp"
+        android:layout_height="197dp"
+        android:layout_x="184dp"
+        android:layout_y="186dp"
+        android:background="@drawable/ml1_choice1_1"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/showAnswer"
+        android:layout_width="633dp"
+        android:layout_height="280dp"
+        android:layout_x="110dp"
+        android:layout_y="150dp"
+        android:background="@drawable/help_rectang2"
+        android:visibility="invisible" />
+    
+      <ImageView
+        android:id="@+id/helpbestfood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="729dp"
+        android:layout_y="91dp"
+        android:background="@drawable/finger"
+        android:visibility="visible" />
+      
+      <Button
+        android:id="@+id/bt_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="757dp"
+        android:layout_y="550dp"
+        android:background="@drawable/icon_skip"
+        android:clickable="true"
+        android:visibility="visible" />
+      
+
+</AbsoluteLayout>
