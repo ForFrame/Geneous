@@ -512,7 +512,7 @@ public class PlL2NearFar extends Activity {
 		int item = myDb.CountNumRan();
 		myDb.close();
 		myDb.getWritableDatabase();
-		myDb.addItemScore("003",username,Round,item,0,startTime/1000);
+		myDb.addItemScore("005",username,Round,item,0,startTime/1000);
 		
 		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
 		soundWrongFin.start();

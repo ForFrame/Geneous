@@ -53,8 +53,19 @@
         <activity android:name=".PlL3Car"
                   android:screenOrientation="landscape"/>
         
+        <activity android:name=".SelectMarketLevel"
+                  android:screenOrientation="landscape"/>
         <activity android:name=".MarketLevel1"
-                  android:label="@string/app_name" 
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".MkL1BestFood"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".MarketLevel2"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".MkL2Money"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".MarketLevel3"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".MkL3Weight"
                   android:screenOrientation="landscape"/>
                
 

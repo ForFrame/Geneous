@@ -27,7 +27,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 
-public class MarketLevel1 extends Activity {
+public class MarketLevel2 extends Activity {
 	
 	String CurrentUser;
 	Context context = this;
@@ -37,13 +37,13 @@ public class MarketLevel1 extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.market_level1);
+		setContentView(R.layout.market_level2);
 		
-		marketLevel1();
+		marketLevel2();
 		
 	
 	}
-	void marketLevel1(){
+	void marketLevel2(){
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -89,22 +89,22 @@ public class MarketLevel1 extends Activity {
 			 
 			public void onClick(View v) {	
 				myDb.logoutUser(CurrentUser);
-				Intent intent = new Intent(MarketLevel1.this,Main.class);
+				Intent intent = new Intent(MarketLevel2.this,Main.class);
 				intent.putExtra("Logout", 1);
 				startActivity(intent);
 			}
 			
 		});
 		
-		Animation myFadeInAnimation = AnimationUtils.loadAnimation(MarketLevel1.this, R.anim.tween);
+		Animation myFadeInAnimation = AnimationUtils.loadAnimation(MarketLevel2.this, R.anim.tween);
 		
-		Button GameBestFood = (Button)findViewById(R.id.noodle);
-		GameBestFood.startAnimation(myFadeInAnimation);
-		GameBestFood.setOnClickListener(new View.OnClickListener() {
+		Button GameMoney = (Button)findViewById(R.id.water);
+		GameMoney.startAnimation(myFadeInAnimation);
+		GameMoney.setOnClickListener(new View.OnClickListener() {
 			 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(MarketLevel1.this,MkL1BestFood.class);
+				Intent intent = new Intent(MarketLevel2.this,MkL2Money.class);
 				startActivity(intent);
 			}
 		});
@@ -114,7 +114,7 @@ public class MarketLevel1 extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(MarketLevel1.this,SelectMarketLevel.class);
+				Intent intent = new Intent(MarketLevel2.this,SelectMarketLevel.class);
 				startActivity(intent);
 				
 			}
@@ -176,7 +176,7 @@ public class MarketLevel1 extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				HighPop.dismiss();
-				marketLevel1();
+				marketLevel2();
 			}
 		});
         
@@ -186,7 +186,7 @@ public class MarketLevel1 extends Activity {
 	@Override
 	protected void onRestart() {
 		// TODO Auto-generated method stub
-		Intent intent = new Intent(MarketLevel1.this,Main.class);
+		Intent intent = new Intent(MarketLevel2.this,Main.class);
 		startActivity(intent);
 		
 		super.onRestart();
