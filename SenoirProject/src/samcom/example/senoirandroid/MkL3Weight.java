@@ -21,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -63,14 +64,14 @@ public class MkL3Weight extends Activity {
 	super.onCreate(savedInstanceState);
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	setContentView(R.layout.market_l2_money);
+	setContentView(R.layout.market_l3_plus_scales);
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		username = myDb.SelectCurrentUser();
 	
 		//mediaPlayer.start();
-		Round = myDb.getNumRound("008", username);
+		Round = myDb.getNumRound("009", username);
 		
 					
 		myDb.getWritableDatabase();
@@ -80,12 +81,12 @@ public class MkL3Weight extends Activity {
 					showBeginPopup();
 			}
 			else{
-				game008();
+				game009();
 			}
 		
 	}
 
-	void game008(){
+	void game009(){
 		int scores;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -146,7 +147,7 @@ public class MkL3Weight extends Activity {
 			checkAnswer(Random,count+1);
 		}
 		else{
-			scores = myDb.countScore("008", username, Round);
+			scores = myDb.countScore("009", username, Round);
 			
 			showPopup(scores);
 		}
@@ -172,8 +173,8 @@ public class MkL3Weight extends Activity {
 	
 	void checkAnswer(final int RandomNum,final int item){
 		
-		final Button Answer1 = (Button)findViewById(R.id.picans1);
-		final Button Answer2 = (Button)findViewById(R.id.picans2);
+		final Button Answer = (Button)findViewById(R.id.AnsBt);
+		final EditText AnswerText = (EditText)findViewById(R.id.textAns);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
@@ -196,46 +197,29 @@ public class MkL3Weight extends Activity {
 			answer = choice(RandomNum);
 			instructPage.start();
 			
-				Answer1.setOnClickListener(new View.OnClickListener() {
+				Answer.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						if(answer == 1){
+						String answerNumber = AnswerText.getText().toString();
+						int ansNum = Integer.parseInt(answerNumber);
+						
+						if(ansNum == answer){
 							imgCorrect.setVisibility(View.VISIBLE);
 							countdownTime.cancel();
 							soundCorrect.start();
-							myDb.addItemScore("008",username,Round,item,1,(countTime - timeRemain));
+							myDb.addItemScore("009",username,Round,item,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
 							countdownTime.cancel();
 							soundWrong.start();
-							myDb.addItemScore("008",username,Round,item,0,(countTime - timeRemain));
+							myDb.addItemScore("009",username,Round,item,0,(countTime - timeRemain));
 						}
 						
 					}
-				});
-				Answer2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						instructPage.stop();
-						if(answer == 2){
-							imgCorrect.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
-							soundCorrect.start();
-							myDb.addItemScore("008",username,Round,item,1,(countTime - timeRemain));
-							
-						}
-						else{
-							imgWrong.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
-							soundWrong.start();
-							myDb.addItemScore("008",username,Round,item,0,(countTime - timeRemain));
-						}
-					}
-				});
-							
+				});	
 		
 		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
 		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
@@ -249,7 +233,7 @@ public class MkL3Weight extends Activity {
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
             	
-            	game008();
+            	game009();
             }
         });
 
@@ -257,11 +241,11 @@ public class MkL3Weight extends Activity {
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrong.setVisibility(View.INVISIBLE);
             	
-            	game008();
+            	game009();
             }
         });
 		
-		Button HelpButton = (Button)findViewById(R.id.moneyHelp);
+		Button HelpButton = (Button)findViewById(R.id.plusScalesHelp);
 		HelpButton.setOnClickListener(new View.OnClickListener() {
 	
 			public void onClick(View v) {
@@ -271,7 +255,7 @@ public class MkL3Weight extends Activity {
 			}
 		});
 		
-		Button HomeButton = (Button)findViewById(R.id.moneybackHome);
+		Button HomeButton = (Button)findViewById(R.id.plusScalesbackHome);
 		HomeButton.setOnClickListener(new View.OnClickListener() {
 		
 		
@@ -287,80 +271,60 @@ public class MkL3Weight extends Activity {
 	
 	int choice(int random){
 		
-		Button ans1 = (Button)findViewById(R.id.picans1);
-		Button ans2 = (Button)findViewById(R.id.picans2);
+		//Button ans1 = (Button)findViewById(R.id.picans1);
+		//Button ans2 = (Button)findViewById(R.id.picans2);
 		
-		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.moneyLayout);
+		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.plusScalesLayout);
 		int answer=0;
 	    
 	    if(random == 1){
-	    	answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg1);
-			ans1.setBackgroundResource(R.drawable.ml2_choice1_1);
-			ans2.setBackgroundResource(R.drawable.ml2_choice1_2);
+	    	answer = 4;
+	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg1);
 			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_1);
 		}
 		else if(random == 2){
-			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg2);
-			ans1.setBackgroundResource(R.drawable.ml2_choice2_1);
-			ans2.setBackgroundResource(R.drawable.ml2_choice2_2);
+			answer = 0;
+	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg2);
 			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_2);
 		}
 		else if(random == 3){
-			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg3);
-			ans1.setBackgroundResource(R.drawable.ml2_choice3_1);
-			ans2.setBackgroundResource(R.drawable.ml2_choice3_2);
+			answer = 7;
+	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg3);
 			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_3);
 		}
 		else if(random == 4){
-			answer = 2;
-	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg4);
-			ans1.setBackgroundResource(R.drawable.ml2_choice4_1);
-			ans2.setBackgroundResource(R.drawable.ml2_choice4_2);
+			answer = 9;
+	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg4);
 			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
 		}
 		else if(random == 5){
-			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg5);
-			ans1.setBackgroundResource(R.drawable.ml2_choice5_1);
-			ans2.setBackgroundResource(R.drawable.ml2_choice5_2);
+			answer = 2;
+	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg5);
 			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
 		}
 		else if(random == 6){
-			answer = 2;
-	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg6);
-			ans1.setBackgroundResource(R.drawable.ml2_choice6_1);
-			ans2.setBackgroundResource(R.drawable.ml2_choice6_2);
+			answer = 5;
+	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg6);
 			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
 		}
 		else if(random == 7){
-			answer = 2;
-	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg7);
-			ans1.setBackgroundResource(R.drawable.ml2_choice7_1);
-			ans2.setBackgroundResource(R.drawable.ml2_choice7_2);
+			answer = 1;
+	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg7);
 			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_7);
 		}
 		else if(random == 8){
-			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg8);
-			ans1.setBackgroundResource(R.drawable.ml2_choice8_1);
-			ans2.setBackgroundResource(R.drawable.ml2_choice8_2);
+			answer = 9;
+	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg8);
 			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_8);
 		}
 		else if(random == 9){
-			answer = 2;
-	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg9);
-			ans1.setBackgroundResource(R.drawable.ml2_choice9_1);
-			ans2.setBackgroundResource(R.drawable.ml2_choice9_2);
+			answer = 9;
+	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg9);
 			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_9);
 		}
 		else{
-			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg10);
-			ans1.setBackgroundResource(R.drawable.ml2_choice10_1);
-			ans2.setBackgroundResource(R.drawable.ml2_choice10_2);
+			answer = 3;
+	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg10);
 			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
 		}
 		
@@ -447,10 +411,10 @@ public class MkL3Weight extends Activity {
 				imgWrongpop.setVisibility(View.INVISIBLE);
 				imgCorrectpop.setVisibility(View.INVISIBLE);
 				
-				Round = myDb.getNumRound("008", username);
+				Round = myDb.getNumRound("009", username);
 				//Round++;
 				
-				game008();
+				game009();
 			}
 		});
 		
@@ -478,7 +442,7 @@ public class MkL3Weight extends Activity {
 		int item = myDb.CountNumRan();
 		myDb.close();
 		myDb.getWritableDatabase();
-		myDb.addItemScore("008",username,Round,item,0,startTime/1000);
+		myDb.addItemScore("009",username,Round,item,0,startTime/1000);
 		
 		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
 		soundWrongFin.start();
@@ -486,7 +450,7 @@ public class MkL3Weight extends Activity {
 		soundWrongFin.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrongFin.setVisibility(View.INVISIBLE);
-            	game008();
+            	game009();
             }
         });
 		
@@ -498,7 +462,7 @@ public class MkL3Weight extends Activity {
 				soundWrongFin.stop();
 				imgWrongFin.setVisibility(View.INVISIBLE);
 				//Items++;
-				game008();
+				game009();
 			}
 		});
 		
@@ -508,7 +472,7 @@ public class MkL3Weight extends Activity {
 		final Dialog BeginPop = new Dialog(context, R.style.FullHeightDialog);
 		final MediaPlayer soundIns;
 		final MediaPlayer soundAns;
-		BeginPop.setContentView(R.layout.market_l2_money_tutorial);
+		BeginPop.setContentView(R.layout.market_l3_plus_scales_tutorial);
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
@@ -516,7 +480,7 @@ public class MkL3Weight extends Activity {
 		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(MkL3Weight.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);
-		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpNearFar);
+		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpplusScales);
 		
 		//soundWrong is instruction sound
 				instruct.startAnimation(myFadeAnimation);
@@ -539,7 +503,7 @@ public class MkL3Weight extends Activity {
 						soundAns.stop();
 						//Begin = 2;
 						BeginPop.dismiss();
-						game008();
+						game009();
 					}
 				});
 			BeginPop.show();

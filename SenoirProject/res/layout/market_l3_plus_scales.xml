@@ -1,0 +1,126 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/plusScalesLayout"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/ml3_bg1" >
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="88dp"
+        android:layout_y="26dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android:id="@+id/textUser"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_x="656dp"
+        android:layout_y="1dp"
+        android:gravity="right|center_vertical"
+        android:text="Username"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16pt"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <Button
+        android:id="@+id/loginn"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_x="872dp"
+        android:layout_y="1dp"
+        android:background="@drawable/login_txt" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_x="872dp"
+        android:layout_y="1dp"
+        android:background="@drawable/logout_txt" />
+    
+    <Button
+        android:id="@+id/AnsBt"
+        android:layout_width="97dp"
+        android:layout_height="54dp"
+        android:layout_x="810dp"
+        android:layout_y="400dp"
+        android:background="@drawable/ml3_bt_ans"
+        android:visibility="visible" />
+    
+    <EditText
+        android:id="@+id/textAns"
+        android:layout_width="160dp"
+        android:layout_height="130dp"
+        android:layout_x="785dp"
+        android:layout_y="240dp"
+        android:focusable="false"
+        android:freezesText="false"
+        android:inputType="numberDecimal"
+        android:text="Ans."
+        android:textSize="70sp"
+        android:visibility="visible" />
+    
+     <ImageView
+         android:id="@+id/showAnswer"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_x="790dp"
+         android:layout_y="360dp"
+         android:background="@drawable/ml3_help1"
+         android:visibility="invisible" />
+     
+    <TextView
+        android:id="@+id/currentitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="103dp"
+        android:layout_y="56dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <ImageView
+        android:id="@+id/showwrong"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_x="255dp"
+        android:layout_y="94dp"
+        android:background="@drawable/weak"
+        android:clickable="true"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/showcorrect"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_x="255dp"
+        android:layout_y="94dp"
+        android:background="@drawable/smile"
+        android:clickable="true"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/plusScalesHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="830dp"
+        android:layout_y="654dp"
+        android:background="@drawable/icon_help2" />
+
+    <Button
+        android:id="@+id/plusScalesbackHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="933dp"
+        android:layout_y="654dp"
+        android:background="@drawable/icon_home1" />
+
+   
+    
+
+    
+
+</AbsoluteLayout>

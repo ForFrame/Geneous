@@ -1,0 +1,60 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/plusScalesLayout"
+    android:layout_width="874dp"
+    android:layout_height="618dp"
+    android:layout_gravity="center"
+    android:background="@drawable/ml3_bghelp" >
+
+      <Button
+          android:id="@+id/AnsBt"
+          android:layout_width="97dp"
+          android:layout_height="54dp"
+          android:layout_x="685dp"
+          android:layout_y="350dp"
+          android:background="@drawable/ml3_bt_ans"
+          android:visibility="visible" />
+      
+     <EditText
+         android:id="@+id/textAns"
+         android:layout_width="160dp"
+         android:layout_height="130dp"
+         android:layout_x="660dp"
+         android:layout_y="190dp"
+         android:focusable="false"
+         android:freezesText="false"
+         android:inputType="numberDecimal"
+         android:text="Ans."
+         android:textSize="70sp"
+         android:visibility="visible" />
+    
+     <ImageView
+         android:id="@+id/showAnswer"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_x="665dp"
+         android:layout_y="310dp"
+         android:background="@drawable/ml3_help1"
+         android:visibility="invisible" />
+
+      <ImageView
+          android:id="@+id/helpplusScales"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_x="700dp"
+          android:layout_y="200dp"
+          android:background="@drawable/finger"
+          android:visibility="visible" />
+      
+      <Button
+        android:id="@+id/bt_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="757dp"
+        android:layout_y="550dp"
+        android:background="@drawable/icon_skip"
+        android:clickable="true"
+        android:visibility="visible" />
+      
+
+</AbsoluteLayout>
