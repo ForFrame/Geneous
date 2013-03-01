@@ -7,23 +7,29 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 
 @SuppressWarnings("deprecation")
@@ -77,7 +83,7 @@ public class MkL3Weight extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-			if(Round == 1){
+			if(Round == 1 || username.equals("Guest")){
 					showBeginPopup();
 			}
 			else{
@@ -174,7 +180,6 @@ public class MkL3Weight extends Activity {
 	void checkAnswer(final int RandomNum,final int item){
 		
 		final Button Answer = (Button)findViewById(R.id.AnsBt);
-		final EditText AnswerText = (EditText)findViewById(R.id.textAns);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
@@ -182,13 +187,16 @@ public class MkL3Weight extends Activity {
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
 		
-		startTime = (20)*1000;
+		startTime = (30)*1000;
 		final MyCountDown countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
-		
+		imgWrong.setClickable(false);
+		imgCorrect.setClickable(false);
+		final EditText AnswerText = (EditText)findViewById(R.id.textAns);
+		AnswerText.setRawInputType(Configuration.KEYBOARD_12KEY);
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(item +"/ 10");
 		
@@ -201,6 +209,7 @@ public class MkL3Weight extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						
 						String answerNumber = AnswerText.getText().toString();
 						int ansNum = Integer.parseInt(answerNumber);
 						
@@ -209,22 +218,50 @@ public class MkL3Weight extends Activity {
 							countdownTime.cancel();
 							soundCorrect.start();
 							myDb.addItemScore("009",username,Round,item,1,(countTime - timeRemain));
-							
+							AnswerText.setText("");
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
 							countdownTime.cancel();
 							soundWrong.start();
 							myDb.addItemScore("009",username,Round,item,0,(countTime - timeRemain));
+							AnswerText.setText("");
 						}
 						
 					}
 				});	
 		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
-		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
-		imgWrongClick.setClickable(false);
-		imgCorrectClick.setClickable(false);
+		AnswerText.setOnEditorActionListener(new OnEditorActionListener() {
+	        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+	            if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+	            	
+		            	instructPage.stop();
+						String answerNumber = AnswerText.getText().toString();
+						int ansNum = Integer.parseInt(answerNumber);
+						
+						if(ansNum == answer){
+							imgCorrect.setVisibility(View.VISIBLE);
+							countdownTime.cancel();
+							soundCorrect.start();
+							myDb.addItemScore("009",username,Round,item,1,(countTime - timeRemain));
+							AnswerText.setText("");
+						}
+						else{
+							imgWrong.setVisibility(View.VISIBLE);
+							countdownTime.cancel();
+							soundWrong.start();
+							myDb.addItemScore("009",username,Round,item,0,(countTime - timeRemain));
+							AnswerText.setText("");
+						}
+						
+						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        	imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+			
+	            }    
+	            return false;
+	        }
+	    });
+
 		
 		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(MkL3Weight.this, R.anim.tween_once);
 		final View helpAnswer = (View)findViewById(R.id.showAnswer);
@@ -423,7 +460,7 @@ public class MkL3Weight extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(MkL3Weight.this,MkL3Weight.class);
+				Intent intent = new Intent(MkL3Weight.this,Main.class);
 				startActivity(intent);
 				
 			}
@@ -436,7 +473,7 @@ public class MkL3Weight extends Activity {
 		
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
 		imgWrongFin.setVisibility(View.VISIBLE);
-		
+		imgWrongFin.setClickable(false);
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		int item = myDb.CountNumRan();
@@ -453,19 +490,6 @@ public class MkL3Weight extends Activity {
             	game009();
             }
         });
-		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
-		
-		imgWrongClick.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				soundWrongFin.stop();
-				imgWrongFin.setVisibility(View.INVISIBLE);
-				//Items++;
-				game009();
-			}
-		});
-		
 	}
 	
 	protected void showBeginPopup(){
@@ -512,6 +536,11 @@ public class MkL3Weight extends Activity {
 	public boolean onTouchEvent (MotionEvent event) {
 		
 		instructPage.start();
+		
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    	imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+
+    	
 		return super.onTouchEvent(event);
 	}
 	

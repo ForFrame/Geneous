@@ -76,7 +76,7 @@ public class MkL1BestFood extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-			if(Round == 1){
+			if(Round == 1 || username.equals("Guest")){
 					showBeginPopup();
 			}
 			else{
@@ -188,6 +188,8 @@ public class MkL1BestFood extends Activity {
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		
+		
+		
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(item +"/ 10");
 		
@@ -210,6 +212,7 @@ public class MkL1BestFood extends Activity {
 						instructPage.stop();
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
+							imgCorrect.setClickable(false);
 							countdownTime.cancel();
 							soundCorrect.start();
 							myDb.addItemScore("007",username,Round,item,1,(countTime - timeRemain));
@@ -217,6 +220,7 @@ public class MkL1BestFood extends Activity {
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
+							imgWrong.setClickable(false);
 							countdownTime.cancel();
 							soundWrong.start();
 							myDb.addItemScore("007",username,Round,item,0,(countTime - timeRemain));
@@ -230,6 +234,7 @@ public class MkL1BestFood extends Activity {
 						instructPage.stop();
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
+							imgCorrect.setClickable(false);
 							countdownTime.cancel();
 							soundCorrect.start();
 							myDb.addItemScore("007",username,Round,item,1,(countTime - timeRemain));
@@ -237,18 +242,13 @@ public class MkL1BestFood extends Activity {
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
+							imgWrong.setClickable(false);
 							countdownTime.cancel();
 							soundWrong.start();
 							myDb.addItemScore("007",username,Round,item,0,(countTime - timeRemain));
 						}
 					}
 				});
-							
-		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
-		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
-		imgWrongClick.setClickable(false);
-		imgCorrectClick.setClickable(false);
 		
 		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(MkL1BestFood.this, R.anim.tween_once);
 		final View helpAnswer = (View)findViewById(R.id.showAnswer);
@@ -479,6 +479,7 @@ public class MkL1BestFood extends Activity {
 		
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
 		imgWrongFin.setVisibility(View.VISIBLE);
+		imgWrongFin.setClickable(false);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -496,18 +497,6 @@ public class MkL1BestFood extends Activity {
             	game007();
             }
         });
-		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
-		
-		imgWrongClick.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				soundWrongFin.stop();
-				imgWrongFin.setVisibility(View.INVISIBLE);
-				//Items++;
-				game007();
-			}
-		});
 		
 	}
 	

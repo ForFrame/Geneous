@@ -7,42 +7,6 @@
     android:background="@drawable/highscore"
     android:orientation="vertical" >
 
-	<!-- Header -->
-
-	<!-- <LinearLayout
-	    android:id="@+id/header"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content" >
-
-		<TextView android:id="@+id/item1"
-			android:layout_height="fill_parent"
-			android:layout_width="wrap_content"
-			android:width="20dip"
-			android:height="30dip"
-		/>
-		<TextView android:id="@+id/item2"
-			android:layout_height="fill_parent"
-			android:layout_width="wrap_content"
-			android:text="col_1_h"
-			android:width="100dip"
-			android:height="30dip"
-		/>
-		<TextView android:id="@+id/item3"
-			android:layout_height="fill_parent"
-			android:layout_width="wrap_content"
-			android:text="col_2_h"
-			android:width="100dip"
-			android:height="30dip"
-		/>
-		<TextView android:id="@+id/item4"
-			android:layout_height="fill_parent"
-			android:layout_width="wrap_content"
-			android:text="col_3_h"
-			android:width="100dip"
-			android:height="30dip"
-		/>
-	</LinearLayout> -->
-
 	<Spinner
 	    android:id="@+id/gameSelection"
 	    android:layout_width="330dp"

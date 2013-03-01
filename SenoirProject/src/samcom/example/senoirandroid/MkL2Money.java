@@ -76,7 +76,7 @@ public class MkL2Money extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-			if(Round == 1){
+			if(Round == 1 || username.equals("Guest")){
 					showBeginPopup();
 			}
 			else{
@@ -187,7 +187,8 @@ public class MkL2Money extends Activity {
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
-		
+		imgWrong.setClickable(false);
+		imgCorrect.setClickable(false);
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(item +"/ 10");
 		
@@ -236,11 +237,6 @@ public class MkL2Money extends Activity {
 					}
 				});
 							
-		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
-		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
-		imgWrongClick.setClickable(false);
-		imgCorrectClick.setClickable(false);
 		
 		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(MkL2Money.this, R.anim.tween_once);
 		final View helpAnswer = (View)findViewById(R.id.showAnswer);
@@ -472,7 +468,7 @@ public class MkL2Money extends Activity {
 		
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
 		imgWrongFin.setVisibility(View.VISIBLE);
-		
+		imgWrongFin.setClickable(false);
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		int item = myDb.CountNumRan();
@@ -490,18 +486,6 @@ public class MkL2Money extends Activity {
             }
         });
 		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
-		
-		imgWrongClick.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				soundWrongFin.stop();
-				imgWrongFin.setVisibility(View.INVISIBLE);
-				//Items++;
-				game008();
-			}
-		});
-		
 	}
 	
 	protected void showBeginPopup(){
@@ -516,7 +500,7 @@ public class MkL2Money extends Activity {
 		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(MkL2Money.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);
-		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpNearFar);
+		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpmoney);
 		
 		//soundWrong is instruction sound
 				instruct.startAnimation(myFadeAnimation);

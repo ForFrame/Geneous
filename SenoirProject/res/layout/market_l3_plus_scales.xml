@@ -58,12 +58,12 @@
         android:layout_height="130dp"
         android:layout_x="785dp"
         android:layout_y="240dp"
-        android:focusable="false"
-        android:freezesText="false"
-        android:inputType="numberDecimal"
-        android:text="Ans."
-        android:textSize="70sp"
-        android:visibility="visible" />
+        android:digits="1234567890"
+        android:gravity="center_vertical|center"
+        android:hint="ตอบ"
+        android:imeOptions="actionDone|flagNoFullscreen"
+        android:inputType="phone"
+        android:textSize="70sp" />
     
      <ImageView
          android:id="@+id/showAnswer"

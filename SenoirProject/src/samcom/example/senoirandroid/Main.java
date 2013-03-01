@@ -7,14 +7,18 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -26,12 +30,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.Paint.Align;
 import android.graphics.Typeface;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.chart.BarChart.Type;
+import org.achartengine.model.CategorySeries;
+import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.renderer.SimpleSeriesRenderer;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import org.achartengine.renderer.XYMultipleSeriesRenderer.Orientation;
 
 public class Main extends Activity {
 String CurrentUser;
@@ -70,6 +84,7 @@ SQLiteDatabase db;
 		}
 
 		
+		        
 		mainPage(valueShowPopup);
 	}
 	
@@ -133,7 +148,7 @@ SQLiteDatabase db;
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instrucMain.stop();
-				soundMain.stop();
+				//soundMain.stop();
 				myDb.ChangeHome(1);
 				Intent intent = new Intent(Main.this,SelectPoliceLevel.class);
 				startActivity(intent);
@@ -148,9 +163,9 @@ SQLiteDatabase db;
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instrucMain.stop();
-				soundMain.stop();
+				//soundMain.stop();
 				myDb.ChangeHome(1);
-				Intent intent = new Intent(Main.this,MarketLevel1.class);
+				Intent intent = new Intent(Main.this,SelectMarketLevel.class);
 				startActivity(intent);
 			}
 		});
@@ -163,9 +178,9 @@ SQLiteDatabase db;
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instrucMain.stop();
-				soundMain.stop();
+				//soundMain.stop();
 				myDb.ChangeHome(1);
-				Intent intent = new Intent(Main.this,HouseLevel1.class);
+				Intent intent = new Intent(Main.this,SelectHouseLevel.class);
 				startActivity(intent);
 			}
 		});
@@ -235,6 +250,7 @@ SQLiteDatabase db;
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instrucMain.stop();
+				setPostionSelected("",0);
 				showListViewHighScore();
 			}
 		});
@@ -254,6 +270,7 @@ SQLiteDatabase db;
 		LoginnBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
 				final boolean checkUser;
 				final String username;
 				final Date d = new Date();
@@ -300,7 +317,10 @@ SQLiteDatabase db;
 		RegissBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-			String name;	
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+	    		imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+	    		
+	    		String name;	
 				EditText user = (EditText)LoginPop.findViewById(R.id.usertext);
 				name = user.getText().toString();
 				
@@ -315,6 +335,7 @@ SQLiteDatabase db;
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+		
 				LoginPop.dismiss();
 				popUpLogIn();
 			}
@@ -329,10 +350,7 @@ SQLiteDatabase db;
 		RegisPop.setContentView(R.layout.activity_popup_regis);
 		RegisPop.setCanceledOnTouchOutside(false);
 		RegisPop.setCancelable(false); 
-		
-		
-		
-		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/touchy_boy.ttf"); 
+		 
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 				
@@ -344,6 +362,7 @@ SQLiteDatabase db;
 		RegissBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
 				final boolean checkUser;
 				final String selectedAge;
 				final String username;
@@ -483,6 +502,12 @@ SQLiteDatabase db;
 		
 	}
 	
+	String selectedGame;
+	int GameNoSelected;
+	void setPostionSelected(String game,int posi){
+		selectedGame = game;
+		GameNoSelected = posi;
+	}
 	protected void showListViewHighScore(){
 		final Dialog HighPop = new Dialog(context2, R.style.FullHeightDialog);
 		final myDBClass myDb = new myDBClass(this);
@@ -493,15 +518,21 @@ SQLiteDatabase db;
 		final List<HashMap<String, String>> fillMaps2 = new ArrayList<HashMap<String, String>>();
 		final SimpleAdapter adapter2 = new SimpleAdapter(this, fillMaps2, R.layout.grid_item2, title, to);
 		final Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
-		    
+   
 		HighPop.setContentView(R.layout.activity_highscore_individual);
 		HighPop.setCanceledOnTouchOutside(false);
 		HighPop.setCancelable(false); 
-		
+        
 		final Spinner spin1 = (Spinner)HighPop.findViewById(R.id.gameSelection);
 		final TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
 		final Typeface type2 = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		gt.setTypeface(type2);
+		
+
+		if(!selectedGame.equals("")){
+			spin1.setSelection(GameNoSelected);
+			gt.setText(selectedGame);
+		}
 		
 		spin1.setOnItemSelectedListener(new OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -518,6 +549,8 @@ SQLiteDatabase db;
 			       
 			        String game[] = selected.split(" ");
 			        String gameNo = game[0];
+			        setPostionSelected(selected,pos);
+			        
 			        lengths = myDb.getIdvHighScore(gameNo,CurrentUser,from);
 			        // prepare the list of all records
 			        fillMaps2.removeAll(fillMaps2);
@@ -547,15 +580,18 @@ SQLiteDatabase db;
 
 			public void onClick(View v) {
 				 //TODO Auto-generated method stub
-				
+
 				ListView lv = (ListView)HighPop.findViewById(R.id.listview);
-				
+		        
 		        // create the grid item mapping
 		        String from[][] = new String[15][5];
 		        int lengths;
 		        String getCurrentSelected = gt.getText().toString();
 		        String game[] = getCurrentSelected.split(" ");
 		        String gameNo = game[0];
+		        int position = Integer.parseInt(gameNo);
+		        setPostionSelected(getCurrentSelected,position);
+		        
 		        lengths = myDb.getIdvHighScore(gameNo,CurrentUser,from);
 		        // prepare the list of all records
 		        fillMaps2.removeAll(fillMaps2);
@@ -574,12 +610,15 @@ SQLiteDatabase db;
 			}
 		});
 		
+		
+		
 		Button viewIvdGraph = (Button)HighPop.findViewById(R.id.viewGraph);
 		viewIvdGraph.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				HighPop.dismiss();
+				showListViewGraph();
 			}
 		});
 		
@@ -610,6 +649,306 @@ SQLiteDatabase db;
         HighPop.show();
 
 	}
+	
+	protected void showListViewGraph(){
+		final Dialog GraphPop = new Dialog(context2, R.style.FullHeightDialog);
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getReadableDatabase();
+		
+		
+		final Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
+ 
+		GraphPop.setContentView(R.layout.activity_graph_individual);
+		GraphPop.setCanceledOnTouchOutside(false);
+		GraphPop.setCancelable(false); 
+     
+		final Spinner spin1 = (Spinner)GraphPop.findViewById(R.id.gameSelection);
+		final TextView gt = (TextView)GraphPop.findViewById(R.id.GameText);
+		final Typeface type2 = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
+		gt.setTypeface(type2);
+		
+		if(!selectedGame.equals("")){
+			spin1.setSelection(GameNoSelected);
+			gt.setText(selectedGame);
+		}
+
+		
+		spin1.setOnItemSelectedListener(new OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+			        
+					String selected = spin1.getItemAtPosition(pos).toString();
+					gt.setTypeface(type2);
+			    	gt.setText(selected);
+    
+			        String game[] = selected.split(" ");
+			        String gameNo = game[0];
+			        setPostionSelected(selected,pos);
+			        String[] series1Numbers = {"1","2","3","4","5"};
+
+			        //lengths = myDb.getIdvHighScore(gameNo,CurrentUser,from);
+			        double[] scores = myDb.getIdvGraphScore(gameNo,CurrentUser,series1Numbers); 
+			    
+					GraphicalView gv = createIntent(scores,series1Numbers);
+
+					LinearLayout rl = (LinearLayout)GraphPop.findViewById(R.id.Graphlayout);
+					rl.addView(gv);
+
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				gt.setText("เลือกเกมส์ที่ต้องการ");
+			}
+			
+			 public GraphicalView createIntent(double scores[],String series1Numbers[]) {
+			        String[] titles = new String[] { "คะแนนที่ได้"};
+			        List<double[]> values = new ArrayList<double[]>();
+			        values.add(scores);
+			        
+			        int[] colors = new int[] { Color.parseColor("#77c4d3")};
+			        XYMultipleSeriesRenderer renderer = buildBarRenderer(colors);
+			        renderer.setOrientation(Orientation.HORIZONTAL);
+			        setChartSettings(renderer, "", " ครั้งที่ ", " คะแนน ", 0.5,
+			            6, 0, 10, Color.BLACK, Color.BLACK);
+			        renderer.setXLabels(1);
+			        renderer.setYLabels(5);
+			        for(int i=0;i<5;i++){
+			        	renderer.addXTextLabel(i+1, series1Numbers[i]);
+			        }
+
+			        int length = renderer.getSeriesRendererCount();
+			        for (int i = 0; i < length; i++) {
+			          SimpleSeriesRenderer seriesRenderer = renderer.getSeriesRendererAt(i);
+			          seriesRenderer.setDisplayChartValues(true);
+			        }
+			 
+			 
+			        final GraphicalView grfv = ChartFactory.getBarChartView(Main.this, buildBarDataset(titles, values), renderer,Type.DEFAULT);
+			   
+			         
+			        return grfv;
+			      }
+			      protected XYMultipleSeriesRenderer buildBarRenderer(int[] colors) {
+			            XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+			            renderer.setAxisTitleTextSize(18);
+			           // renderer.setChartTitleTextSize(20);
+			            renderer.setLabelsTextSize(15);
+			            renderer.setLegendTextSize(15);
+			            renderer.setBarSpacing(1);
+			             
+			            renderer.setMarginsColor(Color.parseColor("#EEEDED"));
+			            renderer.setXLabelsColor(Color.BLACK);
+			            renderer.setYLabelsColor(0,Color.BLACK);
+			             
+			            renderer.setApplyBackgroundColor(true);
+			            renderer.setBackgroundColor(Color.parseColor("#FBFBFC"));
+			             
+			            int length = colors.length;
+			            for (int i = 0; i < length; i++) {
+			              SimpleSeriesRenderer r = new SimpleSeriesRenderer();
+			              r.setColor(colors[i]);
+			              r.setChartValuesTextAlign(Align.RIGHT);
+			              r.setChartValuesTextSize(15);
+			              r.setChartValuesSpacing(10);
+			              renderer.addSeriesRenderer(r);
+			            }
+			            return renderer;
+			          }
+			      protected XYMultipleSeriesDataset buildBarDataset(String[] titles, List<double[]> values) {
+			            XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+			            int length = titles.length;
+			            for (int i = 0; i < length; i++) {
+			              CategorySeries series = new CategorySeries(titles[i]);
+			              double[] v = values.get(i);
+			              int seriesLength = v.length;
+			              for (int k = 0; k < seriesLength; k++) {
+			                series.add(v[k]);
+			              }
+			              dataset.addSeries(series.toXYSeries());
+			            }
+			            return dataset;
+			          }
+			      protected void setChartSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle,
+			              String yTitle, double xMin, double xMax, double yMin, double yMax, int axesColor,
+			              int labelsColor) {
+
+			    	  	renderer.setChartTitleTextSize(10);
+			    	  	renderer.setYLabelsAlign(Align.RIGHT);
+			            renderer.setXTitle(xTitle);
+			            renderer.setYTitle(yTitle);
+			            renderer.setXAxisMin(xMin);
+			            renderer.setXAxisMax(xMax);
+			            renderer.setYAxisMin(yMin);
+			            renderer.setYAxisMax(yMax);
+			            renderer.setMargins(new int[] { 15, 60, 15, 15 });
+			            renderer.setAxesColor(axesColor);
+			            renderer.setLabelsColor(labelsColor);
+			          }
+		});
+		
+		
+		
+		//view high score
+		Button viewIvdHigh = (Button)GraphPop.findViewById(R.id.viewHighscore);
+		viewIvdHigh.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				 //TODO Auto-generated method stub
+				GraphPop.dismiss();
+				showListViewHighScore();
+			}
+		});
+		
+		
+	
+		Button viewIvdGraph = (Button)GraphPop.findViewById(R.id.viewGraph);
+		viewIvdGraph.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+		        String[] series1Numbers = {"1","2","3","4","5"};
+		        String getCurrentSelected = gt.getText().toString();
+		        String game[] = getCurrentSelected.split(" ");
+		        String gameNo = game[0];
+		        
+		        double[] scores = myDb.getIdvGraphScore(gameNo,CurrentUser,series1Numbers); 
+		        
+		        GraphicalView gv = createIntent(scores,series1Numbers);
+
+				LinearLayout rl = (LinearLayout)GraphPop.findViewById(R.id.Graphlayout);
+				rl.addView(gv);
+				
+			}
+			
+			 public GraphicalView createIntent(double scores[],String series1Numbers[]) {
+			        String[] titles = new String[] { "คะแนนที่ได้"};
+			        List<double[]> values = new ArrayList<double[]>();
+			        values.add(scores);
+			        
+			        int[] colors = new int[] { Color.parseColor("#77c4d3")};
+			        XYMultipleSeriesRenderer renderer = buildBarRenderer(colors);
+			        renderer.setOrientation(Orientation.HORIZONTAL);
+			        setChartSettings(renderer, "", " ครั้งที่ ", " คะแนน ", 0.5,
+			            6, 0, 10, Color.BLACK, Color.BLACK);
+			        renderer.setXLabels(1);
+			        renderer.setYLabels(5);
+			        for(int i=0;i<5;i++){
+			        	renderer.addXTextLabel(i+1, series1Numbers[i]);
+			        }
+
+			        int length = renderer.getSeriesRendererCount();
+			        for (int i = 0; i < length; i++) {
+			          SimpleSeriesRenderer seriesRenderer = renderer.getSeriesRendererAt(i);
+			          seriesRenderer.setDisplayChartValues(true);
+			        }
+			 
+			 
+			        final GraphicalView grfv = ChartFactory.getBarChartView(Main.this, buildBarDataset(titles, values), renderer,Type.DEFAULT);
+			   
+			         
+			        return grfv;
+			      }
+			      protected XYMultipleSeriesRenderer buildBarRenderer(int[] colors) {
+			            XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+			            renderer.setAxisTitleTextSize(18);
+			           // renderer.setChartTitleTextSize(20);
+			            renderer.setLabelsTextSize(15);
+			            renderer.setLegendTextSize(15);
+			            renderer.setBarSpacing(1);
+			             
+			            renderer.setMarginsColor(Color.parseColor("#EEEDED"));
+			            renderer.setXLabelsColor(Color.BLACK);
+			            renderer.setYLabelsColor(0,Color.BLACK);
+			             
+			            renderer.setApplyBackgroundColor(true);
+			            renderer.setBackgroundColor(Color.parseColor("#FBFBFC"));
+			             
+			            int length = colors.length;
+			            for (int i = 0; i < length; i++) {
+			              SimpleSeriesRenderer r = new SimpleSeriesRenderer();
+			              r.setColor(colors[i]);
+			              r.setChartValuesTextAlign(Align.RIGHT);
+			              r.setChartValuesTextSize(15);
+			              r.setChartValuesSpacing(10);
+			              renderer.addSeriesRenderer(r);
+			            }
+			            return renderer;
+			          }
+			      protected XYMultipleSeriesDataset buildBarDataset(String[] titles, List<double[]> values) {
+			            XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+			            int length = titles.length;
+			            for (int i = 0; i < length; i++) {
+			              CategorySeries series = new CategorySeries(titles[i]);
+			              double[] v = values.get(i);
+			              int seriesLength = v.length;
+			              for (int k = 0; k < seriesLength; k++) {
+			                series.add(v[k]);
+			              }
+			              dataset.addSeries(series.toXYSeries());
+			            }
+			            return dataset;
+			          }
+			      protected void setChartSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle,
+			              String yTitle, double xMin, double xMax, double yMin, double yMax, int axesColor,
+			              int labelsColor) {
+
+			    	  	renderer.setChartTitleTextSize(10);
+			    	  	renderer.setYLabelsAlign(Align.RIGHT);
+			            renderer.setXTitle(xTitle);
+			            renderer.setYTitle(yTitle);
+			            renderer.setXAxisMin(xMin);
+			            renderer.setXAxisMax(xMax);
+			            renderer.setYAxisMin(yMin);
+			            renderer.setYAxisMax(yMax);
+			            renderer.setMargins(new int[] { 15, 60, 15, 15 });
+			            renderer.setAxesColor(axesColor);
+			            renderer.setLabelsColor(labelsColor);
+			          }
+		});
+	
+        Button skipButton = (Button)GraphPop.findViewById(R.id.button1);
+		skipButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//soundMain.stop();
+				GraphPop.dismiss();
+				
+				TextView result = (TextView) findViewById(R.id.textUser);
+				result.setTypeface(type);
+				result.setTextColor(Color.rgb(2, 101, 203));
+				result.setVisibility(TextView.VISIBLE);
+				result.setText(CurrentUser);
+				Button LogoutBt = (Button) findViewById(R.id.logout);
+				LogoutBt.setVisibility(Button.VISIBLE);
+				Button LoginBt = (Button) findViewById(R.id.loginn);
+				LoginBt.setVisibility(Button.INVISIBLE);
+				Button getHighScore = (Button)findViewById(R.id.showHighScore);
+				getHighScore.setVisibility(TextView.VISIBLE);
+				
+				instrucMain.start();
+			}
+		});
+        
+        GraphPop.show();
+
+	}
+	public boolean onTouchEvent (MotionEvent event) {
+		
+		
+		//InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    	//	imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+
+    	
+		return super.onTouchEvent(event);
+	}
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
 	
 	@Override
 	protected void onRestart() {

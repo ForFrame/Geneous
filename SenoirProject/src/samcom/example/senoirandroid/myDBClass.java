@@ -560,7 +560,7 @@ int getIdvHighScore(String game,String name,String value[][]){
 		String getUsername;
 	    SQLiteDatabase db;
 		db = this.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT Round, Username, Sum(Score), Sum(Time) FROM scItem WHERE GameNo = '"+game+"'and Username = '"+name+"' Group by Round Order by Sum(Score) DESC , Sum(Time);", null);
+		Cursor cursor = db.rawQuery("SELECT Round, Username, Sum(Score), Sum(Time) FROM scItem WHERE GameNo = '"+game+"'and Username = '"+name+"' Group by Round,Username Order by Round DESC;", null);
 		//SELECT Round, Username, Sum(Time), Sum(Score) FROM scItem WHERE GameNo = '001' Group by Round;
 	      
 		if(cursor != null){
@@ -592,6 +592,44 @@ int getIdvHighScore(String game,String name,String value[][]){
 	}
 	return i;
 }
+
+@SuppressWarnings("null")
+double[] getIdvGraphScore(String game,String name,String[] Round){
+	
+	int i=0;
+	double[] score = new double[5];
+	
+	try{
+		int roundd,scores;
+	    SQLiteDatabase db;
+		db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery("SELECT Round, Sum(Score) FROM scItem WHERE GameNo = '"+game+"'and Username = '"+name+"' Group by Round Order by Round DESC;", null);
+		//SELECT Round, Username, Sum(Time), Sum(Score) FROM scItem WHERE GameNo = '001' Group by Round;
+	   
+		if(cursor != null){
+			i=0;
+			cursor.moveToFirst();
+			while (i < 5) {
+				roundd = cursor.getInt(0);
+				Round[i] = String.valueOf(roundd);
+				scores = cursor.getInt(1);
+				double ansNum = scores;
+				score[i] = ansNum;
+		        cursor.moveToNext();
+		        i++;
+			}
+			cursor.close();
+		}
+		else{
+			i = 0;
+		}
+	    
+	}catch (Exception e){
+		i = 0;
+	}
+	return score;
+}
+
 int getGameHighScore(String game,String value[][]){
 	//String value[][] = new String[15][5];
 	int i=0;

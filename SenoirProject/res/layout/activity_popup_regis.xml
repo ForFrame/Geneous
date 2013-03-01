@@ -14,7 +14,9 @@
         android:layout_x="325dp"
         android:layout_y="158dp"
         android:ems="10"
-        android:hint="Username" >
+        android:hint="Username"
+        android:imeOptions="flagNoFullscreen"
+        android:inputType="text" >
 
         <requestFocus />
     </EditText>

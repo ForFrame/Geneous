@@ -69,39 +69,37 @@
                   android:screenOrientation="landscape"/>
                
 
-        
+        <activity android:name=".SelectHouseLevel"
+                  android:screenOrientation="landscape"/>
         <activity android:name=".HouseLevel1"
-                  android:label="@string/app_name" 
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".HsL1Shape"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".HouseLevel2"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".HsL2Match"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".HouseLevel3"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".HsL3Job"
                   android:screenOrientation="landscape"/>
         
         <activity android:name=".SelectSchoolLevel" 
-            	  android:screenOrientation="landscape"/>
-                  
+            	  android:screenOrientation="landscape"/>                
         <activity android:name=".SchoolLevel1"
             	  android:screenOrientation="landscape"/>
-        
         <activity android:name=".L1ScCount" 
             	  android:screenOrientation="landscape"/>
-        <activity android:name=".L1ScCountTutorial" 
-            	  android:screenOrientation="landscape"/>
-        
-        <activity android:name=".L1ScCalendar" 
-            	  android:screenOrientation="landscape"/>
-        <activity android:name=".L1ScCalendarTutorial" 
-            	  android:screenOrientation="landscape"/>
-        
-        <activity android:name=".L1ScLongShort" 
-            	  android:screenOrientation="landscape"/>
-        <activity android:name=".L1ScLongShortTutorial" 
-            	  android:screenOrientation="landscape"/>
-        
         <activity android:name=".SchoolLevel2" 
             	  android:screenOrientation="landscape"/>
-                  
+        <activity android:name=".L1ScCalendar" 
+            	  android:screenOrientation="landscape"/>
         <activity android:name=".SchoolLevel3" 
             	  android:screenOrientation="landscape"/>
-                  
-       
+        <activity android:name=".L1ScLongShort" 
+            	  android:screenOrientation="landscape"/>
+   
+        
         <activity android:name=".FarmLevel1"
                   android:label="@string/app_name" 
                   android:screenOrientation="landscape"/>
@@ -113,6 +111,7 @@
         <activity android:name=".login1" 
             	  android:screenOrientation="landscape"/>
         
+        <activity android:name="org.achartengine.GraphicalActivity" />
         
     </application>
 

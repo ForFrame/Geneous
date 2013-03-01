@@ -153,7 +153,7 @@ public class MarketLevel3 extends Activity {
         String[] title = new String[] {"rowid", "col_1", "col_2", "col_3"};
         String from[][] = new String[15][5];
         int lengths;
-        lengths = myDb.getGameHighScore("004",from);
+        lengths = myDb.getGameHighScore("009",from);
         //int lengths = from.length;
         // prepare the list of all records
         List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
