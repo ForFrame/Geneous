@@ -83,7 +83,7 @@ public class PlL3Car extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-		if(Round == 1){
+		if(Round == 1||username.equals("Guest")){
 			
 				showBeginPopup();
 			
@@ -199,6 +199,8 @@ public class PlL3Car extends Activity {
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
+		imgWrong.setClickable(false);
+		imgCorrect.setClickable(false);
 		
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(item +"/ 10");
@@ -266,35 +268,10 @@ public class PlL3Car extends Activity {
 						}
 					}
 				});
-							
-		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
-		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
-		imgWrongClick.setClickable(false);
-		imgCorrectClick.setClickable(false);
 		
 		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(PlL3Car.this, R.anim.tween_once);
 		final View helpAnswer = (View)findViewById(R.id.showAnswer);
-		/*
-		imgWrongClick.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				soundWrong.stop();
-				imgWrong.setVisibility(View.INVISIBLE);
-				
-				game006();
-			}
-		});
 		
-		imgCorrectClick.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				soundCorrect.stop();
-				imgCorrect.setVisibility(View.INVISIBLE);
-				
-				game006();
-			}
-		});
-		*/
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
@@ -540,6 +517,7 @@ public class PlL3Car extends Activity {
 		
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
 		imgWrongFin.setVisibility(View.VISIBLE);
+		imgWrongFin.setClickable(false);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -557,19 +535,6 @@ public class PlL3Car extends Activity {
             	game006();
             }
         });
-		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
-		
-		imgWrongClick.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				soundWrongFin.stop();
-				imgWrongFin.setVisibility(View.INVISIBLE);
-				//Items++;
-				game006();
-			}
-		});
-		
 	}
 	
 	protected void showBeginPopup(){

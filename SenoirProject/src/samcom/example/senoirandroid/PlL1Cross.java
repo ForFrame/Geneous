@@ -217,6 +217,8 @@ void checkAns(Boolean isInterupt){
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
+		imgWrong.setClickable(false);
+		imgCorrect.setClickable(false);
 		
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(Items +"/ 10");
@@ -463,12 +465,6 @@ void checkAns(Boolean isInterupt){
 					
 				}
 			});
-		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
-		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
-		
-		imgWrongClick.setClickable(false);
-		imgCorrectClick.setClickable(false);
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
@@ -843,6 +839,7 @@ void checkAns(Boolean isInterupt){
 		
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
 		imgWrongFin.setVisibility(View.VISIBLE);
+		imgWrongFin.setClickable(false);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
@@ -858,18 +855,6 @@ void checkAns(Boolean isInterupt){
             	game004();
             }
         });
-		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
-		
-		imgWrongClick.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				soundWrongFin.stop();
-				imgWrongFin.setVisibility(View.INVISIBLE);
-				Items++;
-				game004();
-			}
-		});
 		
 	}
 	public boolean onTouchEvent (MotionEvent event) {

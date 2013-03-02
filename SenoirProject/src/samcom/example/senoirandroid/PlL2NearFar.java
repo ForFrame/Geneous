@@ -83,7 +83,7 @@ public class PlL2NearFar extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-			if(Round == 1){
+			if(Round == 1||username.equals("Guest")){
 					showBeginPopup();
 			}
 			else{
@@ -181,21 +181,21 @@ public class PlL2NearFar extends Activity {
 		
 		final Button Answer1 = (Button)findViewById(R.id.picans1);
 		final Button Answer2 = (Button)findViewById(R.id.picans2);
-		//TextView insView = (TextView)findViewById(R.id.picView);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 		final int answer;
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
-		//final Animation myFadeOnceAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween_once);
-		//final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween);
+		
 		startTime = (20)*1000;
 		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
+		imgWrong.setClickable(false);
+		imgCorrect.setClickable(false);
 		
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(item +"/ 10");
@@ -244,35 +244,10 @@ public class PlL2NearFar extends Activity {
 						}
 					}
 				});
-							
-		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
-		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
-		imgWrongClick.setClickable(false);
-		imgCorrectClick.setClickable(false);
 		
 		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween_once);
 		final View helpAnswer = (View)findViewById(R.id.showAnswer);
-		/*
-		imgWrongClick.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				soundWrong.stop();
-				imgWrong.setVisibility(View.INVISIBLE);
-				
-				game005();
-			}
-		});
 		
-		imgCorrectClick.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				soundCorrect.stop();
-				imgCorrect.setVisibility(View.INVISIBLE);
-				
-				game005();
-			}
-		});
-		*/
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
@@ -512,6 +487,7 @@ public class PlL2NearFar extends Activity {
 		
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
 		imgWrongFin.setVisibility(View.VISIBLE);
+		imgWrongFin.setClickable(false);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -529,18 +505,6 @@ public class PlL2NearFar extends Activity {
             	game005();
             }
         });
-		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
-		
-		imgWrongClick.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				soundWrongFin.stop();
-				imgWrongFin.setVisibility(View.INVISIBLE);
-				//Items++;
-				game005();
-			}
-		});
 		
 	}
 	

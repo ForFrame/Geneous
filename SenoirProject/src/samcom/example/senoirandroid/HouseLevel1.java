@@ -14,7 +14,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,17 +33,24 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 
-public class HouseLevel1 extends Activity {
+public class HouseLevel1 extends Activity implements OnGestureListener {
 	
 	String CurrentUser;
 	Context context = this;
 	MediaPlayer soundMain;	
+	GestureDetector gd;
+	private static final int SWIPE_MIN_DISTANCE = 120;
+	private static final int SWIPE_MAX_OFF_PATH = 250;
+	private static final int SWIPE_THRESHOLD_VELOCITY = 100;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.house_level1);
+		
+		gd = new GestureDetector(this, this);
 		
 		soundMain = MediaPlayer.create(context, R.raw.main);
 		soundMain.start();
@@ -260,5 +270,55 @@ public class HouseLevel1 extends Activity {
         }
 	    return super.onKeyDown(keyCode, event);
 	}
-	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		if (gd.onTouchEvent(event))
+			return true;
+		else
+			return false;
+	}
+	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,	float velocityY) {
+		// TODO Auto-generated method stub
+
+			try {
+				
+				if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
+					return false;
+				
+				if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+					Intent intent = new Intent(HouseLevel1.this,SelectHouseLevel.class);
+					startActivity(intent);    
+				}
+				
+			} catch (Exception e) {
+				// nothing
+			}
+			return true;
+		}
+		
+		public boolean onDown(MotionEvent e) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		public void onLongPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+				float distanceY) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		public void onShowPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public boolean onSingleTapUp(MotionEvent e) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 }

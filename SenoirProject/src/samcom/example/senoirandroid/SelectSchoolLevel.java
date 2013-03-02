@@ -157,87 +157,86 @@ public class SelectSchoolLevel extends Activity implements OnGestureListener {
 			
 	}
 	
-		@Override
-		public boolean onTouchEvent(MotionEvent event) {
-			if (gd.onTouchEvent(event))
-				return true;
-			else
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		if (gd.onTouchEvent(event))
+			return true;
+		else
+			return false;
+	}
+
+	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,	float velocityY) {
+	// TODO Auto-generated method stub
+
+		try {
+			if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
 				return false;
-		}
-	
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,	float velocityY) {
-		// TODO Auto-generated method stub
-	
-			try {
-				if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
-					return false;
-				// right to left swipe
-				if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-			
-					Toast.makeText(SelectSchoolLevel.this, "<---- Left Swipe", Toast.LENGTH_SHORT).show();
-					instructPage.stop();
-					Intent in = new Intent(SelectSchoolLevel.this,SchoolLevel1.class);
-					startActivity(in);
-					
-				} 
-				else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-			
-					Toast.makeText(SelectSchoolLevel.this, "----> Right Swipe", Toast.LENGTH_SHORT).show();
-					instructPage.stop();
-					Intent in = new Intent(SelectSchoolLevel.this,Main.class);
-					in.putExtra("showPopup", 1);
-					startActivity(in);
-				}
-				else if(e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-			
-					Toast.makeText(SelectSchoolLevel.this, "Swipe up", Toast.LENGTH_SHORT).show();
-			
-				}  
-				else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-			
-					Toast.makeText(SelectSchoolLevel.this, "Swipe down", Toast.LENGTH_SHORT).show();
-			
-				}
-				} catch (Exception e) {
-				// nothing
+			// right to left swipe
+			if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+		
+				//Toast.makeText(SelectSchoolLevel.this, "<---- Left Swipe", Toast.LENGTH_SHORT).show();
+				//instructPage.stop();
+				//Intent in = new Intent(SelectSchoolLevel.this,SchoolLevel1.class);
+				//startActivity(in);
+				
+			} 
+			else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+		
+				//Toast.makeText(SelectSchoolLevel.this, "----> Right Swipe", Toast.LENGTH_SHORT).show();
+				Intent in = new Intent(SelectSchoolLevel.this,Main.class);
+				in.putExtra("showPopup", 1);
+				startActivity(in);
 			}
-			return true;
+			else if(e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+		
+				//Toast.makeText(SelectSchoolLevel.this, "Swipe up", Toast.LENGTH_SHORT).show();
+		
+			}  
+			else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+		
+				//Toast.makeText(SelectSchoolLevel.this, "Swipe down", Toast.LENGTH_SHORT).show();
+		
+			}
+			} catch (Exception e) {
+			// nothing
 		}
+		return true;
+	}
 	
-		public boolean onDown(MotionEvent e) {
-			// TODO Auto-generated method stub
-			//Toast.makeText(MainActivity.this, "onDown", Toast.LENGTH_SHORT).show();
-			return false;
-		}
-
-		public void onLongPress(MotionEvent e) {
-			// TODO Auto-generated method stub
-			Toast.makeText(SelectSchoolLevel.this, "onLongPress", Toast.LENGTH_SHORT).show();
-		}
-
-		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-			float distanceY) {
-			// TODO Auto-generated method stub
-			//Toast.makeText(MainActivity.this, "onScroll", Toast.LENGTH_SHORT).show();
-			return false;
-		}
-
-		public void onShowPress(MotionEvent e) {
+	public boolean onDown(MotionEvent e) {
 		// TODO Auto-generated method stub
-		//Toast.makeText(MainActivity.this, "onShowPress", Toast.LENGTH_SHORT).show();
-		}
+		//Toast.makeText(MainActivity.this, "onDown", Toast.LENGTH_SHORT).show();
+		return false;
+	}
 
-		public boolean onSingleTapUp(MotionEvent e) {
+	public void onLongPress(MotionEvent e) {
 		// TODO Auto-generated method stub
-		//Toast.makeText(MainActivity.this, "onSingleTapUp", Toast.LENGTH_SHORT).show();
-			return false;
-		}
+		Toast.makeText(SelectSchoolLevel.this, "onLongPress", Toast.LENGTH_SHORT).show();
+	}
 
-		@Override
-		public boolean onCreateOptionsMenu(Menu menu) {
-			getMenuInflater().inflate(R.menu.activity_main, menu);
-			return true;
-		}
+	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+		float distanceY) {
+		// TODO Auto-generated method stub
+		//Toast.makeText(MainActivity.this, "onScroll", Toast.LENGTH_SHORT).show();
+		return false;
+	}
+
+	public void onShowPress(MotionEvent e) {
+	// TODO Auto-generated method stub
+	//Toast.makeText(MainActivity.this, "onShowPress", Toast.LENGTH_SHORT).show();
+	}
+
+	public boolean onSingleTapUp(MotionEvent e) {
+	// TODO Auto-generated method stub
+	//Toast.makeText(MainActivity.this, "onSingleTapUp", Toast.LENGTH_SHORT).show();
+		return false;
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_main, menu);
+		return true;
+	}
 
 	@Override
 	protected void onRestart() {
