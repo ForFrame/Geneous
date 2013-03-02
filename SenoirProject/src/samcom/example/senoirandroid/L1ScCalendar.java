@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -32,6 +33,7 @@ public class L1ScCalendar extends Activity {
 	int Round;
 	int Day = 1;
 	int ranDay=0;
+	MyCountDown countdownTime;
 	
 	MediaPlayer instructPage;
 	MediaPlayer instructThai;
@@ -162,7 +164,7 @@ public class L1ScCalendar extends Activity {
 		}
 		else{
 			scores = myDb.countScore("002", username, Round);
-			
+			countdownTime.cancel();
 			showPopup(scores);
 		}
 	}
@@ -211,7 +213,7 @@ void checkAns(Boolean isInterupt){
 		}
 		
 		
-		final MyCountDown countdownTime = new MyCountDown(startTime,1000);
+		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
@@ -801,5 +803,16 @@ void checkAns(Boolean isInterupt){
 		stopSound();
     	
 		super.onPause();
+	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        	countdownTime.cancel();
+			Intent intent = new Intent(L1ScCalendar.this,SchoolLevel1.class);
+			startActivity(intent);   
+        	return false;
+        }
+	    return super.onKeyDown(keyCode, event);
 	}
 }

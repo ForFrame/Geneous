@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -133,7 +134,6 @@ public class SelectHouseLevel extends Activity {
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				instructPage.stop();
 				Intent intent = new Intent(SelectHouseLevel.this,Main.class);
 				intent.putExtra("showPopup", 1);
 				startActivity(intent);
@@ -207,4 +207,14 @@ public class SelectHouseLevel extends Activity {
 		super.onPause();
 	}
 	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        	Intent intent = new Intent(SelectHouseLevel.this,Main.class);
+			intent.putExtra("showPopup", 1);
+			startActivity(intent);   
+        	return false;
+        }
+	    return super.onKeyDown(keyCode, event);
+	}
 }

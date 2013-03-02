@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -32,6 +33,7 @@ public class L1ScCount extends Activity {
 	String username;
 	int timeRemain;
 	int Round;
+	MyCountDown countdown;
 	MediaPlayer instructPage,soundMain;
 	
 	public class MyCountDown extends CountDownTimer {
@@ -159,7 +161,7 @@ public class L1ScCount extends Activity {
 			scores = myDb.countScore("001", username, Round);
 			int LastRan = myDb.getLastNum(10);
 			hideTables(LastRan);
-			
+			countdown.cancel();
 			showPopup(scores);
 		}
 		
@@ -191,7 +193,7 @@ public class L1ScCount extends Activity {
 		myDb.getWritableDatabase();
 		
 		startTime = ((RandomNum*2)+10)*1000;
-		final MyCountDown countdown = new MyCountDown(startTime,1000);
+		countdown = new MyCountDown(startTime,1000);
 		
 		//final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.correct_sound);
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
@@ -467,26 +469,6 @@ public class L1ScCount extends Activity {
 		imgCorrectClick.setClickable(false);
 		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScCount.this, R.anim.tween_once);
 		final View helpAnswer = (View)findViewById(R.id.helpCount);
-		/*
-		imgWrongClick.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				soundWrong.stop();
-				imgWrong.setVisibility(View.INVISIBLE);
-				game001();
-			}
-		});
-		
-		imgCorrectClick.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				soundCorrect.stop();
-				imgCorrect.setVisibility(View.INVISIBLE);
-				game001();
-			}
-		});
-		*/
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
@@ -519,8 +501,6 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				countdown.cancel();
-				instructPage.stop();
-				//soundPage.stop();
 				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
 				startActivity(intent);
 			}
@@ -816,6 +796,19 @@ public class L1ScCount extends Activity {
     	}
 		super.onPause();
 	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        	countdown.cancel();
+			Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
+			startActivity(intent);   
+        	return false;
+        }
+	    return super.onKeyDown(keyCode, event);
+	}
+
+
 }
 	
 	

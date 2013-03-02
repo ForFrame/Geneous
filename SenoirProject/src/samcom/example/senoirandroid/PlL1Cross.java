@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -66,15 +67,15 @@ public class PlL1Cross extends Activity {
 
 @Override
 	protected void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	requestWindowFeature(Window.FEATURE_NO_TITLE);
-	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	
-	setContentView(R.layout.activity_pl_l1_cross);
-	soundMain = MediaPlayer.create(context, R.raw.main);
-	soundMain.start();
-	soundMain.setLooping(true);
-	soundMain.setVolume(30, 30);
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
+		setContentView(R.layout.activity_pl_l1_cross);
+		soundMain = MediaPlayer.create(context, R.raw.main);
+		soundMain.start();
+		soundMain.setLooping(true);
+		soundMain.setVolume(30, 30);
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -172,7 +173,7 @@ public class PlL1Cross extends Activity {
 		}
 		else{
 			scores = myDb.countScore("004", username, Round);
-			
+			countdownTime.cancel();
 			showPopup(scores);
 		}
 	}
@@ -468,26 +469,7 @@ void checkAns(Boolean isInterupt){
 		
 		imgWrongClick.setClickable(false);
 		imgCorrectClick.setClickable(false);
-		/*
-		imgWrongClick.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				soundWrong.stop();
-				imgWrong.setVisibility(View.INVISIBLE);
-				Items++;
-				game004();
-			}
-		});
 		
-		imgCorrectClick.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				soundCorrect.stop();
-				imgCorrect.setVisibility(View.INVISIBLE);
-				Items++;
-				game004();
-			}
-		});
-		*/
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
@@ -539,7 +521,6 @@ void checkAns(Boolean isInterupt){
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
-			instructPage.stop();
 			Intent intent = new Intent(PlL1Cross.this,PoliceLevel1.class);
 			startActivity(intent);
 		}
@@ -966,4 +947,17 @@ void checkAns(Boolean isInterupt){
     	}
 		super.onPause();
 	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        	countdownTime.cancel();
+			Intent intent = new Intent(PlL1Cross.this,PoliceLevel1.class);
+			startActivity(intent);   
+        	return false;
+        }
+	    return super.onKeyDown(keyCode, event);
+	}
+
+
 }

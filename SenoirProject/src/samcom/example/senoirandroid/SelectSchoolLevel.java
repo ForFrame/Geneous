@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -147,7 +148,6 @@ public class SelectSchoolLevel extends Activity implements OnGestureListener {
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				instructPage.stop();
 				Intent in = new Intent(SelectSchoolLevel.this,Main.class);
 				in.putExtra("showPopup", 1);
 				startActivity(in);
@@ -301,5 +301,15 @@ public class SelectSchoolLevel extends Activity implements OnGestureListener {
     		instructPage.stop();
     	}
 		super.onPause();
+	}
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        	Intent in = new Intent(SelectSchoolLevel.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);     
+        	return false;
+        }
+	    return super.onKeyDown(keyCode, event);
 	}
 }

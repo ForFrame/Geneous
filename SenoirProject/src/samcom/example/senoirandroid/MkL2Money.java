@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -34,6 +35,7 @@ public class MkL2Money extends Activity {
 	int timeRemain;
 	int Round;
 	int Begin = 1;
+	MyCountDown countdownTime;
 	MediaPlayer instructPage,soundMain;
 	
 	public class MyCountDown extends CountDownTimer {
@@ -152,7 +154,7 @@ public class MkL2Money extends Activity {
 		}
 		else{
 			scores = myDb.countScore("008", username, Round);
-			
+			countdownTime.cancel();
 			showPopup(scores);
 		}
 
@@ -187,7 +189,7 @@ public class MkL2Money extends Activity {
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
 		
 		startTime = (20)*1000;
-		final MyCountDown countdownTime = new MyCountDown(startTime,1000);
+		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
@@ -279,7 +281,6 @@ public class MkL2Money extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
-			instructPage.stop();
 			Intent intent = new Intent(MkL2Money.this,MarketLevel2.class);
 			startActivity(intent);
 		}
@@ -604,4 +605,17 @@ public class MkL2Money extends Activity {
     	}
 		super.onPause();
 	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        	countdownTime.cancel();
+			Intent intent = new Intent(MkL2Money.this,MarketLevel2.class);
+			startActivity(intent);  
+        	return false;
+        }
+	    return super.onKeyDown(keyCode, event);
+	}
+
+
 }

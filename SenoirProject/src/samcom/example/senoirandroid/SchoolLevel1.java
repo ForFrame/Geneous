@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -252,6 +253,15 @@ public class SchoolLevel1 extends Activity {
     	}
     	
 		super.onPause();
+	}
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        	Intent intent = new Intent(SchoolLevel1.this,SelectSchoolLevel.class);
+			startActivity(intent);   
+        	return false;
+        }
+	    return super.onKeyDown(keyCode, event);
 	}
 	
 }

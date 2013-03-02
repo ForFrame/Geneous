@@ -5,13 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -246,6 +249,16 @@ public class HouseLevel1 extends Activity {
     	}
     	
 		super.onPause();
+	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        	Intent intent = new Intent(HouseLevel1.this,SelectHouseLevel.class);
+			startActivity(intent);     
+        	return false;
+        }
+	    return super.onKeyDown(keyCode, event);
 	}
 	
 }

@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -34,6 +35,7 @@ public class PlL3Car extends Activity {
 	int timeRemain;
 	int Round;
 	int Begin = 1;
+	MyCountDown countdownTime;
 	MediaPlayer instructPage,soundMain;
 	
 	public class MyCountDown extends CountDownTimer {
@@ -60,15 +62,15 @@ public class PlL3Car extends Activity {
 
 @Override
 	protected void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	requestWindowFeature(Window.FEATURE_NO_TITLE);
-	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	setContentView(R.layout.activity_pl_l3_car);
-	
-	soundMain = MediaPlayer.create(context, R.raw.main);
-	soundMain.start();
-	soundMain.setLooping(true);
-	soundMain.setVolume(30, 30);
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.activity_pl_l3_car);
+		
+		soundMain = MediaPlayer.create(context, R.raw.main);
+		soundMain.start();
+		soundMain.setLooping(true);
+		soundMain.setVolume(30, 30);
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -154,7 +156,7 @@ public class PlL3Car extends Activity {
 		}
 		else{
 			scores = myDb.countScore("006", username, Round);
-
+			countdownTime.cancel();
 			showPopup(scores);
 		}
 		
@@ -192,7 +194,7 @@ public class PlL3Car extends Activity {
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
 		
 		startTime = (20)*1000;
-		final MyCountDown countdownTime = new MyCountDown(startTime,1000);
+		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
@@ -321,15 +323,12 @@ public class PlL3Car extends Activity {
 		
 		Button carButton = (Button)findViewById(R.id.carbackHome);
 		carButton.setOnClickListener(new View.OnClickListener() {
-		
-		
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			countdownTime.cancel();
-			instructPage.stop();
-			Intent intent = new Intent(PlL3Car.this,PoliceLevel3.class);
-			startActivity(intent);
-		}
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				countdownTime.cancel();
+				Intent intent = new Intent(PlL3Car.this,PoliceLevel3.class);
+				startActivity(intent);
+			}
 		});
 	}
 	
@@ -680,4 +679,17 @@ public class PlL3Car extends Activity {
     	}
 		super.onPause();
 	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        	countdownTime.cancel();
+			Intent intent = new Intent(PlL3Car.this,PoliceLevel3.class);
+			startActivity(intent);  
+        	return false;
+        }
+	    return super.onKeyDown(keyCode, event);
+	}
+
+
 }

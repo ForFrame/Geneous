@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -247,5 +248,15 @@ public class PoliceLevel3 extends Activity {
     	}
     	
 		super.onPause();
+	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        	Intent intent = new Intent(PoliceLevel3.this,SelectPoliceLevel.class);
+			startActivity(intent);     
+        	return false;
+        }
+	    return super.onKeyDown(keyCode, event);
 	}
 }
