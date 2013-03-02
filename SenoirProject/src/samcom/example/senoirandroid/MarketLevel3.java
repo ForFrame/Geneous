@@ -31,7 +31,7 @@ public class MarketLevel3 extends Activity {
 	
 	String CurrentUser;
 	Context context = this;
-		
+	MediaPlayer soundMain;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,6 +39,10 @@ public class MarketLevel3 extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.market_level3);
 		
+		soundMain = MediaPlayer.create(context, R.raw.main);
+		soundMain.start();
+		soundMain.setLooping(true);
+		soundMain.setVolume(30, 30);
 		marketLevel3();
 		
 	
@@ -221,5 +225,24 @@ public class MarketLevel3 extends Activity {
 		
 		super.onWindowFocusChanged(hasFocus);
 	}
-	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	
+		super.onDestroy();
+	}
+
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	
+		super.onPause();
+	}
 }

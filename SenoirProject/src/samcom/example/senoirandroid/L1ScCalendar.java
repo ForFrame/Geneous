@@ -37,6 +37,7 @@ public class L1ScCalendar extends Activity {
 	MediaPlayer instructThai;
 	MediaPlayer instructEng;
 	MediaPlayer instructColor;
+	MediaPlayer soundMain;
 		
 	public class MyCountDown extends CountDownTimer {
 		public MyCountDown(long millisInFuture, long countDownInterval) {
@@ -62,16 +63,21 @@ public class L1ScCalendar extends Activity {
 
 @Override
 	protected void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	requestWindowFeature(Window.FEATURE_NO_TITLE);
-	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	
-	setContentView(R.layout.activity_l1_sc_calendar);
-	
-	instructThai = MediaPlayer.create(context, R.raw.sclv2_sun_thai);
-	instructEng = MediaPlayer.create(context, R.raw.sclv2_sunday);
-	instructColor = MediaPlayer.create(context, R.raw.sclv2_red);
-	instructPage = MediaPlayer.create(context, R.raw.ins_sclv2_sun);
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
+		setContentView(R.layout.activity_l1_sc_calendar);
+		
+		soundMain = MediaPlayer.create(context, R.raw.main);
+		soundMain.start();
+		soundMain.setLooping(true);
+		soundMain.setVolume(30, 30);
+		
+		instructThai = MediaPlayer.create(context, R.raw.sclv2_sun_thai);
+		instructEng = MediaPlayer.create(context, R.raw.sclv2_sunday);
+		instructColor = MediaPlayer.create(context, R.raw.sclv2_red);
+		instructPage = MediaPlayer.create(context, R.raw.ins_sclv2_sun);
 	
 	
 		final myDBClass myDb = new myDBClass(this);
@@ -775,5 +781,25 @@ void checkAns(Boolean isInterupt){
 		super.onWindowFocusChanged(hasFocus);
 	}
 	
-	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	stopSound();
+		super.onDestroy();
+	}
+
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+		stopSound();
+    	
+		super.onPause();
+	}
 }

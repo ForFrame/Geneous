@@ -37,7 +37,7 @@ public class PlL1Cross extends Activity {
 	int ranDay=0;
 	int Begin = 1;
 
-	MediaPlayer instructPage;
+	MediaPlayer instructPage,soundMain;
 	MediaPlayer soundIns;
 	
 	final MyCountDown countdownTime = new MyCountDown(startTime,1000);
@@ -71,6 +71,10 @@ public class PlL1Cross extends Activity {
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	
 	setContentView(R.layout.activity_pl_l1_cross);
+	soundMain = MediaPlayer.create(context, R.raw.main);
+	soundMain.start();
+	soundMain.setLooping(true);
+	soundMain.setVolume(30, 30);
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -932,4 +936,34 @@ void checkAns(Boolean isInterupt){
 		super.onWindowFocusChanged(hasFocus);
 	}
 	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	if(instructPage.isPlaying()){
+    		instructPage.stop();
+    	}
+    	if(soundIns.isPlaying()){
+    		soundIns.stop();
+    	}
+		super.onDestroy();
+	}
+
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	if(instructPage.isPlaying()){
+    		instructPage.stop();
+    	}
+    	if(soundIns.isPlaying()){
+    		soundIns.stop();
+    	}
+		super.onPause();
+	}
 }

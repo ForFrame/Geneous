@@ -18,7 +18,7 @@ public class SelectMarketLevel extends Activity {
 
 	String CurrentUser;
 	Context context = this;
-	MediaPlayer instructPage;
+	MediaPlayer instructPage,soundMain;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -26,6 +26,10 @@ public class SelectMarketLevel extends Activity {
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	setContentView(R.layout.activity_select_level);
 	
+		soundMain = MediaPlayer.create(context, R.raw.main);
+		soundMain.start();
+		soundMain.setLooping(true);
+		soundMain.setVolume(30, 30);
 		instructPage = MediaPlayer.create(context, R.raw.select_level);
 		selectLevel();
 	
@@ -177,6 +181,29 @@ public class SelectMarketLevel extends Activity {
 		super.onWindowFocusChanged(hasFocus);
 	}
 	
-	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	if(instructPage.isPlaying()){
+    		instructPage.stop();
+    	}
+		super.onDestroy();
+	}
+
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	if(instructPage.isPlaying()){
+    		instructPage.stop();
+    	}
+		super.onPause();
+	}
 	
 }

@@ -31,13 +31,18 @@ public class SchoolLevel2 extends Activity {
 	
 	String CurrentUser;
 	Context context = this;
-
+	MediaPlayer soundMain;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_school_level2);
+		
+		soundMain = MediaPlayer.create(context, R.raw.main);
+		soundMain.start();
+		soundMain.setLooping(true);
+		soundMain.setVolume(30, 30);
 		
 		schoolLevel2();
 		
@@ -223,4 +228,24 @@ public class SchoolLevel2 extends Activity {
 		super.onWindowFocusChanged(hasFocus);
 	}
 	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	
+		super.onDestroy();
+	}
+
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	
+		super.onPause();
+	}
 }

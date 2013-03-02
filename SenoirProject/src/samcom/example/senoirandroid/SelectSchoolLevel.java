@@ -7,10 +7,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +23,7 @@ public class SelectSchoolLevel extends Activity implements OnGestureListener {
 
 	String CurrentUser;
 	Context context = this;
-	MediaPlayer instructPage;
+	MediaPlayer instructPage,soundMain;
 	
 	GestureDetector gd;
 	private static final int SWIPE_MIN_DISTANCE = 120;
@@ -34,13 +32,19 @@ public class SelectSchoolLevel extends Activity implements OnGestureListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	requestWindowFeature(Window.FEATURE_NO_TITLE);
-	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	setContentView(R.layout.activity_select_level);
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.activity_select_level);
+		
+		soundMain = MediaPlayer.create(context, R.raw.main);
+		soundMain.start();
+		soundMain.setLooping(true);
+		soundMain.setVolume(30, 30);
+		
 		gd = new GestureDetector(this, this);
 		instructPage = MediaPlayer.create(context, R.raw.select_level);
-		selectLevel();
+		selectLevel();	
 	
 	}	
 	
@@ -273,14 +277,29 @@ public class SelectSchoolLevel extends Activity implements OnGestureListener {
 		instructPage.start();
 		super.onWindowFocusChanged(hasFocus);
 	}
-
+	
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		//stop sound
-		
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	if(instructPage.isPlaying()){
+    		instructPage.stop();
+    	}
 		super.onDestroy();
 	}
-	
-	
+
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	if(instructPage.isPlaying()){
+    		instructPage.stop();
+    	}
+		super.onPause();
+	}
 }

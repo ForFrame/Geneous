@@ -1,15 +1,23 @@
 package samcom.example.senoirandroid;
 
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
+import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -25,8 +33,10 @@ import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -58,17 +68,32 @@ SQLiteDatabase db;
 
 /** Called when the activity is first created. */
 		
-
 	@Override
  	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	   	super.onCreate(savedInstanceState);
+	   	
+		//Get screen size in inches
+	//	DisplayMetrics dm = new DisplayMetrics();
+	//	getWindowManager().getDefaultDisplay().getMetrics(dm);
+	//	double x = Math.pow(dm.widthPixels/dm.xdpi,2);
+	//	double y = Math.pow(dm.heightPixels/dm.ydpi,2);
+	//	double screenInches = Math.sqrt(x+y);
+		
+		
+	//    if(screenInches > 7){
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-			
-		setContentView(R.layout.activity_main);
+		
+		
+			setContentView(R.layout.activity_main);
+	//	}
+		
 		instrucMain = MediaPlayer.create(context2, R.raw.select_mode);
 		instrucMain.setVolume(50, 50);
 		soundMain = MediaPlayer.create(context2, R.raw.main);
+		soundMain.start();
+		soundMain.setLooping(true);
+		soundMain.setVolume(30, 30);
 		
 		int valueShowPopup = 0;
 		//int backToMain = 0;
@@ -77,17 +102,12 @@ SQLiteDatabase db;
 			valueShowPopup = extras.getInt("showPopup");
 			//backToMain = extras.getInt("ToMain");
 		}
-		else{
-			soundMain.start();
-			soundMain.setLooping(true);
-			soundMain.setVolume(30, 30);
-		}
-
 		
 		        
 		mainPage(valueShowPopup);
 	}
 	
+	   
 	void mainPage(int valueLogin){
 		
 		final myDBClass myDb = new myDBClass(this);
@@ -147,9 +167,6 @@ SQLiteDatabase db;
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				instrucMain.stop();
-				//soundMain.stop();
-				myDb.ChangeHome(1);
 				Intent intent = new Intent(Main.this,SelectPoliceLevel.class);
 				startActivity(intent);
 			}
@@ -162,9 +179,6 @@ SQLiteDatabase db;
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				instrucMain.stop();
-				//soundMain.stop();
-				myDb.ChangeHome(1);
 				Intent intent = new Intent(Main.this,SelectMarketLevel.class);
 				startActivity(intent);
 			}
@@ -177,9 +191,6 @@ SQLiteDatabase db;
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				instrucMain.stop();
-				//soundMain.stop();
-				myDb.ChangeHome(1);
 				Intent intent = new Intent(Main.this,SelectHouseLevel.class);
 				startActivity(intent);
 			}
@@ -192,9 +203,6 @@ SQLiteDatabase db;
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				instrucMain.stop();
-				//soundMain.stop();
-				myDb.ChangeHome(1);
 				Intent intent = new Intent(Main.this,SelectSchoolLevel.class);
 				startActivity(intent);
 			}
@@ -207,9 +215,6 @@ SQLiteDatabase db;
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				instrucMain.stop();
-				soundMain.stop();
-				myDb.ChangeHome(1);
 				Intent intent = new Intent(Main.this,FarmLevel1.class);
 				startActivity(intent);
 			}
@@ -223,9 +228,6 @@ SQLiteDatabase db;
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				instrucMain.stop();
-				soundMain.stop();
-				myDb.ChangeHome(1);
 				Intent intent = new Intent(Main.this,HospitalLevel1.class);
 				startActivity(intent);
 			}
@@ -386,8 +388,6 @@ SQLiteDatabase db;
 				else{
 					chooseSex = 0;
 				}
-				
-			   	
 				
 				//Select age (2-6 year)	
 				Spinner spin1 = (Spinner)RegisPop.findViewById(R.id.ageSelection);
@@ -786,8 +786,6 @@ SQLiteDatabase db;
 			          }
 		});
 		
-		
-		
 		//view high score
 		Button viewIvdHigh = (Button)GraphPop.findViewById(R.id.viewHighscore);
 		viewIvdHigh.setOnClickListener(new View.OnClickListener() {
@@ -799,8 +797,6 @@ SQLiteDatabase db;
 			}
 		});
 		
-		
-	
 		Button viewIvdGraph = (Button)GraphPop.findViewById(R.id.viewGraph);
 		viewIvdGraph.setOnClickListener(new View.OnClickListener() {
 			
@@ -934,28 +930,43 @@ SQLiteDatabase db;
         GraphPop.show();
 
 	}
-	public boolean onTouchEvent (MotionEvent event) {
-		
-		
-		//InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-    	//	imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
 
-    	
-		return super.onTouchEvent(event);
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        	AlertDialog.Builder builder = new AlertDialog.Builder(Main.this);
+        		builder.setMessage(" ต้องการจะออกจากโปรแกรมหรือไม่ ")
+        	    .setCancelable(false)
+        	    .setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+        	         public void onClick(DialogInterface dialog, int id) {
+        	        	if(soundMain.isLooping()){
+    	            		soundMain.stop();
+    	            	}
+    	            	if(instrucMain.isPlaying()){
+    	            		instrucMain.stop();
+    	            	}
+        	        	 Main.this.finish();
+        	         }
+        	    })
+        	    .setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+        	         public void onClick(DialogInterface dialog, int id) {
+        	             dialog.cancel();
+        	         }
+        	    });
+        	AlertDialog alert = builder.create();
+        	alert.show();       
+        	return false;
+        }
+	    return super.onKeyDown(keyCode, event);
 	}
-	
-	@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }
-	
+
 	@Override
 	protected void onRestart() {
 		// TODO Auto-generated method stub
-		final myDBClass myDb = new myDBClass(this);
-		myDb.getWritableDatabase();
-		myDb.ChangeHome(0);
+		soundMain = MediaPlayer.create(context2, R.raw.main);
+		soundMain.start();
+		soundMain.setLooping(true);
+		soundMain.setVolume(30, 30);
 		mainPage(0);
 		
 		super.onRestart();
@@ -964,11 +975,26 @@ SQLiteDatabase db;
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	if(instrucMain.isPlaying()){
+    		instrucMain.stop();
+    	}
 		super.onDestroy();
 	}
-	
-	
-	
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	if(instrucMain.isPlaying()){
+    		instrucMain.stop();
+    	}
+		super.onPause();
+	}
 	
 }
 

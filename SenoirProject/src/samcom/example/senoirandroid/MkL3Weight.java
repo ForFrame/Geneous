@@ -41,7 +41,7 @@ public class MkL3Weight extends Activity {
 	int timeRemain;
 	int Round;
 	int Begin = 1;
-	MediaPlayer instructPage;
+	MediaPlayer instructPage,soundMain;
 	
 	public class MyCountDown extends CountDownTimer {
 		public MyCountDown(long millisInFuture, long countDownInterval) {
@@ -71,6 +71,11 @@ public class MkL3Weight extends Activity {
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	setContentView(R.layout.market_l3_plus_scales);
+	
+	soundMain = MediaPlayer.create(context, R.raw.main);
+	soundMain.start();
+	soundMain.setLooping(true);
+	soundMain.setVolume(30, 30);
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -424,10 +429,8 @@ public class MkL3Weight extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(MkL3Weight.this,MarketLevel2.class);
+				Intent intent = new Intent(MkL3Weight.this,MarketLevel3.class);
 				startActivity(intent);
-				
-				//finish();
 				
 			}
 		});
@@ -582,5 +585,30 @@ public class MkL3Weight extends Activity {
 		}
 		
 		super.onWindowFocusChanged(hasFocus);
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	if(instructPage.isPlaying()){
+    		instructPage.stop();
+    	}
+		super.onDestroy();
+	}
+
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+    		soundMain.stop();
+    	}
+    	if(instructPage.isPlaying()){
+    		instructPage.stop();
+    	}
+		super.onPause();
 	}
 }
