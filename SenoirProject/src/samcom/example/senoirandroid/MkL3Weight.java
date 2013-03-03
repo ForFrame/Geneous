@@ -464,6 +464,7 @@ public class MkL3Weight extends Activity {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
 				Intent intent = new Intent(MkL3Weight.this,Main.class);
+				intent.putExtra("showPopup", 1);
 				startActivity(intent);
 				
 			}

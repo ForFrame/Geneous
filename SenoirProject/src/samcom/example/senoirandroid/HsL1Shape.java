@@ -448,7 +448,7 @@ public class HsL1Shape extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(HsL1Shape.this,MarketLevel2.class);
+				Intent intent = new Intent(HsL1Shape.this,HouseLevel1.class);
 				startActivity(intent);
 				
 				//finish();
@@ -484,7 +484,7 @@ public class HsL1Shape extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(HsL1Shape.this,MkL3Weight.class);
+				Intent intent = new Intent(HsL1Shape.this,HsL2Match.class);
 				startActivity(intent);
 				
 			}

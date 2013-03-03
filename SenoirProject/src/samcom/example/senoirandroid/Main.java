@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -63,20 +64,22 @@ SQLiteDatabase db;
 	   	super.onCreate(savedInstanceState);
 	   	
 		//Get screen size in inches
-	//	DisplayMetrics dm = new DisplayMetrics();
-	//	getWindowManager().getDefaultDisplay().getMetrics(dm);
-	//	double x = Math.pow(dm.widthPixels/dm.xdpi,2);
-	//	double y = Math.pow(dm.heightPixels/dm.ydpi,2);
-	//	double screenInches = Math.sqrt(x+y);
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
+		double x = Math.pow(dm.widthPixels/dm.xdpi,2);
+		double y = Math.pow(dm.heightPixels/dm.ydpi,2);
+		double screenInches = Math.sqrt(x+y);
 		
 		
-	//    if(screenInches > 7){
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		
-		
+	    if(screenInches > 7){
+		//requestWindowFeature(Window.FEATURE_NO_TITLE);
+		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 			setContentView(R.layout.activity_main);
-	//	}
+		}
+	    else{
+	    	setContentView(R.layout.small_activity_main);
+	    }
 		
 		instrucMain = MediaPlayer.create(context2, R.raw.select_mode);
 		instrucMain.setVolume(50, 50);
@@ -673,10 +676,10 @@ SQLiteDatabase db;
 			        String game[] = selected.split(" ");
 			        String gameNo = game[0];
 			        setPostionSelected(selected,pos);
-			        String[] series1Numbers = {"1","2","3","4","5"};
-
+			        String[] series1Numbers = {"0","0","0","0","0"};
+			        double[] scores = {0,0,0,0,0};
 			        //lengths = myDb.getIdvHighScore(gameNo,CurrentUser,from);
-			        double[] scores = myDb.getIdvGraphScore(gameNo,CurrentUser,series1Numbers); 
+			        scores = myDb.getIdvGraphScore(gameNo,CurrentUser,series1Numbers); 
 			    
 					GraphicalView gv = createIntent(scores,series1Numbers);
 
@@ -702,8 +705,10 @@ SQLiteDatabase db;
 			            6, 0, 10, Color.BLACK, Color.BLACK);
 			        renderer.setXLabels(1);
 			        renderer.setYLabels(5);
-			        for(int i=0;i<5;i++){
-			        	renderer.addXTextLabel(i+1, series1Numbers[i]);
+			       
+			        for(int i=4;i>=0;i--){
+			        	if(!series1Numbers[i].equals("0"))
+			        		renderer.addXTextLabel(i+1, series1Numbers[i]);
 			        }
 
 			        int length = renderer.getSeriesRendererCount();
@@ -793,12 +798,12 @@ SQLiteDatabase db;
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
-		        String[] series1Numbers = {"1","2","3","4","5"};
+		        String[] series1Numbers = {"0","0","0","0","0"};
 		        String getCurrentSelected = gt.getText().toString();
 		        String game[] = getCurrentSelected.split(" ");
 		        String gameNo = game[0];
-		        
-		        double[] scores = myDb.getIdvGraphScore(gameNo,CurrentUser,series1Numbers); 
+		        double[] scores = {0,0,0,0,0}; 
+		        scores = myDb.getIdvGraphScore(gameNo,CurrentUser,series1Numbers); 
 		        
 		        GraphicalView gv = createIntent(scores,series1Numbers);
 
@@ -819,8 +824,10 @@ SQLiteDatabase db;
 			            6, 0, 10, Color.BLACK, Color.BLACK);
 			        renderer.setXLabels(1);
 			        renderer.setYLabels(5);
-			        for(int i=0;i<5;i++){
-			        	renderer.addXTextLabel(i+1, series1Numbers[i]);
+			       
+			        for(int i=4;i>=0;i--){
+			        	if(!series1Numbers[i].equals("0"))
+			        		renderer.addXTextLabel(i+1, series1Numbers[i]);
 			        }
 
 			        int length = renderer.getSeriesRendererCount();

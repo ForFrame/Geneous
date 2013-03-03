@@ -479,6 +479,7 @@ public class L1ScLongShort extends Activity {
 				dialog.dismiss();
 				
 				Intent intent = new Intent(L1ScLongShort.this,Main.class);
+				intent.putExtra("showPopup", 1);
 				startActivity(intent);
 				
 			}

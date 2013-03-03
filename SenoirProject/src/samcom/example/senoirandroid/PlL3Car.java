@@ -505,6 +505,7 @@ public class PlL3Car extends Activity {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
 				Intent intent = new Intent(PlL3Car.this,Main.class);
+				intent.putExtra("showPopup", 1);
 				startActivity(intent);
 				
 			}
