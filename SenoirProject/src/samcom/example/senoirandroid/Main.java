@@ -620,7 +620,6 @@ SQLiteDatabase db;
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//soundMain.stop();
 				HighPop.dismiss();
 				
 				TextView result = (TextView) findViewById(R.id.textUser);
