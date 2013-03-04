@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -312,8 +313,8 @@ SQLiteDatabase db;
 		RegissBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-	    		imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+				//InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+	    		//imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
 	    		
 	    		String name;	
 				EditText user = (EditText)LoginPop.findViewById(R.id.usertext);
@@ -349,8 +350,22 @@ SQLiteDatabase db;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 				
-		EditText user = (EditText)RegisPop.findViewById(R.id.regUsertext);
+		final EditText user = (EditText)RegisPop.findViewById(R.id.regUsertext);
 		user.setText(inputname);
+		
+		
+		user.setOnFocusChangeListener(new View.OnFocusChangeListener(){ 
+			 public void onFocusChange(View v, boolean hasFocus) { 
+				 if (hasFocus) { 
+					 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE); 
+					 imm.showSoftInput(user, InputMethodManager.SHOW_IMPLICIT); 
+				 }
+				 else{
+					 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+					 imm.hideSoftInputFromWindow(user.getWindowToken(), 0);
+				 }
+			 } 
+		});
 		
 		//Regis Button
 		Button RegissBt = (Button)RegisPop.findViewById(R.id.regisBt);
@@ -445,7 +460,24 @@ SQLiteDatabase db;
 				showLoginPopup();
 			}
 		});
+		/*
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
 		
+		RegisPop.dispatchTouchEvent(MotionEvent event){
+			 public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Builder builder = new AlertDialog.Builder(self);
+                    builder.setTitle("You Touched!");
+                    builder.setIcon(R.drawable.icon);
+                    builder.setMessage("EventX: " + event.getX() + ". Event Y: " + event.getY());
+                                       
+                    builder.show();
+                    return false;
+            }
+			return super.onTouchEvent(event);
+		};
+		*/
 		RegisPop.show();
 	}
 	//Play popup
@@ -521,6 +553,10 @@ SQLiteDatabase db;
 		final Typeface type2 = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		gt.setTypeface(type2);
 		
+		Button viewIvdHigh = (Button)HighPop.findViewById(R.id.viewHighscore);
+		Button viewIvdGraph = (Button)HighPop.findViewById(R.id.viewGraph);
+		viewIvdHigh.setClickable(false);
+		viewIvdGraph.setClickable(true);
 
 		if(!selectedGame.equals("")){
 			spin1.setSelection(GameNoSelected);
@@ -566,7 +602,7 @@ SQLiteDatabase db;
 				gt.setText("เลือกเกมส์ที่ต้องการ");
 			}
 		});
-		
+	/*	
 		//view high score
 		Button viewIvdHigh = (Button)HighPop.findViewById(R.id.viewHighscore);
 		viewIvdHigh.setOnClickListener(new View.OnClickListener() {
@@ -603,9 +639,8 @@ SQLiteDatabase db;
 			}
 		});
 		
-		
-		
-		Button viewIvdGraph = (Button)HighPop.findViewById(R.id.viewGraph);
+	*/	
+		//view graph
 		viewIvdGraph.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
@@ -664,25 +699,38 @@ SQLiteDatabase db;
 			gt.setText(selectedGame);
 		}
 
+		Button viewIvdHigh = (Button)GraphPop.findViewById(R.id.viewHighscore);
+		Button viewIvdGraph = (Button)GraphPop.findViewById(R.id.viewGraph);
+		viewIvdHigh.setClickable(true);
+		viewIvdGraph.setClickable(false);
 		
 		spin1.setOnItemSelectedListener(new OnItemSelectedListener() {
+			
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 			        
 					String selected = spin1.getItemAtPosition(pos).toString();
 					gt.setTypeface(type2);
 			    	gt.setText(selected);
-    
+			    	
 			        String game[] = selected.split(" ");
 			        String gameNo = game[0];
 			        setPostionSelected(selected,pos);
 			        String[] series1Numbers = {"0","0","0","0","0"};
 			        double[] scores = {0,0,0,0,0};
 			        //lengths = myDb.getIdvHighScore(gameNo,CurrentUser,from);
-			        scores = myDb.getIdvGraphScore(gameNo,CurrentUser,series1Numbers); 
-			    
-					GraphicalView gv = createIntent(scores,series1Numbers);
+			        int lengths = myDb.getIdvGraphScore(gameNo,CurrentUser,series1Numbers,scores); 
+			        double[] ivdscores = new double[lengths];
+			        String[] ivdround = new String[lengths];
+			        int j = lengths-1;
+			        for(int i = 0;i<lengths;i++){
+			        	ivdscores[i] = scores[j];
+			        	ivdround[i] = series1Numbers[j];
+			        	j--;
+			        }
+					GraphicalView gv = createIntent(ivdscores,ivdround);
 
 					LinearLayout rl = (LinearLayout)GraphPop.findViewById(R.id.Graphlayout);
+					rl.clearAnimation();
 					rl.addView(gv);
 
 			}
@@ -704,12 +752,18 @@ SQLiteDatabase db;
 			            6, 0, 10, Color.BLACK, Color.BLACK);
 			        renderer.setXLabels(1);
 			        renderer.setYLabels(5);
-			       
+			       /*
 			        for(int i=4;i>=0;i--){
 			        	if(!series1Numbers[i].equals("0"))
 			        		renderer.addXTextLabel(i+1, series1Numbers[i]);
 			        }
-
+					*/
+			        
+			        for(int i=4;i>=0;i--){
+			        	if(!series1Numbers[i].equals("0"))
+			        		renderer.addXTextLabel(i+1, series1Numbers[i]);
+			        }
+			        
 			        int length = renderer.getSeriesRendererCount();
 			        for (int i = 0; i < length; i++) {
 			          SimpleSeriesRenderer seriesRenderer = renderer.getSeriesRendererAt(i);
@@ -730,12 +784,14 @@ SQLiteDatabase db;
 			            renderer.setLegendTextSize(15);
 			            renderer.setBarSpacing(1);
 			             
-			            renderer.setMarginsColor(Color.parseColor("#EEEDED"));
+			            //renderer.setMarginsColor(Color.parseColor("#EEEDED"));
+			            renderer.setMarginsColor(Color.parseColor("#FCBD4C"));
 			            renderer.setXLabelsColor(Color.BLACK);
 			            renderer.setYLabelsColor(0,Color.BLACK);
 			             
 			            renderer.setApplyBackgroundColor(true);
 			            renderer.setBackgroundColor(Color.parseColor("#FBFBFC"));
+			            //renderer.setBackgroundColor(Color.parseColor("#FCBD4C"));
 			             
 			            int length = colors.length;
 			            for (int i = 0; i < length; i++) {
@@ -781,7 +837,6 @@ SQLiteDatabase db;
 		});
 		
 		//view high score
-		Button viewIvdHigh = (Button)GraphPop.findViewById(R.id.viewHighscore);
 		viewIvdHigh.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
@@ -791,7 +846,8 @@ SQLiteDatabase db;
 			}
 		});
 		
-		Button viewIvdGraph = (Button)GraphPop.findViewById(R.id.viewGraph);
+		
+		/*
 		viewIvdGraph.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
@@ -898,7 +954,7 @@ SQLiteDatabase db;
 			            renderer.setLabelsColor(labelsColor);
 			          }
 		});
-	
+	*/
         Button skipButton = (Button)GraphPop.findViewById(R.id.button1);
 		skipButton.setOnClickListener(new View.OnClickListener() {
 

@@ -120,7 +120,7 @@ public class HouseLevel2 extends Activity implements OnGestureListener {
 			 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(HouseLevel2.this,HsL1Shape.class);
+				Intent intent = new Intent(HouseLevel2.this,HsL2Match.class);
 				startActivity(intent);
 			}
 		});
@@ -159,7 +159,7 @@ public class HouseLevel2 extends Activity implements OnGestureListener {
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
 		gt.setTypeface(type);
-		gt.setText("เกมส์มารู้จักการอาหารมีประโยชน์หรือโทษกันเถอะ");
+		gt.setText("มารู้จักอาชีพในชุมชนของเรากันเถอะ");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 

@@ -72,7 +72,7 @@ public void onCreate(SQLiteDatabase db) {
 		
 		String[] gameName = {"เกมส์มานับโต๊ะกันเถอะ","เกมส์สีประจำวันทั้ง 7 สีมีอะไรบ้างน้า","มารู้จักขนาดสั้น-ยาวกันเถอะ","มารู้จักการใช้ถนนกันเถอะ",
 				"ใกล้-ไกลคืออะไรน้า","มารู้จักยานพาหนะประเภทต่างๆกันเถอะ","มานับเหรียญกันเถอะ","ควรเลือกรับประทานอาหารอะไรดีน้า",
-				"มารู้จักการใช้เงินกันเถอะ","มารู้จักการนับเลขและสีต่างๆกันเถอะ","เครื่องใช้ไฟฟ้ามีประโยชน์ยังไงน้า","มารู้จักอาชีพในชุมชนของเรากันเถอะ",
+				"มารู้จักการใช้เงินกันเถอะ","มารู้จักการนับเลขและสีต่างๆกันเถอะ","มารู้จักอาชีพในชุมชนของเรากันเถอะ","เครื่องใช้ไฟฟ้ามีประโยชน์ยังไงน้า",
 				"มารู้จักร่างการของเรากันเถอะ","เมื่อเราป่วยควรทำยังไงเอ่ย","แต่ละฤดูต่างกันยังไงน้า","มานับจำนวนสัตว์กันเถอะ","เงานี้เป็นของใครน้า","รู้ไหมเอ่ยว่าสัตว์มีกี่ประเภท"};
 		
 		int level=1;
@@ -594,10 +594,10 @@ int getIdvHighScore(String game,String name,String value[][]){
 }
 
 @SuppressWarnings("null")
-double[] getIdvGraphScore(String game,String name,String[] Round){
+int getIdvGraphScore(String game,String name,String[] Round,double[] score){
 	
 	int i=0;
-	double[] score = new double[5];
+	
 	
 	try{
 		int roundd,scores;
@@ -605,9 +605,9 @@ double[] getIdvGraphScore(String game,String name,String[] Round){
 		db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery("SELECT Round, Sum(Score) FROM scItem WHERE GameNo = '"+game+"'and Username = '"+name+"' Group by Round Order by Round DESC;", null);
 		//SELECT Round, Username, Sum(Time), Sum(Score) FROM scItem WHERE GameNo = '001' Group by Round;
-	   
+	   i = 0;
 		if(cursor != null){
-			i=0;
+			
 			cursor.moveToFirst();
 			while (i < 5) {
 				roundd = cursor.getInt(0);
@@ -615,19 +615,17 @@ double[] getIdvGraphScore(String game,String name,String[] Round){
 				scores = cursor.getInt(1);
 				double ansNum = scores;
 				score[i] = ansNum;
+				i++;
 		        cursor.moveToNext();
-		        i++;
+		       
 			}
 			cursor.close();
 		}
-		else{
-			i = 0;
-		}
 	    
 	}catch (Exception e){
-		i = 0;
+		//i = 0;
 	}
-	return score;
+	return i;
 }
 
 int getGameHighScore(String game,String value[][]){
