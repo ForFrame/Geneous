@@ -300,70 +300,70 @@ public class MkL2Money extends Activity {
 	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg1);
 			ans1.setBackgroundResource(R.drawable.ml2_choice1_1);
 			ans2.setBackgroundResource(R.drawable.ml2_choice1_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_1);
+			instructPage = MediaPlayer.create(context, R.raw.mk_ins2_1);
 		}
 		else if(random == 2){
 			answer = 1;
 	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg2);
 			ans1.setBackgroundResource(R.drawable.ml2_choice2_1);
 			ans2.setBackgroundResource(R.drawable.ml2_choice2_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_2);
+			instructPage = MediaPlayer.create(context, R.raw.mk_ins2_2);
 		}
 		else if(random == 3){
 			answer = 1;
 	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg3);
 			ans1.setBackgroundResource(R.drawable.ml2_choice3_1);
 			ans2.setBackgroundResource(R.drawable.ml2_choice3_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_3);
+			instructPage = MediaPlayer.create(context, R.raw.mk_ins2_3);
 		}
 		else if(random == 4){
 			answer = 2;
 	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg4);
 			ans1.setBackgroundResource(R.drawable.ml2_choice4_1);
 			ans2.setBackgroundResource(R.drawable.ml2_choice4_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
+			instructPage = MediaPlayer.create(context, R.raw.mk_ins2_4);
 		}
 		else if(random == 5){
 			answer = 1;
 	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg5);
 			ans1.setBackgroundResource(R.drawable.ml2_choice5_1);
 			ans2.setBackgroundResource(R.drawable.ml2_choice5_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
+			instructPage = MediaPlayer.create(context, R.raw.mk_ins2_5);
 		}
 		else if(random == 6){
 			answer = 2;
 	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg6);
 			ans1.setBackgroundResource(R.drawable.ml2_choice6_1);
 			ans2.setBackgroundResource(R.drawable.ml2_choice6_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
+			instructPage = MediaPlayer.create(context, R.raw.mk_ins2_6);
 		}
 		else if(random == 7){
 			answer = 2;
 	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg7);
 			ans1.setBackgroundResource(R.drawable.ml2_choice7_1);
 			ans2.setBackgroundResource(R.drawable.ml2_choice7_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_7);
+			instructPage = MediaPlayer.create(context, R.raw.mk_ins2_7);
 		}
 		else if(random == 8){
 			answer = 1;
 	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg8);
 			ans1.setBackgroundResource(R.drawable.ml2_choice8_1);
 			ans2.setBackgroundResource(R.drawable.ml2_choice8_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_8);
+			instructPage = MediaPlayer.create(context, R.raw.mk_ins2_8);
 		}
 		else if(random == 9){
 			answer = 2;
 	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg9);
 			ans1.setBackgroundResource(R.drawable.ml2_choice9_1);
 			ans2.setBackgroundResource(R.drawable.ml2_choice9_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_9);
+			instructPage = MediaPlayer.create(context, R.raw.mk_ins2_9);
 		}
 		else{
 			answer = 1;
 	    	Thislayout.setBackgroundResource(R.drawable.ml2_bg10);
 			ans1.setBackgroundResource(R.drawable.ml2_choice10_1);
 			ans2.setBackgroundResource(R.drawable.ml2_choice10_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
+			instructPage = MediaPlayer.create(context, R.raw.mk_ins2_10);
 		}
 		
 		return answer;
@@ -502,7 +502,7 @@ public class MkL2Money extends Activity {
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
-		soundIns = MediaPlayer.create(context, R.raw.ins_pll2_5);
+		soundIns = MediaPlayer.create(context, R.raw.mk_ins2_1);
 		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(MkL2Money.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);

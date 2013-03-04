@@ -158,7 +158,7 @@ public class MarketLevel3 extends Activity implements OnGestureListener {
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
 		gt.setTypeface(type);
-		gt.setText("เกมส์มารู้จักการอาหารมีประโยชน์หรือโทษกันเถอะ");
+		gt.setText("009  เกมส์มารู้จักการตาชั่งกันเถอะ");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 

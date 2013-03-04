@@ -164,7 +164,7 @@ public class SchoolLevel1 extends Activity implements OnGestureListener {
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
 		gt.setTypeface(type);
-		gt.setText("‡°¡ Ï¡“π—∫‚µÍ–°—π‡∂Õ–");
+		gt.setText("001  ‡°¡ Ï¡“π—∫‚µÍ–°—π‡∂Õ–");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 

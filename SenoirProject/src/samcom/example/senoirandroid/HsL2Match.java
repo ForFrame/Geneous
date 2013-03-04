@@ -45,13 +45,13 @@ public class HsL2Match extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�?à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹€à¸˜â€”à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�?à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹‚â‚¬â€�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹€à¸˜â€œà¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹€à¸˜â€™à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�?à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�?à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�?à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹€à¸˜â€�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�
+		public void onFinish() { 
 		// TODO Auto-generated method stub
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�?à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�?à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹‚â‚¬â€�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹€à¸˜â€¢à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹‚â‚¬â€�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹€à¸˜â€œà¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹€à¸˜â€™à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹‚â‚¬â€�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�?à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸� à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸� à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�?à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹€à¸˜â€˜à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�à¹€à¸™â‚¬à¹�à¸Ÿà¸�?à¹�à¸Ÿà¸�
+		public void onTick(long remain) { 
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textTime);
@@ -313,7 +313,7 @@ public class HsL2Match extends Activity {
 	    		ans2.setBackgroundResource(R.drawable.hs_l2_ans1_1);
 	    	}
 
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_1);
+			instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
 		}
 		else if(random == 2){
 			Thislayout.setBackgroundResource(R.drawable.hs_l2_bg2);
@@ -326,7 +326,7 @@ public class HsL2Match extends Activity {
 	    		ans2.setBackgroundResource(R.drawable.hs_l2_ans2_2);
 	    	}
 
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_2);
+	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
 		}
 		else if(random == 3){
 			Thislayout.setBackgroundResource(R.drawable.hs_l2_bg3);
@@ -338,7 +338,7 @@ public class HsL2Match extends Activity {
 	    		ans1.setBackgroundResource(R.drawable.hs_l2_ans3_1);
 	    		ans2.setBackgroundResource(R.drawable.hs_l2_ans3_2);
 	    	}
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_3);
+	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
 		}
 		else if(random == 4){
 			Thislayout.setBackgroundResource(R.drawable.hs_l2_bg4);
@@ -350,7 +350,7 @@ public class HsL2Match extends Activity {
 	    		ans1.setBackgroundResource(R.drawable.hs_l2_ans4_2);
 	    		ans2.setBackgroundResource(R.drawable.hs_l2_ans4_1);
 	    	}
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
+	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
 		}
 		else if(random == 5){
 			Thislayout.setBackgroundResource(R.drawable.hs_l2_bg5);
@@ -362,7 +362,7 @@ public class HsL2Match extends Activity {
 	    		ans1.setBackgroundResource(R.drawable.hs_l2_ans5_1);
 	    		ans2.setBackgroundResource(R.drawable.hs_l2_ans5_2);
 	    	}
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
+	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
 		}
 		else if(random == 6){
 			Thislayout.setBackgroundResource(R.drawable.hs_l2_bg6);
@@ -374,7 +374,7 @@ public class HsL2Match extends Activity {
 	    		ans1.setBackgroundResource(R.drawable.hs_l2_ans6_2);
 	    		ans2.setBackgroundResource(R.drawable.hs_l2_ans6_1);
 	    	}
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
+	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
 		}
 		else if(random == 7){
 			Thislayout.setBackgroundResource(R.drawable.hs_l2_bg7);
@@ -386,7 +386,7 @@ public class HsL2Match extends Activity {
 	    		ans1.setBackgroundResource(R.drawable.hs_l2_ans7_1);
 	    		ans2.setBackgroundResource(R.drawable.hs_l2_ans7_2);
 	    	}
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_7);
+	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
 		}
 		else if(random == 8){
 			Thislayout.setBackgroundResource(R.drawable.hs_l2_bg8);
@@ -398,7 +398,7 @@ public class HsL2Match extends Activity {
 	    		ans1.setBackgroundResource(R.drawable.hs_l2_ans8_1);
 	    		ans2.setBackgroundResource(R.drawable.hs_l2_ans8_2);
 	    	}
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_8);
+	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
 		}
 		else if(random == 9){
 			Thislayout.setBackgroundResource(R.drawable.hs_l2_bg9);
@@ -410,7 +410,7 @@ public class HsL2Match extends Activity {
 	    		ans1.setBackgroundResource(R.drawable.hs_l2_ans9_2);
 	    		ans2.setBackgroundResource(R.drawable.hs_l2_ans9_1);
 	    	}
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_9);
+	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
 		}
 		else{
 			Thislayout.setBackgroundResource(R.drawable.hs_l2_bg10);
@@ -422,7 +422,7 @@ public class HsL2Match extends Activity {
 	    		ans1.setBackgroundResource(R.drawable.hs_l2_ans10_2);
 	    		ans2.setBackgroundResource(R.drawable.hs_l2_ans10_1);
 	    	}
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
+	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
 		}
 		
 		return answer;
@@ -520,7 +520,7 @@ public class HsL2Match extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(HsL2Match.this,MkL3Weight.class);
+				Intent intent = new Intent(HsL2Match.this,HsL3Job.class);
 				startActivity(intent);
 				
 			}
@@ -562,7 +562,7 @@ public class HsL2Match extends Activity {
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
-		soundIns = MediaPlayer.create(context, R.raw.ins_pll2_5);
+		soundIns = MediaPlayer.create(context, R.raw.hs_ins2);
 		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(HsL2Match.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);

@@ -160,7 +160,7 @@ public class HouseLevel3 extends Activity implements OnGestureListener {
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
 		gt.setTypeface(type);
-		gt.setText("เกมส์มารู้จักการอาหารมีประโยชน์หรือโทษกันเถอะ");
+		gt.setText("012  เกมส์มารู้จักอาชีพต่างๆในชุมชนกันน้า");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 

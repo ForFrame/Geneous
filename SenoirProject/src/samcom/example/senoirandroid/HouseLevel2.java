@@ -55,11 +55,11 @@ public class HouseLevel2 extends Activity implements OnGestureListener {
 		soundMain.setLooping(true);
 		soundMain.setVolume(30, 30);
 		
-		houseLevel1();
+		houseLevel2();
 		
 	
 	}
-	void houseLevel1(){
+	void houseLevel2(){
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -159,7 +159,7 @@ public class HouseLevel2 extends Activity implements OnGestureListener {
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
 		gt.setTypeface(type);
-		gt.setText("มารู้จักอาชีพในชุมชนของเรากันเถอะ");
+		gt.setText("011  เกมส์มารู้จักความสัมพันธ์ของอาชีพกันเถอะ");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 
@@ -192,7 +192,7 @@ public class HouseLevel2 extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				HighPop.dismiss();
-				houseLevel1();
+				houseLevel2();
 			}
 		});
         

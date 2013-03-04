@@ -63,7 +63,7 @@ SQLiteDatabase db;
 	@Override
  	public void onCreate(Bundle savedInstanceState) {
 	   	super.onCreate(savedInstanceState);
-	   	
+	/*   	
 		//Get screen size in inches
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -73,14 +73,15 @@ SQLiteDatabase db;
 		
 		
 	    if(screenInches > 7){
+	*/
 		//requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 			setContentView(R.layout.activity_main);
-		}
-	    else{
-	    	setContentView(R.layout.small_activity_main);
-	    }
+	//	}
+	//    else{
+	//    	setContentView(R.layout.small_activity_main);
+	//    }
 		
 		instrucMain = MediaPlayer.create(context2, R.raw.select_mode);
 		instrucMain.setVolume(50, 50);

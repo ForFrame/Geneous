@@ -158,7 +158,7 @@ public class SchoolLevel3 extends Activity implements OnGestureListener {
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		TextView gt = (TextView)HighPop.findViewById(R.id.GameText);
 		gt.setTypeface(type);
-		gt.setText("เกมส์มารู้จักขนาดสั้น-ยาวกันเถอะ");
+		gt.setText("003  เกมส์มารู้จักขนาดสั้น-ยาวกันเถอะ");
 		
         ListView lv = (ListView)HighPop.findViewById(R.id.listview);
 

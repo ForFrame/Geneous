@@ -45,13 +45,13 @@ public class MkL1BestFood extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // เน€๏ฟฝ?๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ—เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ“เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?เธ’เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ”เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ
+		public void onFinish() { 
 		// TODO Auto-generated method stub
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ•เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ“เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?เธ’เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?โ€”เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ เน€๏ฟฝ?๏ฟฝ เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ‘เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ
+		public void onTick(long remain) { 
 		// TODO Auto-generated method stub
 			
 			TextView result = (TextView) findViewById(R.id.textTime);
@@ -286,8 +286,8 @@ public class MkL1BestFood extends Activity {
 			}
 		});
 		
-		Button nearfarButton = (Button)findViewById(R.id.bestfoodbackHome);
-		nearfarButton.setOnClickListener(new View.OnClickListener() {
+		Button bestfoodButton = (Button)findViewById(R.id.bestfoodbackHome);
+		bestfoodButton.setOnClickListener(new View.OnClickListener() {
 		
 		
 		public void onClick(View v) {
@@ -303,7 +303,7 @@ public class MkL1BestFood extends Activity {
 		
 		Button ans1 = (Button)findViewById(R.id.picans1);
 		Button ans2 = (Button)findViewById(R.id.picans2);
-		TextView ansView = (TextView)findViewById(R.id.picView);
+	
 		Random randomGenerator = new Random();
 		int Question = randomGenerator.nextInt(2)+1;
 		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.bestfoodLayout);
@@ -363,6 +363,7 @@ public class MkL1BestFood extends Activity {
 	    if(Question == 2)
 	    {	
 	    	Thislayout.setBackgroundResource(R.drawable.ml1_bad);
+	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins1_1);
 	    	if(answer == 1){
 	    		answer = 2;
 	    	}
@@ -374,7 +375,7 @@ public class MkL1BestFood extends Activity {
 	    else
 	    {	
 	    	Thislayout.setBackgroundResource(R.drawable.ml1_good);
-	    	
+	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins1_2);
 	    }
 	    
 		return answer;
@@ -514,7 +515,7 @@ public class MkL1BestFood extends Activity {
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
-		soundIns = MediaPlayer.create(context, R.raw.ins_pll2_5);
+		soundIns = MediaPlayer.create(context, R.raw.mk_ins1_2);
 		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(MkL1BestFood.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);

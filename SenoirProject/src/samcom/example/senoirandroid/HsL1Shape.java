@@ -299,94 +299,134 @@ public class HsL1Shape extends Activity {
 		answer = randomInt;
 	    
 	    if(random == 1){
-	    	if(answer == 1)
+	    	if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg3);
-	    	else
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
+	    	}
+	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg2);
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_3);
+	    	}
 			ans1.setBackgroundResource(R.drawable.house_lv1_ans1);
 			ans2.setBackgroundResource(R.drawable.house_lv1_ans2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_1);
+			
 		}
 		else if(random == 2){
-			if(answer == 1)
+			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg1);
-	    	else
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+			}
+	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg3);
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
+	    	}
 			ans1.setBackgroundResource(R.drawable.house_lv1_ans3);
 			ans2.setBackgroundResource(R.drawable.house_lv1_ans4);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_2);
+			
 		}
 		else if(random == 3){
-			if(answer == 1)
+			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg3);
-	    	else
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
+			}
+	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg1);
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+	    	}
 			ans1.setBackgroundResource(R.drawable.house_lv1_ans5);
 			ans2.setBackgroundResource(R.drawable.house_lv1_ans6);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_3);
+			
 		}
 		else if(random == 4){
-			if(answer == 1)
+			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg3);
-	    	else
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
+			}
+	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg2);
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_3);
+	    	}
 			ans1.setBackgroundResource(R.drawable.house_lv1_ans7);
 			ans2.setBackgroundResource(R.drawable.house_lv1_ans8);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
+			
 		}
 		else if(random == 5){
-			if(answer == 1)
+			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg2);
-	    	else
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_3);
+			}
+	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg1);
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
+	    	}
 			ans1.setBackgroundResource(R.drawable.house_lv1_ans9);
 			ans2.setBackgroundResource(R.drawable.house_lv1_ans10);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
+			
 		}
 		else if(random == 6){
-			if(answer == 1)
+			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg1);
-	    	else
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+			}
+	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg3);
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
+	    	}
 			ans1.setBackgroundResource(R.drawable.house_lv1_ans11);
 			ans2.setBackgroundResource(R.drawable.house_lv1_ans12);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
+			
 		}
 		else if(random == 7){
-			if(answer == 1)
+			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg2);
-	    	else
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_3);
+			}
+	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg1);
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+	    	}
 			ans1.setBackgroundResource(R.drawable.house_lv1_ans13);
 			ans2.setBackgroundResource(R.drawable.house_lv1_ans14);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_7);
+			
 		}
 		else if(random == 8){
-			if(answer == 1)
+			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg3);
-	    	else
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
+			}
+	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg1);
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+	    	}
 			ans1.setBackgroundResource(R.drawable.house_lv1_ans15);
 			ans2.setBackgroundResource(R.drawable.house_lv1_ans16);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_8);
+			
 		}
 		else if(random == 9){
-			if(answer == 1)
+			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg1);
-	    	else
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+			}
+	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg3);
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
+	    	}
 			ans1.setBackgroundResource(R.drawable.house_lv1_ans17);
 			ans2.setBackgroundResource(R.drawable.house_lv1_ans18);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_9);
+			
 		}
 		else{
-			if(answer == 1)
+			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg1);
-	    	else
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+			}
+	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.house_l1_bg3);
+	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
+	    	}
 			ans1.setBackgroundResource(R.drawable.house_lv1_ans19);
 			ans2.setBackgroundResource(R.drawable.house_lv1_ans20);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
+			
 		}
 		
 		return answer;
@@ -526,7 +566,7 @@ public class HsL1Shape extends Activity {
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
-		soundIns = MediaPlayer.create(context, R.raw.ins_pll2_5);
+		soundIns = MediaPlayer.create(context, R.raw.hs_ins1_2);
 		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(HsL1Shape.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);

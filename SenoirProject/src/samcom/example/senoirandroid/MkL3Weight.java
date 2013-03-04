@@ -305,7 +305,7 @@ public class MkL3Weight extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			countdownTime.cancel();
-			Intent intent = new Intent(MkL3Weight.this,MarketLevel2.class);
+			Intent intent = new Intent(MkL3Weight.this,MarketLevel3.class);
 			startActivity(intent);
 		}
 		});
@@ -313,61 +313,58 @@ public class MkL3Weight extends Activity {
 	
 	int choice(int random){
 		
-		//Button ans1 = (Button)findViewById(R.id.picans1);
-		//Button ans2 = (Button)findViewById(R.id.picans2);
-		
 		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.plusScalesLayout);
 		int answer=0;
 	    
 	    if(random == 1){
 	    	answer = 4;
 	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg1);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_1);
+			instructPage = MediaPlayer.create(context, R.raw.mk_ins3_1);
 		}
 		else if(random == 2){
 			answer = 0;
 	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_2);
+	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins3_2);
 		}
 		else if(random == 3){
 			answer = 7;
 	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg3);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_3);
+	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins3_1);
 		}
 		else if(random == 4){
 			answer = 9;
 	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg4);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
+	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins3_1);
 		}
 		else if(random == 5){
 			answer = 2;
 	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg5);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
+	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins3_2);
 		}
 		else if(random == 6){
 			answer = 5;
 	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg6);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
+	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins3_1);
 		}
 		else if(random == 7){
 			answer = 1;
 	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg7);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_7);
+	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins3_2);
 		}
 		else if(random == 8){
 			answer = 9;
 	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg8);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_8);
+	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins3_1);
 		}
 		else if(random == 9){
 			answer = 9;
 	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg9);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_9);
+	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins3_1);
 		}
 		else{
 			answer = 3;
 	    	Thislayout.setBackgroundResource(R.drawable.ml3_bg10);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
+	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins3_2);
 		}
 		
 		return answer;
@@ -504,7 +501,7 @@ public class MkL3Weight extends Activity {
 		BeginPop.setCanceledOnTouchOutside(false);
 		BeginPop.setCancelable(false); 
 		
-		soundIns = MediaPlayer.create(context, R.raw.ins_pll2_5);
+		soundIns = MediaPlayer.create(context, R.raw.mk_ins3_1);
 		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(MkL3Weight.this, R.anim.tween);
 		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);
