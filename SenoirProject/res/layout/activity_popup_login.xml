@@ -15,7 +15,7 @@
         android:layout_y="198dp"
         android:ems="10"
         android:hint="Username"
-        android:imeOptions="flagNoFullscreen"
+        android:imeOptions="actionNext|flagNoFullscreen"
         android:inputType="text"
         android:maxLength="10" />
 

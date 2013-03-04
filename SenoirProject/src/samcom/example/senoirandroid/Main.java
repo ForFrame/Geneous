@@ -346,14 +346,15 @@ SQLiteDatabase db;
 		RegisPop.setContentView(R.layout.activity_popup_regis);
 		RegisPop.setCanceledOnTouchOutside(false);
 		RegisPop.setCancelable(false); 
-		 
+		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 				
 		final EditText user = (EditText)RegisPop.findViewById(R.id.regUsertext);
 		user.setText(inputname);
 		
-		
+		user.setFocusable(true);
+		user.requestFocus();
 		user.setOnFocusChangeListener(new View.OnFocusChangeListener(){ 
 			 public void onFocusChange(View v, boolean hasFocus) { 
 				 if (hasFocus) { 
