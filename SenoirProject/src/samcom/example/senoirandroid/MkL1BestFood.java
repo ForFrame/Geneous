@@ -360,8 +360,7 @@ public class MkL1BestFood extends Activity {
 			ans2.setBackgroundResource(R.drawable.ml1_choice10_2);
 		}
 		
-	    if(Question == 2)
-	    {	
+	    if(Question == 2){	
 	    	Thislayout.setBackgroundResource(R.drawable.ml1_bad);
 	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins1_1);
 	    	if(answer == 1){

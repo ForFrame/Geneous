@@ -3,6 +3,7 @@ package samcom.example.senoirandroid;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
@@ -83,12 +84,18 @@ SQLiteDatabase db;
 	//    	setContentView(R.layout.small_activity_main);
 	//    }
 		
+		//final AudioManager mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+		//final int originalVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+		//mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
+		//MediaPlayer mp = new MediaPlayer();
+		//instrucMain.setAudioStreamType(AudioManager.STREAM_MUSIC);
 		instrucMain = MediaPlayer.create(context2, R.raw.select_mode);
-		instrucMain.setVolume(50, 50);
+		//instrucMain.setVolume(5, 5);
+		
 		soundMain = MediaPlayer.create(context2, R.raw.main);
 		soundMain.start();
 		soundMain.setLooping(true);
-		soundMain.setVolume(30, 30);
+		//soundMain.setVolume(100, 100);
 		
 		int valueShowPopup = 0;
 		//int backToMain = 0;
@@ -210,7 +217,7 @@ SQLiteDatabase db;
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(Main.this,FarmLevel1.class);
+				Intent intent = new Intent(Main.this,SelectMarketLevel.class);
 				startActivity(intent);
 			}
 		});
@@ -223,7 +230,7 @@ SQLiteDatabase db;
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(Main.this,HospitalLevel1.class);
+				Intent intent = new Intent(Main.this,SelectHouseLevel.class);
 				startActivity(intent);
 			}
 		});
