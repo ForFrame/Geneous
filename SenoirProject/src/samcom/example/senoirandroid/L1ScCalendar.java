@@ -30,6 +30,8 @@ public class L1ScCalendar extends Activity {
 	long startTime;
 	final Context context = this;
 	int timeRemain;
+	boolean firstSound;
+	boolean RunningCount = false;
 	int Round;
 	int Day = 1;
 	int ranDay=0;
@@ -50,13 +52,14 @@ public class L1ScCalendar extends Activity {
 		@Override
 		public void onFinish() { // เน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ—เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ�เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
+			RunningCount = false;
 			showTimeout();
 		}
 		
 		@Override
 		public void onTick(long remain) { // เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�โ€�เน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ•เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ�เน€เธ�๏ฟฝ เน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ‘เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
-			
+			RunningCount = true;
 			TextView result = (TextView) findViewById(R.id.textTime);
 			timeRemain = (int) (remain) / 1000;
 			result.setText(" Times: " + timeRemain);
@@ -91,15 +94,8 @@ public class L1ScCalendar extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-		if((Round == 1)||(username.equals("Guest"))){
+		game002();
 			
-			showBeginPopup();
-		}
-		else{
-			game002();
-		}
-	
-		
 		
 	}
 
@@ -184,6 +180,16 @@ public class L1ScCalendar extends Activity {
 			instructColor.stop();
 		}
 	}
+	
+	void stopTime(){
+		ImageView instructFing = (ImageView)findViewById(R.id.finger);
+		if(RunningCount == true){
+			countdownTime.cancel();
+			if(instructFing.isEnabled()){
+				instructFing.clearAnimation();
+			}
+		}	
+	}
 void checkAns(Boolean isInterupt){
 		Button ExtraInstruct = (Button)findViewById(R.id.charlen_int);
 		Button thai = (Button)findViewById(R.id.Sunday_thai);
@@ -204,18 +210,19 @@ void checkAns(Boolean isInterupt){
 		if(Day<8){	
 			answer = choice(Day);
 			startTime = (20)*1000;
-			instructThai.start();
+			//instructThai.start();
 		}
 		else{
 			answer = choiceExtra(isInterupt);
 			startTime = (30)*1000;
-			instructPage.start();
+			//instructPage.start();
 		}
 		
 		
-		countdownTime = new MyCountDown(startTime,1000);
+		//countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
+		timeRemain = (int)countTime;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		
@@ -251,7 +258,42 @@ void checkAns(Boolean isInterupt){
 				}
 			});
 		
-		countdownTime.start();
+			final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
+			final View helpAnswer = (View)findViewById(R.id.showAnswer);
+			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween_once);
+			final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween);
+			final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
+			if(Round == 1 || (username.equals("Guest") && Day == 1)){
+				instructThai.start();
+				firstSound = true;
+			}
+			else{
+				countdownTime = new MyCountDown(startTime,1000);
+				countdownTime.start();	
+				if(Day<8){	
+					instructThai.start();
+				}
+				else{
+					instructPage.start();
+				}
+			}
+			instructPage.setOnCompletionListener(new OnCompletionListener() {
+	            public void onCompletion(MediaPlayer soundCorrect) {
+	            	if(Round == 1 || (username.equals("Guest") && Day == 1)){
+	            		if(firstSound == true){
+	            			instructFinger.startAnimation(myFadeAnimation);
+	            			firstSound = false;
+	            		}
+	            		else{
+		            		helpAnswer.startAnimation(myFadeonceAnimation);
+		        			countdownTime = new MyCountDown(startTime,1000);
+		        			countdownTime.start();
+		        			instructFinger.clearAnimation();
+		            		soundAns.start();
+	            		}
+	            	}
+	            }
+	        });
 		
 				ans1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -259,14 +301,14 @@ void checkAns(Boolean isInterupt){
 						stopSound();
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundCorrect.start();
 							myDb.addItemScore("002",username,Round,Day,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundWrong.start();
 							myDb.addItemScore("002",username,Round,Day,0,(countTime - timeRemain));
 						}
@@ -279,14 +321,14 @@ void checkAns(Boolean isInterupt){
 						stopSound();
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundCorrect.start();
 							myDb.addItemScore("002",username,Round,Day,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundWrong.start();
 							myDb.addItemScore("002",username,Round,Day,0,(countTime - timeRemain));
 						}
@@ -298,14 +340,14 @@ void checkAns(Boolean isInterupt){
 						stopSound();
 						if(answer == 3){
 							imgCorrect.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundCorrect.start();
 							myDb.addItemScore("002",username,Round,Day,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundWrong.start();
 							myDb.addItemScore("002",username,Round,Day,0,(countTime - timeRemain));
 						}
@@ -318,28 +360,6 @@ void checkAns(Boolean isInterupt){
 		imgWrongClick.setClickable(false);
 		imgCorrectClick.setClickable(false);
 		
-		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween_once);
-		final View helpAnswer = (View)findViewById(R.id.helpCalendar);
-		/*
-		imgWrongClick.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				soundWrong.stop();
-				imgWrong.setVisibility(View.INVISIBLE);
-				Day++;
-				game002();
-			}
-		});
-		
-		imgCorrectClick.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				soundCorrect.stop();
-				imgCorrect.setVisibility(View.INVISIBLE);
-				Day++;
-				game002();
-			}
-		});
-		*/
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
@@ -373,10 +393,11 @@ void checkAns(Boolean isInterupt){
 		
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			countdownTime.cancel();
 			stopSound();
-			Intent intent = new Intent(L1ScCalendar.this,SchoolLevel2.class);
-			startActivity(intent);
+			stopTime();
+			Intent in = new Intent(L1ScCalendar.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);
 		}
 		});
 	}
@@ -643,10 +664,9 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(L1ScCalendar.this,SchoolLevel2.class);
-				startActivity(intent);
-				
-				//finish();
+				Intent in = new Intent(L1ScCalendar.this,Main.class);
+				in.putExtra("showPopup", 1);
+				startActivity(in);
 				
 			}
 		});
@@ -683,48 +703,7 @@ void checkAns(Boolean isInterupt){
 		dialog.show();
 
 	}	
-	
-	protected void showBeginPopup(){
-		final Dialog BeginPop = new Dialog(context, R.style.FullHeightDialog);
-		final MediaPlayer soundIns;
-		final MediaPlayer soundAns;
-		BeginPop.setContentView(R.layout.activity_l1_sc_calendar_tutorial);
-		BeginPop.setCanceledOnTouchOutside(false);
-		BeginPop.setCancelable(false); 
-		
-		soundIns = MediaPlayer.create(context, R.raw.sclv2_mon_thai);
-		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
-		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween);
-		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.answer);
-		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.hand);
-		
-		//soundWrong is instruction sound
-				instruct.startAnimation(myFadeAnimation);
-				soundIns.start();
-				
-				soundIns.setOnCompletionListener(new OnCompletionListener() {
-		            public void onCompletion(MediaPlayer soundIns) {
-		            	instruct.clearAnimation();
-		            	soundAns.start();
-		            	helpAns.startAnimation(myFadeAnimation);
-		            }
-		        });
-				
-				Button skipHelp = (Button)BeginPop.findViewById(R.id.bt_skip);
-				skipHelp.setOnClickListener(new View.OnClickListener() {
-					
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						soundIns.stop();
-						soundAns.stop();
-						//Begin = 2;
-						BeginPop.dismiss();
-						game002();
-					}
-				});
-			BeginPop.show();
-	}
-	
+
 	void showTimeout(){
 		
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
@@ -808,9 +787,10 @@ void checkAns(Boolean isInterupt){
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-        	countdownTime.cancel();
-			Intent intent = new Intent(L1ScCalendar.this,SchoolLevel1.class);
-			startActivity(intent);   
+        	stopTime();
+			Intent in = new Intent(L1ScCalendar.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);  
         	return false;
         }
 	    return super.onKeyDown(keyCode, event);

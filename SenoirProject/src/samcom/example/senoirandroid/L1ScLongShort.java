@@ -33,6 +33,8 @@ public class L1ScLongShort extends Activity {
 	long startTime;
 	final Context context = this;
 	int timeRemain;
+	boolean firstSound;
+	boolean RunningCount = false;
 	int Round;
 	int Day = 1;
 	MyCountDown countdownTime;
@@ -47,13 +49,14 @@ public class L1ScLongShort extends Activity {
 		@Override
 		public void onFinish() { // เน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ—เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ�เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
+			RunningCount = false;
 			showTimeout();
 		}
 		
 		@Override
 		public void onTick(long remain) { // เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�โ€�เน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ•เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ�เน€เธ�๏ฟฝ เน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ‘เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
-			
+			RunningCount = true;
 			TextView result = (TextView) findViewById(R.id.textTime);
 			timeRemain = (int) (remain) / 1000;
 			result.setText(" Times: " + timeRemain);
@@ -87,14 +90,7 @@ public class L1ScLongShort extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-		if((Round == 1)||(username.equals("Guest"))){
-			
-			showBeginPopup();
-		}
-		else{
-			game003();
-		}
-		
+		game003();
 		
 	}
 
@@ -183,6 +179,15 @@ public class L1ScLongShort extends Activity {
 		return randomInt;
 	}
 	
+	void stopTime(){
+		ImageView instructFing = (ImageView)findViewById(R.id.finger);
+		if(RunningCount == true){
+			countdownTime.cancel();
+			if(instructFing.isEnabled()){
+				instructFing.clearAnimation();
+			}
+		}	
+	}
 	void checkAnswer(final int RandomNum,final int item){
 		
 		Button longAns = (Button)findViewById(R.id.longpic);
@@ -204,17 +209,49 @@ public class L1ScLongShort extends Activity {
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(item +"/ 10");
 		
-		countdownTime.start();
+		
 		
 			answer = choice(RandomNum);
 			if(answer == 1){
 				instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_long);
-				instructPage.start();
+				//instructPage.start();
 			}
 			else{
 				instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_short);
+				//instructPage.start();
+			}
+			
+			final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
+			final View helpAnswer = (View)findViewById(R.id.showAnswer);
+			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween_once);
+			final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween);
+			final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
+			if(Round == 1 || (username.equals("Guest") && item == 1)){
+				instructPage.start();
+				firstSound = true;
+			}
+			else{
+				countdownTime = new MyCountDown(startTime,1000);
+				countdownTime.start();	
 				instructPage.start();
 			}
+			instructPage.setOnCompletionListener(new OnCompletionListener() {
+	            public void onCompletion(MediaPlayer soundCorrect) {
+	            	if(Round == 1 || (username.equals("Guest") && item == 1)){
+	            		if(firstSound == true){
+	            			instructFinger.startAnimation(myFadeAnimation);
+	            			firstSound = false;
+	            		}
+	            		else{
+		            		helpAnswer.startAnimation(myFadeonceAnimation);
+		        			countdownTime = new MyCountDown(startTime,1000);
+		        			countdownTime.start();
+		        			instructFinger.clearAnimation();
+		            		soundAns.start();
+	            		}
+	            	}
+	            }
+	        });
 			
 				longAns.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -222,14 +259,14 @@ public class L1ScLongShort extends Activity {
 						instructPage.stop();
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundCorrect.start();
 							myDb.addItemScore("003",username,Round,item,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundWrong.start();
 							myDb.addItemScore("003",username,Round,item,0,(countTime - timeRemain));
 						}
@@ -242,14 +279,14 @@ public class L1ScLongShort extends Activity {
 						instructPage.stop();
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundCorrect.start();
 							myDb.addItemScore("003",username,Round,item,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundWrong.start();
 							myDb.addItemScore("003",username,Round,item,0,(countTime - timeRemain));
 						}
@@ -262,28 +299,6 @@ public class L1ScLongShort extends Activity {
 		imgWrongClick.setClickable(false);
 		imgCorrectClick.setClickable(false);
 		
-		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween_once);
-		final View helpAnswer = (View)findViewById(R.id.helpLong);
-		/*
-		imgWrongClick.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				soundWrong.stop();
-				imgWrong.setVisibility(View.INVISIBLE);
-				
-				game003();
-			}
-		});
-		
-		imgCorrectClick.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				soundCorrect.stop();
-				imgCorrect.setVisibility(View.INVISIBLE);
-				
-				game003();
-			}
-		});
-		*/
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
@@ -316,9 +331,10 @@ public class L1ScLongShort extends Activity {
 		
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			countdownTime.cancel();
-			Intent intent = new Intent(L1ScLongShort.this,SchoolLevel3.class);
-			startActivity(intent);
+			stopTime();
+			Intent in = new Intent(L1ScLongShort.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);
 		}
 		});
 	}
@@ -443,8 +459,9 @@ public class L1ScLongShort extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(L1ScLongShort.this,SchoolLevel3.class);
-				startActivity(intent);
+				Intent in = new Intent(L1ScLongShort.this,Main.class);
+				in.putExtra("showPopup", 1);
+				startActivity(in);
 				
 			}
 		});
@@ -487,48 +504,7 @@ public class L1ScLongShort extends Activity {
 		dialog.show();
 
 	}	
-	
-	protected void showBeginPopup(){
-		final Dialog BeginPop = new Dialog(context, R.style.FullHeightDialog);
-		final MediaPlayer soundIns;
-		final MediaPlayer soundAns;
-		BeginPop.setContentView(R.layout.activity_l1_sc_longshort_tutorial);
-		BeginPop.setCanceledOnTouchOutside(false);
-		BeginPop.setCancelable(false); 
-		
-		soundIns = MediaPlayer.create(context, R.raw.ins_sclv3_short);
-		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
-		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween);
-		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.ansLong);
-		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.insLong);
-		
-		//soundWrong is instruction sound
-				instruct.startAnimation(myFadeAnimation);
-				soundIns.start();
-				
-				soundIns.setOnCompletionListener(new OnCompletionListener() {
-		            public void onCompletion(MediaPlayer soundIns) {
-		            	instruct.clearAnimation();
-		            	soundAns.start();
-		            	helpAns.startAnimation(myFadeAnimation);
-		            }
-		        });
-				
-				Button skipHelp = (Button)BeginPop.findViewById(R.id.bt_skip);
-				skipHelp.setOnClickListener(new View.OnClickListener() {
-					
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						soundIns.stop();
-						soundAns.stop();
-						//Begin = 2;
-						BeginPop.dismiss();
-						game003();
-					}
-				});
-			BeginPop.show();
-	}
-	
+
 	void showTimeout(){
 		
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
@@ -624,9 +600,10 @@ public class L1ScLongShort extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-        	countdownTime.cancel();
-			Intent intent = new Intent(L1ScLongShort.this,SchoolLevel3.class);
-			startActivity(intent);
+        	stopTime();
+			Intent in = new Intent(L1ScLongShort.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);
         	return false;
         }
 	    return super.onKeyDown(keyCode, event);

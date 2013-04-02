@@ -29,6 +29,8 @@ public class L1ScCount extends Activity {
 	static int found = -1;
 	static int randomInt;
 	long startTime;
+	boolean firstSound;
+	boolean RunningCount = false;
 	final Context context = this;
 	String username;
 	int timeRemain;
@@ -45,13 +47,14 @@ public class L1ScCount extends Activity {
 		@Override
 		public void onFinish() { 
 		// TODO Auto-generated method stub
+			RunningCount = false;
 			showTimeout();
 		}
 		
 		@Override
 		public void onTick(long remain) { 
 		// TODO Auto-generated method stub
-			
+			RunningCount = true;
 			TextView result = (TextView) findViewById(R.id.textView1);
 			//timeRemain = (float) remain / 1000;
 			timeRemain = (int) (remain) / 1000;
@@ -82,12 +85,9 @@ public class L1ScCount extends Activity {
 		myDb.emptyNumberTable();
 		myDb.close();
 		
-		if((Round == 1)||(username.equals("Guest"))){
-			showBeginPopup();
-		}
-		else{
+	
 			game001();
-		}
+	
 
 					
 	}	
@@ -187,13 +187,19 @@ public class L1ScCount extends Activity {
 		myDb.insertRanNumber(randomInt);
 		return randomInt;
 	}
+	void stopTime(){
+		ImageView instructFing = (ImageView)findViewById(R.id.finger);
+		if(RunningCount == true){
+			countdown.cancel();
+			if(instructFing.isEnabled()){
+				instructFing.clearAnimation();
+			}
+		}	
+	}
 	void checkAns(final int RandomNum,final int item){
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
-		
-		startTime = ((RandomNum*2)+10)*1000;
-		countdown = new MyCountDown(startTime,1000);
 		
 		//final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.correct_sound);
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
@@ -210,9 +216,10 @@ public class L1ScCount extends Activity {
 		else {
 			instructPage= MediaPlayer.create(context, R.raw.ins_sclv1_3);
 		}
-		instructPage.start();
+		
 		
 		final float countTime = (float) startTime /1000;
+		timeRemain = (int)countTime;
 		final View imgWrong = (View)findViewById(R.id.showwrongnumber); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrectnumber);
 		
@@ -220,8 +227,44 @@ public class L1ScCount extends Activity {
 		//timeRemain = (float) remain / 1000;
 		current.setText(item +"/ 10");
 		
-		countdown.start();
+		
 		showTables(RandomNum);
+		
+		final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
+		final View helpAnswer = (View)findViewById(R.id.showAnswer);
+		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScCount.this, R.anim.tween_once);
+		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCount.this, R.anim.tween);
+		final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
+		
+		if(Round == 1 || (username.equals("Guest") && item == 1)){
+			instructPage.start();
+			firstSound = true;
+		}
+		else{
+			startTime = (20)*1000;
+			countdown = new MyCountDown(startTime,1000);
+			countdown.start();	
+			instructPage.start();
+		}
+
+		instructPage.setOnCompletionListener(new OnCompletionListener() {
+            public void onCompletion(MediaPlayer soundCorrect) {
+            	if(Round == 1 || (username.equals("Guest") && item == 1)){
+            		if(firstSound == true){
+            			instructFinger.startAnimation(myFadeAnimation);
+            			firstSound = false;
+            		}
+            		else{
+	            		helpAnswer.startAnimation(myFadeonceAnimation);
+	            		startTime = ((RandomNum*2)+10)*1000;
+	        			countdown = new MyCountDown(startTime,1000);
+	        			countdown.start();
+	        			instructFinger.clearAnimation();
+	            		soundAns.start();
+            		}
+            	}
+            }
+        });
 		
 		Button selectButton1 = (Button)findViewById(R.id.buttonnumber1);
 		selectButton1.setOnClickListener(new View.OnClickListener() {
@@ -232,7 +275,7 @@ public class L1ScCount extends Activity {
 				if(RandomNum == 1){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 					
@@ -240,7 +283,7 @@ public class L1ScCount extends Activity {
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
@@ -256,7 +299,7 @@ public class L1ScCount extends Activity {
 				if(RandomNum == 2){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 					
@@ -264,7 +307,7 @@ public class L1ScCount extends Activity {
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
@@ -280,7 +323,7 @@ public class L1ScCount extends Activity {
 				if(RandomNum == 3){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 					
@@ -288,7 +331,7 @@ public class L1ScCount extends Activity {
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
@@ -304,7 +347,7 @@ public class L1ScCount extends Activity {
 				if(RandomNum == 4){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 					
@@ -312,7 +355,7 @@ public class L1ScCount extends Activity {
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
@@ -328,7 +371,7 @@ public class L1ScCount extends Activity {
 				if(RandomNum == 5){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 					
@@ -336,7 +379,7 @@ public class L1ScCount extends Activity {
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
@@ -352,7 +395,7 @@ public class L1ScCount extends Activity {
 				if(RandomNum == 6){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 					
@@ -360,7 +403,7 @@ public class L1ScCount extends Activity {
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
@@ -376,7 +419,7 @@ public class L1ScCount extends Activity {
 				if(RandomNum == 7){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 					
@@ -384,7 +427,7 @@ public class L1ScCount extends Activity {
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
@@ -400,7 +443,7 @@ public class L1ScCount extends Activity {
 				if(RandomNum == 8){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 					
@@ -408,7 +451,7 @@ public class L1ScCount extends Activity {
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
@@ -424,7 +467,7 @@ public class L1ScCount extends Activity {
 				if(RandomNum == 9){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 					
@@ -432,7 +475,7 @@ public class L1ScCount extends Activity {
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
@@ -448,7 +491,7 @@ public class L1ScCount extends Activity {
 				if(RandomNum == 10){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundCorrect.start();
 					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 					
@@ -456,7 +499,7 @@ public class L1ScCount extends Activity {
 				else{
 					imgWrong.setVisibility(View.VISIBLE);
 					imgCorrect.setVisibility(View.INVISIBLE);
-					countdown.cancel();
+					stopTime();
 					soundWrong.start();
 					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 				}
@@ -467,8 +510,6 @@ public class L1ScCount extends Activity {
 		final View imgCorrectClick = (View)findViewById(R.id.showcorrectnumber);
 		imgWrongClick.setClickable(false);
 		imgCorrectClick.setClickable(false);
-		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScCount.this, R.anim.tween_once);
-		final View helpAnswer = (View)findViewById(R.id.helpCount);
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
@@ -500,9 +541,10 @@ public class L1ScCount extends Activity {
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				countdown.cancel();
-				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
-				startActivity(intent);
+				stopTime();
+				Intent in = new Intent(L1ScCount.this,Main.class);
+				in.putExtra("showPopup", 1);
+				startActivity(in);
 			}
 		});
 	
@@ -564,9 +606,9 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				//soundPage.stop();
-				Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
-				startActivity(intent);
+				Intent in = new Intent(L1ScCount.this,Main.class);
+				in.putExtra("showPopup", 1);
+				startActivity(in);
 				
 			}
 		});
@@ -660,47 +702,6 @@ public class L1ScCount extends Activity {
 			case 10: ImageView imgView20 = (ImageView)findViewById(R.id.counttable10); 
 					imgView20.setVisibility(ImageView.INVISIBLE);	break;	
 		}
-	}
-	
-	protected void showBeginPopup(){
-		final Dialog BeginPop = new Dialog(context, R.style.FullHeightDialog);
-		final MediaPlayer soundIns;
-		final MediaPlayer soundAns;
-		BeginPop.setContentView(R.layout.activity_l1_sc_count_tutorial);
-		BeginPop.setCanceledOnTouchOutside(false);
-		BeginPop.setCancelable(false); 
-		
-		soundIns = MediaPlayer.create(context, R.raw.ins_sclv1_1);
-		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
-		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCount.this, R.anim.tween);
-		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.helpNumber);
-		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.counttable5);
-		
-		//soundWrong is instruction sound
-				instruct.startAnimation(myFadeAnimation);
-				soundIns.start();
-				
-				soundIns.setOnCompletionListener(new OnCompletionListener() {
-		            public void onCompletion(MediaPlayer soundIns) {
-		            	instruct.clearAnimation();
-		            	soundAns.start();
-		            	helpAns.startAnimation(myFadeAnimation);
-		            }
-		        });
-				
-				Button skipHelp = (Button)BeginPop.findViewById(R.id.bt_skip);
-				skipHelp.setOnClickListener(new View.OnClickListener() {
-					
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						soundIns.stop();
-						soundAns.stop();
-						//Begin = 2;
-						BeginPop.dismiss();
-						game001();
-					}
-				});
-			BeginPop.show();
 	}
 	
 	void showTimeout(){
@@ -800,9 +801,10 @@ public class L1ScCount extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-        	countdown.cancel();
-			Intent intent = new Intent(L1ScCount.this,SchoolLevel1.class);
-			startActivity(intent);   
+        	stopTime();
+			Intent in = new Intent(L1ScCount.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in); 
         	return false;
         }
 	    return super.onKeyDown(keyCode, event);

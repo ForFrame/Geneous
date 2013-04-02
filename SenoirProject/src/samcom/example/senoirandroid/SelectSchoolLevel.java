@@ -113,7 +113,7 @@ public class SelectSchoolLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel1.class);
+				Intent intent = new Intent(SelectSchoolLevel.this,L1ScCount.class);
 				startActivity(intent);
 			}
 		});
@@ -126,7 +126,7 @@ public class SelectSchoolLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel2.class);
+				Intent intent = new Intent(SelectSchoolLevel.this,L1ScCalendar.class);
 				startActivity(intent);
 			}
 		});
@@ -138,7 +138,7 @@ public class SelectSchoolLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectSchoolLevel.this,SchoolLevel3.class);
+				Intent intent = new Intent(SelectSchoolLevel.this,L1ScLongShort.class);
 				startActivity(intent);
 			}
 		});

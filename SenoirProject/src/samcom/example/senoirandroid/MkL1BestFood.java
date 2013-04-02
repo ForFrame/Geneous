@@ -33,6 +33,8 @@ public class MkL1BestFood extends Activity {
 	long startTime;
 	final Context context = this;
 	int timeRemain;
+	boolean firstSound;
+	boolean RunningCount = false;
 	int Round;
 	int Begin = 1;
 	MyCountDown countdownTime;
@@ -47,13 +49,14 @@ public class MkL1BestFood extends Activity {
 		@Override
 		public void onFinish() { 
 		// TODO Auto-generated method stub
+			RunningCount = false;
 			showTimeout();
 		}
 		
 		@Override
 		public void onTick(long remain) { 
 		// TODO Auto-generated method stub
-			
+			RunningCount = true;
 			TextView result = (TextView) findViewById(R.id.textTime);
 			timeRemain = (int) (remain) / 1000;
 			result.setText(" Times: " + timeRemain);
@@ -83,15 +86,19 @@ public class MkL1BestFood extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-			if(Round == 1 || username.equals("Guest")){
-					showBeginPopup();
-			}
-			else{
-				game007();
-			}
+		game007();
 		
 	}
 
+	void stopTime(){
+		ImageView instructFing = (ImageView)findViewById(R.id.finger);
+		if(RunningCount == true){
+			countdownTime.cancel();
+			if(instructFing.isEnabled()){
+				instructFing.clearAnimation();
+			}
+		}	
+	}
 	void game007(){
 		int scores;
 		final myDBClass myDb = new myDBClass(this);
@@ -192,6 +199,7 @@ public class MkL1BestFood extends Activity {
 		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
+		timeRemain = (int)countTime;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		
@@ -200,18 +208,51 @@ public class MkL1BestFood extends Activity {
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(item +"/ 10");
 		
-		countdownTime.start();
+		
 		
 			answer = choice(RandomNum);
-			//instructPage.start();
 			if(answer == 1){
 				instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_long);
-				instructPage.start();
+				//instructPage.start();
 			}
 			else{
 				instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_short);
+				//instructPage.start();
+			}
+			
+			final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
+			final View helpAnswer = (View)findViewById(R.id.showAnswer);
+			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(MkL1BestFood.this, R.anim.tween_once);
+			final Animation myFadeAnimation = AnimationUtils.loadAnimation(MkL1BestFood.this, R.anim.tween);
+			final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
+			if(Round == 1 || (username.equals("Guest") && item == 1)){
+				instructPage.start();
+				firstSound = true;
+			}
+			else{
+				startTime = (20)*1000;
+				countdownTime = new MyCountDown(startTime,1000);
+				countdownTime.start();	
 				instructPage.start();
 			}
+			instructPage.setOnCompletionListener(new OnCompletionListener() {
+		            public void onCompletion(MediaPlayer soundCorrect) {
+		            	if(Round == 1 || (username.equals("Guest") && item == 1)){
+		            		if(firstSound == true){
+		            			instructFinger.startAnimation(myFadeAnimation);
+		            			firstSound = false;
+		            		}
+		            		else{
+			            		helpAnswer.startAnimation(myFadeonceAnimation);
+			            		startTime = (20)*1000;
+			        			countdownTime = new MyCountDown(startTime,1000);
+			        			countdownTime.start();
+			        			instructFinger.clearAnimation();
+			            		soundAns.start();
+		            		}
+		            	}
+		            }
+		        });
 			
 				Answer1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -220,7 +261,7 @@ public class MkL1BestFood extends Activity {
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
 							imgCorrect.setClickable(false);
-							countdownTime.cancel();
+							stopTime();
 							soundCorrect.start();
 							myDb.addItemScore("007",username,Round,item,1,(countTime - timeRemain));
 							
@@ -228,7 +269,7 @@ public class MkL1BestFood extends Activity {
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
 							imgWrong.setClickable(false);
-							countdownTime.cancel();
+							stopTime();
 							soundWrong.start();
 							myDb.addItemScore("007",username,Round,item,0,(countTime - timeRemain));
 						}
@@ -242,7 +283,7 @@ public class MkL1BestFood extends Activity {
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
 							imgCorrect.setClickable(false);
-							countdownTime.cancel();
+							stopTime();
 							soundCorrect.start();
 							myDb.addItemScore("007",username,Round,item,1,(countTime - timeRemain));
 							
@@ -250,15 +291,12 @@ public class MkL1BestFood extends Activity {
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
 							imgWrong.setClickable(false);
-							countdownTime.cancel();
+							stopTime();
 							soundWrong.start();
 							myDb.addItemScore("007",username,Round,item,0,(countTime - timeRemain));
 						}
 					}
 				});
-		
-		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(MkL1BestFood.this, R.anim.tween_once);
-		final View helpAnswer = (View)findViewById(R.id.showAnswer);
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
@@ -292,9 +330,10 @@ public class MkL1BestFood extends Activity {
 		
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			countdownTime.cancel();
-			Intent intent = new Intent(MkL1BestFood.this,MarketLevel1.class);
-			startActivity(intent);
+			stopTime();
+			Intent in = new Intent(MkL1BestFood.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);
 		}
 		});
 	}
@@ -436,10 +475,9 @@ public class MkL1BestFood extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(MkL1BestFood.this,MarketLevel1.class);
-				startActivity(intent);
-				
-				//finish();
+				Intent in = new Intent(MkL1BestFood.this,Main.class);
+				in.putExtra("showPopup", 1);
+				startActivity(in);
 				
 			}
 		});
@@ -504,47 +542,6 @@ public class MkL1BestFood extends Activity {
             }
         });
 		
-	}
-	
-	protected void showBeginPopup(){
-		final Dialog BeginPop = new Dialog(context, R.style.FullHeightDialog);
-		final MediaPlayer soundIns;
-		final MediaPlayer soundAns;
-		BeginPop.setContentView(R.layout.market_l1_best_food_tutorial);
-		BeginPop.setCanceledOnTouchOutside(false);
-		BeginPop.setCancelable(false); 
-		
-		soundIns = MediaPlayer.create(context, R.raw.mk_ins1_2);
-		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
-		final Animation myFadeAnimation = AnimationUtils.loadAnimation(MkL1BestFood.this, R.anim.tween);
-		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);
-		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpbestfood);
-		
-		//soundWrong is instruction sound
-				instruct.startAnimation(myFadeAnimation);
-				soundIns.start();
-				
-				soundIns.setOnCompletionListener(new OnCompletionListener() {
-		            public void onCompletion(MediaPlayer soundIns) {
-		            	instruct.clearAnimation();
-		            	soundAns.start();
-		            	helpAns.startAnimation(myFadeAnimation);
-		            }
-		        });
-				
-				Button skipHelp = (Button)BeginPop.findViewById(R.id.bt_skip);
-				skipHelp.setOnClickListener(new View.OnClickListener() {
-					
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						soundIns.stop();
-						soundAns.stop();
-						//Begin = 2;
-						BeginPop.dismiss();
-						game007();
-					}
-				});
-			BeginPop.show();
 	}
 	
 	public boolean onTouchEvent (MotionEvent event) {
@@ -621,9 +618,10 @@ public class MkL1BestFood extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-        	countdownTime.cancel();
-			Intent intent = new Intent(MkL1BestFood.this,MarketLevel1.class);
-			startActivity(intent);
+        	stopTime();
+			Intent in = new Intent(MkL1BestFood.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);
         	return false;
         }
 	    return super.onKeyDown(keyCode, event);

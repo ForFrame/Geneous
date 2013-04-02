@@ -33,6 +33,8 @@ public class PlL2NearFar extends Activity {
 	long startTime;
 	final Context context = this;
 	int timeRemain;
+	boolean firstSound;
+	boolean RunningCount = false;
 	int Round;
 	int Begin = 1;
 	MyCountDown countdownTime;
@@ -47,13 +49,14 @@ public class PlL2NearFar extends Activity {
 		@Override
 		public void onFinish() { // เน€๏ฟฝ?๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ—เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ“เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?เธ’เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ”เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ
 		// TODO Auto-generated method stub
+			RunningCount = false;
 			showTimeout();
 		}
 		
 		@Override
 		public void onTick(long remain) { // เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ•เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ“เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?เธ’เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?โ€”เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ เน€๏ฟฝ?๏ฟฝ เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ‘เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ
 		// TODO Auto-generated method stub
-			
+			RunningCount = true;
 			TextView result = (TextView) findViewById(R.id.textTime);
 			timeRemain = (int) (remain) / 1000;
 			result.setText(" Times: " + timeRemain);
@@ -83,12 +86,8 @@ public class PlL2NearFar extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-			if(Round == 1||username.equals("Guest")){
-					showBeginPopup();
-			}
-			else{
-				game005();
-			}
+		game005();
+		
 		
 	}
 
@@ -177,6 +176,16 @@ public class PlL2NearFar extends Activity {
 		return randomInt;
 	}
 	
+	void stopTime(){
+		ImageView instructFing = (ImageView)findViewById(R.id.finger);
+		if(RunningCount == true){
+			countdownTime.cancel();
+			if(instructFing.isEnabled()){
+				instructFing.clearAnimation();
+			}
+		}	
+	}
+	
 	void checkAnswer(final int RandomNum,final int item){
 		
 		final Button Answer1 = (Button)findViewById(R.id.picans1);
@@ -192,6 +201,7 @@ public class PlL2NearFar extends Activity {
 		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
+		timeRemain = (int)countTime;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		imgWrong.setClickable(false);
@@ -200,10 +210,44 @@ public class PlL2NearFar extends Activity {
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(item +"/ 10");
 		
-		countdownTime.start();
 		
 			answer = choice(RandomNum);
-			instructPage.start();
+			
+			final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
+			final View helpAnswer = (View)findViewById(R.id.showAnswer);
+			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween_once);
+			final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween);
+			final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
+			
+			if(Round == 1 || (username.equals("Guest") && item == 1)){
+				instructPage.start();
+				firstSound = true;
+			}
+			else{
+				startTime = (20)*1000;
+				countdownTime = new MyCountDown(startTime,1000);
+				countdownTime.start();	
+				instructPage.start();
+			}
+			
+			instructPage.setOnCompletionListener(new OnCompletionListener() {
+	            public void onCompletion(MediaPlayer soundCorrect) {
+	            	if(Round == 1 || (username.equals("Guest") && item == 1)){
+	            		if(firstSound == true){
+	            			instructFinger.startAnimation(myFadeAnimation);
+	            			firstSound = false;
+	            		}
+	            		else{
+		            		helpAnswer.startAnimation(myFadeonceAnimation);
+		            		startTime = (20)*1000;
+		        			countdownTime = new MyCountDown(startTime,1000);
+		        			countdownTime.start();
+		        			instructFinger.clearAnimation();
+		            		soundAns.start();
+	            		}
+	            	}
+	            }
+	        });
 			
 				Answer1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -211,14 +255,14 @@ public class PlL2NearFar extends Activity {
 						instructPage.stop();
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundCorrect.start();
 							myDb.addItemScore("005",username,Round,item,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundWrong.start();
 							myDb.addItemScore("005",username,Round,item,0,(countTime - timeRemain));
 						}
@@ -231,22 +275,19 @@ public class PlL2NearFar extends Activity {
 						instructPage.stop();
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundCorrect.start();
 							myDb.addItemScore("005",username,Round,item,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundWrong.start();
 							myDb.addItemScore("005",username,Round,item,0,(countTime - timeRemain));
 						}
 					}
 				});
-		
-		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween_once);
-		final View helpAnswer = (View)findViewById(R.id.showAnswer);
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
@@ -280,9 +321,10 @@ public class PlL2NearFar extends Activity {
 		
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			countdownTime.cancel();
-			Intent intent = new Intent(PlL2NearFar.this,PoliceLevel2.class);
-			startActivity(intent);
+			stopTime();
+			Intent in = new Intent(PlL2NearFar.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);
 		}
 		});
 	}
@@ -438,10 +480,9 @@ public class PlL2NearFar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(PlL2NearFar.this,PoliceLevel2.class);
-				startActivity(intent);
-				
-				//finish();
+				Intent in = new Intent(PlL2NearFar.this,Main.class);
+				in.putExtra("showPopup", 1);
+				startActivity(in);
 				
 			}
 		});
@@ -507,48 +548,7 @@ public class PlL2NearFar extends Activity {
         });
 		
 	}
-	
-	protected void showBeginPopup(){
-		final Dialog BeginPop = new Dialog(context, R.style.FullHeightDialog);
-		final MediaPlayer soundIns;
-		final MediaPlayer soundAns;
-		BeginPop.setContentView(R.layout.activity_pl_l2_nearfar_tutorial);
-		BeginPop.setCanceledOnTouchOutside(false);
-		BeginPop.setCancelable(false); 
-		
-		soundIns = MediaPlayer.create(context, R.raw.ins_pll2_5);
-		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
-		final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween);
-		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);
-		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpNearFar);
-		
-		//soundWrong is instruction sound
-				instruct.startAnimation(myFadeAnimation);
-				soundIns.start();
-				
-				soundIns.setOnCompletionListener(new OnCompletionListener() {
-		            public void onCompletion(MediaPlayer soundIns) {
-		            	instruct.clearAnimation();
-		            	soundAns.start();
-		            	helpAns.startAnimation(myFadeAnimation);
-		            }
-		        });
-				
-				Button skipHelp = (Button)BeginPop.findViewById(R.id.bt_skip);
-				skipHelp.setOnClickListener(new View.OnClickListener() {
-					
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						soundIns.stop();
-						soundAns.stop();
-						//Begin = 2;
-						BeginPop.dismiss();
-						game005();
-					}
-				});
-			BeginPop.show();
-	}
-	
+
 	public boolean onTouchEvent (MotionEvent event) {
 		
 		instructPage.start();
@@ -623,9 +623,10 @@ public class PlL2NearFar extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-        	countdownTime.cancel();
-			Intent intent = new Intent(PlL2NearFar.this,PoliceLevel2.class);
-			startActivity(intent);   
+        	stopTime();
+			Intent in = new Intent(PlL2NearFar.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);  
         	return false;
         }
 	    return super.onKeyDown(keyCode, event);

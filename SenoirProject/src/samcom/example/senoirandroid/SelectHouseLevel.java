@@ -111,7 +111,7 @@ public class SelectHouseLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectHouseLevel.this,HouseLevel1.class);
+				Intent intent = new Intent(SelectHouseLevel.this,HsL1Shape.class);
 				startActivity(intent);
 			}
 		});
@@ -124,7 +124,7 @@ public class SelectHouseLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectHouseLevel.this,HouseLevel2.class);
+				Intent intent = new Intent(SelectHouseLevel.this,HsL2Match.class);
 				startActivity(intent);
 			}
 		});
@@ -136,7 +136,7 @@ public class SelectHouseLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectHouseLevel.this,HouseLevel3.class);
+				Intent intent = new Intent(SelectHouseLevel.this,HsL3Job.class);
 				startActivity(intent);
 			}
 		});

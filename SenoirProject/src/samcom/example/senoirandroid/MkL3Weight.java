@@ -39,6 +39,8 @@ public class MkL3Weight extends Activity {
 	long startTime;
 	final Context context = this;
 	int timeRemain;
+	boolean firstSound;
+	boolean RunningCount = false;
 	int Round;
 	int Begin = 1;
 	MyCountDown countdownTime;
@@ -53,13 +55,14 @@ public class MkL3Weight extends Activity {
 		@Override
 		public void onFinish() { // เน€๏ฟฝ?๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ—เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ“เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?เธ’เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ”เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ
 		// TODO Auto-generated method stub
+			RunningCount = false;
 			showTimeout();
 		}
 		
 		@Override
 		public void onTick(long remain) { // เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ•เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ“เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?เธ’เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?โ€”เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ เน€๏ฟฝ?๏ฟฝ เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ‘เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ
 		// TODO Auto-generated method stub
-			
+			RunningCount = true;
 			TextView result = (TextView) findViewById(R.id.textTime);
 			timeRemain = (int) (remain) / 1000;
 			result.setText(" Times: " + timeRemain);
@@ -89,15 +92,18 @@ public class MkL3Weight extends Activity {
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-			if(Round == 1 || username.equals("Guest")){
-					showBeginPopup();
-			}
-			else{
-				game009();
-			}
+		game009();
 		
 	}
-
+	void stopTime(){
+		ImageView instructFing = (ImageView)findViewById(R.id.finger);
+		if(RunningCount == true){
+			countdownTime.cancel();
+			if(instructFing.isEnabled()){
+				instructFing.clearAnimation();
+			}
+		}	
+	}
 	void game009(){
 		int scores;
 		final myDBClass myDb = new myDBClass(this);
@@ -197,6 +203,7 @@ public class MkL3Weight extends Activity {
 		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
+		timeRemain = (int)countTime;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		imgWrong.setClickable(false);
@@ -206,10 +213,45 @@ public class MkL3Weight extends Activity {
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(item +"/ 10");
 		
-		countdownTime.start();
+		
 		
 			answer = choice(RandomNum);
-			instructPage.start();
+			
+			final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
+			final View helpAnswer = (View)findViewById(R.id.showAnswer);
+			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(MkL3Weight.this, R.anim.tween_once);
+			final Animation myFadeAnimation = AnimationUtils.loadAnimation(MkL3Weight.this, R.anim.tween);
+			final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
+			
+			if(Round == 1 || (username.equals("Guest") && item == 1)){
+				instructPage.start();
+				firstSound = true;
+			}
+			else{
+				startTime = (20)*1000;
+				countdownTime = new MyCountDown(startTime,1000);
+				countdownTime.start();	
+				instructPage.start();
+			}
+			
+			instructPage.setOnCompletionListener(new OnCompletionListener() {
+	            public void onCompletion(MediaPlayer soundCorrect) {
+	            	if(Round == 1 || (username.equals("Guest") && item == 1)){
+	            		if(firstSound == true){
+	            			instructFinger.startAnimation(myFadeAnimation);
+	            			firstSound = false;
+	            		}
+	            		else{
+		            		helpAnswer.startAnimation(myFadeonceAnimation);
+		            		startTime = (20)*1000;
+		        			countdownTime = new MyCountDown(startTime,1000);
+		        			countdownTime.start();
+		        			instructFinger.clearAnimation();
+		            		soundAns.start();
+	            		}
+	            	}
+	            }
+	        });
 			
 				Answer.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -221,14 +263,14 @@ public class MkL3Weight extends Activity {
 						
 						if(ansNum == answer){
 							imgCorrect.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundCorrect.start();
 							myDb.addItemScore("009",username,Round,item,1,(countTime - timeRemain));
 							AnswerText.setText("");
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundWrong.start();
 							myDb.addItemScore("009",username,Round,item,0,(countTime - timeRemain));
 							AnswerText.setText("");
@@ -247,14 +289,14 @@ public class MkL3Weight extends Activity {
 						
 						if(ansNum == answer){
 							imgCorrect.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundCorrect.start();
 							myDb.addItemScore("009",username,Round,item,1,(countTime - timeRemain));
 							AnswerText.setText("");
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
-							countdownTime.cancel();
+							stopTime();
 							soundWrong.start();
 							myDb.addItemScore("009",username,Round,item,0,(countTime - timeRemain));
 							AnswerText.setText("");
@@ -268,9 +310,6 @@ public class MkL3Weight extends Activity {
 	        }
 	    });
 
-		
-		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(MkL3Weight.this, R.anim.tween_once);
-		final View helpAnswer = (View)findViewById(R.id.showAnswer);
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
@@ -304,9 +343,10 @@ public class MkL3Weight extends Activity {
 		
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			countdownTime.cancel();
-			Intent intent = new Intent(MkL3Weight.this,MarketLevel3.class);
-			startActivity(intent);
+			stopTime();
+			Intent in = new Intent(MkL3Weight.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);
 		}
 		});
 	}
@@ -426,8 +466,9 @@ public class MkL3Weight extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(MkL3Weight.this,MarketLevel3.class);
-				startActivity(intent);
+				Intent in = new Intent(MkL3Weight.this,Main.class);
+				in.putExtra("showPopup", 1);
+				startActivity(in);
 				
 			}
 		});
@@ -491,47 +532,6 @@ public class MkL3Weight extends Activity {
             	game009();
             }
         });
-	}
-	
-	protected void showBeginPopup(){
-		final Dialog BeginPop = new Dialog(context, R.style.FullHeightDialog);
-		final MediaPlayer soundIns;
-		final MediaPlayer soundAns;
-		BeginPop.setContentView(R.layout.market_l3_plus_scales_tutorial);
-		BeginPop.setCanceledOnTouchOutside(false);
-		BeginPop.setCancelable(false); 
-		
-		soundIns = MediaPlayer.create(context, R.raw.mk_ins3_1);
-		soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
-		final Animation myFadeAnimation = AnimationUtils.loadAnimation(MkL3Weight.this, R.anim.tween);
-		final ImageView helpAns = (ImageView)BeginPop.findViewById(R.id.showAnswer);
-		final ImageView instruct = (ImageView)BeginPop.findViewById(R.id.helpplusScales);
-		
-		//soundWrong is instruction sound
-				instruct.startAnimation(myFadeAnimation);
-				soundIns.start();
-				
-				soundIns.setOnCompletionListener(new OnCompletionListener() {
-		            public void onCompletion(MediaPlayer soundIns) {
-		            	instruct.clearAnimation();
-		            	soundAns.start();
-		            	helpAns.startAnimation(myFadeAnimation);
-		            }
-		        });
-				
-				Button skipHelp = (Button)BeginPop.findViewById(R.id.bt_skip);
-				skipHelp.setOnClickListener(new View.OnClickListener() {
-					
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						soundIns.stop();
-						soundAns.stop();
-						//Begin = 2;
-						BeginPop.dismiss();
-						game009();
-					}
-				});
-			BeginPop.show();
 	}
 	
 	public boolean onTouchEvent (MotionEvent event) {
@@ -613,9 +613,10 @@ public class MkL3Weight extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-        	countdownTime.cancel();
-			Intent intent = new Intent(MkL3Weight.this,MarketLevel2.class);
-			startActivity(intent);  
+        	stopTime();
+			Intent in = new Intent(MkL3Weight.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in); 
         	return false;
         }
 	    return super.onKeyDown(keyCode, event);

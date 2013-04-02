@@ -109,7 +109,7 @@ public class SelectMarketLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectMarketLevel.this,MarketLevel1.class);
+				Intent intent = new Intent(SelectMarketLevel.this,MkL1BestFood.class);
 				startActivity(intent);
 			}
 		});
@@ -122,7 +122,7 @@ public class SelectMarketLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectMarketLevel.this,MarketLevel2.class);
+				Intent intent = new Intent(SelectMarketLevel.this,MkL2Money.class);
 				startActivity(intent);
 			}
 		});
@@ -134,7 +134,7 @@ public class SelectMarketLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectMarketLevel.this,MarketLevel3.class);
+				Intent intent = new Intent(SelectMarketLevel.this,MkL3Weight.class);
 				startActivity(intent);
 			}
 		});
