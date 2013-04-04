@@ -33,6 +33,8 @@ public class PlL1Cross extends Activity {
 	long startTime = (20)*1000;
 	final Context context = this;
 	int timeRemain;
+	boolean firstSound;
+	boolean RunningCount = false;
 	int Round;
 	int Items = 1;
 	int ranDay=0;
@@ -41,7 +43,7 @@ public class PlL1Cross extends Activity {
 	MediaPlayer instructPage,soundMain;
 	MediaPlayer soundIns;
 	
-	final MyCountDown countdownTime = new MyCountDown(startTime,1000);
+	MyCountDown countdownTime = new MyCountDown(startTime,1000);
 	
 	public class MyCountDown extends CountDownTimer {
 		public MyCountDown(long millisInFuture, long countDownInterval) {
@@ -52,13 +54,14 @@ public class PlL1Cross extends Activity {
 		@Override
 		public void onFinish() { // เน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ—เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ�เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
+			RunningCount = false;
 			showTimeout();
 		}
 		
 		@Override
 		public void onTick(long remain) { // เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�โ€�เน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ•เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ�เน€เธ�๏ฟฝ เน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ‘เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
-			
+			RunningCount = true;
 			TextView result = (TextView) findViewById(R.id.textTime);
 			timeRemain = (int) (remain) / 1000;
 			result.setText(" Times: " + timeRemain);
@@ -147,7 +150,7 @@ public class PlL1Cross extends Activity {
 		if(Items < 11){
 			//startTime = (30)*1000;
 			//if(Round == 1){
-			if((Round == 1)||(username.equals("Guest"))){
+	/*		if((Round == 1)||(username.equals("Guest"))){
 				if(Begin == 1){
 					if(Items == 1){
 						showBeginPopup(1);
@@ -169,7 +172,12 @@ public class PlL1Cross extends Activity {
 					checkAns(false);
 				}
 			}
-			else{checkAns(false);}
+			else{
+			
+			  */
+			 checkAns();
+			
+			//}
 		}
 		else{
 			scores = myDb.countScore("004", username, Round);
@@ -178,8 +186,17 @@ public class PlL1Cross extends Activity {
 		}
 	}
 	
+	void stopTime(){
+		ImageView instructFing = (ImageView)findViewById(R.id.finger);
+		if(RunningCount == true){
+			countdownTime.cancel();
+			if(instructFing.isEnabled()){
+				instructFing.clearAnimation();
+			}
+		}	
+	}
 	
-void checkAns(Boolean isInterupt){
+void checkAns(){
 		
 		final Button ans1_1 = (Button)findViewById(R.id.tf_ans1_1);
 		final Button ans1_2 = (Button)findViewById(R.id.tf_ans1_2);
@@ -204,8 +221,6 @@ void checkAns(Boolean isInterupt){
 		//help image
 		final ImageView trafficSign = (ImageView)findViewById(R.id.tf_ans1_help);
 		
-		
-		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 		final int answer;
@@ -213,8 +228,9 @@ void checkAns(Boolean isInterupt){
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
 		final Animation myFadeOnceAnimation = AnimationUtils.loadAnimation(PlL1Cross.this, R.anim.tween_once);
 		
-		
+		startTime = (20)*1000;
 		final float countTime = (float) startTime /1000;
+		timeRemain = (int)countTime;
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		imgWrong.setClickable(false);
@@ -226,27 +242,74 @@ void checkAns(Boolean isInterupt){
 		int currentItem = Items;
 		
 		answer = choice(currentItem);
-		instructPage.start();
+		//instructPage.start();
 		
-		countdownTime.start();
+		//countdownTime.start();
+		
+		final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
+		//final View helpAnswer = (View)findViewById(R.id.showAnswer);
+		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(PlL1Cross.this, R.anim.tween_once);
+		final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL1Cross.this, R.anim.tween);
+		final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
+		
+		if(Round == 1 || (username.equals("Guest") && (Items == 1||Items == 4 || Items == 6|| Items ==8))){
+			instructPage.start();
+			firstSound = true;
+		}
+		else{
+			
+			countdownTime = new MyCountDown(startTime,1000);
+			countdownTime.start();	
+			instructPage.start();
+		}
+		instructPage.setOnCompletionListener(new OnCompletionListener() {
+            public void onCompletion(MediaPlayer soundCorrect) {
+            	if(Round == 1 || (username.equals("Guest") && (Items == 1||Items == 4 || Items == 6|| Items ==8))){
+            		if(firstSound == true){
+            			instructFinger.startAnimation(myFadeAnimation);
+            			firstSound = false;
+            		}
+            		else{
+            			if(Items == 1){
+        					trafficSign.startAnimation(myFadeonceAnimation);
+        				}
+        				else if(Items == 4){
+        					ans4_1.startAnimation(myFadeonceAnimation);
+        					ans4_2.startAnimation(myFadeonceAnimation);
+        				}
+        				else if(Items == 6){
+        					ans6_1.startAnimation(myFadeonceAnimation);
+        					ans6_2.startAnimation(myFadeonceAnimation);
+        				}
+        				else{
+        					ans8_1.startAnimation(myFadeonceAnimation);
+        					ans8_2.startAnimation(myFadeonceAnimation);
+        				}
+	        			countdownTime = new MyCountDown(startTime,1000);
+	        			countdownTime.start();
+	        			instructFinger.clearAnimation();
+	            		soundAns.start();
+            		}
+            	}
+            }
+        });
 			
 			ans1_1.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					instructPage.stop();
-					Begin = 1;
 					ans1_2.setVisibility(View.INVISIBLE);
 					ans1_3.setVisibility(View.INVISIBLE);
 					if(answer == 1){
 						imgCorrect.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundCorrect.start();
 						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
 						
 					}
 					else{
 						imgWrong.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundWrong.start();
 						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
 					}
@@ -257,19 +320,18 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					instructPage.stop();
-					Begin = 1;
 					ans1_1.setVisibility(View.INVISIBLE);
 					ans1_3.setVisibility(View.INVISIBLE);
 					if(answer == 2){
 						imgCorrect.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundCorrect.start();
 						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
 						
 					}
 					else{
 						imgWrong.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundWrong.start();
 						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
 					}
@@ -280,19 +342,18 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					instructPage.stop();
-					Begin = 1;
 					ans1_1.setVisibility(View.INVISIBLE);
 					ans1_2.setVisibility(View.INVISIBLE);
 					if(answer == 3){
 						imgCorrect.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundCorrect.start();
 						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
 						
 					}
 					else{
 						imgWrong.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundWrong.start();
 						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
 					}
@@ -303,17 +364,16 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					instructPage.stop();
-					Begin = 1;
 					if(answer == 1){
 						imgCorrect.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundCorrect.start();
 						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
 						
 					}
 					else{
 						imgWrong.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundWrong.start();
 						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
 					}
@@ -324,17 +384,16 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					instructPage.stop();
-					Begin = 1;
 					if(answer == 2){
 						imgCorrect.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundCorrect.start();
 						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
 						
 					}
 					else{
 						imgWrong.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundWrong.start();
 						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
 					}
@@ -347,14 +406,14 @@ void checkAns(Boolean isInterupt){
 					instructPage.stop();
 					if(answer == 1){
 						imgCorrect.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundCorrect.start();
 						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
 						
 					}
 					else{
 						imgWrong.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundWrong.start();
 						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
 					}
@@ -367,14 +426,14 @@ void checkAns(Boolean isInterupt){
 					instructPage.stop();
 					if(answer == 2){
 						imgCorrect.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundCorrect.start();
 						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
 						
 					}
 					else{
 						imgWrong.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundWrong.start();
 						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
 					}
@@ -385,17 +444,16 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					instructPage.stop();
-					Begin = 1;
 					if(answer == 1){
 						imgCorrect.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundCorrect.start();
 						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
 						
 					}
 					else{
 						imgWrong.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundWrong.start();
 						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
 					}
@@ -406,17 +464,16 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					instructPage.stop();
-					Begin = 1;
 					if(answer == 2){
 						imgCorrect.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundCorrect.start();
 						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
 						
 					}
 					else{
 						imgWrong.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundWrong.start();
 						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
 					}
@@ -427,17 +484,16 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					instructPage.stop();
-					Begin = 1;
 					if(answer == 1){
 						imgCorrect.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundCorrect.start();
 						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
 						
 					}
 					else{
 						imgWrong.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundWrong.start();
 						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
 					}
@@ -448,17 +504,16 @@ void checkAns(Boolean isInterupt){
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					instructPage.stop();
-					Begin = 1;
 					if(answer == 2){
 						imgCorrect.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundCorrect.start();
 						myDb.addItemScore("004",username,Round,Items,1,(countTime - timeRemain));
 						
 					}
 					else{
 						imgWrong.setVisibility(View.VISIBLE);
-						countdownTime.cancel();
+						stopTime();
 						soundWrong.start();
 						myDb.addItemScore("004",username,Round,Items,0,(countTime - timeRemain));
 					}
@@ -488,7 +543,6 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(Items < 4){
-					//trafficSign.setAnimation(myFadeOnceAnimation);
 					trafficSign.startAnimation(myFadeOnceAnimation);
 				}
 				else if(Items < 5){
@@ -516,9 +570,10 @@ void checkAns(Boolean isInterupt){
 		
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			countdownTime.cancel();
-			Intent intent = new Intent(PlL1Cross.this,PoliceLevel1.class);
-			startActivity(intent);
+			stopTime();
+			Intent in = new Intent(PlL1Cross.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);
 		}
 		});
 	}
@@ -738,10 +793,9 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(PlL1Cross.this,PoliceLevel1.class);
-				startActivity(intent);
-				
-				//finish();
+				Intent in = new Intent(PlL1Cross.this,Main.class);
+				in.putExtra("showPopup", 1);
+				startActivity(in);
 				
 			}
 		});
@@ -778,7 +832,7 @@ void checkAns(Boolean isInterupt){
 		dialog.show();
 
 	}	
-	
+	/*
 	protected void showBeginPopup(int itemm){
 		final Dialog BeginPop = new Dialog(context, R.style.FullHeightDialog);
 		final MediaPlayer soundAns;
@@ -834,6 +888,7 @@ void checkAns(Boolean isInterupt){
 				});
 			BeginPop.show();
 	}
+	*/
 	
 	void showTimeout(){
 		
@@ -936,9 +991,10 @@ void checkAns(Boolean isInterupt){
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-        	countdownTime.cancel();
-			Intent intent = new Intent(PlL1Cross.this,PoliceLevel1.class);
-			startActivity(intent);   
+        	stopTime();
+			Intent in = new Intent(PlL1Cross.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);
         	return false;
         }
 	    return super.onKeyDown(keyCode, event);
