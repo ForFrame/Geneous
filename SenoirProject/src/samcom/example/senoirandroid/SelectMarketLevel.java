@@ -35,7 +35,7 @@ public class SelectMarketLevel extends Activity implements OnGestureListener {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.activity_select_level);
+		setContentView(R.layout.market_select_level);
 		
 		gd = new GestureDetector(this, this);
 		soundMain = MediaPlayer.create(context, R.raw.main);

@@ -230,7 +230,7 @@ SQLiteDatabase db;
 	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(Main.this,SelectHouseLevel.class);
+				Intent intent = new Intent(Main.this,SelectHospitalLevel.class);
 				startActivity(intent);
 			}
 		});
