@@ -109,6 +109,8 @@
                   android:screenOrientation="landscape"/>
         <activity android:name=".HpL1Use"
                   android:screenOrientation="landscape"/>
+        <activity android:name=".HpL2Body"
+                  android:screenOrientation="landscape"/>
         
         <activity android:name=".login1" 
             	  android:screenOrientation="landscape"/>

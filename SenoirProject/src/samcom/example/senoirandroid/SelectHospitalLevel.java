@@ -124,7 +124,7 @@ public class SelectHospitalLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectHospitalLevel.this,HsL2Match.class);
+				Intent intent = new Intent(SelectHospitalLevel.this,HpL2Body.class);
 				startActivity(intent);
 			}
 		});

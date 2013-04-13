@@ -561,7 +561,7 @@ public class HpL1Use extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(HpL1Use.this,HsL2Match.class);
+				Intent intent = new Intent(HpL1Use.this,HpL2Body.class);
 				startActivity(intent);
 				
 			}

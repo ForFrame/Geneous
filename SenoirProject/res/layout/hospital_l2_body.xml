@@ -1,6 +1,6 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/useLayout"
+    android:id="@+id/bodyLayout"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/hpl2_bg10" >
@@ -57,7 +57,7 @@
          android:layout_width="54dp"
          android:layout_height="66dp"
          android:layout_x="545dp"
-         android:layout_y="160dp"
+         android:layout_y="150dp"
          android:src="@drawable/hpl2_blank"
          android:visibility="invisible" />
      
@@ -66,7 +66,7 @@
          android:layout_width="35dp"
          android:layout_height="42dp"
          android:layout_x="555dp"
-         android:layout_y="165dp"
+         android:layout_y="155dp"
          android:src="@drawable/a"
          android:visibility="invisible" />
      
@@ -75,7 +75,7 @@
          android:layout_width="54dp"
          android:layout_height="66dp"
          android:layout_x="572dp"
-         android:layout_y="160dp"
+         android:layout_y="150dp"
          android:src="@drawable/hpl2_blank"
          android:visibility="invisible" />
      
@@ -84,7 +84,7 @@
          android:layout_width="35dp"
          android:layout_height="42dp"
          android:layout_x="582dp"
-         android:layout_y="165dp"
+         android:layout_y="155dp"
          android:src="@drawable/a"
          android:visibility="invisible" />
      
@@ -93,7 +93,7 @@
           android:layout_width="54dp"
           android:layout_height="66dp"
           android:layout_x="600dp"
-          android:layout_y="160dp"
+          android:layout_y="150dp"
           android:src="@drawable/hpl2_blank"
           android:visibility="invisible" />
      
@@ -102,7 +102,7 @@
          android:layout_width="35dp"
          android:layout_height="42dp"
          android:layout_x="605dp"
-         android:layout_y="165dp"
+         android:layout_y="155dp"
          android:src="@drawable/a"
          android:visibility="invisible" />
      
@@ -111,7 +111,7 @@
          android:layout_width="54dp"
          android:layout_height="66dp"
          android:layout_x="630dp"
-         android:layout_y="160dp"
+         android:layout_y="150dp"
          android:src="@drawable/hpl2_blank"
          android:visibility="invisible" />
      
@@ -120,7 +120,7 @@
          android:layout_width="35dp"
          android:layout_height="42dp"
          android:layout_x="635dp"
-         android:layout_y="165dp"
+         android:layout_y="155dp"
          android:src="@drawable/a"
          android:visibility="invisible" />
      
@@ -129,7 +129,7 @@
           android:layout_width="54dp"
           android:layout_height="66dp"
           android:layout_x="655dp"
-          android:layout_y="160dp"
+          android:layout_y="150dp"
           android:src="@drawable/hpl2_blank"
           android:visibility="invisible" />
      
@@ -138,7 +138,7 @@
          android:layout_width="35dp"
          android:layout_height="42dp"
          android:layout_x="665dp"
-         android:layout_y="165dp"
+         android:layout_y="155dp"
          android:src="@drawable/a"
          android:visibility="invisible" />
      
@@ -147,7 +147,7 @@
           android:layout_width="54dp"
           android:layout_height="66dp"
           android:layout_x="687dp"
-          android:layout_y="160dp"
+          android:layout_y="150dp"
           android:src="@drawable/hpl2_blank"
           android:visibility="invisible" />
      
@@ -156,7 +156,7 @@
          android:layout_width="35dp"
          android:layout_height="42dp"
          android:layout_x="695dp"
-         android:layout_y="165dp"
+         android:layout_y="155dp"
          android:src="@drawable/a"
          android:visibility="invisible" />
      
@@ -165,7 +165,7 @@
           android:layout_width="54dp"
           android:layout_height="66dp"
           android:layout_x="708dp"
-          android:layout_y="160dp"
+          android:layout_y="150dp"
           android:src="@drawable/hpl2_blank"
           android:visibility="invisible" />
      
@@ -174,7 +174,7 @@
          android:layout_width="35dp"
          android:layout_height="42dp"
          android:layout_x="715dp"
-         android:layout_y="165dp"
+         android:layout_y="155dp"
          android:src="@drawable/a"
          android:visibility="invisible" />
      
@@ -183,7 +183,7 @@
          android:layout_width="54dp"
          android:layout_height="66dp"
          android:layout_x="740dp"
-         android:layout_y="160dp"
+         android:layout_y="150dp"
          android:src="@drawable/hpl2_blank"
          android:visibility="invisible" />
      
@@ -192,7 +192,7 @@
          android:layout_width="35dp"
          android:layout_height="42dp"
          android:layout_x="748dp"
-         android:layout_y="165dp"
+         android:layout_y="155dp"
          android:src="@drawable/a"
          android:visibility="invisible" />
      
@@ -201,7 +201,7 @@
           android:layout_width="54dp"
           android:layout_height="66dp"
           android:layout_x="765dp"
-          android:layout_y="160dp"
+          android:layout_y="150dp"
           android:src="@drawable/hpl2_blank"
           android:visibility="invisible" />
      
@@ -210,7 +210,7 @@
          android:layout_width="35dp"
          android:layout_height="42dp"
          android:layout_x="775dp"
-         android:layout_y="165dp"
+         android:layout_y="155dp"
          android:src="@drawable/a"
          android:visibility="invisible" />
      
@@ -219,7 +219,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="510dp"
-        android:layout_y="365dp"
+        android:layout_y="355dp"
         android:background="@drawable/a"
         android:visibility="visible" />
     
@@ -228,7 +228,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="590dp"
-        android:layout_y="365dp"
+        android:layout_y="355dp"
         android:background="@drawable/d"
         android:visibility="visible" />
 
@@ -237,7 +237,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="680dp"
-        android:layout_y="365dp"
+        android:layout_y="355dp"
         android:background="@drawable/e"
         android:visibility="visible" />
 
@@ -246,7 +246,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="770dp"
-        android:layout_y="365dp"
+        android:layout_y="355dp"
         android:background="@drawable/f"
         android:visibility="visible" />
 
@@ -255,7 +255,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="460dp"
-        android:layout_y="420dp"
+        android:layout_y="410dp"
         android:background="@drawable/g"
         android:visibility="visible" />
     
@@ -264,7 +264,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="550dp"
-        android:layout_y="420dp"
+        android:layout_y="410dp"
         android:background="@drawable/h"
         android:visibility="visible" />
     
@@ -273,7 +273,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="640dp"
-        android:layout_y="420dp"
+        android:layout_y="410dp"
         android:background="@drawable/i"
         android:visibility="visible" />
     
@@ -282,7 +282,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="730dp"
-        android:layout_y="420dp"
+        android:layout_y="410dp"
         android:background="@drawable/l"
         android:visibility="visible" />
 
@@ -291,7 +291,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="510dp"
-        android:layout_y="475dp"
+        android:layout_y="465dp"
         android:background="@drawable/m"
         android:visibility="visible" />
     
@@ -300,7 +300,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="590dp"
-        android:layout_y="475dp"
+        android:layout_y="465dp"
         android:background="@drawable/n"
         android:visibility="visible" />
     
@@ -309,7 +309,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="680dp"
-        android:layout_y="475dp"
+        android:layout_y="465dp"
         android:background="@drawable/o"
         android:visibility="visible" />
     
@@ -318,7 +318,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="770dp"
-        android:layout_y="475dp"
+        android:layout_y="465dp"
         android:background="@drawable/r"
         android:visibility="visible" />
 
@@ -327,7 +327,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="460dp"
-        android:layout_y="530dp"
+        android:layout_y="520dp"
         android:background="@drawable/s"
         android:visibility="visible" />
     
@@ -336,7 +336,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="550dp"
-        android:layout_y="530dp"
+        android:layout_y="520dp"
         android:background="@drawable/t"
         android:visibility="visible" />
     
@@ -345,7 +345,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="640dp"
-        android:layout_y="530dp"
+        android:layout_y="520dp"
         android:background="@drawable/u"
         android:visibility="visible" />
     
@@ -354,7 +354,7 @@
         android:layout_width="35dp"
         android:layout_height="42dp"
         android:layout_x="730dp"
-        android:layout_y="530dp"
+        android:layout_y="520dp"
         android:background="@drawable/y"
         android:visibility="visible" />
     
@@ -396,7 +396,7 @@
         android:visibility="invisible" />
 
     <Button
-        android:id="@+id/useHelp"
+        android:id="@+id/bodyHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="830dp"
@@ -404,7 +404,7 @@
         android:background="@drawable/icon_help2" />
 
     <Button
-        android:id="@+id/usebackHome"
+        android:id="@+id/bodybackHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="933dp"
