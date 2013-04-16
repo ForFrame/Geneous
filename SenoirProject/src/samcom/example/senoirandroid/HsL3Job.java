@@ -34,6 +34,7 @@ public class HsL3Job extends Activity {
 	final Context context = this;
 	int timeRemain;
 	boolean firstSound;
+	boolean OnPause = false;
 	boolean RunningCount = false;
 	int Round;
 	int Begin = 1;
@@ -146,14 +147,17 @@ public class HsL3Job extends Activity {
 			}
 			
 		});
-		if(count < 10){
-			Random = RanNum();
-			checkAnswer(Random,count+1);
-		}
-		else{
-			scores = myDb.countScore("012", username, Round);
-			countdownTime.cancel();
-			showPopup(scores);
+		
+		if(OnPause == false){
+			if(count < 10){
+				Random = RanNum();
+				checkAnswer(Random,count+1);
+			}
+			else{
+				scores = myDb.countScore("012", username, Round);
+				countdownTime.cancel();
+				showPopup(scores);
+			}
 		}
 
 	}
@@ -198,7 +202,9 @@ public class HsL3Job extends Activity {
 		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
-		timeRemain = (int)countTime;
+		if(firstSound == true){
+			timeRemain = (int)countTime;
+		}
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		imgWrong.setClickable(false);
@@ -649,6 +655,7 @@ public class HsL3Job extends Activity {
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
+		OnPause = true;
 		if(soundMain.isLooping()){
     		soundMain.stop();
     	}

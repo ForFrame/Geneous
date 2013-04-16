@@ -30,6 +30,7 @@ public class L1ScCount extends Activity {
 	static int randomInt;
 	long startTime;
 	boolean firstSound;
+	boolean OnPause = false;
 	boolean RunningCount = false;
 	final Context context = this;
 	String username;
@@ -146,23 +147,24 @@ public class L1ScCount extends Activity {
 			}
 			
 		});
-		
-		if(count < 10){
-			Random = RanNum();
-					
-			//final long startTime = ((Random*2)+10)*1000;
-			int LastRan = myDb.getLastNum(0);
-			if(LastRan!= 0){
-				hideTables(LastRan);
+		if(OnPause == false){
+			if(count < 10){
+				Random = RanNum();
+						
+				//final long startTime = ((Random*2)+10)*1000;
+				int LastRan = myDb.getLastNum(0);
+				if(LastRan!= 0){
+					hideTables(LastRan);
+				}
+				checkAns(Random,count+1);
 			}
-			checkAns(Random,count+1);
-		}
-		else{
-			scores = myDb.countScore("001", username, Round);
-			int LastRan = myDb.getLastNum(10);
-			hideTables(LastRan);
-			countdown.cancel();
-			showPopup(scores);
+			else{
+				scores = myDb.countScore("001", username, Round);
+				int LastRan = myDb.getLastNum(10);
+				hideTables(LastRan);
+				countdown.cancel();
+				showPopup(scores);
+			}
 		}
 		
 		
@@ -219,7 +221,9 @@ public class L1ScCount extends Activity {
 		
 		
 		final float countTime = (float) startTime /1000;
-		timeRemain = (int)countTime;
+		if(firstSound == true){
+			timeRemain = (int)countTime;
+		}
 		final View imgWrong = (View)findViewById(R.id.showwrongnumber); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrectnumber);
 		
@@ -789,6 +793,7 @@ public class L1ScCount extends Activity {
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
+		OnPause = true;
 		if(soundMain.isLooping()){
     		soundMain.stop();
     	}

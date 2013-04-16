@@ -40,6 +40,7 @@ public class MkL3Weight extends Activity {
 	final Context context = this;
 	int timeRemain;
 	boolean firstSound;
+	boolean OnPause = false;
 	boolean RunningCount = false;
 	int Round;
 	int Begin = 1;
@@ -160,14 +161,16 @@ public class MkL3Weight extends Activity {
 			}
 			
 		});
-		if(count < 10){
-			Random = RanNum();
-			checkAnswer(Random,count+1);
-		}
-		else{
-			scores = myDb.countScore("009", username, Round);
-			countdownTime.cancel();
-			showPopup(scores);
+		if(OnPause == false){
+			if(count < 10){
+				Random = RanNum();
+				checkAnswer(Random,count+1);
+			}
+			else{
+				scores = myDb.countScore("009", username, Round);
+				countdownTime.cancel();
+				showPopup(scores);
+			}
 		}
 
 	}
@@ -601,6 +604,7 @@ public class MkL3Weight extends Activity {
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
+		OnPause = true;
 		if(soundMain.isLooping()){
     		soundMain.stop();
     	}

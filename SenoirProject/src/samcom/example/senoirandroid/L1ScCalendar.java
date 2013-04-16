@@ -31,6 +31,7 @@ public class L1ScCalendar extends Activity {
 	final Context context = this;
 	int timeRemain;
 	boolean firstSound;
+	boolean OnPause = false;
 	boolean RunningCount = false;
 	int Round;
 	int Day = 1;
@@ -154,14 +155,16 @@ public class L1ScCalendar extends Activity {
 			}
 			
 		});
-		if(Day < 11){
-			//startTime = (30)*1000;
-			checkAns(false);
-		}
-		else{
-			scores = myDb.countScore("002", username, Round);
-			countdownTime.cancel();
-			showPopup(scores);
+		if(OnPause == false){
+			if(Day < 11){
+				//startTime = (30)*1000;
+				checkAns(false);
+			}
+			else{
+				scores = myDb.countScore("002", username, Round);
+				countdownTime.cancel();
+				showPopup(scores);
+			}
 		}
 	}
 	
@@ -222,7 +225,9 @@ void checkAns(Boolean isInterupt){
 		//countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
-		timeRemain = (int)countTime;
+		if(firstSound == true){
+			timeRemain = (int)countTime;
+		}
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		
@@ -776,6 +781,7 @@ void checkAns(Boolean isInterupt){
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
+		OnPause = true;
 		if(soundMain.isLooping()){
     		soundMain.stop();
     	}

@@ -34,6 +34,7 @@ public class HsL1Shape extends Activity {
 	final Context context = this;
 	int timeRemain;
 	boolean firstSound;
+	boolean OnPause = false;
 	boolean RunningCount = false;
 	int Round;
 	int Begin = 1;
@@ -145,14 +146,16 @@ public class HsL1Shape extends Activity {
 			}
 			
 		});
-		if(count < 10){
-			Random = RanNum();
-			checkAnswer(Random,count+1);
-		}
-		else{
-			scores = myDb.countScore("010", username, Round);
-			countdownTime.cancel();
-			showPopup(scores);
+		if(OnPause == false){
+			if(count < 10){
+				Random = RanNum();
+				checkAnswer(Random,count+1);
+			}
+			else{
+				scores = myDb.countScore("010", username, Round);
+				countdownTime.cancel();
+				showPopup(scores);
+			}
 		}
 
 	}
@@ -237,7 +240,9 @@ public class HsL1Shape extends Activity {
         });
 		
 		final float countTime = (float) startTime /1000;
-		timeRemain = (int)countTime; 
+		if(firstSound == true){
+			timeRemain = (int)countTime;
+		}
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
 			
@@ -655,6 +660,7 @@ public class HsL1Shape extends Activity {
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
+		OnPause = true;
 		if(soundMain.isLooping()){
     		soundMain.stop();
     	}

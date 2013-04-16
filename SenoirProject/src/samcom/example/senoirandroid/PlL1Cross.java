@@ -34,6 +34,7 @@ public class PlL1Cross extends Activity {
 	final Context context = this;
 	int timeRemain;
 	boolean firstSound;
+	boolean OnPause = false;
 	boolean RunningCount = false;
 	int Round;
 	int Items = 1;
@@ -147,42 +148,44 @@ public class PlL1Cross extends Activity {
 			}
 			
 		});
-		if(Items < 11){
-			//startTime = (30)*1000;
-			//if(Round == 1){
-	/*		if((Round == 1)||(username.equals("Guest"))){
-				if(Begin == 1){
-					if(Items == 1){
-						showBeginPopup(1);
-					}
-					else if(Items == 4){
-						showBeginPopup(4);
-					}
-					else if(Items == 6){
-						showBeginPopup(6);
-					}
-					else if(Items == 8){
-						showBeginPopup(8);
+		if(OnPause == false){
+			if(Items < 11){
+				//startTime = (30)*1000;
+				//if(Round == 1){
+		/*		if((Round == 1)||(username.equals("Guest"))){
+					if(Begin == 1){
+						if(Items == 1){
+							showBeginPopup(1);
+						}
+						else if(Items == 4){
+							showBeginPopup(4);
+						}
+						else if(Items == 6){
+							showBeginPopup(6);
+						}
+						else if(Items == 8){
+							showBeginPopup(8);
+						}
+						else{
+							checkAns(false);
+						}
 					}
 					else{
 						checkAns(false);
 					}
 				}
 				else{
-					checkAns(false);
-				}
+				
+				  */
+				 checkAns();
+				
+				//}
 			}
 			else{
-			
-			  */
-			 checkAns();
-			
-			//}
-		}
-		else{
-			scores = myDb.countScore("004", username, Round);
-			countdownTime.cancel();
-			showPopup(scores);
+				scores = myDb.countScore("004", username, Round);
+				countdownTime.cancel();
+				showPopup(scores);
+			}
 		}
 	}
 	
@@ -230,7 +233,9 @@ void checkAns(){
 		
 		startTime = (20)*1000;
 		final float countTime = (float) startTime /1000;
-		timeRemain = (int)countTime;
+		if(firstSound == true){
+			timeRemain = (int)countTime;
+		}
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		imgWrong.setClickable(false);
@@ -976,6 +981,7 @@ void checkAns(){
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
+		OnPause = true;
 		if(soundMain.isLooping()){
     		soundMain.stop();
     	}

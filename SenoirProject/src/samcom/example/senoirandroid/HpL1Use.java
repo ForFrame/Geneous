@@ -34,6 +34,7 @@ public class HpL1Use extends Activity {
 	final Context context = this;
 	int timeRemain;
 	boolean firstSound;
+	boolean OnPause = false;
 	boolean RunningCount = false;
 	int Round;
 	int Begin = 1;
@@ -145,14 +146,16 @@ public class HpL1Use extends Activity {
 			}
 			
 		});
-		if(count < 10){
-			Random = RanNum();
-			checkAnswer(Random,count+1);
-		}
-		else{
-			scores = myDb.countScore("013", username, Round);
-			countdownTime.cancel();
-			showPopup(scores);
+		if(OnPause == false){
+			if(count < 10){
+				Random = RanNum();
+				checkAnswer(Random,count+1);
+			}
+			else{
+				scores = myDb.countScore("013", username, Round);
+				countdownTime.cancel();
+				showPopup(scores);
+			}
 		}
 
 	}
@@ -657,6 +660,7 @@ public class HpL1Use extends Activity {
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
+		OnPause = true;
 		if(soundMain.isLooping()){
     		soundMain.stop();
     	}
