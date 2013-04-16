@@ -684,7 +684,7 @@ public class HpL2Body extends Activity {
 				{'T','E','E','T','H'},{'H','A','I','R'}};
 
 		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.bodyLayout);
-		
+	
 		switch(random){
 		case 1:
 			Thislayout.setBackgroundResource(R.drawable.hpl2_bg1);
