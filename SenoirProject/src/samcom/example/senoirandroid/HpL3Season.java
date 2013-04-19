@@ -430,25 +430,21 @@ public class HpL3Season extends Activity {
 		else if(random == 4){
 			Thislayout.setBackgroundResource(R.drawable.hpl3_bg4);
 	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
-	    	randomAns = randomGenerator.nextInt(3)+1;
+	    	randomAns = randomGenerator.nextInt(2)+1;
 			if(answer == 1){
 				if(randomInt == 1)
 					ans1.setBackgroundResource(R.drawable.hpl3_uhot1);
 				if(randomInt == 2)
 					ans1.setBackgroundResource(R.drawable.hpl3_uhot2);
 				if(randomAns == 1)
-					ans2.setBackgroundResource(R.drawable.hpl3_urain1);
-				if(randomAns == 2)
 					ans2.setBackgroundResource(R.drawable.hpl3_ucold1);
-				if(randomAns == 3)
+				if(randomAns == 2)
 					ans2.setBackgroundResource(R.drawable.hpl3_ucold2);
 			}
 	    	else{
 	    		if(randomAns == 1)
-					ans1.setBackgroundResource(R.drawable.hpl3_urain1);
-				if(randomAns == 2)
 					ans1.setBackgroundResource(R.drawable.hpl3_ucold1);
-				if(randomAns == 3)
+				if(randomAns == 2)
 					ans1.setBackgroundResource(R.drawable.hpl3_ucold2);
 	    		if(randomInt == 1)
 					ans2.setBackgroundResource(R.drawable.hpl3_uhot1);
@@ -459,12 +455,11 @@ public class HpL3Season extends Activity {
 			
 		}
 		else if(random == 5){
-			Thislayout.setBackgroundResource(R.drawable.hpl3_bg4);
+			Thislayout.setBackgroundResource(R.drawable.hpl3_bg5);
 	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	randomAns = randomGenerator.nextInt(4)+1;
 			if(answer == 1){
-				if(randomInt == 1)
-					ans1.setBackgroundResource(R.drawable.hpl3_urain1);
+				ans1.setBackgroundResource(R.drawable.hpl3_urain1);
 				if(randomAns == 1)
 					ans2.setBackgroundResource(R.drawable.hpl3_uhot1);
 				if(randomAns == 2)
@@ -475,17 +470,16 @@ public class HpL3Season extends Activity {
 					ans2.setBackgroundResource(R.drawable.hpl3_ucold2);
 			}
 	    	else{
+	    		ans2.setBackgroundResource(R.drawable.hpl3_urain1);
 	    		if(randomAns == 1)
-					ans1.setBackgroundResource(R.drawable.hpl3_uhot1);
+	    			ans1.setBackgroundResource(R.drawable.hpl3_uhot1);
 	    		if(randomAns == 2)
 					ans1.setBackgroundResource(R.drawable.hpl3_uhot2);
 				if(randomAns == 3)
 					ans1.setBackgroundResource(R.drawable.hpl3_ucold1);
 				if(randomAns == 4)
 					ans1.setBackgroundResource(R.drawable.hpl3_ucold2);
-	    		if(randomInt == 1)
-					ans2.setBackgroundResource(R.drawable.hpl3_urain1);
-	    		
+	    		    		
 	    	}
 			
 		}
