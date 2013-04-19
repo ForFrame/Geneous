@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sclv_bg"
+    android:background="@drawable/frlv_bg"
     android:orientation="vertical"
     android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
 
@@ -48,24 +48,24 @@
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:layout_x="60dp"
-        android:layout_y="260dp"
-        android:background="@drawable/sclv1" />
+        android:layout_y="250dp"
+        android:background="@drawable/frlv1" />
 
      <Button
          android:id="@+id/level2"
          android:layout_width="240dp"
          android:layout_height="240dp"
          android:layout_x="390dp"
-         android:layout_y="260dp"
-         android:background="@drawable/sclv2" />
+         android:layout_y="250dp"
+         android:background="@drawable/frlv2" />
      
     <Button
         android:id="@+id/level3"
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:layout_x="730dp"
-        android:layout_y="260dp"
-        android:background="@drawable/sclv3" />
+        android:layout_y="250dp"
+        android:background="@drawable/frlv3" />
 
     <Button
         android:id="@+id/backToHome"
