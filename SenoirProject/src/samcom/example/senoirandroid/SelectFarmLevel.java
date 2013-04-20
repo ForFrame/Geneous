@@ -111,7 +111,7 @@ public class SelectFarmLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectFarmLevel.this,HpL1Use.class);
+				Intent intent = new Intent(SelectFarmLevel.this,FrL1Aniname.class);
 				startActivity(intent);
 			}
 		});
@@ -124,7 +124,7 @@ public class SelectFarmLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectFarmLevel.this,HpL2Body.class);
+				Intent intent = new Intent(SelectFarmLevel.this,FrL2Shadow.class);
 				startActivity(intent);
 			}
 		});
@@ -136,7 +136,7 @@ public class SelectFarmLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectFarmLevel.this,HpL3Season.class);
+				Intent intent = new Intent(SelectFarmLevel.this,FrL3Typeani.class);
 				startActivity(intent);
 			}
 		});

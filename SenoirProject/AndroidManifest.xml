@@ -103,6 +103,12 @@
                   android:screenOrientation="landscape"/>
          <activity android:name=".SelectFarmLevel"
                   android:screenOrientation="landscape"/>
+         <activity android:name=".FrL1Aniname"
+                  android:screenOrientation="landscape"/>
+         <activity android:name=".FrL2Shadow"
+                  android:screenOrientation="landscape"/>
+         <activity android:name=".FrL3Typeani"
+                  android:screenOrientation="landscape"/>
         
         <activity android:name=".HospitalLevel1"
                   android:label="@string/app_name" 

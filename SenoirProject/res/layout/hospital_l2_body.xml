@@ -360,11 +360,11 @@
     
      <ImageView
          android:id="@+id/showAnswer"
-         android:layout_width="600dp"
-         android:layout_height="340dp"
-         android:layout_x="210dp"
-         android:layout_y="250dp"
-         android:background="@drawable/help_rectang2"
+         android:layout_width="400dp"
+         android:layout_height="270dp"
+         android:layout_x="430dp"
+         android:layout_y="325dp"
+         android:background="@drawable/help_frlv"
          android:visibility="invisible" />
      
     <TextView
@@ -375,14 +375,15 @@
         android:layout_y="56dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <ImageView
         android:id="@+id/showwrong"
         android:layout_width="500dp"
         android:layout_height="500dp"
         android:layout_x="255dp"
-        android:layout_y="94dp"
+        android:layout_y="200dp"
         android:background="@drawable/weak"
-        android:clickable="true"
+        android:clickable="false"
         android:visibility="invisible" />
 
     <ImageView
@@ -390,9 +391,9 @@
         android:layout_width="500dp"
         android:layout_height="500dp"
         android:layout_x="255dp"
-        android:layout_y="94dp"
+        android:layout_y="200dp"
         android:background="@drawable/smile"
-        android:clickable="true"
+        android:clickable="false"
         android:visibility="invisible" />
 
     <Button

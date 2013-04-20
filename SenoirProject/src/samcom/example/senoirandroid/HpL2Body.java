@@ -871,7 +871,7 @@ public class HpL2Body extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(HpL2Body.this,HsL3Job.class);
+				Intent intent = new Intent(HpL2Body.this,HpL3Season.class);
 				startActivity(intent);
 				
 			}
