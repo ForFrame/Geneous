@@ -1,0 +1,93 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tab3_layout"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/tab3_bg" >
+
+    <Button
+        android:id="@+id/Tab1BT"
+        android:layout_width="45dp"
+        android:layout_height="55dp"
+        android:layout_x="660dp"
+        android:layout_y="85dp"
+        android:background="@drawable/tab1_icon" />
+
+    <Button
+        android:id="@+id/Tab2BT"
+        android:layout_width="45dp"
+        android:layout_height="55dp"
+        android:layout_x="770dp"
+        android:layout_y="85dp"
+        android:background="@drawable/tab2_icon" />
+
+    <Button
+        android:id="@+id/Tab3BT"
+        android:layout_width="45dp"
+        android:layout_height="55dp"
+        android:layout_x="900dp"
+        android:layout_y="85dp"
+        android:background="@drawable/tab3_icon" />
+
+    <EditText
+        android:id="@+id/regUsertext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="325dp"
+        android:layout_y="280dp"
+        android:editable="false"
+        android:ems="10"
+        android:gravity="left|center_vertical|center"
+        android:text="    admin" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/oldPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="430dp"
+        android:layout_y="360dp"
+        android:ems="10"
+        android:hint="Password"
+        android:imeOptions="actionNext|flagNoFullscreen|flagNavigateNext"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/newPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="430dp"
+        android:layout_y="430dp"
+        android:ems="10"
+        android:hint="Password"
+        android:imeOptions="actionNext|flagNoFullscreen|flagNavigateNext"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/newPass2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="430dp"
+        android:layout_y="500dp"
+        android:ems="10"
+        android:hint="Password"
+        android:imeOptions="actionNext|flagNoFullscreen|flagNavigateNext"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/okBt"
+        android:layout_width="138dp"
+        android:layout_height="69dp"
+        android:layout_x="319dp"
+        android:layout_y="598dp"
+        android:background="@drawable/ok" />
+
+    <Button
+        android:id="@+id/CancelBt"
+        android:layout_width="138dp"
+        android:layout_height="69dp"
+        android:layout_x="506dp"
+        android:layout_y="598dp"
+        android:background="@drawable/cancel" />
+
+</AbsoluteLayout>

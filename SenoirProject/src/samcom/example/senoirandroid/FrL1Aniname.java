@@ -2,7 +2,6 @@ package samcom.example.senoirandroid;
 
 
 import java.util.Random;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;

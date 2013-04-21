@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
+import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -79,6 +80,10 @@ SQLiteDatabase db;
 		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 			setContentView(R.layout.activity_main);
+			final myDBClass myDb = new myDBClass(this);
+			myDb.getWritableDatabase();
+			myDb.InsertUser("admin",0,0);
+			
 	//	}
 	//    else{
 	//    	setContentView(R.layout.small_activity_main);
@@ -121,6 +126,7 @@ SQLiteDatabase db;
 		CurrentUser = myDb.SelectCurrentUser();
 		
 		if(valueLogin == 0){
+			
 			popUpLogIn();
 		}
 		else{
@@ -254,8 +260,14 @@ SQLiteDatabase db;
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instrucMain.stop();
-				setPostionSelected("",0);
-				showListViewHighScore();
+				if(CurrentUser.equals("admin")){
+					Intent intent = new Intent(Main.this,AdminRegis.class);
+					startActivity(intent);
+				}
+				else{
+					setPostionSelected("",0);
+					showListViewHighScore();
+				}
 			}
 		});
 	}
@@ -278,34 +290,91 @@ SQLiteDatabase db;
 				final boolean checkUser;
 				final String username;
 				final Date d = new Date();
-				int continueLoginState = 0;
-				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
+				final int continueLoginState = 0;
+				final Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
 				EditText user = (EditText)LoginPop.findViewById(R.id.usertext);
 				username = user.getText().toString();
-		
+				
 				//check user info if got -> insert status table(name,date) ,no -> message Toast 
 				checkUser = myDb.checkUserInfo(username);
 				if(checkUser == true){
 					
-					LoginPop.dismiss();
-					
-					CurrentUser = username;
-					
-					myDb.InsertCurrent(CurrentUser,d,continueLoginState);
-					if(!(CurrentUser.equals("Guest"))){
-							TextView result = (TextView) findViewById(R.id.textUser);
-							result.setTypeface(type); 
-							result.setTextColor(Color.rgb(2, 101, 203));
-							result.setVisibility(TextView.VISIBLE);
-							result.setText(CurrentUser);
-							Button LogoutBt = (Button) findViewById(R.id.logout);
-							LogoutBt.setVisibility(Button.VISIBLE);
-							Button LoginBt = (Button) findViewById(R.id.loginn);
-							LoginBt.setVisibility(Button.INVISIBLE);
-							Button getHighScore = (Button)findViewById(R.id.showHighScore);
-							getHighScore.setVisibility(TextView.VISIBLE);
+					if(username.equals("admin")){
+				        AlertDialog.Builder alert = new AlertDialog.Builder(context2);
+			            alert.setMessage(" กรุณากรอกรหัสผ่าน  "); //Message here
+			 
+			            // Set an EditText view to get user input 
+			            final EditText input = new EditText(context2);
+			            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+			            alert.setView(input);
+			 
+			            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				            public void onClick(DialogInterface dialog, int whichButton) {
+				            	String srt = input.getEditableText().toString();
+				            	String passDb = myDb.passAdmin();
+				            	if(srt.equals(passDb)){
+				            		//login
+				            		LoginPop.dismiss();
+									
+									CurrentUser = username;
+									
+									myDb.InsertCurrent(CurrentUser,d,continueLoginState);
+									if(!(CurrentUser.equals("Guest"))){
+											TextView result = (TextView) findViewById(R.id.textUser);
+											result.setTypeface(type); 
+											result.setTextColor(Color.rgb(2, 101, 203));
+											result.setVisibility(TextView.VISIBLE);
+											result.setText(CurrentUser);
+											Button LogoutBt = (Button) findViewById(R.id.logout);
+											LogoutBt.setVisibility(Button.VISIBLE);
+											Button LoginBt = (Button) findViewById(R.id.loginn);
+											LoginBt.setVisibility(Button.INVISIBLE);
+											Button getHighScore = (Button)findViewById(R.id.showHighScore);
+											getHighScore.setVisibility(TextView.VISIBLE);
+									}
+									instrucMain.start();
+				            	}
+				            	else{
+				            		//Toast.makeText(context2,"รหัสไม่ถูกต้อง",Toast.LENGTH_LONG).show();
+				            		Toast toast= Toast.makeText(getApplicationContext(), " รหัสไม่ถูกต้องค่ะ ", Toast.LENGTH_SHORT);  
+									toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 40, 170);
+									toast.show();
+				            	}
+				            	
+				            } 
+			            }); 
+			            
+				        alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+				              public void onClick(DialogInterface dialog, int whichButton) {
+				                // Canceled.
+				                  dialog.cancel();
+				              }
+				        }); 
+				        
+			            AlertDialog alertDialog = alert.create();
+			            alertDialog.show();
 					}
-					instrucMain.start();
+					else{
+						LoginPop.dismiss();
+						
+						CurrentUser = username;
+						
+						myDb.InsertCurrent(CurrentUser,d,continueLoginState);
+						if(!(CurrentUser.equals("Guest"))){
+								TextView result = (TextView) findViewById(R.id.textUser);
+								result.setTypeface(type); 
+								result.setTextColor(Color.rgb(2, 101, 203));
+								result.setVisibility(TextView.VISIBLE);
+								result.setText(CurrentUser);
+								Button LogoutBt = (Button) findViewById(R.id.logout);
+								LogoutBt.setVisibility(Button.VISIBLE);
+								Button LoginBt = (Button) findViewById(R.id.loginn);
+								LoginBt.setVisibility(Button.INVISIBLE);
+								Button getHighScore = (Button)findViewById(R.id.showHighScore);
+								getHighScore.setVisibility(TextView.VISIBLE);
+						}
+						instrucMain.start();
+					}
 				}
 				else{
 					 
@@ -347,6 +416,40 @@ SQLiteDatabase db;
 			
 		LoginPop.show();
 	}
+	/*
+	  private Dialog requirePassDialog() {
+		  
+	        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	        builder.setTitle("Hello User");
+	        builder.setMessage("What is your name:");
+	 
+	         // Use an EditText view to get user input.
+	         final EditText input = new EditText(this);
+	         input.setId(TEXT_ID);
+	         builder.setView(input);
+	 
+	        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+	 
+	            @Override
+	            public void onClick(DialogInterface dialog, int whichButton) {
+	                String value = input.getText().toString();
+	                Log.d(TAG, "User name: " + value);
+	                return;
+	            }
+	        });
+	 
+	        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+	 
+	            @Override
+	            public void onClick(DialogInterface dialog, int which) {
+	                return;
+	            }
+	        });
+	 
+	        return builder.create();
+	    }
+	
+	*/
 	void showRegisPopup(String inputname){
 		
 		final Dialog RegisPop = new Dialog(context2, R.style.FullHeightDialog);

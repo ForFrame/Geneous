@@ -81,7 +81,7 @@ public class L1ScLongShort extends Activity {
 		username = myDb.SelectCurrentUser();
 		
 		myDb.getWritableDatabase();
-		myDb.addGameNo("003", "Short or Long", 1);
+		//myDb.addGameNo("003", "Short or Long", 1);
 		myDb.emptyNumberTable();
 		myDb.close();
 	

@@ -34,7 +34,7 @@ public void onCreate(SQLiteDatabase db) {
 //TODO Auto-generated method stub
 	//Create User Info table
 	db.execSQL("CREATE TABLE "+ TABLE_USER +" (Username TEXT(100) PRIMARY KEY,"+
-	" Age INTEGER,"+" Sex INTEGER);");
+	" Age INTEGER,"+" Sex INTEGER,"+" Status INTEGER,"+" Password TEXT(20));");
 	//Create Login status table
 	db.execSQL("CREATE TABLE "+ TABLE_STATUS +" (No INTEGER PRIMARY KEY AUTOINCREMENT,"+
 	" Username TEXT(100),"+" Status INTEGER,"+" Checkbox INTEGER,"+" Home INTEGER,"+" Date TEXT(30));");
@@ -95,6 +95,9 @@ public void onCreate(SQLiteDatabase db) {
 	} catch (Exception e){
 	
 	}
+	
+	// insert admin into user table set(username = admin && password = admin)
+	
 }
 
 // select current user -> return username / guest
@@ -254,7 +257,34 @@ public Boolean checkUserInfo(String name){
 	return userSame;
 }
 
+public void insertAdmin(){
+	
+	Boolean IsExited = checkUserInfo("admin");
+	if(!IsExited){
+		try{
+			SQLiteDatabase db;
+			db = this.getWritableDatabase();
+			
+			ContentValues Val = new ContentValues();
+			Val.put("Username", "admin");
+			Val.put("Age", 0);
+			Val.put("Sex", 0);
+			Val.put("Status", 1);
+			Val.put("Password", "admin");
+			
+			long rows = db.insert(TABLE_USER, null, Val);
+			
+			db.close();
+			
+			
+		} catch (Exception e){
+			//return null;
+		}
+	}
+} 
+
 // insert user into status table
+
 public void InsertCurrent(String CurrentUser,Date d,int continueLoginState){
 	
 	try{
@@ -295,28 +325,45 @@ public void InsertCurrent(String CurrentUser,Date d,int continueLoginState){
 // insert new user into userinfo table
 public void InsertUser(String CurrentUser,int age,int chooseSex){
 	
-	try{
+	Boolean IsExited = false;
+	String pass = "-";
+	int status = 0;
+	if(CurrentUser.equals("admin")){
+		status = 1;
+		pass = "admin";
+		IsExited = checkUserInfo("admin");
+	}
+	
+	
+	if(!IsExited){
 		
-		SQLiteDatabase db;
-		db = this.getWritableDatabase();
-		
-		
-		ContentValues Val = new ContentValues();
-		Val.put("Username", CurrentUser);
-		Val.put("Age", age);
-		Val.put("Sex", chooseSex);
-		
-		long rows = db.insert(TABLE_USER, null, Val);
-		
-		db.close();
-		
-		
-	} catch (Exception e){
-		//return null;
+		try{
+			
+			SQLiteDatabase db;
+			db = this.getWritableDatabase();
+			
+			
+			ContentValues Val = new ContentValues();
+			Val.put("Username", CurrentUser);
+			Val.put("Age", age);
+			Val.put("Sex", chooseSex);
+			Val.put("Status", 0);
+			Val.put("Password", pass);
+			
+			long rows = db.insert(TABLE_USER, null, Val);
+			
+			db.close();
+			
+			
+		} catch (Exception e){
+			//return null;
+		}
 	}
 	
 }
 
+
+/*
 //add Game name
 void addGameNo(String GNo,String GName,int Glevel){
 
@@ -339,7 +386,7 @@ void addGameNo(String GNo,String GName,int Glevel){
 	
 	}
 }
-
+*/
 
 //-------------------------------------GAME001 Count Table Level 1 Mode: School-------------------------------------
 // count number in table random
@@ -533,12 +580,14 @@ int countScore(String GNo,String user,int Round){
 		
 	    SQLiteDatabase db;
 		db = this.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT Sum(Score) FROM scItem WHERE Username = '"+user+"' and GameNo = '"+GNo+"' and Round = '"+Round+"' ;", null);
+		Cursor cursor = db.rawQuery("SELECT Sum(Score), Sum(Time) FROM scItem WHERE Username = '"+user+"' and GameNo = '"+GNo+"' and Round = '"+Round+"' ;", null);
 	    	
 		if(cursor != null){
 			if(cursor.moveToFirst()) {
 	    	    scoree = cursor.getInt(0);
+	    	    int times = cursor.getInt(1);
 	    	    //scoree = (float) (scoree*5)/ItemNo;
+	    	    keepPlayingScore(GNo,user,Round,scoree,times);
 	    	}
 		}
 		else{
@@ -549,6 +598,69 @@ int countScore(String GNo,String user,int Round){
 		scoree = 0;
 	}
 	return scoree;
+}
+
+void keepPlayingScore(String GNo,String user,int Round,int scores,int times){
+	
+	try{
+		
+		SQLiteDatabase db;
+		db = this.getWritableDatabase();
+		
+		ContentValues Val = new ContentValues();
+		Val.put("Username", user);
+		Val.put("GameNo", GNo);
+		Val.put("Round", Round);
+		Val.put("AvgScore", scores);
+		Val.put("AvgTime", times);
+		
+		long rows = db.insert(TABLE_ScGame, null, Val);
+		
+		db.close();
+	
+	} catch (Exception e){
+	
+	}
+}
+
+String passAdmin(){
+	
+	String getPassword = null;
+	try{
+		
+	    SQLiteDatabase db;
+		db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery("SELECT Password FROM userinfo WHERE Username = 'admin' ;", null);
+	    	
+		if(cursor != null){
+			if(cursor.moveToFirst()) {
+	    	    getPassword = cursor.getString(0);
+	    	  
+	    	}
+		}
+		
+	}catch (Exception e){
+		//scoree = 0;
+	}
+	return getPassword;
+}
+
+void changePass(String password){
+	
+	try{
+		
+	    SQLiteDatabase db;
+		db = this.getWritableDatabase();
+				
+		ContentValues values=new ContentValues();
+		values.put("Password",password);
+		
+		int id = db.update("userinfo",values,"Username='admin'",null);
+		
+	}catch (Exception e){
+		//scoree = 0;
+	}
+	
 }
 
 int getIdvHighScore(String game,String name,String value[][]){

@@ -31,7 +31,14 @@
                   android:label="@string/app_name" 
                   android:screenOrientation="landscape"/>
         
-        <activity android:name=".LoginManage"
+        <activity android:name="samcom.example.senoirandroid.LoginManage"
+                  android:screenOrientation="landscape"/>
+        
+        <activity android:name=".AdminRegis"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".AdminEdit"
+                  android:screenOrientation="landscape"/>
+        <activity android:name=".AdminReport"
                   android:screenOrientation="landscape"/>
         
         <activity android:name=".SelectPoliceLevel"
