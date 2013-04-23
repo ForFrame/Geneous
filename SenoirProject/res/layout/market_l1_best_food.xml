@@ -42,14 +42,16 @@
         android:layout_x="872dp"
         android:layout_y="1dp"
         android:background="@drawable/logout_txt" />
+
     <ImageView
         android:id="@+id/finger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="700dp"
-        android:layout_y="170dp"
+        android:layout_x="750dp"
+        android:layout_y="130dp"
         android:background="@drawable/finger"
         android:visibility="invisible" />
+
     <Button
         android:id="@+id/picans1"
         android:layout_width="280dp"

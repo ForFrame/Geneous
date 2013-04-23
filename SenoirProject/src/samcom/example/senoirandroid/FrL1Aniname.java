@@ -219,9 +219,7 @@ public class FrL1Aniname extends Activity {
 		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
-		if(firstSound == true){
-			timeRemain = (int)countTime;
-		}
+		
 		
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
@@ -243,32 +241,20 @@ public class FrL1Aniname extends Activity {
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(FrL1Aniname.this, R.anim.tween);
 		final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
 		
-		if(Round == 1 || (username.equals("Guest") && item == 1)){
-			instructPage.start();
-			firstSound = true;
-		}
-		else{
-			startTime = (20)*1000;
-			countdownTime = new MyCountDown(startTime,1000);
-			countdownTime.start();	
-			instructPage.start();
-		}
+		countdownTime.start();
+		instructPage.start();
 		
+
+		if(Round == 1 || (username.equals("Guest") && item == 1)){
+        	instructFinger.startAnimation(myFadeonceAnimation);	
+        }
+		
+        		
 		instructPage.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	if(Round == 1 || (username.equals("Guest") && item == 1)){
-            		if(firstSound == true){
-            			instructFinger.startAnimation(myFadeAnimation);
-            			firstSound = false;
-            		}
-            		else{
-	            		helpAnswer.startAnimation(myFadeonceAnimation);
-	            		startTime = (20)*1000;
-	        			countdownTime = new MyCountDown(startTime,1000);
-	        			countdownTime.start();
-	        			instructFinger.clearAnimation();
-	            		soundAns.start();
-            		}
+            		helpAnswer.startAnimation(myFadeAnimation);
+	            	soundAns.start();
             	}
             }
         });
@@ -278,7 +264,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fa);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.aa);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'A'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -300,7 +289,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fb);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.ab);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'B'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -322,7 +314,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fc);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.ac);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'C'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -344,7 +339,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fd);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.ad);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'D'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -366,7 +364,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fe);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.ae);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'E'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -388,7 +389,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.ff);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.af);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'F'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -410,7 +414,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fg);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.ag);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'G'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -432,7 +439,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fh);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.ah);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'H'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -454,7 +464,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fi);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.ai);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'I'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -476,7 +489,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fk);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.ak);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'K'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -499,7 +515,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fn);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.an);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'N'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -521,7 +540,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fo);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.ao);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'O'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -543,7 +565,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fp);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.ap);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'P'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -565,7 +590,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fr);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.ar);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'R'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -587,7 +615,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fs);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.as);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'S'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -609,7 +640,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.ft);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.at);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'T'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -631,7 +665,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fu);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.au);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'U'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -653,7 +690,10 @@ public class FrL1Aniname extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
-						AnswerChar.setImageResource(R.drawable.fx);
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
+						AnswerChar.setImageResource(R.drawable.ax);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'X'){
 							imgCorrect.setVisibility(View.VISIBLE);
@@ -672,7 +712,7 @@ public class FrL1Aniname extends Activity {
 					}
 				});
 				
-		final MediaPlayer soundShowAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
+		final MediaPlayer soundShowAns = MediaPlayer.create(context, R.raw.sclv2_red);
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {

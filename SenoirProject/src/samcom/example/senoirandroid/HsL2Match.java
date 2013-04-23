@@ -201,9 +201,7 @@ public class HsL2Match extends Activity {
 		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
-		if(firstSound == true){
-			timeRemain = (int)countTime;
-		}
+		
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		imgWrong.setClickable(false);
@@ -219,41 +217,31 @@ public class HsL2Match extends Activity {
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(HsL2Match.this, R.anim.tween);
 		final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
 		
-		if(Round == 1 || (username.equals("Guest") && item == 1)){
-			instructPage.start();
-			firstSound = true;
-		}
-		else{
-			startTime = (20)*1000;
-			countdownTime = new MyCountDown(startTime,1000);
-			countdownTime.start();	
-			instructPage.start();
-		}
+		countdownTime.start();
+		instructPage.start();
 		
+
+		if(Round == 1 || (username.equals("Guest") && item == 1)){
+        	instructFinger.startAnimation(myFadeonceAnimation);	
+        }
+		
+        		
 		instructPage.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	if(Round == 1 || (username.equals("Guest") && item == 1)){
-            		if(firstSound == true){
-            			instructFinger.startAnimation(myFadeAnimation);
-            			firstSound = false;
-            		}
-            		else{
-	            		helpAnswer.startAnimation(myFadeonceAnimation);
-	            		startTime = (20)*1000;
-	        			countdownTime = new MyCountDown(startTime,1000);
-	        			countdownTime.start();
-	        			instructFinger.clearAnimation();
-	            		soundAns.start();
-            		}
+            		helpAnswer.startAnimation(myFadeAnimation);
+	            	soundAns.start();
             	}
             }
         });
-	
 			
 				Answer1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();
@@ -274,6 +262,9 @@ public class HsL2Match extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();

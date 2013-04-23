@@ -67,7 +67,7 @@
          android:layout_height="60dp"
          android:layout_x="320dp"
          android:layout_y="125dp"
-         android:src="@drawable/fa"
+         android:src="@drawable/aa"
          android:visibility="invisible" />
      
      <ImageView

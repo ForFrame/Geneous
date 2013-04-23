@@ -233,9 +233,7 @@ void checkAns(){
 		
 		startTime = (20)*1000;
 		final float countTime = (float) startTime /1000;
-		if(firstSound == true){
-			timeRemain = (int)countTime;
-		}
+		
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		imgWrong.setClickable(false);
@@ -257,19 +255,18 @@ void checkAns(){
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL1Cross.this, R.anim.tween);
 		final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
 		
-		if(Round == 1 || (username.equals("Guest") && (Items == 1||Items == 4 || Items == 6|| Items ==8))){
-			instructPage.start();
-			firstSound = true;
-		}
-		else{
-			
+		
 			countdownTime = new MyCountDown(startTime,1000);
 			countdownTime.start();	
 			instructPage.start();
-		}
+			
+			if(Round == 1 || (username.equals("Guest") && Items == 1)){
+	        	instructFinger.startAnimation(myFadeonceAnimation);	
+	        }
+		
 		instructPage.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
-            	if(Round == 1 || (username.equals("Guest") && (Items == 1||Items == 4 || Items == 6|| Items ==8))){
+            	/*if(Round == 1 || (username.equals("Guest") && (Items == 1||Items == 4 || Items == 6|| Items ==8))){
             		if(firstSound == true){
             			instructFinger.startAnimation(myFadeAnimation);
             			firstSound = false;
@@ -295,6 +292,10 @@ void checkAns(){
 	        			instructFinger.clearAnimation();
 	            		soundAns.start();
             		}
+            	}*/
+            	if(Round == 1 || (username.equals("Guest") && Items == 1)){
+            		trafficSign.startAnimation(myFadeonceAnimation);
+	            	soundAns.start();
             	}
             }
         });
@@ -305,6 +306,9 @@ void checkAns(){
 					instructPage.stop();
 					ans1_2.setVisibility(View.INVISIBLE);
 					ans1_3.setVisibility(View.INVISIBLE);
+					if(Round == 1 || (username.equals("Guest") && Items == 1)){
+						trafficSign.startAnimation(myFadeonceAnimation);
+					}
 					if(answer == 1){
 						imgCorrect.setVisibility(View.VISIBLE);
 						stopTime();
@@ -327,6 +331,9 @@ void checkAns(){
 					instructPage.stop();
 					ans1_1.setVisibility(View.INVISIBLE);
 					ans1_3.setVisibility(View.INVISIBLE);
+					if(Round == 1 || (username.equals("Guest") && Items == 1)){
+						trafficSign.startAnimation(myFadeonceAnimation);
+					}
 					if(answer == 2){
 						imgCorrect.setVisibility(View.VISIBLE);
 						stopTime();
@@ -349,6 +356,9 @@ void checkAns(){
 					instructPage.stop();
 					ans1_1.setVisibility(View.INVISIBLE);
 					ans1_2.setVisibility(View.INVISIBLE);
+					if(Round == 1 || (username.equals("Guest") && Items == 1)){
+						trafficSign.startAnimation(myFadeonceAnimation);
+					}
 					if(answer == 3){
 						imgCorrect.setVisibility(View.VISIBLE);
 						stopTime();

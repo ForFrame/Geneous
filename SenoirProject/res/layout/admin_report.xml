@@ -1,0 +1,244 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_popup_login"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/tab2_bg"
+    android:visibility="visible" >
+
+    <Button
+        android:id="@+id/Tab1BT"
+        android:layout_width="45dp"
+        android:layout_height="55dp"
+        android:layout_x="660dp"
+        android:layout_y="85dp"
+        android:background="@drawable/tab1_icon" />
+    
+    <Button
+        android:id="@+id/Tab2BT"
+        android:layout_width="45dp"
+        android:layout_height="55dp"
+        android:layout_x="770dp"
+        android:layout_y="85dp"
+        android:background="@drawable/tab2_icon" />
+    
+    <Button
+        android:id="@+id/Tab3BT"
+        android:layout_width="45dp"
+        android:layout_height="55dp"
+        android:layout_x="900dp"
+        android:layout_y="85dp"
+        android:background="@drawable/tab3_icon" />
+    
+    <Spinner
+        android:id="@+id/Selection"
+        android:layout_width="151dp"
+        android:layout_height="57dp"
+        android:layout_x="230dp"
+        android:layout_y="330dp"
+        android:entries="@array/type"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="10pt" />
+    
+    <EditText
+        android:id="@+id/Usertext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="500dp"
+        android:layout_y="330dp"
+        android:ems="10"
+        android:hint="Username"
+        android:imeOptions="actionNext|flagNoFullscreen|flagNavigateNext"
+        android:inputType="text"
+        android:visibility="invisible" />
+
+    <RadioGroup
+        android:id="@+id/radioSex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="500dp"
+        android:layout_y="330dp"
+        android:visibility="invisible" >
+
+        <RadioButton
+            android:id="@+id/radioMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/boy"
+            android:textColor="#000000"
+            android:textSize="10pt" />
+        
+        <RadioButton
+	        android:id="@+id/radioFemale"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/girl"
+	        android:textColor="#000000"
+	        android:textSize="10pt" />
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/ageSelection"
+        android:layout_width="151dp"
+        android:layout_height="57dp"
+        android:layout_x="500dp"
+        android:layout_y="330dp"
+        android:entries="@array/year"
+        android:gravity="center"
+        android:textSize="10pt"
+        android:visibility="invisible" />
+    
+    <Button
+        android:id="@+id/CalendarBt"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_x="500dp"
+        android:layout_y="330dp"
+        android:background="@drawable/cal"
+        android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/DateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="550dp"
+        android:layout_y="330dp"
+        android:ems="10"
+        android:hint="Username"
+        android:imeOptions="actionNext|flagNoFullscreen|flagNavigateNext"
+        android:inputType="text"
+        android:visibility="invisible" />
+    
+    
+    <Spinner
+        android:id="@+id/modeSelection"
+        android:layout_width="151dp"
+        android:layout_height="57dp"
+        android:layout_x="500dp"
+        android:layout_y="330dp"
+        android:entries="@array/mode"
+        android:gravity="center"
+        android:textSize="10pt"
+        android:visibility="invisible" />
+    
+    <Spinner
+        android:id="@+id/gameSelection"
+        android:layout_width="151dp"
+        android:layout_height="57dp"
+        android:layout_x="700dp"
+        android:layout_y="330dp"
+        android:entries="@array/game"
+        android:gravity="center"
+        android:textSize="10pt"
+        android:visibility="invisible" />
+
+    <CheckBox
+        android:id="@+id/SortMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="280dp"
+        android:layout_y="400dp"
+        android:text="เรียงคะแนนจากน้อยไปมาก"
+        android:textColor="#000000"
+        android:textSize="10pt"
+        android:visibility="visible" />
+
+    <CheckBox
+        android:id="@+id/SortMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="600dp"
+        android:layout_y="400dp"
+        android:text="เรียงคะแนนจากมากไปน้อย"
+        android:textColor="#000000"
+        android:textSize="10pt"
+        android:visibility="visible" />
+
+    <CheckBox
+        android:id="@+id/round_checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="80dp"
+        android:layout_y="520dp"
+        android:text=" ครั้งที่เล่น  "
+        android:textColor="#000000"
+        android:textSize="10pt"
+        android:visibility="visible" />
+    
+    <CheckBox
+        android:id="@+id/date_checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="220dp"
+        android:layout_y="520dp"
+        android:text=" วันที่เล่น  "
+        android:textColor="#000000"
+        android:textSize="10pt"
+        android:visibility="visible" />
+    
+    <CheckBox
+        android:id="@+id/username_checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="350dp"
+        android:layout_y="520dp"
+        android:text=" ชื่อผู้ใช้งาน  "
+        android:textColor="#000000"
+        android:textSize="10pt"
+        android:visibility="visible" />
+    
+    <CheckBox
+        android:id="@+id/sex_checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="510dp"
+        android:layout_y="520dp"
+        android:text=" เพศ   "
+        android:textColor="#000000"
+        android:textSize="10pt"
+        android:visibility="visible" />
+    
+    <CheckBox
+        android:id="@+id/age_checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="600dp"
+        android:layout_y="520dp"
+        android:text=" อายุ "
+        android:textColor="#000000"
+        android:textSize="10pt"
+        android:visibility="visible" />
+
+    <CheckBox
+        android:id="@+id/score_checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="690dp"
+        android:layout_y="520dp"
+        android:text=" คะแนนที่ได้  "
+        android:textColor="#000000"
+        android:textSize="10pt"
+        android:visibility="visible" />
+
+    <CheckBox
+        android:id="@+id/time_checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="850dp"
+        android:layout_y="520dp"
+        android:text=" เวลาที่ใช้   "
+        android:textColor="#000000"
+        android:textSize="10pt"
+        android:visibility="visible" />
+    
+    <Button
+        android:id="@+id/reportBt"
+        android:layout_width="138dp"
+        android:layout_height="69dp"
+        android:layout_x="430dp"
+        android:layout_y="620dp"
+        android:background="@drawable/ok" />
+
+</AbsoluteLayout>

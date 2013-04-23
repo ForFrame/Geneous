@@ -42,14 +42,16 @@
         android:layout_x="872dp"
         android:layout_y="1dp"
         android:background="@drawable/logout_txt" />
+
 	<ImageView
-        android:id="@+id/finger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="700dp"
-        android:layout_y="170dp"
-        android:background="@drawable/finger"
-        android:visibility="invisible" />
+	    android:id="@+id/finger"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_x="700dp"
+	    android:layout_y="400dp"
+	    android:background="@drawable/finger"
+	    android:visibility="invisible" />
+
     <Button
         android:id="@+id/buttonnumber1"
         android:layout_width="60dp"
@@ -240,6 +242,15 @@
         android:layout_x="190dp"
         android:layout_y="357dp"
         android:background="@drawable/table10"
+        android:visibility="invisible" />
+    
+    <ImageView
+        android:id="@+id/showAnswer"
+        android:layout_width="750dp"
+        android:layout_height="120dp"
+        android:layout_x="130dp"
+        android:layout_y="100dp"
+        android:background="@drawable/help_longrectang"
         android:visibility="invisible" />
     
     <ImageView

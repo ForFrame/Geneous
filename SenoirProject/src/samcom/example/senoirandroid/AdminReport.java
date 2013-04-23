@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -36,13 +37,20 @@ Context context = this;
 String CurrentUser;
 int chooseSex = 0;
 MediaPlayer soundMain;
+Spinner spinSelect,spinAge,spinMode,spinGame;
+TextView userText,dateText;
+CheckBox cRound,cDate,cUsername,cSex,cAge,cScore,cTime,sortMax,sortMin;
+Button CalendarBT;
+RadioGroup radioSexGroup;
+String selected;
+
 
 public void onCreate(Bundle savedInstanceState) {
 //TODO Auto-generated method stub
 	super.onCreate(savedInstanceState);
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	setContentView(R.layout.admin_edit);
+	setContentView(R.layout.admin_report);
 	
 	soundMain = MediaPlayer.create(context, R.raw.main);
 	soundMain.start();
@@ -52,7 +60,25 @@ public void onCreate(Bundle savedInstanceState) {
 	//setPostionSelected("",0);
 	//showListViewHighScore();
 	
-	RegisNewMember();
+	spinSelect = (Spinner)findViewById(R.id.Selection);
+	spinAge = (Spinner)findViewById(R.id.ageSelection);
+	spinMode = (Spinner)findViewById(R.id.modeSelection);
+	spinGame = (Spinner)findViewById(R.id.gameSelection);
+	userText = (TextView)findViewById(R.id.Usertext);
+	dateText = (TextView)findViewById(R.id.DateText);
+	cRound = (CheckBox)findViewById(R.id.round_checked);
+	cDate = (CheckBox)findViewById(R.id.date_checked);
+	cUsername = (CheckBox)findViewById(R.id.username_checked);
+	cSex = (CheckBox)findViewById(R.id.sex_checked);
+	cAge = (CheckBox)findViewById(R.id.age_checked);
+	cScore = (CheckBox)findViewById(R.id.score_checked);
+	cTime = (CheckBox)findViewById(R.id.time_checked);
+	sortMin = (CheckBox)findViewById(R.id.SortMin);
+	sortMax = (CheckBox)findViewById(R.id.SortMax);
+	CalendarBT = (Button)findViewById(R.id.CalendarBt);
+	radioSexGroup = (RadioGroup)findViewById(R.id.radioSex);
+	 
+	ReportSelection();
 }
 
 String selectedGame;
@@ -62,7 +88,32 @@ String selectedGame;
 		GameNoSelected = posi;
 	}
 	
-void RegisNewMember(){
+void clearView(){
+	
+	if(spinAge.isShown()){
+		spinAge.setVisibility(View.INVISIBLE);
+	}
+	if(spinMode.isShown()){
+		spinMode.setVisibility(View.INVISIBLE);
+	}
+	if(spinGame.isShown()){
+		spinGame.setVisibility(View.INVISIBLE);
+	}
+	if(userText.isShown()){
+		userText.setVisibility(View.INVISIBLE);
+	}
+	if(dateText.isShown()){
+		dateText.setVisibility(View.INVISIBLE);
+	}
+	if(CalendarBT.isShown()){
+		CalendarBT.setVisibility(View.INVISIBLE);
+	}
+	if(radioSexGroup.isShown()){
+		radioSexGroup.setVisibility(View.INVISIBLE);
+	}
+	
+}
+void ReportSelection(){
 				
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
@@ -70,116 +121,276 @@ void RegisNewMember(){
 		Button Tab1_bt = (Button)findViewById(R.id.Tab1BT);
 		Button Tab2_bt = (Button)findViewById(R.id.Tab2BT);
 		Button Tab3_bt = (Button)findViewById(R.id.Tab3BT);
-		Tab1_bt.setClickable(false);
-		Tab2_bt.setClickable(true);
+		Tab1_bt.setClickable(true);
+		Tab2_bt.setClickable(false);
 		Tab3_bt.setClickable(true);
 		
-		final EditText user = (EditText)findViewById(R.id.regUsertext);
-				
-		user.setFocusable(true);
-		user.requestFocus();
-		user.setOnFocusChangeListener(new View.OnFocusChangeListener(){ 
-			 public void onFocusChange(View v, boolean hasFocus) { 
-				 if (hasFocus) { 
-					 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE); 
-					 imm.showSoftInput(user, InputMethodManager.SHOW_IMPLICIT); 
-				 }
-				 else{
-					 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-					 imm.hideSoftInputFromWindow(user.getWindowToken(), 0);
-				 }
-			 } 
+		
+		
+		spinSelect.setOnItemSelectedListener(new OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+			        
+					//String selected = spinSelect.getItemAtPosition(pos).toString();
+					//gt.setTypeface(type2);
+			    	//gt.setText(selected);
+					selected = spinSelect.getItemAtPosition(pos).toString();
+					clearView();
+					if(pos == 0){
+						userText.setVisibility(View.VISIBLE);
+					}
+					else if(pos == 1){
+						radioSexGroup.setVisibility(View.VISIBLE);
+						int selectedId = radioSexGroup.getCheckedRadioButtonId();
+						RadioButton radioSexButton = (RadioButton)findViewById(selectedId);
+						
+						if(radioSexButton.equals("radioMale")){
+							chooseSex = 1;
+						}
+						else{
+							chooseSex = 0;
+						}
+					}
+					else if(pos == 2){
+						spinAge.setVisibility(View.VISIBLE);
+					}
+					else if(pos == 3){
+						CalendarBT.setVisibility(View.VISIBLE);
+						dateText.setVisibility(View.VISIBLE);
+					}
+					else if(pos == 4){
+						spinMode.setVisibility(View.VISIBLE);
+					}
+					
+				/*	
+			    	
+			    	ListView lv = (ListView)findViewById(R.id.listview);
+					
+			        // create the grid item mapping
+			        String from[][] = new String[15][5];
+			        int lengths;
+			       
+			        String game[] = selected.split(" ");
+			        String gameNo = game[0];
+			        setPostionSelected(selected,pos);
+			        
+			        lengths = myDb.getIdvHighScore(gameNo,CurrentUser,from);
+			        // prepare the list of all records
+			        fillMaps2.removeAll(fillMaps2);
+			        for(int i = 0; (i < lengths)&&(i<6); i++){
+			        	HashMap<String, String> map = new HashMap<String, String>();
+			        	map.put("rowid", "" + (i+1));
+			        	map.put("col_1", from[i][0]);
+			        	map.put("col_2", from[i][1]);
+			        	map.put("col_3", from[i][2]);
+			        	map.put("col_4", from[i][3]);
+			        	fillMaps2.add(map);
+			        }
+
+			        // fill in the grid_item layout
+			        lv.setAdapter(adapter2);
+			    */
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				//gt.setText("เลือกเกมส์ที่ต้องการ");
+			}
 		});
+		
+		spinMode.setOnItemSelectedListener(new OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+			        
+					//selected = spinSelect.getItemAtPosition(pos).toString();
+					//clearView();
+				
+					if(pos == 0){
+						userText.setVisibility(View.VISIBLE);
+					}
+					else if(pos == 1){
+						radioSexGroup.setVisibility(View.VISIBLE);
+						int selectedId = radioSexGroup.getCheckedRadioButtonId();
+						RadioButton radioSexButton = (RadioButton)findViewById(selectedId);
+						
+						if(radioSexButton.equals("radioMale")){
+							chooseSex = 1;
+						}
+						else{
+							chooseSex = 0;
+						}
+					}
+					else if(pos == 2){
+						spinAge.setVisibility(View.VISIBLE);
+					}
+					else if(pos == 3){
+						CalendarBT.setVisibility(View.VISIBLE);
+						dateText.setVisibility(View.VISIBLE);
+					}
+					else if(pos == 4){
+						spinMode.setVisibility(View.VISIBLE);
+					}
+					
+				/*	
+			    	
+			    	ListView lv = (ListView)findViewById(R.id.listview);
+					
+			        // create the grid item mapping
+			        String from[][] = new String[15][5];
+			        int lengths;
+			       
+			        String game[] = selected.split(" ");
+			        String gameNo = game[0];
+			        setPostionSelected(selected,pos);
+			        
+			        lengths = myDb.getIdvHighScore(gameNo,CurrentUser,from);
+			        // prepare the list of all records
+			        fillMaps2.removeAll(fillMaps2);
+			        for(int i = 0; (i < lengths)&&(i<6); i++){
+			        	HashMap<String, String> map = new HashMap<String, String>();
+			        	map.put("rowid", "" + (i+1));
+			        	map.put("col_1", from[i][0]);
+			        	map.put("col_2", from[i][1]);
+			        	map.put("col_3", from[i][2]);
+			        	map.put("col_4", from[i][3]);
+			        	fillMaps2.add(map);
+			        }
+
+			        // fill in the grid_item layout
+			        lv.setAdapter(adapter2);
+			    */
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				//gt.setText("เลือกเกมส์ที่ต้องการ");
+			}
+		});
+		
+		
 		
 		//Regis Button
-		Button RegissBt = (Button)findViewById(R.id.regisBt);
-		RegissBt.setOnClickListener(new View.OnClickListener() {
+		Button ReportBT = (Button)findViewById(R.id.reportBt);
+		ReportBT.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				String sql = "SELECT ";
+				int column = 0;
 				
-				final boolean checkUser;
-				final String selectedAge;
-				final String username;
-				final Date d = new Date();
-				int continueLoginState = 0,lenghtName;
-				Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
-				 
-				//Username
-				EditText user = (EditText)findViewById(R.id.regUsertext);
-				username = user.getText().toString();
-				
-				//Choose sex (boy/girl)
-				
-				RadioGroup radioSexGroup = (RadioGroup)findViewById(R.id.radioSex);
-						 
-				int selectedId = radioSexGroup.getCheckedRadioButtonId();
-				RadioButton radioSexButton = (RadioButton)findViewById(selectedId);
-				if(radioSexButton.equals("radioMale")){
-					chooseSex = 1;
+				if(cUsername.isChecked()){
+					sql += " Username";
+					column++;
 				}
-				else{
-					chooseSex = 0;
+				if(cSex.isChecked()){
+					if(column>0){
+						sql += ",";
+					}
+					sql += " Sex";
+					column++;
+				}
+				if(cAge.isChecked()){
+					if(column>0){
+						sql += ",";
+					}
+					sql += " Age";
+					column++;
+				}
+				if(cRound.isChecked()){
+					if(column>0){
+						sql += ",";
+					}
+					sql += " Round";
+					column++;
+				}
+				if(cDate.isChecked()){
+					if(column>0){
+						sql += ",";
+					}
+					sql += " Date";
+					column++;
+				}
+				if(cTime.isChecked()){
+					if(column>0){
+						sql += ",";
+					}
+					sql += " Time";
+					column++;
+				}
+				if(cScore.isChecked()){
+					if(column>0){
+						sql += ",";
+					}
+					sql += " Score";
+					column++;
 				}
 				
-				//Select age (2-6 year)	
-				Spinner spin1 = (Spinner)findViewById(R.id.ageSelection);
+				sql += " FROM reportTable WHERE ";
 				
-					selectedAge = String.valueOf(spin1.getSelectedItem());
+				if(spinAge.isShown()){
+					String selectedAge = String.valueOf(spinAge.getSelectedItem());
 					String ages[] = selectedAge.split(" ");
-					int age = Integer.parseInt(ages[0]);
-
-			
-				lenghtName = username.length();
-				if((lenghtName<1)){
-					Toast toast= Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานต้องมีอย่างน้อย  1 ตัวอักษรค่ะ", Toast.LENGTH_SHORT);  
-					toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 130);
-					toast.show();
+					sql += "Age = '";
+					sql += ages[0];
+					sql += "' ";
 				}
-				else if((lenghtName>10)){
-					Toast toast= Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานต้อง  < 10  ตัวอักษรค่ะ", Toast.LENGTH_SHORT);  
-					toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 150);
-					toast.show();
-				}
-				else{
-					checkUser = myDb.checkUserInfo(username);
-					if(checkUser == true){
-						Toast toast= Toast.makeText(getApplicationContext(), "ชื่อนี้ถูกใช้แล้ว กรุณากรอกชื่ออื่นค่ะ ", Toast.LENGTH_SHORT);  
-						toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 150);
-						toast.show();
-						
+				if(spinGame.isShown()){
+					String selectedGame = String.valueOf(spinGame.getSelectedItem());
+					if(selectedGame.equals("")){
+						String selectedMode = String.valueOf(spinMode.getSelectedItem());
+						String modes[] = selectedMode.split(" ");
+						sql += "ModeNo = '";
+						sql += modes[0];
+						sql += "' ";
 					}
 					else{
-						//check user info if got -> already , not -> insert new user
-						myDb.InsertUser(CurrentUser,age,chooseSex);
-						Toast toast= Toast.makeText(getApplicationContext(), "ลงทะเบียน "+username+" เรียบร้อยค่ะ ", Toast.LENGTH_SHORT);
-						toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 150);
-						toast.show();
-						
-						user.setText("");
-						spin1.setSelection(0);
-												
+						String games[] = selectedGame.split(" ");
+						sql += "GameNo = '";
+						sql += games[0];
+						sql += "' ";
 					}
-				}	
+				}
+				if(userText.isShown()){
+					String username = userText.getText().toString();
+					sql += "Username = '";
+					sql += username;
+					sql += "' ";
+				}
+				if(dateText.isShown()){
+					String date = dateText.getText().toString();
+					sql += "Date = '";
+					sql += date;
+					sql += "' ";
+				}
+				if(radioSexGroup.isShown()){
+					int selectedId = radioSexGroup.getCheckedRadioButtonId();
+					RadioButton radioSexButton = (RadioButton)findViewById(selectedId);
+					if(radioSexButton.equals("radioMale")){
+						chooseSex = 1;
+					}
+					else{
+						chooseSex = 0;
+					}
+					sql += "Sex = '";
+					sql += chooseSex;
+					sql += "' ";
+				}
+				 
+				sql += " ORDER BY Score ";
+				if(sortMin.isChecked()){
+					sql += "ASC ;";
+				}
+				if(sortMax.isChecked()){
+					sql += "DESC ;";
+				}
 				
+				//myDb.getReport(sql,column);
 			}
 		});
 		
-		Button cancelregis = (Button)findViewById(R.id.CancelReg);
-		cancelregis.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Spinner spin1 = (Spinner)findViewById(R.id.ageSelection);
-				user.setText("");
-				spin1.setSelection(0);
-			}
-		});
 				
-		Tab2_bt.setOnClickListener(new View.OnClickListener() {
+		Tab1_bt.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				selectReport();
+				//selectReport();
 			}
 		});
 		
@@ -187,7 +398,7 @@ void RegisNewMember(){
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				editAdmin();
+				//editAdmin();
 			}
 		});
 	}

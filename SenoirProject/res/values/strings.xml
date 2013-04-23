@@ -27,6 +27,23 @@
 	 	<item>6 ปี</item>
 	 </string-array>
 	 
+	<string-array name="type">
+	 	<item>ชื่อผู้ใช้งาน</item>
+	 	<item>เพศ</item>
+	 	<item>อายุ</item>
+	 	<item>วัน/เดือน/ปี</item>
+	 	<item>หมวด</item>
+	 </string-array>
+	 
+	<string-array name="mode">
+	 	<item>โรงเรียน</item>
+	 	<item>สถานีตำรวจ</item>
+	 	<item>ตลาดสด</item>
+	 	<item>บ้าน</item>
+	 	<item>โรงพยาบาล</item>
+	 	<item>ฟาร์ม</item>
+	 </string-array>
+	 
 	<string-array name="game">
 	    <item>001 เกมส์มานับโต๊ะกันเถอะ</item>
 	    <item>002 เกมส์สีประจำวันทั้ง 7 สีมีอะไรบ้างน้า</item>

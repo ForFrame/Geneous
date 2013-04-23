@@ -219,11 +219,11 @@ public class L1ScCount extends Activity {
 			instructPage= MediaPlayer.create(context, R.raw.ins_sclv1_3);
 		}
 		
-		
+		startTime = (20)*1000;
 		final float countTime = (float) startTime /1000;
-		if(firstSound == true){
-			timeRemain = (int)countTime;
-		}
+		//if(firstSound == true){
+		//	timeRemain = (int)countTime;
+		//}
 		final View imgWrong = (View)findViewById(R.id.showwrongnumber); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrectnumber);
 		
@@ -240,32 +240,41 @@ public class L1ScCount extends Activity {
 		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCount.this, R.anim.tween);
 		final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
 		
-		if(Round == 1 || (username.equals("Guest") && item == 1)){
-			instructPage.start();
-			firstSound = true;
-		}
-		else{
-			startTime = (20)*1000;
+		//if(Round == 1 || (username.equals("Guest") && item == 1)){
+		//	instructPage.start();
+		//	firstSound = true;
+		//}
+		//else{
+			
 			countdown = new MyCountDown(startTime,1000);
 			countdown.start();	
 			instructPage.start();
-		}
+		//}
 
+		if(Round == 1 || (username.equals("Guest") && item == 1)){
+        	instructFinger.startAnimation(myFadeonceAnimation);	
+        }
+		if(item == 2){
+			if(helpAnswer.isFocused()){
+				helpAnswer.clearAnimation();
+			}
+		}
+        		
 		instructPage.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	if(Round == 1 || (username.equals("Guest") && item == 1)){
-            		if(firstSound == true){
-            			instructFinger.startAnimation(myFadeAnimation);
-            			firstSound = false;
-            		}
-            		else{
-	            		helpAnswer.startAnimation(myFadeonceAnimation);
-	            		startTime = ((RandomNum*2)+10)*1000;
-	        			countdown = new MyCountDown(startTime,1000);
-	        			countdown.start();
-	        			instructFinger.clearAnimation();
+            	//	if(firstSound == true){
+            	//		instructFinger.startAnimation(myFadeAnimation);
+            	//		firstSound = false;
+            	//	}
+            	//	else{
+	            		helpAnswer.startAnimation(myFadeAnimation);
+	            		//startTime = ((RandomNum*2)+10)*1000;
+	        			//countdown = new MyCountDown(startTime,1000);
+	        			//countdown.start();
+	        			//instructFinger.clearAnimation();
 	            		soundAns.start();
-            		}
+            	//	}
             	}
             }
         });
@@ -275,7 +284,9 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-								
+				if(Round == 1 || (username.equals("Guest") && item == 1)){
+					helpAnswer.clearAnimation();
+				}				
 				if(RandomNum == 1){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
@@ -299,7 +310,9 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				
+				if(Round == 1 || (username.equals("Guest") && item == 1)){
+					helpAnswer.clearAnimation();
+				}
 				if(RandomNum == 2){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
@@ -323,7 +336,9 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				
+				if(Round == 1 || (username.equals("Guest") && item == 1)){
+					helpAnswer.clearAnimation();
+				}
 				if(RandomNum == 3){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
@@ -347,7 +362,9 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				
+				if(Round == 1 || (username.equals("Guest") && item == 1)){
+					helpAnswer.clearAnimation();
+				}
 				if(RandomNum == 4){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
@@ -371,7 +388,9 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				
+				if(Round == 1 || (username.equals("Guest") && item == 1)){
+					helpAnswer.clearAnimation();
+				}
 				if(RandomNum == 5){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
@@ -395,7 +414,9 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				
+				if(Round == 1 || (username.equals("Guest") && item == 1)){
+					helpAnswer.clearAnimation();
+				}
 				if(RandomNum == 6){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
@@ -419,7 +440,9 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				
+				if(Round == 1 || (username.equals("Guest") && item == 1)){
+					helpAnswer.clearAnimation();
+				}
 				if(RandomNum == 7){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
@@ -443,7 +466,9 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				
+				if(Round == 1 || (username.equals("Guest") && item == 1)){
+					helpAnswer.clearAnimation();
+				}
 				if(RandomNum == 8){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
@@ -467,7 +492,9 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				
+				if(Round == 1 || (username.equals("Guest") && item == 1)){
+					helpAnswer.clearAnimation();
+				}
 				if(RandomNum == 9){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);
@@ -491,7 +518,9 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				
+				if(Round == 1 || (username.equals("Guest") && item == 1)){
+					helpAnswer.clearAnimation();
+				}
 				if(RandomNum == 10){
 					imgWrong.setVisibility(View.INVISIBLE);
 					imgCorrect.setVisibility(View.VISIBLE);

@@ -3,6 +3,8 @@ package samcom.example.senoirandroid;
 
 import java.util.Random;
 
+import samcom.example.senoirandroid.L1ScCount.MyCountDown;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -206,9 +208,7 @@ public class L1ScLongShort extends Activity {
 		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
-		if(firstSound == true){
-			timeRemain = (int)countTime;
-		}
+		
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		
@@ -228,33 +228,33 @@ public class L1ScLongShort extends Activity {
 			}
 			
 			final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
-			final View helpAnswer = (View)findViewById(R.id.showAnswer);
+			final View helpAnswer = (View)findViewById(R.id.helpLong);
 			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween_once);
 			final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween);
 			final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
+			
+			
+			//startTime = (20)*1000;
+			//countdown = new MyCountDown(startTime,1000);
+			//countdown.start();	
+			countdownTime.start();
+			instructPage.start();
+			
+
 			if(Round == 1 || (username.equals("Guest") && item == 1)){
-				instructPage.start();
-				firstSound = true;
+	        	instructFinger.startAnimation(myFadeonceAnimation);	
+	        }
+			if(item == 2){
+				if(helpAnswer.isFocused()){
+					helpAnswer.clearAnimation();
+				}
 			}
-			else{
-				countdownTime = new MyCountDown(startTime,1000);
-				countdownTime.start();	
-				instructPage.start();
-			}
+	        		
 			instructPage.setOnCompletionListener(new OnCompletionListener() {
 	            public void onCompletion(MediaPlayer soundCorrect) {
 	            	if(Round == 1 || (username.equals("Guest") && item == 1)){
-	            		if(firstSound == true){
-	            			instructFinger.startAnimation(myFadeAnimation);
-	            			firstSound = false;
-	            		}
-	            		else{
-		            		helpAnswer.startAnimation(myFadeonceAnimation);
-		        			countdownTime = new MyCountDown(startTime,1000);
-		        			countdownTime.start();
-		        			instructFinger.clearAnimation();
-		            		soundAns.start();
-	            		}
+	            		helpAnswer.startAnimation(myFadeAnimation);
+		            	soundAns.start();
 	            	}
 	            }
 	        });
@@ -263,6 +263,9 @@ public class L1ScLongShort extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}	
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();
@@ -283,6 +286,9 @@ public class L1ScLongShort extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}	
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();

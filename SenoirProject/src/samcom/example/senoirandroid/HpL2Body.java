@@ -219,9 +219,7 @@ public class HpL2Body extends Activity {
 		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
-		if(firstSound == true){
-			timeRemain = (int)countTime;
-		}
+		
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		imgWrong.setClickable(false);
@@ -243,31 +241,15 @@ public class HpL2Body extends Activity {
 		final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
 		
 		if(Round == 1 || (username.equals("Guest") && item == 1)){
-			instructPage.start();
-			firstSound = true;
-		}
-		else{
-			startTime = (20)*1000;
-			countdownTime = new MyCountDown(startTime,1000);
-			countdownTime.start();	
-			instructPage.start();
-		}
+        	instructFinger.startAnimation(myFadeonceAnimation);	
+        }
 		
+        		
 		instructPage.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	if(Round == 1 || (username.equals("Guest") && item == 1)){
-            		if(firstSound == true){
-            			instructFinger.startAnimation(myFadeAnimation);
-            			firstSound = false;
-            		}
-            		else{
-	            		helpAnswer.startAnimation(myFadeonceAnimation);
-	            		startTime = (20)*1000;
-	        			countdownTime = new MyCountDown(startTime,1000);
-	        			countdownTime.start();
-	        			instructFinger.clearAnimation();
-	            		soundAns.start();
-            		}
+            		helpAnswer.startAnimation(myFadeAnimation);
+	            	soundAns.start();
             	}
             }
         });
@@ -277,6 +259,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.a);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'A'){
@@ -299,6 +284,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.d);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'D'){
@@ -321,6 +309,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.e);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'E'){
@@ -343,6 +334,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.f);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'F'){
@@ -365,6 +359,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.g);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'G'){
@@ -387,6 +384,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.h);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'H'){
@@ -409,6 +409,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.i);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'I'){
@@ -431,6 +434,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.l);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'L'){
@@ -453,6 +459,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.m);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'M'){
@@ -475,6 +484,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.n);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'N'){
@@ -497,6 +509,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.o);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'O'){
@@ -519,6 +534,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.r);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'R'){
@@ -541,6 +559,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.s);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'S'){
@@ -563,6 +584,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.t);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'T'){
@@ -585,6 +609,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.u);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'U'){
@@ -607,6 +634,9 @@ public class HpL2Body extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}
 						AnswerChar.setImageResource(R.drawable.y);
 						AnswerChar.setVisibility(View.VISIBLE);
 						if(answer == 'Y'){
@@ -626,7 +656,7 @@ public class HpL2Body extends Activity {
 					}
 				});
 				
-		final MediaPlayer soundShowAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
+		final MediaPlayer soundShowAns = MediaPlayer.create(context, R.raw.sclv2_red);
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {

@@ -202,9 +202,7 @@ public class MkL1BestFood extends Activity {
 		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
-		if(firstSound == true){
-			timeRemain = (int)countTime;
-		}
+		
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		
@@ -216,53 +214,50 @@ public class MkL1BestFood extends Activity {
 		
 		
 			answer = choice(RandomNum);
-			if(answer == 1){
-				instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_long);
+			//if(answer == 1){
+			//	instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_long);
 				//instructPage.start();
-			}
-			else{
-				instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_short);
+			//}
+			//else{
+			//	instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_short);
 				//instructPage.start();
-			}
+			//}
 			
 			final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 			final View helpAnswer = (View)findViewById(R.id.showAnswer);
 			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(MkL1BestFood.this, R.anim.tween_once);
 			final Animation myFadeAnimation = AnimationUtils.loadAnimation(MkL1BestFood.this, R.anim.tween);
 			final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
+			
+			countdownTime.start();
+			instructPage.start();
+			
+
 			if(Round == 1 || (username.equals("Guest") && item == 1)){
-				instructPage.start();
-				firstSound = true;
+	        	instructFinger.startAnimation(myFadeonceAnimation);	
+	        }
+			if(item == 2){
+				if(helpAnswer.isFocused()){
+					helpAnswer.clearAnimation();
+				}
 			}
-			else{
-				startTime = (20)*1000;
-				countdownTime = new MyCountDown(startTime,1000);
-				countdownTime.start();	
-				instructPage.start();
-			}
+	        		
 			instructPage.setOnCompletionListener(new OnCompletionListener() {
-		            public void onCompletion(MediaPlayer soundCorrect) {
-		            	if(Round == 1 || (username.equals("Guest") && item == 1)){
-		            		if(firstSound == true){
-		            			instructFinger.startAnimation(myFadeAnimation);
-		            			firstSound = false;
-		            		}
-		            		else{
-			            		helpAnswer.startAnimation(myFadeonceAnimation);
-			            		startTime = (20)*1000;
-			        			countdownTime = new MyCountDown(startTime,1000);
-			        			countdownTime.start();
-			        			instructFinger.clearAnimation();
-			            		soundAns.start();
-		            		}
-		            	}
-		            }
-		        });
+	            public void onCompletion(MediaPlayer soundCorrect) {
+	            	if(Round == 1 || (username.equals("Guest") && item == 1)){
+	            		helpAnswer.startAnimation(myFadeAnimation);
+		            	soundAns.start();
+	            	}
+	            }
+	        });
 			
 				Answer1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}	
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
 							imgCorrect.setClickable(false);
@@ -285,6 +280,9 @@ public class MkL1BestFood extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}	
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
 							imgCorrect.setClickable(false);

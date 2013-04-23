@@ -225,9 +225,7 @@ void checkAns(Boolean isInterupt){
 		//countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
-		if(firstSound == true){
-			timeRemain = (int)countTime;
-		}
+		
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
 		
@@ -264,15 +262,12 @@ void checkAns(Boolean isInterupt){
 			});
 		
 			final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
-			final View helpAnswer = (View)findViewById(R.id.showAnswer);
+			final View helpAnswer = (View)findViewById(R.id.helpCalendar);
 			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween_once);
 			final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween);
 			final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
-			if(Round == 1 || (username.equals("Guest") && Day == 1)){
-				instructThai.start();
-				firstSound = true;
-			}
-			else{
+			
+			
 				countdownTime = new MyCountDown(startTime,1000);
 				countdownTime.start();	
 				if(Day<8){	
@@ -281,29 +276,27 @@ void checkAns(Boolean isInterupt){
 				else{
 					instructPage.start();
 				}
-			}
-			instructPage.setOnCompletionListener(new OnCompletionListener() {
-	            public void onCompletion(MediaPlayer soundCorrect) {
-	            	if(Round == 1 || (username.equals("Guest") && Day == 1)){
-	            		if(firstSound == true){
-	            			instructFinger.startAnimation(myFadeAnimation);
-	            			firstSound = false;
-	            		}
-	            		else{
-		            		helpAnswer.startAnimation(myFadeonceAnimation);
-		        			countdownTime = new MyCountDown(startTime,1000);
-		        			countdownTime.start();
-		        			instructFinger.clearAnimation();
-		            		soundAns.start();
-	            		}
-	            	}
-	            }
-	        });
+				
+				if(Round == 1 || (username.equals("Guest") && Day == 1)){
+		        	instructFinger.startAnimation(myFadeonceAnimation);	
+		        }
+					
+				instructThai.setOnCompletionListener(new OnCompletionListener() {
+		            public void onCompletion(MediaPlayer soundCorrect) {
+		            	if(Round == 1 || (username.equals("Guest") && Day == 1)){
+		            		helpAnswer.startAnimation(myFadeAnimation);
+			            	soundAns.start();
+		            	}
+		            }
+		        });
 		
 				ans1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						stopSound();
+						if(Round == 1 || (username.equals("Guest") && Day == 1)){
+							helpAnswer.clearAnimation();
+						}	
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();
@@ -324,6 +317,9 @@ void checkAns(Boolean isInterupt){
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						stopSound();
+						if(Round == 1 || (username.equals("Guest") && Day == 1)){
+							helpAnswer.clearAnimation();
+						}
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();
@@ -343,6 +339,9 @@ void checkAns(Boolean isInterupt){
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						stopSound();
+						if(Round == 1 || (username.equals("Guest") && Day == 1)){
+							helpAnswer.clearAnimation();
+						}
 						if(answer == 3){
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();
