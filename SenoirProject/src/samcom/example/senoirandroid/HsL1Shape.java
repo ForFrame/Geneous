@@ -596,17 +596,7 @@ public class HsL1Shape extends Activity {
 		
 		instructPage.start();
 		return super.onTouchEvent(event);
-	}
-	
-	protected void onRestart() {
-		// TODO Auto-generated method stub
-		
-		Intent intent = new Intent(HsL1Shape.this,Main.class);
-		startActivity(intent);
-		
-		
-		super.onRestart();
-	}
+	}	
 	
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
@@ -636,6 +626,16 @@ public class HsL1Shape extends Activity {
 		}
 		
 		super.onWindowFocusChanged(hasFocus);
+	}
+	
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		
+		Intent intent = new Intent(HsL1Shape.this,Main.class);
+		startActivity(intent);
+		
+		
+		super.onRestart();
 	}
 	
 	@Override

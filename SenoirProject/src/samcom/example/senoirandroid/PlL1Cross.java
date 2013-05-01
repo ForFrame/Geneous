@@ -981,9 +981,7 @@ void checkAns(){
     	if(instructPage.isPlaying()){
     		instructPage.stop();
     	}
-    	if(soundIns.isPlaying()){
-    		soundIns.stop();
-    	}
+    	
 		super.onDestroy();
 	}
 
@@ -998,9 +996,7 @@ void checkAns(){
     	if(instructPage.isPlaying()){
     		instructPage.stop();
     	}
-    	if(soundIns.isPlaying()){
-    		soundIns.stop();
-    	}
+    	
 		super.onPause();
 	}
 	

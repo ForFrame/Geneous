@@ -330,15 +330,13 @@ public class HpL1Use extends Activity {
 		Random randomGenerator = new Random();
 		int randomInt = randomGenerator.nextInt(2)+1;
 		answer = randomInt;
-	    
+		instructPage = MediaPlayer.create(context, R.raw.hplv1);
 	    if(random == 1){
 	    	if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg1);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	}
 	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg2);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_3);
 	    	}
 			ans1.setBackgroundResource(R.drawable.hpl1_ans1_1);
 			ans2.setBackgroundResource(R.drawable.hpl1_ans1_2);
@@ -347,11 +345,9 @@ public class HpL1Use extends Activity {
 		else if(random == 2){
 			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg5);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 			}
 	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg1);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
 	    	}
 			ans1.setBackgroundResource(R.drawable.hpl1_ans2_1);
 			ans2.setBackgroundResource(R.drawable.hpl1_ans2_2);
@@ -360,11 +356,9 @@ public class HpL1Use extends Activity {
 		else if(random == 3){
 			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg2);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
-			}
+	    	}
 	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg1);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	}
 			ans1.setBackgroundResource(R.drawable.hpl1_ans3_1);
 			ans2.setBackgroundResource(R.drawable.hpl1_ans3_2);
@@ -373,11 +367,9 @@ public class HpL1Use extends Activity {
 		else if(random == 4){
 			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg4);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
-			}
+	    	}
 	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg2);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_3);
 	    	}
 			ans1.setBackgroundResource(R.drawable.hpl1_ans4_1);
 			ans2.setBackgroundResource(R.drawable.hpl1_ans4_2);
@@ -386,11 +378,9 @@ public class HpL1Use extends Activity {
 		else if(random == 5){
 			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg1);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_3);
-			}
+	    	}
 	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg3);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
 	    	}
 			ans1.setBackgroundResource(R.drawable.hpl1_ans5_1);
 			ans2.setBackgroundResource(R.drawable.hpl1_ans5_2);
@@ -399,11 +389,9 @@ public class HpL1Use extends Activity {
 		else if(random == 6){
 			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg3);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
-			}
+	    	}
 	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg1);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
 	    	}
 			ans1.setBackgroundResource(R.drawable.hpl1_ans6_1);
 			ans2.setBackgroundResource(R.drawable.hpl1_ans6_2);
@@ -412,11 +400,9 @@ public class HpL1Use extends Activity {
 		else if(random == 7){
 			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg4);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_3);
-			}
+	    	}
 	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg5);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	}
 			ans1.setBackgroundResource(R.drawable.hpl1_ans7_1);
 			ans2.setBackgroundResource(R.drawable.hpl1_ans7_2);
@@ -425,11 +411,9 @@ public class HpL1Use extends Activity {
 		else if(random == 8){
 			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg2);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
-			}
+	    	}
 	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg4);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	}
 			ans1.setBackgroundResource(R.drawable.hpl1_ans8_1);
 			ans2.setBackgroundResource(R.drawable.hpl1_ans8_2);
@@ -438,11 +422,9 @@ public class HpL1Use extends Activity {
 		else if(random == 9){
 			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg5);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
-			}
+	    	}
 	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg3);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
 	    	}
 			ans1.setBackgroundResource(R.drawable.hpl1_ans9_1);
 			ans2.setBackgroundResource(R.drawable.hpl1_ans9_2);
@@ -451,11 +433,9 @@ public class HpL1Use extends Activity {
 		else{
 			if(answer == 1){
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg4);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
-			}
+	    	}
 	    	else{
 	    		Thislayout.setBackgroundResource(R.drawable.hpl1_bg5);
-	    		instructPage = MediaPlayer.create(context, R.raw.hs_ins1_2);
 	    	}
 			ans1.setBackgroundResource(R.drawable.hpl1_ans10_1);
 			ans2.setBackgroundResource(R.drawable.hpl1_ans10_2);

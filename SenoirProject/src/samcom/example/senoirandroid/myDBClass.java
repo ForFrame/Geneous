@@ -1,5 +1,9 @@
 package samcom.example.senoirandroid;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.content.ContentValues;
@@ -37,7 +41,7 @@ public void onCreate(SQLiteDatabase db) {
 	" Age INTEGER,"+" Sex INTEGER,"+" Status INTEGER,"+" Password TEXT(20));");
 	//Create Login status table
 	db.execSQL("CREATE TABLE "+ TABLE_STATUS +" (No INTEGER PRIMARY KEY AUTOINCREMENT,"+
-	" Username TEXT(100),"+" Status INTEGER,"+" Checkbox INTEGER,"+" Home INTEGER,"+" Date TEXT(30));");
+	" Username TEXT(100),"+" Status INTEGER,"+" Checkbox INTEGER,"+" Home INTEGER,"+" LoginTime Text(20),"+" LogoutTime Text(20));");
 	//Create List of Game table
 	db.execSQL("CREATE TABLE "+ TABLE_LEVEL +" (GameNo TEXT(5) PRIMARY KEY,"+
 	" Gamename TEXT(100), "+"Level INTEGER);");
@@ -100,6 +104,141 @@ public void onCreate(SQLiteDatabase db) {
 	
 }
 
+void writeLoginToFile(String user,String dateLN){
+	/*** Write Text File to SD Card ***/
+
+	try {
+
+		String path = "/mnt/sdcard/Android/data/login.txt";
+		File file = new File(path);
+	
+		/*** if exists create text file ***/
+	
+		if(!file.exists()){
+			file.createNewFile();
+		}
+	
+		/*** Write Text File ***/
+		FileWriter writer = new FileWriter(file, true); //True = Append to file, false = Overwrite
+		writer.write("Login -> "+user+" :: "+dateLN+ "\n");
+		writer.close();
+		
+		} catch (IOException e) {
+		
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
+
+void writeLogoutToFile(String user,String dateLN){
+	/*** Write Text File to SD Card ***/
+
+	try {
+
+		String path = "/mnt/sdcard/Android/data/login.txt";
+		File file = new File(path);
+	
+		/*** if exists create text file ***/
+	
+		if(!file.exists()){
+			file.createNewFile();
+		}
+	
+		/*** Write Text File ***/
+		FileWriter writer = new FileWriter(file, true); //True = Append to file, false = Overwrite
+		writer.write("<- Logout  ~ "+user+" :: "+dateLN+ "\n");
+		writer.close();
+		
+		} catch (IOException e) {
+		
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
+
+void writeScoreToFile(String GNo,String user,String Round,String scores,String times){
+	/*** Write Text File to SD Card ***/
+	
+	try {
+
+		String path = "/mnt/sdcard/Android/data/scores.txt";
+		File file = new File(path);
+	
+		/*** if exists create text file ***/
+	
+		if(!file.exists()){
+			file.createNewFile();
+		}
+	
+		/*** Write Text File ***/
+		FileWriter writer = new FileWriter(file, true); //True = Append to file, false = Overwrite
+		writer.write("\n"+GNo+" "+user+" ( "+Round+" / "+scores+" ) : "+times + "\n");
+		writer.write("------------------------------------------------------------- \n");
+		writer.close();
+		
+		} catch (IOException e) {
+		
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
+
+void writeMemberToFile(String user,int age,int sex){
+	/*** Write Text File to SD Card ***/
+	String sAge = String.valueOf(age);
+	String sSex = String.valueOf(sex);
+	try {
+
+		String path = "/mnt/sdcard/Android/data/member.txt";
+		File file = new File(path);
+	
+		/*** if exists create text file ***/
+	
+		if(!file.exists()){
+			file.createNewFile();
+		}
+	
+		/*** Write Text File ***/
+		FileWriter writer = new FileWriter(file, true); //True = Append to file, false = Overwrite
+		writer.write(user+" :: "+sSex+" :: "+sAge+ "\n");
+		writer.close();
+		
+		} catch (IOException e) {
+		
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
+
+void writeGameToFile(String user,int Round,int item,int times,int correct){
+	/*** Write Text File to SD Card ***/
+	String sRound = String.valueOf(Round);
+	String sItem = String.valueOf(item);
+	String sTimes = String.valueOf(times);
+	String sCorrect = String.valueOf(correct);
+	try {
+
+		String path = "/mnt/sdcard/Android/data/scores.txt";
+		File file = new File(path);
+	
+		/*** if exists create text file ***/
+	
+		if(!file.exists()){
+			file.createNewFile();
+		}
+	
+		/*** Write Text File ***/
+		FileWriter writer = new FileWriter(file, true); //True = Append to file, false = Overwrite
+		writer.write("\t "+user+" | "+sRound+" | "+sItem+" | "+sTimes+" | "+sCorrect+" | "+ "\n");
+		writer.close();
+		
+		} catch (IOException e) {
+		
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
+
 // select current user -> return username / guest
 public String SelectCurrentUser(){
 	String username = "Logout";
@@ -152,7 +291,7 @@ public void ChangeHome(int homec){
 	}
 }
 //check (1,1) -> true
-public Boolean isCurrentContinue(){
+/*public Boolean isCurrentContinue(){
 	Boolean boo=false;
 	try{
 		
@@ -182,7 +321,7 @@ public Boolean isCurrentContinue(){
 		return false;
 	}
 	return boo;
-}
+}*/
 
 // check if from home or restart state
 public Boolean notFromHome(){
@@ -205,20 +344,58 @@ public Boolean notFromHome(){
 	}
 	return boo;
 }
-	
+
+public Date getLastLoginTime(){
+	String loginTime = null;
+	Date d = null;
+	try{
+		
+	 	
+	    int statuslogin = 0;
+		int checkContinue = 0;
+		
+	    SQLiteDatabase db;
+		db = this.getReadableDatabase();
+		SQLiteCursor cur = (SQLiteCursor)db.rawQuery("select * from loginStatus",null);
+		cur.moveToFirst();
+		
+	      while (cur.isAfterLast() == false) {
+		
+	        statuslogin = cur.getInt(2);
+	        checkContinue = cur.getInt(3);
+	        loginTime = cur.getString(4);
+	        cur.moveToNext();
+		  }
+		
+	      cur.close();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			d = sdf.parse(loginTime);
+	    
+	}catch (Exception e){
+		//return false;
+	}
+		
+	return d;
+}
 //myDb.logoutUser(CurrentUser);
 public void logoutUser(String user){
 	//String username = null;
 	try{
 		
 		SQLiteDatabase db;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		String currentDate = dateFormat.format(new Date());
+		
+		Date loginTime = getLastLoginTime();
+		String Times = loginTime.toString();
 		db = this.getWritableDatabase();
 				
 		ContentValues Val = new ContentValues();
 		Val.put("Status", 0);
-		
-		int id = db.update(TABLE_STATUS,Val,"Status = '1'",null);
-		
+		Val.put("LogoutTime",currentDate);
+		String sqlWhere = "Username = '"+user+"' and LoginTime = '"+loginTime+"'";
+		int id = db.update(TABLE_STATUS,Val,sqlWhere,null);
+		writeLogoutToFile(user,currentDate);
 		db.close();
 		
 	} catch (Exception e){
@@ -307,12 +484,12 @@ public void InsertCurrent(String CurrentUser,Date d,int continueLoginState){
 		ContentValues Val = new ContentValues();
 		Val.put("Username", CurrentUser);
 		Val.put("Status", state);
-		Val.put("Date", datetime);
+		Val.put("LoginTime", datetime);
 		Val.put("Home", homee);
 		Val.put("Checkbox", continueLoginState);
 		
 		long rows = db.insert(TABLE_STATUS, null, Val);
-		
+		writeLoginToFile(CurrentUser,datetime);
 		db.close();
 	
 	} catch (Exception e){
@@ -323,7 +500,7 @@ public void InsertCurrent(String CurrentUser,Date d,int continueLoginState){
 }
 
 // insert new user into userinfo table
-public void InsertUser(String CurrentUser,int age,int chooseSex){
+void InsertUser(String CurrentUser,int age,int chooseSex){
 	
 	Boolean IsExited = false;
 	String pass = "-";
@@ -333,6 +510,8 @@ public void InsertUser(String CurrentUser,int age,int chooseSex){
 		pass = "admin";
 		IsExited = checkUserInfo("admin");
 	}
+	//String sage = age.toString();
+	
 	
 	
 	if(!IsExited){
@@ -351,7 +530,7 @@ public void InsertUser(String CurrentUser,int age,int chooseSex){
 			Val.put("Password", pass);
 			
 			long rows = db.insert(TABLE_USER, null, Val);
-			
+			writeMemberToFile(CurrentUser,age,chooseSex);
 			db.close();
 			
 			
@@ -530,8 +709,9 @@ void addItemScore(String GNo,String user,int round,int item,int correct,float ti
 		Val.put("Score", correct);
 		Val.put("Time", time);
 		
+		int times = (int)time;
 		long rows = db.insert(TABLE_ScItem, null, Val);
-		
+		writeGameToFile(user,round,item,times,correct);
 		db.close();
 	
 	} catch (Exception e){
@@ -576,6 +756,7 @@ int getNumRound(String GNo,String user){
 int countScore(String GNo,String user,int Round){
 	
 	int scoree = 0;
+	int times = 0; 
 	try{
 		
 	    SQLiteDatabase db;
@@ -585,9 +766,9 @@ int countScore(String GNo,String user,int Round){
 		if(cursor != null){
 			if(cursor.moveToFirst()) {
 	    	    scoree = cursor.getInt(0);
-	    	    int times = cursor.getInt(1);
+	    	    times = cursor.getInt(1);
 	    	    //scoree = (float) (scoree*5)/ItemNo;
-	    	    keepPlayingScore(GNo,user,Round,scoree,times);
+	    	    //keepPlayingScore(GNo,user,Round,scoree,times);
 	    	}
 		}
 		else{
@@ -597,11 +778,17 @@ int countScore(String GNo,String user,int Round){
 	}catch (Exception e){
 		scoree = 0;
 	}
+	keepPlayingScore(GNo,user,Round,scoree,times);
 	return scoree;
 }
 
+
 void keepPlayingScore(String GNo,String user,int Round,int scores,int times){
-	
+
+	String cRound = Integer.toString(Round);
+	String cScores = Integer.toString(scores);
+	String cTimes = Integer.toString(times);
+	writeScoreToFile(GNo,user,cRound,cScores,cTimes);
 	try{
 		
 		SQLiteDatabase db;
@@ -621,6 +808,8 @@ void keepPlayingScore(String GNo,String user,int Round,int scores,int times){
 	} catch (Exception e){
 	
 	}
+	
+	
 }
 
 String passAdmin(){

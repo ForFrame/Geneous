@@ -14,6 +14,7 @@ import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -156,14 +157,16 @@ void RegisNewMember(){
 			}
 		});
 		
-		Button cancelregis = (Button)findViewById(R.id.CancelReg);
-		cancelregis.setOnClickListener(new View.OnClickListener() {
+		
+		Button cancelRegis = (Button)findViewById(R.id.Home);
+		cancelRegis.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Spinner spin1 = (Spinner)findViewById(R.id.ageSelection);
-				user.setText("");
-				spin1.setSelection(0);
+				soundMain.stop();
+				Intent in = new Intent(AdminRegis.this,Main.class);
+				in.putExtra("showPopup", 1);
+				startActivity(in);
 			}
 		});
 				
@@ -184,5 +187,49 @@ void RegisNewMember(){
 				startActivity(intent);
 			}
 		});
+	}
+
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		
+		Intent intent = new Intent(AdminRegis.this,Main.class);
+		startActivity(intent);
+		
+		
+		super.onRestart();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+			soundMain.stop();
+		}
+		
+		super.onDestroy();
+	}
+	
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		
+		if(soundMain.isLooping()){
+			soundMain.stop();
+		}
+		
+		super.onPause();
+	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	soundMain.stop();
+	    	Intent in = new Intent(AdminRegis.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);  
+	    	return false;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 }

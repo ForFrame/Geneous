@@ -233,6 +233,8 @@ public class HpL2Body extends Activity {
 		int randomChar = randomGenerator.nextInt(lengths);
 		answer = choice(words,lengths,randomChar);
 		
+		countdownTime.start();
+		instructPage.start();
 		
 		final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final View helpAnswer = (View)findViewById(R.id.showAnswer);
@@ -656,7 +658,7 @@ public class HpL2Body extends Activity {
 					}
 				});
 				
-		final MediaPlayer soundShowAns = MediaPlayer.create(context, R.raw.sclv2_red);
+		final MediaPlayer soundShowAns = MediaPlayer.create(context, R.raw.silent);
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
@@ -718,36 +720,46 @@ public class HpL2Body extends Activity {
 		switch(random){
 		case 1:
 			Thislayout.setBackgroundResource(R.drawable.hpl2_bg1);
+			instructPage = MediaPlayer.create(context, R.raw.hplv2_mouth);
 			break;
 		case 2:
 			Thislayout.setBackgroundResource(R.drawable.hpl2_bg2);
+			instructPage = MediaPlayer.create(context, R.raw.hplv2_ear);
 			break;
 		case 3:
 			Thislayout.setBackgroundResource(R.drawable.hpl2_bg3);
+			instructPage = MediaPlayer.create(context, R.raw.hplv2_eye);
 			break;
 		case 4:
 			Thislayout.setBackgroundResource(R.drawable.hpl2_bg4);
+			instructPage = MediaPlayer.create(context, R.raw.hplv2_arm);
 			break;
 		case 5:
 			Thislayout.setBackgroundResource(R.drawable.hpl2_bg5);
+			instructPage = MediaPlayer.create(context, R.raw.hplv2_leg);
 			break;
 		case 6:
 			Thislayout.setBackgroundResource(R.drawable.hpl2_bg6);
+			instructPage = MediaPlayer.create(context, R.raw.hplv2_foot);
 			break;
 		case 7:
 			Thislayout.setBackgroundResource(R.drawable.hpl2_bg7);
+			instructPage = MediaPlayer.create(context, R.raw.hplv2_hand);
 			break;
 		case 8:
 			Thislayout.setBackgroundResource(R.drawable.hpl2_bg8);
+			instructPage = MediaPlayer.create(context, R.raw.hplv2_nose);
 			break;
 		case 9:
 			Thislayout.setBackgroundResource(R.drawable.hpl2_bg9);
+			instructPage = MediaPlayer.create(context, R.raw.hplv2_teeth);
 			break;
 		default:
 			Thislayout.setBackgroundResource(R.drawable.hpl2_bg10);
+			instructPage = MediaPlayer.create(context, R.raw.hplv2_hair);
 			break;
 		}
-		instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
+		//instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
 		return Answer[random-1];
 	}
 	char choice(char[] word,int length,int ranChar){
@@ -911,7 +923,7 @@ public class HpL2Body extends Activity {
 	}	
 	
 	void showTimeout(){
-		
+		stopTime();
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
 		imgWrongFin.setVisibility(View.VISIBLE);
 		imgWrongFin.setClickable(false);

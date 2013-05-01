@@ -78,16 +78,16 @@
         android:id="@+id/okBt"
         android:layout_width="138dp"
         android:layout_height="69dp"
-        android:layout_x="319dp"
+        android:layout_x="450dp"
         android:layout_y="598dp"
         android:background="@drawable/ok" />
-
+    
     <Button
-        android:id="@+id/CancelBt"
-        android:layout_width="138dp"
-        android:layout_height="69dp"
-        android:layout_x="506dp"
-        android:layout_y="598dp"
-        android:background="@drawable/cancel" />
+        android:id="@+id/Home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="896dp"
+        android:layout_y="653dp"
+        android:background="@drawable/icon_home" />
 
 </AbsoluteLayout>

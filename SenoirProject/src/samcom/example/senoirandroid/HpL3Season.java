@@ -339,7 +339,7 @@ public class HpL3Season extends Activity {
     	int randomAns = randomGenerator.nextInt(2)+1;
 	    if(random == 1){
 	    	Thislayout.setBackgroundResource(R.drawable.hpl3_bg1);
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+	    	instructPage = MediaPlayer.create(context, R.raw.hplv3_ecold);
 	    	if(answer == 1){
 	    		if(randomInt == 1)
 	    			ans1.setBackgroundResource(R.drawable.hpl3_ecold1);
@@ -365,7 +365,7 @@ public class HpL3Season extends Activity {
 		}
 		else if(random == 2){
 			Thislayout.setBackgroundResource(R.drawable.hpl3_bg2);
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+			instructPage = MediaPlayer.create(context, R.raw.hplv3_ehot);
 	    	if(answer == 1){
 	    		if(randomInt == 1)
 	    			ans2.setBackgroundResource(R.drawable.hpl3_ecold1);
@@ -391,7 +391,7 @@ public class HpL3Season extends Activity {
 		}
 		else if(random == 3){
 			Thislayout.setBackgroundResource(R.drawable.hpl3_bg3);
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+			instructPage = MediaPlayer.create(context, R.raw.hplv3_ucold);
 	    	randomAns = randomGenerator.nextInt(3)+1;
 			if(answer == 1){
 				if(randomInt == 1)
@@ -422,7 +422,7 @@ public class HpL3Season extends Activity {
 		}
 		else if(random == 4){
 			Thislayout.setBackgroundResource(R.drawable.hpl3_bg4);
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+			instructPage = MediaPlayer.create(context, R.raw.hplv3_uhot);
 	    	randomAns = randomGenerator.nextInt(2)+1;
 			if(answer == 1){
 				if(randomInt == 1)
@@ -449,7 +449,7 @@ public class HpL3Season extends Activity {
 		}
 		else if(random == 5){
 			Thislayout.setBackgroundResource(R.drawable.hpl3_bg5);
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+			instructPage = MediaPlayer.create(context, R.raw.hplv3_urain);
 	    	randomAns = randomGenerator.nextInt(4)+1;
 			if(answer == 1){
 				ans1.setBackgroundResource(R.drawable.hpl3_urain1);
@@ -478,7 +478,7 @@ public class HpL3Season extends Activity {
 		}
 		else if(random == 6){
 			Thislayout.setBackgroundResource(R.drawable.hpl3_bg6);
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+			instructPage = MediaPlayer.create(context, R.raw.hplv3_ccold);
 			if(answer == 1){
 				ans1.setBackgroundResource(R.drawable.hpl3_cloth1);
 				if(randomAns == 1)
@@ -498,7 +498,7 @@ public class HpL3Season extends Activity {
 		}
 		else if(random == 7){
 			Thislayout.setBackgroundResource(R.drawable.hpl3_bg7);
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+			instructPage = MediaPlayer.create(context, R.raw.hplv3_chot);
 			if(answer == 1){
 				ans1.setBackgroundResource(R.drawable.hpl3_cloth3);
 				if(randomAns == 1)
@@ -517,7 +517,7 @@ public class HpL3Season extends Activity {
 		}
 		else if(random == 8){
 			Thislayout.setBackgroundResource(R.drawable.hpl3_bg8);
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
+			instructPage = MediaPlayer.create(context, R.raw.hplv3_crain);
 			if(answer == 1){
 				ans1.setBackgroundResource(R.drawable.hpl3_cloth2);
 				if(randomAns == 1)

@@ -14,6 +14,7 @@ import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -161,14 +162,15 @@ void editAdmin(){
 			}
 		});
 		
-		Button cancelEdit = (Button)findViewById(R.id.CancelBt);
+		Button cancelEdit = (Button)findViewById(R.id.Home);
 		cancelEdit.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				oldPass.setText("");
-				newPass.setText("");
-				newPass2.setText("");
+				soundMain.stop();
+				Intent in = new Intent(AdminEdit.this,Main.class);
+				in.putExtra("showPopup", 1);
+				startActivity(in);
 			}
 		});
 				
@@ -189,6 +191,50 @@ void editAdmin(){
 				//editAdmin();
 			}
 		});
+	}
+
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		
+		Intent intent = new Intent(AdminEdit.this,Main.class);
+		startActivity(intent);
+		
+		
+		super.onRestart();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		if(soundMain.isLooping()){
+			soundMain.stop();
+		}
+		
+		super.onDestroy();
+	}
+	
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		
+		if(soundMain.isLooping()){
+			soundMain.stop();
+		}
+		
+		super.onPause();
+	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	soundMain.stop();
+	    	Intent in = new Intent(AdminEdit.this,Main.class);
+			in.putExtra("showPopup", 1);
+			startActivity(in);  
+	    	return false;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 
 }

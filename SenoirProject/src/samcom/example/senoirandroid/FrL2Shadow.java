@@ -334,7 +334,6 @@ public class FrL2Shadow extends Activity {
 	    if(random == 1){
 	    	Thislayout.setBackgroundResource(R.drawable.frlv2_bg1);
 	    	randomInt = 13; 
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	if(answer == 1){
 	    		ans1.setBackgroundResource(R.drawable.frlv_fani2);
 	    	}
@@ -346,7 +345,6 @@ public class FrL2Shadow extends Activity {
 		else if(random == 2){
 			Thislayout.setBackgroundResource(R.drawable.frlv2_bg2);
 			randomInt = 12; 
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	if(answer == 1){
 	    		ans1.setBackgroundResource(R.drawable.frlv_fani1);
 	    	}
@@ -358,7 +356,6 @@ public class FrL2Shadow extends Activity {
 		else if(random == 3){
 			Thislayout.setBackgroundResource(R.drawable.frlv2_bg3);
 			randomInt = 2; 
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	if(answer == 1){
 	    		ans1.setBackgroundResource(R.drawable.frlv_wani1);
 	    	}
@@ -369,8 +366,7 @@ public class FrL2Shadow extends Activity {
 		else if(random == 4){
 			Thislayout.setBackgroundResource(R.drawable.frlv2_bg4);
 			randomInt = 5; 
-			instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
-	    	if(answer == 1){
+			if(answer == 1){
 	    		ans1.setBackgroundResource(R.drawable.frlv_lani1);
 	    	}
 	    	else{
@@ -381,7 +377,6 @@ public class FrL2Shadow extends Activity {
 		else if(random == 5){
 			Thislayout.setBackgroundResource(R.drawable.frlv2_bg5);
 			randomInt = 6; 
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	if(answer == 1){
 	    		ans1.setBackgroundResource(R.drawable.frlv_lani2);
 	    	}
@@ -392,7 +387,6 @@ public class FrL2Shadow extends Activity {
 		else if(random == 6){
 			Thislayout.setBackgroundResource(R.drawable.frlv2_bg6);
 			randomInt = 7; 
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	if(answer == 1){
 	    		ans1.setBackgroundResource(R.drawable.frlv_lani3);
 	    	}
@@ -404,7 +398,6 @@ public class FrL2Shadow extends Activity {
 		else if(random == 7){
 			Thislayout.setBackgroundResource(R.drawable.frlv2_bg7);
 			randomInt = 8; 
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	if(answer == 1){
 	    		ans1.setBackgroundResource(R.drawable.frlv_lani4);
 	    	}
@@ -415,7 +408,6 @@ public class FrL2Shadow extends Activity {
 		else if(random == 8){
 			Thislayout.setBackgroundResource(R.drawable.frlv2_bg8);
 			randomInt = 14; 
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	if(answer == 1){
 	    		ans1.setBackgroundResource(R.drawable.frlv_fani3);
 	    	}
@@ -427,7 +419,6 @@ public class FrL2Shadow extends Activity {
 		else if(random == 9){
 			Thislayout.setBackgroundResource(R.drawable.frlv2_bg9);
 			randomInt = 9; 
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	if(answer == 1){
 	    		ans1.setBackgroundResource(R.drawable.frlv_lani5);
 	    	}
@@ -438,7 +429,6 @@ public class FrL2Shadow extends Activity {
 		else{
 			Thislayout.setBackgroundResource(R.drawable.frlv2_bg10);
 			randomInt = 11; 
-	    	instructPage = MediaPlayer.create(context, R.raw.hs_ins1_1);
 	    	if(answer == 1){
 	    		ans1.setBackgroundResource(R.drawable.frlv_lani7);
 	    	}
@@ -512,7 +502,7 @@ public class FrL2Shadow extends Activity {
 	    	if(randomAns == 14)
 	    		ans1.setBackgroundResource(R.drawable.frlv_fani3);
 	    }
-	    
+	    instructPage = MediaPlayer.create(context, R.raw.frlv2);
 		
 		return answer;
 		

@@ -712,7 +712,7 @@ public class FrL1Aniname extends Activity {
 					}
 				});
 				
-		final MediaPlayer soundShowAns = MediaPlayer.create(context, R.raw.sclv2_red);
+		final MediaPlayer soundShowAns = MediaPlayer.create(context, R.raw.silent);
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
@@ -774,36 +774,47 @@ public class FrL1Aniname extends Activity {
 		switch(random){
 		case 1:
 			Thislayout.setBackgroundResource(R.drawable.frlv1_bg1);
+			instructPage = MediaPlayer.create(context, R.raw.frlv1_ant);
 			break;
 		case 2:
 			Thislayout.setBackgroundResource(R.drawable.frlv1_bg2);
+			instructPage = MediaPlayer.create(context, R.raw.frlv1_cat);
 			break;
 		case 3:
 			Thislayout.setBackgroundResource(R.drawable.frlv1_bg3);
+			instructPage = MediaPlayer.create(context, R.raw.frlv1_dog);
 			break;
 		case 4:
 			Thislayout.setBackgroundResource(R.drawable.frlv1_bg4);
+			instructPage = MediaPlayer.create(context, R.raw.frlv1_hen);
+			
 			break;
 		case 5:
 			Thislayout.setBackgroundResource(R.drawable.frlv1_bg5);
+			instructPage = MediaPlayer.create(context, R.raw.frlv1_rat);
 			break;
 		case 6:
 			Thislayout.setBackgroundResource(R.drawable.frlv1_bg6);
+			instructPage = MediaPlayer.create(context, R.raw.frlv1_pig);
 			break;
 		case 7:
 			Thislayout.setBackgroundResource(R.drawable.frlv1_bg7);
+			instructPage = MediaPlayer.create(context, R.raw.frlv1_duck);
 			break;
 		case 8:
 			Thislayout.setBackgroundResource(R.drawable.frlv1_bg8);
+			instructPage = MediaPlayer.create(context, R.raw.frlv1_bird);
 			break;
 		case 9:
 			Thislayout.setBackgroundResource(R.drawable.frlv1_bg9);
+			instructPage = MediaPlayer.create(context, R.raw.frlv1_fish);
 			break;
 		default:
 			Thislayout.setBackgroundResource(R.drawable.frlv1_bg10);
+			instructPage = MediaPlayer.create(context, R.raw.frlv1_ox);
 			break;
 		}
-		instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
+		//instructPage = MediaPlayer.create(context, R.raw.hs_ins2);
 		return Answer[random-1];
 	}
 
@@ -960,7 +971,7 @@ public class FrL1Aniname extends Activity {
 	}	
 	
 	void showTimeout(){
-		
+		stopTime();
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
 		imgWrongFin.setVisibility(View.VISIBLE);
 		imgWrongFin.setClickable(false);
