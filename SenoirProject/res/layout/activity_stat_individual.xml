@@ -4,7 +4,7 @@
     android:layout_width="874dp"
     android:layout_height="618dp"
     android:layout_gravity="center"
-    android:background="@drawable/highscore"
+    android:background="@drawable/highscore1"
     android:orientation="vertical" >
 
 	<Spinner
@@ -56,37 +56,59 @@
 	    android:textAppearance="?android:attr/textAppearanceLarge" 
 	    android:textSize="16pt"/>
 	
-	<!-- List Divider -->
-	<View android:layout_width="500dp"
-		android:layout_height="1dip"
-		android:background="?android:attr/listDivider" 
-		android:layout_gravity="center_vertical|center_horizontal" />
+	<TextView
+	    android:id="@+id/MaxScore"
+	    android:layout_width="300dp"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="105dp"
+	    android:layout_marginTop="9dp"
+	    android:gravity="center"
+	    android:textAppearance="?android:attr/textAppearanceLarge" 
+	    android:textSize="16pt"/>
+	<TextView
+	    android:id="@+id/ivdMaxScore"
+	    android:layout_width="300dp"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="105dp"
+	    android:layout_marginTop="9dp"
+	    android:gravity="center"
+	    android:textAppearance="?android:attr/textAppearanceLarge" 
+	    android:textSize="16pt"/>
+	<TextView
+	    android:id="@+id/MeanScore"
+	    android:layout_width="300dp"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="105dp"
+	    android:layout_marginTop="9dp"
+	    android:gravity="center"
+	    android:textAppearance="?android:attr/textAppearanceLarge" 
+	    android:textSize="16pt"/>
+
+	<TextView
+	    android:id="@+id/OrderScore"
+	    android:layout_width="300dp"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="105dp"
+	    android:layout_marginTop="9dp"
+	    android:gravity="center"
+	    android:textAppearance="?android:attr/textAppearanceLarge" 
+	    android:textSize="16pt"/>
+	<TextView
+	    android:id="@+id/AllScore"
+	    android:layout_width="300dp"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="105dp"
+	    android:layout_marginTop="9dp"
+	    android:gravity="center"
+	    android:textAppearance="?android:attr/textAppearanceLarge" 
+	    android:textSize="16pt"/>
 	
-	<!-- ListView (grid_items) -->
-
-	<LinearLayout
-	    android:id="@+id/layout"
-	    android:layout_width="660dp"
-	    android:layout_height="240dp"
-	    android:layout_gravity="center_vertical|center_horizontal|center"
-	    android:layout_marginTop="60dp" >
-
-	    <ListView
-	        android:id="@+id/listview"
-	        android:layout_width="660dp"
-	        android:layout_height="240dp"
-	        android:layout_gravity="center_vertical|center_horizontal|center"
-	        android:layout_marginTop="-5dp" >
-
-	    </ListView>
-	</LinearLayout>
-
 	<Button
 	    android:id="@+id/button1"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="right"
-	    android:layout_marginTop="-10dp"
+	    android:layout_marginTop="10dp"
 	    android:background="@drawable/icon_skip" />
 
 </LinearLayout>

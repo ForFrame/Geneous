@@ -242,8 +242,7 @@ void writeGameToFile(String user,int Round,int item,int times,int correct){
 // select current user -> return username / guest
 public String SelectCurrentUser(){
 	String username = "Logout";
-	
-	
+		
 	try{
 			
 	    SQLiteDatabase db;
@@ -265,6 +264,137 @@ public String SelectCurrentUser(){
 	}
 	
 	return username;
+}
+
+public int getMaxMeanGame(String gameNo,int maxmean) {
+	int scores = 0;
+	int max = 0;
+	int mean = 0;
+	try{
+			
+	    SQLiteDatabase db;
+		
+	    db = this.getReadableDatabase();
+		String qry = "select MAX(Score),AVG(Score) from scGame where gameNo = '"+gameNo+"';";
+	    SQLiteCursor cur = (SQLiteCursor)db.rawQuery(qry,null);
+		cur.moveToFirst();
+		
+	    while (cur.isAfterLast() == false) {
+		    max = cur.getInt(0);
+		    mean = cur.getInt(1);
+	        cur.moveToNext();
+	    }
+		
+	    cur.close();
+
+	}catch (Exception e){
+		return 0;
+	}
+	
+	if(maxmean == 1){
+		scores = max;
+	}
+	else{
+		scores = mean;
+	}
+	return scores;
+}
+
+public int getIvdMax(String gameNo,String user) {
+	int scores = 0;
+	
+	try{
+			
+	    SQLiteDatabase db;
+		
+	    db = this.getReadableDatabase();
+		String qry = "select MAX(Score) from scGame where gameNo = '"+gameNo+"' and Username = '"+user+"';";
+	    SQLiteCursor cur = (SQLiteCursor)db.rawQuery(qry,null);
+		cur.moveToFirst();
+		
+	    while (cur.isAfterLast() == false) {
+		    scores = cur.getInt(0);
+		    cur.moveToNext();
+	    }
+		
+	    cur.close();
+
+	}catch (Exception e){
+		return 0;
+	}
+	
+	return scores;
+}
+
+public int getOrder(String gameNo,String user) {
+	int order = 1;
+	String getUser = null;
+	Boolean found = false;
+	try{
+			
+	    SQLiteDatabase db;
+		
+	    db = this.getReadableDatabase();
+		String qry = "select Username,MAX(Score) from scGame where gameNo = '"+gameNo+"' Group By Username Order By MAX(Score) DESC ;";
+	    SQLiteCursor cur = (SQLiteCursor)db.rawQuery(qry,null);
+		cur.moveToFirst();
+		int i = 0;
+	    while (cur.isAfterLast() == false && !found) {
+		    getUser = cur.getString(0);
+		    i++;
+		    if(getUser.equals(user)){
+		    	order = i;
+		    	found = true;
+		    }
+		    cur.moveToNext();
+	    }
+		
+	    cur.close();
+
+	}catch (Exception e){
+		return 0;
+	}
+	
+	return order;
+}
+
+public int getCountUser(String gameNo) {
+	int users = 0;
+	
+	try{
+			
+	    SQLiteDatabase db;
+		
+	    db = this.getReadableDatabase();
+		String qry = "select COUNT(Username) from scGame where gameNo = '"+gameNo+"' and Round = '1';";
+	    SQLiteCursor cur = (SQLiteCursor)db.rawQuery(qry,null);
+		cur.moveToFirst();
+		
+	    while (cur.isAfterLast() == false) {
+		    users = cur.getInt(0);
+		    cur.moveToNext();
+	    }
+		
+	    cur.close();
+
+	}catch (Exception e){
+		return 0;
+	}
+	
+	return users;
+}
+
+//score = myDb.getStat(gameNo,CurrentUser);
+public int[] getStat(String gameNo,String user){
+	//[0] = max,1 = ivd max 2=mean 3=order 4=all
+	int stat[] = new int[5];
+	stat[0] = getMaxMeanGame(gameNo,1); //1 = max
+	stat[1] = getIvdMax(gameNo,user);
+	stat[2] = getMaxMeanGame(gameNo,2); //2 = mean
+	stat[3] = getOrder(gameNo,user);
+	stat[4] = getCountUser(gameNo);
+	
+	return stat;
 }
 
 //change home state if 1 = from home button , 0 = from restart state

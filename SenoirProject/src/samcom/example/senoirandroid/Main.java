@@ -645,6 +645,118 @@ SQLiteDatabase db;
 		selectedGame = game;
 		GameNoSelected = posi;
 	}
+	
+	protected void showStatScore(){
+		final Dialog StatPop = new Dialog(context2, R.style.FullHeightDialog);
+		final myDBClass myDb = new myDBClass(this);
+		myDb.getReadableDatabase();
+		int[] to = new int[] { R.id.item1, R.id.item2, R.id.item3, R.id.item4, R.id.item5  };
+        String[] title = new String[] {"rowid", "col_1", "col_2", "col_3","col_4"};
+        
+		//final List<HashMap<String, String>> fillMaps2 = new ArrayList<HashMap<String, String>>();
+		//final SimpleAdapter adapter2 = new SimpleAdapter(this, fillMaps2, R.layout.grid_item2, title, to);
+		final Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf"); 
+   
+		StatPop.setContentView(R.layout.activity_stat_individual);
+		StatPop.setCanceledOnTouchOutside(false);
+		StatPop.setCancelable(false); 
+        
+		final Spinner spin1 = (Spinner)StatPop.findViewById(R.id.gameSelection);
+		final TextView gt = (TextView)StatPop.findViewById(R.id.GameText);
+		final Typeface type2 = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
+		gt.setTypeface(type2);
+		
+		Button viewStatScore = (Button)StatPop.findViewById(R.id.viewStat);
+		Button viewIvdHigh = (Button)StatPop.findViewById(R.id.viewHighscore);
+		Button viewIvdGraph = (Button)StatPop.findViewById(R.id.viewGraph);
+		viewStatScore.setClickable(false);
+		viewIvdHigh.setClickable(true);
+		viewIvdGraph.setClickable(true);
+		
+		final TextView tMax = (TextView)StatPop.findViewById(R.id.MaxScore);
+		final TextView tivdMax = (TextView)StatPop.findViewById(R.id.ivdMaxScore);
+		final TextView tMean = (TextView)StatPop.findViewById(R.id.MeanScore);
+		final TextView tOrder = (TextView)StatPop.findViewById(R.id.OrderScore);
+		final TextView tAll = (TextView)StatPop.findViewById(R.id.AllScore);
+
+		if(!selectedGame.equals("")){
+			spin1.setSelection(GameNoSelected);
+			gt.setText(selectedGame);
+		}
+		
+		spin1.setOnItemSelectedListener(new OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+			        
+					String selected = spin1.getItemAtPosition(pos).toString();
+					gt.setTypeface(type2);
+			    	gt.setText(selected);
+			    	
+			    	String game[] = selected.split(" ");
+			        String gameNo = game[0];
+			        setPostionSelected(selected,pos);
+			        
+			        int score[] = new int[5];
+			        score = myDb.getStat(gameNo,CurrentUser);
+			        
+			        tMax.setText(Integer.toString(score[0]));
+			        tivdMax.setText(Integer.toString(score[1]));
+			        tMean.setText(Integer.toString(score[2]));
+			        tOrder.setText(Integer.toString(score[3]));
+			        tAll.setText(Integer.toString(score[4]));
+			        
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				gt.setText("เลือกเกมส์ที่ต้องการ");
+			}
+		});
+	
+		//view graph
+		viewIvdGraph.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				StatPop.dismiss();
+				showListViewGraph();
+			}
+		});
+		//view highscore
+		viewIvdHigh.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				StatPop.dismiss();
+				showListViewHighScore();
+			}
+		});
+		
+        Button skipButton = (Button)StatPop.findViewById(R.id.button1);
+		skipButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				StatPop.dismiss();
+				
+				TextView result = (TextView) findViewById(R.id.textUser);
+				result.setTypeface(type);
+				result.setTextColor(Color.rgb(2, 101, 203));
+				result.setVisibility(TextView.VISIBLE);
+				result.setText(CurrentUser);
+				Button LogoutBt = (Button) findViewById(R.id.logout);
+				LogoutBt.setVisibility(Button.VISIBLE);
+				Button LoginBt = (Button) findViewById(R.id.loginn);
+				LoginBt.setVisibility(Button.INVISIBLE);
+				Button getHighScore = (Button)findViewById(R.id.showHighScore);
+				getHighScore.setVisibility(TextView.VISIBLE);
+				
+				instrucMain.start();
+			}
+		});
+        
+        StatPop.show();
+
+	}
 	protected void showListViewHighScore(){
 		final Dialog HighPop = new Dialog(context2, R.style.FullHeightDialog);
 		final myDBClass myDb = new myDBClass(this);
@@ -665,10 +777,12 @@ SQLiteDatabase db;
 		final Typeface type2 = Typeface.createFromAsset(getAssets(),"fonts/hbo.ttf");
 		gt.setTypeface(type2);
 		
+		Button viewStatScore = (Button)HighPop.findViewById(R.id.viewStat);
 		Button viewIvdHigh = (Button)HighPop.findViewById(R.id.viewHighscore);
 		Button viewIvdGraph = (Button)HighPop.findViewById(R.id.viewGraph);
 		viewIvdHigh.setClickable(false);
 		viewIvdGraph.setClickable(true);
+		viewStatScore.setClickable(true);
 
 		if(!selectedGame.equals("")){
 			spin1.setSelection(GameNoSelected);
@@ -714,44 +828,7 @@ SQLiteDatabase db;
 				gt.setText("เลือกเกมส์ที่ต้องการ");
 			}
 		});
-	/*	
-		//view high score
-		Button viewIvdHigh = (Button)HighPop.findViewById(R.id.viewHighscore);
-		viewIvdHigh.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v) {
-				 //TODO Auto-generated method stub
-
-				ListView lv = (ListView)HighPop.findViewById(R.id.listview);
-		        
-		        // create the grid item mapping
-		        String from[][] = new String[15][5];
-		        int lengths;
-		        String getCurrentSelected = gt.getText().toString();
-		        String game[] = getCurrentSelected.split(" ");
-		        String gameNo = game[0];
-		        int position = Integer.parseInt(gameNo);
-		        setPostionSelected(getCurrentSelected,position);
-		        
-		        lengths = myDb.getIdvHighScore(gameNo,CurrentUser,from);
-		        // prepare the list of all records
-		        fillMaps2.removeAll(fillMaps2);
-		        for(int i = 0; (i < lengths)&&(i<6); i++){
-		        	HashMap<String, String> map = new HashMap<String, String>();
-		        	map.put("rowid", "" + (i+1));
-		        	map.put("col_1", from[i][0]);
-		        	map.put("col_2", from[i][1]);
-		        	map.put("col_3", from[i][2]);
-		        	map.put("col_4", from[i][3]);
-		        	fillMaps2.add(map);
-		        }
-
-		        // fill in the grid_item layout
-		        lv.setAdapter(adapter2);
-			}
-		});
-		
-	*/	
+	
 		//view graph
 		viewIvdGraph.setOnClickListener(new View.OnClickListener() {
 			
@@ -759,6 +836,16 @@ SQLiteDatabase db;
 				// TODO Auto-generated method stub
 				HighPop.dismiss();
 				showListViewGraph();
+			}
+		});
+		
+		//view stat
+		viewStatScore.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				HighPop.dismiss();
+				showStatScore();
 			}
 		});
 		
@@ -811,10 +898,12 @@ SQLiteDatabase db;
 			gt.setText(selectedGame);
 		}
 
+		Button viewStatScore = (Button)GraphPop.findViewById(R.id.viewStat);
 		Button viewIvdHigh = (Button)GraphPop.findViewById(R.id.viewHighscore);
 		Button viewIvdGraph = (Button)GraphPop.findViewById(R.id.viewGraph);
 		viewIvdHigh.setClickable(true);
 		viewIvdGraph.setClickable(false);
+		viewStatScore.setClickable(true);
 		
 		spin1.setOnItemSelectedListener(new OnItemSelectedListener() {
 			
@@ -959,114 +1048,16 @@ SQLiteDatabase db;
 		});
 		
 		
-		/*
-		viewIvdGraph.setOnClickListener(new View.OnClickListener() {
+		//view stat
+		viewStatScore.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
-		        String[] series1Numbers = {"0","0","0","0","0"};
-		        String getCurrentSelected = gt.getText().toString();
-		        String game[] = getCurrentSelected.split(" ");
-		        String gameNo = game[0];
-		        double[] scores = {0,0,0,0,0}; 
-		        scores = myDb.getIdvGraphScore(gameNo,CurrentUser,series1Numbers); 
-		        
-		        GraphicalView gv = createIntent(scores,series1Numbers);
-
-				LinearLayout rl = (LinearLayout)GraphPop.findViewById(R.id.Graphlayout);
-				rl.addView(gv);
-				
+				GraphPop.dismiss();
+				showStatScore();
 			}
-			
-			 public GraphicalView createIntent(double scores[],String series1Numbers[]) {
-			        String[] titles = new String[] { "คะแนนที่ได้"};
-			        List<double[]> values = new ArrayList<double[]>();
-			        values.add(scores);
-			        
-			        int[] colors = new int[] { Color.parseColor("#77c4d3")};
-			        XYMultipleSeriesRenderer renderer = buildBarRenderer(colors);
-			        renderer.setOrientation(Orientation.HORIZONTAL);
-			        setChartSettings(renderer, "", " ครั้งที่ ", " คะแนน ", 0.5,
-			            6, 0, 10, Color.BLACK, Color.BLACK);
-			        renderer.setXLabels(1);
-			        renderer.setYLabels(5);
-			       
-			        for(int i=4;i>=0;i--){
-			        	if(!series1Numbers[i].equals("0"))
-			        		renderer.addXTextLabel(i+1, series1Numbers[i]);
-			        }
-
-			        int length = renderer.getSeriesRendererCount();
-			        for (int i = 0; i < length; i++) {
-			          SimpleSeriesRenderer seriesRenderer = renderer.getSeriesRendererAt(i);
-			          seriesRenderer.setDisplayChartValues(true);
-			        }
-			 
-			 
-			        final GraphicalView grfv = ChartFactory.getBarChartView(Main.this, buildBarDataset(titles, values), renderer,Type.DEFAULT);
-			   
-			         
-			        return grfv;
-			      }
-			      protected XYMultipleSeriesRenderer buildBarRenderer(int[] colors) {
-			            XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-			            renderer.setAxisTitleTextSize(18);
-			           // renderer.setChartTitleTextSize(20);
-			            renderer.setLabelsTextSize(15);
-			            renderer.setLegendTextSize(15);
-			            renderer.setBarSpacing(1);
-			             
-			            renderer.setMarginsColor(Color.parseColor("#EEEDED"));
-			            renderer.setXLabelsColor(Color.BLACK);
-			            renderer.setYLabelsColor(0,Color.BLACK);
-			             
-			            renderer.setApplyBackgroundColor(true);
-			            renderer.setBackgroundColor(Color.parseColor("#FBFBFC"));
-			             
-			            int length = colors.length;
-			            for (int i = 0; i < length; i++) {
-			              SimpleSeriesRenderer r = new SimpleSeriesRenderer();
-			              r.setColor(colors[i]);
-			              r.setChartValuesTextAlign(Align.RIGHT);
-			              r.setChartValuesTextSize(15);
-			              r.setChartValuesSpacing(10);
-			              renderer.addSeriesRenderer(r);
-			            }
-			            return renderer;
-			          }
-			      protected XYMultipleSeriesDataset buildBarDataset(String[] titles, List<double[]> values) {
-			            XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-			            int length = titles.length;
-			            for (int i = 0; i < length; i++) {
-			              CategorySeries series = new CategorySeries(titles[i]);
-			              double[] v = values.get(i);
-			              int seriesLength = v.length;
-			              for (int k = 0; k < seriesLength; k++) {
-			                series.add(v[k]);
-			              }
-			              dataset.addSeries(series.toXYSeries());
-			            }
-			            return dataset;
-			          }
-			      protected void setChartSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle,
-			              String yTitle, double xMin, double xMax, double yMin, double yMax, int axesColor,
-			              int labelsColor) {
-
-			    	  	renderer.setChartTitleTextSize(10);
-			    	  	renderer.setYLabelsAlign(Align.RIGHT);
-			            renderer.setXTitle(xTitle);
-			            renderer.setYTitle(yTitle);
-			            renderer.setXAxisMin(xMin);
-			            renderer.setXAxisMax(xMax);
-			            renderer.setYAxisMin(yMin);
-			            renderer.setYAxisMax(yMax);
-			            renderer.setMargins(new int[] { 15, 60, 15, 15 });
-			            renderer.setAxesColor(axesColor);
-			            renderer.setLabelsColor(labelsColor);
-			          }
 		});
-	*/
+		
         Button skipButton = (Button)GraphPop.findViewById(R.id.button1);
 		skipButton.setOnClickListener(new View.OnClickListener() {
 
