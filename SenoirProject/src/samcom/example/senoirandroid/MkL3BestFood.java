@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 
 @SuppressWarnings("deprecation")
-public class PlL2NearFar extends Activity {
+public class MkL3BestFood extends Activity {
 
 	String username;
 	long startTime;
@@ -48,14 +48,14 @@ public class PlL2NearFar extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // เน€๏ฟฝ?๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ—เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ“เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?เธ’เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ”เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ
+		public void onFinish() { 
 		// TODO Auto-generated method stub
 			RunningCount = false;
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ•เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ“เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?เธ’เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?โ€”เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ เน€๏ฟฝ?๏ฟฝ เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ‘เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ
+		public void onTick(long remain) { 
 		// TODO Auto-generated method stub
 			RunningCount = true;
 			TextView result = (TextView) findViewById(R.id.textTime);
@@ -69,30 +69,38 @@ public class PlL2NearFar extends Activity {
 	super.onCreate(savedInstanceState);
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	setContentView(R.layout.activity_pl_l2_nearfar);
+	setContentView(R.layout.market_l1_best_food);
 	
-	soundMain = MediaPlayer.create(context, R.raw.main);
-	soundMain.start();
-	soundMain.setLooping(true);
-	soundMain.setVolume(30, 30);
+		soundMain = MediaPlayer.create(context, R.raw.main);
+		soundMain.start();
+		soundMain.setLooping(true);
+		soundMain.setVolume(30, 30);
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		username = myDb.SelectCurrentUser();
 	
 		//mediaPlayer.start();
-		Round = myDb.getNumRound("005", username);
+		Round = myDb.getNumRound("009", username);
 		
 					
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-		game005();
-		
+		game009();
 		
 	}
 
-	void game005(){
+	void stopTime(){
+		ImageView instructFing = (ImageView)findViewById(R.id.finger);
+		if(RunningCount == true){
+			countdownTime.cancel();
+			if(instructFing.isEnabled()){
+				instructFing.clearAnimation();
+			}
+		}	
+	}
+	void game009(){
 		int scores;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -142,20 +150,19 @@ public class PlL2NearFar extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
 				instructPage.stop();
-				Intent intent = new Intent(PlL2NearFar.this,Main.class);
+				Intent intent = new Intent(MkL3BestFood.this,Main.class);
 				intent.putExtra("Logout", 1);
 				startActivity(intent);
 			}
 			
 		});
-		
 		if(OnPause == false){
 			if(count < 10){
 				Random = RanNum();
 				checkAnswer(Random,count+1);
 			}
 			else{
-				scores = myDb.countScore("005", username, Round);
+				scores = myDb.countScore("009", username, Round);
 				countdownTime.cancel();
 				showPopup(scores);
 			}
@@ -180,16 +187,6 @@ public class PlL2NearFar extends Activity {
 		return randomInt;
 	}
 	
-	void stopTime(){
-		ImageView instructFing = (ImageView)findViewById(R.id.finger);
-		if(RunningCount == true){
-			countdownTime.cancel();
-			if(instructFing.isEnabled()){
-				instructFing.clearAnimation();
-			}
-		}	
-	}
-	
 	void checkAnswer(final int RandomNum,final int item){
 		
 		final Button Answer1 = (Button)findViewById(R.id.picans1);
@@ -208,19 +205,28 @@ public class PlL2NearFar extends Activity {
 		
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
-		imgWrong.setClickable(false);
-		imgCorrect.setClickable(false);
+		
+		
 		
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(item +"/ 10");
 		
 		
+		
 			answer = choice(RandomNum);
+			//if(answer == 1){
+			//	instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_long);
+				//instructPage.start();
+			//}
+			//else{
+			//	instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_short);
+				//instructPage.start();
+			//}
 			
 			final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 			final View helpAnswer = (View)findViewById(R.id.showAnswer);
-			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween_once);
-			final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween);
+			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(MkL3BestFood.this, R.anim.tween_once);
+			final Animation myFadeAnimation = AnimationUtils.loadAnimation(MkL3BestFood.this, R.anim.tween);
 			final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
 			
 			countdownTime.start();
@@ -230,7 +236,11 @@ public class PlL2NearFar extends Activity {
 			if(Round == 1 || (username.equals("Guest") && item == 1)){
 	        	instructFinger.startAnimation(myFadeonceAnimation);	
 	        }
-			
+			if(item == 2){
+				if(helpAnswer.isFocused()){
+					helpAnswer.clearAnimation();
+				}
+			}
 	        		
 			instructPage.setOnCompletionListener(new OnCompletionListener() {
 	            public void onCompletion(MediaPlayer soundCorrect) {
@@ -250,16 +260,18 @@ public class PlL2NearFar extends Activity {
 						}	
 						if(answer == 1){
 							imgCorrect.setVisibility(View.VISIBLE);
+							imgCorrect.setClickable(false);
 							stopTime();
 							soundCorrect.start();
-							myDb.addItemScore("005",username,Round,item,1,(countTime - timeRemain));
+							myDb.addItemScore("009",username,Round,item,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
+							imgWrong.setClickable(false);
 							stopTime();
 							soundWrong.start();
-							myDb.addItemScore("005",username,Round,item,0,(countTime - timeRemain));
+							myDb.addItemScore("009",username,Round,item,0,(countTime - timeRemain));
 						}
 						
 					}
@@ -273,16 +285,18 @@ public class PlL2NearFar extends Activity {
 						}	
 						if(answer == 2){
 							imgCorrect.setVisibility(View.VISIBLE);
+							imgCorrect.setClickable(false);
 							stopTime();
 							soundCorrect.start();
-							myDb.addItemScore("005",username,Round,item,1,(countTime - timeRemain));
+							myDb.addItemScore("009",username,Round,item,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
+							imgWrong.setClickable(false);
 							stopTime();
 							soundWrong.start();
-							myDb.addItemScore("005",username,Round,item,0,(countTime - timeRemain));
+							myDb.addItemScore("009",username,Round,item,0,(countTime - timeRemain));
 						}
 					}
 				});
@@ -291,7 +305,7 @@ public class PlL2NearFar extends Activity {
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
             	
-            	game005();
+            	game009();
             }
         });
 
@@ -299,11 +313,11 @@ public class PlL2NearFar extends Activity {
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrong.setVisibility(View.INVISIBLE);
             	
-            	game005();
+            	game009();
             }
         });
 		
-		Button HelpButton = (Button)findViewById(R.id.nearfarHelp);
+		Button HelpButton = (Button)findViewById(R.id.bestfoodHelp);
 		HelpButton.setOnClickListener(new View.OnClickListener() {
 	
 			public void onClick(View v) {
@@ -313,14 +327,14 @@ public class PlL2NearFar extends Activity {
 			}
 		});
 		
-		Button nearfarButton = (Button)findViewById(R.id.nearfarbackHome);
-		nearfarButton.setOnClickListener(new View.OnClickListener() {
+		Button bestfoodButton = (Button)findViewById(R.id.bestfoodbackHome);
+		bestfoodButton.setOnClickListener(new View.OnClickListener() {
 		
 		
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			stopTime();
-			Intent in = new Intent(PlL2NearFar.this,Main.class);
+			Intent in = new Intent(MkL3BestFood.this,Main.class);
 			in.putExtra("showPopup", 1);
 			startActivity(in);
 		}
@@ -331,94 +345,80 @@ public class PlL2NearFar extends Activity {
 		
 		Button ans1 = (Button)findViewById(R.id.picans1);
 		Button ans2 = (Button)findViewById(R.id.picans2);
-		TextView ansView = (TextView)findViewById(R.id.picView);
-		//Random randomGenerator = new Random();
-		//int nearOrfar = randomGenerator.nextInt(2)+1;
-		
-		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.nearfarLayout);
+	
+		Random randomGenerator = new Random();
+		int Question = randomGenerator.nextInt(2)+1;
+		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.bestfoodLayout);
 		int answer=0;
 	    
 	    if(random == 1){
-	    	answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg1);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv1);
-			ans1.setBackgroundResource(R.drawable.pl2_choice1_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice1_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_1);
+	    	answer = 2;
+			ans1.setBackgroundResource(R.drawable.ml1_choice1_1);
+			ans2.setBackgroundResource(R.drawable.ml1_choice1_2);
 		}
 		else if(random == 2){
-			answer = 2;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg2);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv2);
-			ans1.setBackgroundResource(R.drawable.pl2_choice2_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice2_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_2);
+			answer = 1;
+			ans1.setBackgroundResource(R.drawable.ml1_choice2_1);
+			ans2.setBackgroundResource(R.drawable.ml1_choice2_2);
 		}
 		else if(random == 3){
 			answer = 2;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg3);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv3);
-			ans1.setBackgroundResource(R.drawable.pl2_choice3_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice3_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_3);
+			ans1.setBackgroundResource(R.drawable.ml1_choice3_1);
+			ans2.setBackgroundResource(R.drawable.ml1_choice3_2);
 		}
 		else if(random == 4){
 			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg4);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv4);
-			ans1.setBackgroundResource(R.drawable.pl2_choice4_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice4_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
+			ans1.setBackgroundResource(R.drawable.ml1_choice4_1);
+			ans2.setBackgroundResource(R.drawable.ml1_choice6_1);
 		}
 		else if(random == 5){
-			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg5);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv5);
-			ans1.setBackgroundResource(R.drawable.pl2_choice5_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice5_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
+			answer = 2;
+			ans1.setBackgroundResource(R.drawable.ml1_choice5_1);
+			ans2.setBackgroundResource(R.drawable.ml1_choice5_2);
 		}
 		else if(random == 6){
-			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg6);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv6);
-			ans1.setBackgroundResource(R.drawable.pl2_choice6_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice6_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
+			answer = 2;
+			ans1.setBackgroundResource(R.drawable.ml1_choice4_2);
+			ans2.setBackgroundResource(R.drawable.ml1_choice6_2);
 		}
 		else if(random == 7){
-			answer = 2;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg7);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv7);
-			ans1.setBackgroundResource(R.drawable.pl2_choice7_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice7_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_7);
+			answer = 1;
+			ans1.setBackgroundResource(R.drawable.ml1_choice7_1);
+			ans2.setBackgroundResource(R.drawable.ml1_choice7_2);
 		}
 		else if(random == 8){
 			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg8);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv8);
-			ans1.setBackgroundResource(R.drawable.pl2_choice8_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice8_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_8);
+			ans1.setBackgroundResource(R.drawable.ml1_choice8_1);
+			ans2.setBackgroundResource(R.drawable.ml1_choice8_2);
 		}
 		else if(random == 9){
-			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg9);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv9);
-			ans1.setBackgroundResource(R.drawable.pl2_choice9_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice9_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_9);
+			answer = 2;
+			ans1.setBackgroundResource(R.drawable.ml1_choice9_1);
+			ans2.setBackgroundResource(R.drawable.ml1_choice9_2);
 		}
 		else{
-			answer = 2;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg10);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv10);
-			ans1.setBackgroundResource(R.drawable.pl2_choice10_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice10_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
+			answer = 1;
+			ans1.setBackgroundResource(R.drawable.ml1_choice10_1);
+			ans2.setBackgroundResource(R.drawable.ml1_choice10_2);
 		}
 		
+	    if(Question == 2){	
+	    	Thislayout.setBackgroundResource(R.drawable.ml1_bad);
+	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins1_1);
+	    	if(answer == 1){
+	    		answer = 2;
+	    	}
+	    	else{
+	    		answer = 1;
+	    	}
+	    	
+	    }
+	    else
+	    {	
+	    	Thislayout.setBackgroundResource(R.drawable.ml1_good);
+	    	instructPage = MediaPlayer.create(context, R.raw.mk_ins1_2);
+	    }
+	    
 		return answer;
 		
 	}
@@ -469,16 +469,16 @@ public class PlL2NearFar extends Activity {
 		textWrong.setTextColor(Color.BLACK);
 		String number;
 		number = String.valueOf(scores);
-		textCorrect.setText(number+" เธ�เน�เธญ");
+		textCorrect.setText(number+" ข้อ");
 		number = String.valueOf(10-scores);
-		textWrong.setText(number+" เธ�เน�เธญ");
+		textWrong.setText(number+" ข้อ");
 		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
 		dialogHomeBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent in = new Intent(PlL2NearFar.this,Main.class);
+				Intent in = new Intent(MkL3BestFood.this,Main.class);
 				in.putExtra("showPopup", 1);
 				startActivity(in);
 				
@@ -501,10 +501,10 @@ public class PlL2NearFar extends Activity {
 				imgWrongpop.setVisibility(View.INVISIBLE);
 				imgCorrectpop.setVisibility(View.INVISIBLE);
 				
-				Round = myDb.getNumRound("005", username);
+				Round = myDb.getNumRound("009", username);
 				//Round++;
 				
-				game005();
+				game009();
 			}
 		});
 		
@@ -513,7 +513,7 @@ public class PlL2NearFar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(PlL2NearFar.this,PlL2TypeCar.class);
+				Intent intent = new Intent(MkL3BestFood.this,MkL2Money.class);
 				startActivity(intent);
 				
 			}
@@ -533,7 +533,7 @@ public class PlL2NearFar extends Activity {
 		int item = myDb.CountNumRan();
 		myDb.close();
 		myDb.getWritableDatabase();
-		myDb.addItemScore("005",username,Round,item,0,startTime/1000);
+		myDb.addItemScore("009",username,Round,item,0,startTime/1000);
 		
 		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
 		soundWrongFin.start();
@@ -541,12 +541,12 @@ public class PlL2NearFar extends Activity {
 		soundWrongFin.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrongFin.setVisibility(View.INVISIBLE);
-            	game005();
+            	game009();
             }
         });
 		
 	}
-
+	
 	public boolean onTouchEvent (MotionEvent event) {
 		
 		instructPage.start();
@@ -556,7 +556,7 @@ public class PlL2NearFar extends Activity {
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		
-		Intent intent = new Intent(PlL2NearFar.this,Main.class);
+		Intent intent = new Intent(MkL3BestFood.this,Main.class);
 		startActivity(intent);
 		
 		
@@ -623,9 +623,9 @@ public class PlL2NearFar extends Activity {
 		
         if (keyCode == KeyEvent.KEYCODE_BACK) {
         	stopTime();
-			Intent in = new Intent(PlL2NearFar.this,Main.class);
+			Intent in = new Intent(MkL3BestFood.this,Main.class);
 			in.putExtra("showPopup", 1);
-			startActivity(in);  
+			startActivity(in);
         	return false;
         }
 	    return super.onKeyDown(keyCode, event);

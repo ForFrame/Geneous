@@ -3,8 +3,6 @@ package samcom.example.senoirandroid;
 
 import java.util.Random;
 
-import samcom.example.senoirandroid.L1ScCount.MyCountDown;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -29,7 +27,7 @@ import android.widget.TextView;
 
 
 @SuppressWarnings("deprecation")
-public class L1ScLongShort extends Activity {
+public class PlL2TypeCar extends Activity {
 
 	String username;
 	long startTime;
@@ -39,7 +37,7 @@ public class L1ScLongShort extends Activity {
 	boolean OnPause = false;
 	boolean RunningCount = false;
 	int Round;
-	int Day = 1;
+	int Begin = 1;
 	MyCountDown countdownTime;
 	MediaPlayer instructPage,soundMain;
 	
@@ -50,14 +48,14 @@ public class L1ScLongShort extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // เน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ—เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ�เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
+		public void onFinish() { // ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?ร ยธโ€”ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?รขโ�ฌโ€�ร ยนโ�ฌรฏยฟยฝ?ร ยธโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?ร ยธโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?ร ยธโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ
 		// TODO Auto-generated method stub
 			RunningCount = false;
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�โ€�เน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ•เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ�เน€เธ�๏ฟฝ เน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ‘เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
+		public void onTick(long remain) { // ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?รขโ�ฌโ€�ร ยนโ�ฌรฏยฟยฝ?ร ยธโ€ขร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รขโ�ฌโ€�ร ยนโ�ฌรฏยฟยฝ?ร ยธโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?ร ยธโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รขโ�ฌโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ?ร ยนโ�ฌรฏยฟยฝ?ร ยธโ€�ร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝร ยนโ�ฌรฏยฟยฝ?รฏยฟยฝ
 		// TODO Auto-generated method stub
 			RunningCount = true;
 			TextView result = (TextView) findViewById(R.id.textTime);
@@ -71,8 +69,8 @@ public class L1ScLongShort extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.activity_l1_sc_longshort);
-	
+		setContentView(R.layout.activity_pl_l3_car);
+		
 		soundMain = MediaPlayer.create(context, R.raw.main);
 		soundMain.start();
 		soundMain.setLooping(true);
@@ -81,30 +79,25 @@ public class L1ScLongShort extends Activity {
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		username = myDb.SelectCurrentUser();
-		
-		myDb.getWritableDatabase();
-		//myDb.addGameNo("003", "Short or Long", 1);
-		myDb.emptyNumberTable();
-		myDb.close();
 	
 		//mediaPlayer.start();
-		Round = myDb.getNumRound("003", username);
+		Round = myDb.getNumRound("006", username);
 		
+					
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-		game003();
+		game006();
 		
 	}
 
-	void game003(){
+	void game006(){
 		int scores;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		final LoginManage myUser = new LoginManage(this);
 		int count = myDb.CountNumRan();
 		int Random = 0;
-		
+		final LoginManage myUser = new LoginManage(this);
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf");
 		
 		username = myDb.SelectCurrentUser();
@@ -148,7 +141,7 @@ public class L1ScLongShort extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
 				instructPage.stop();
-				Intent intent = new Intent(L1ScLongShort.this,Main.class);
+				Intent intent = new Intent(PlL2TypeCar.this,Main.class);
 				intent.putExtra("Logout", 1);
 				startActivity(intent);
 			}
@@ -160,11 +153,13 @@ public class L1ScLongShort extends Activity {
 				checkAnswer(Random,count+1);
 			}
 			else{
-				scores = myDb.countScore("003", username, Round);
+				scores = myDb.countScore("006", username, Round);
 				countdownTime.cancel();
 				showPopup(scores);
 			}
 		}
+		
+		
 	}
 	
 	int RanNum(){
@@ -195,8 +190,10 @@ public class L1ScLongShort extends Activity {
 	}
 	void checkAnswer(final int RandomNum,final int item){
 		
-		Button longAns = (Button)findViewById(R.id.longpic);
-		Button shortAns = (Button)findViewById(R.id.shortpic);
+		final Button Answer1 = (Button)findViewById(R.id.picans1);
+		final Button Answer2 = (Button)findViewById(R.id.picans2);
+		final Button Answer3 = (Button)findViewById(R.id.picans3);
+		//TextView insView = (TextView)findViewById(R.id.picView);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
@@ -204,39 +201,28 @@ public class L1ScLongShort extends Activity {
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
 		
-		startTime = (30)*1000;
+		startTime = (20)*1000;
 		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
 		
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
+		imgWrong.setClickable(false);
+		imgCorrect.setClickable(false);
 		
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(item +"/ 10");
 		
 		
-		
 			answer = choice(RandomNum);
-			if(answer == 1){
-				instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_long);
-				//instructPage.start();
-			}
-			else{
-				instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_short);
-				//instructPage.start();
-			}
 			
 			final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
-			final View helpAnswer = (View)findViewById(R.id.helpLong);
-			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween_once);
-			final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScLongShort.this, R.anim.tween);
+			final View helpAnswer = (View)findViewById(R.id.showAnswer);
+			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(PlL2TypeCar.this, R.anim.tween_once);
+			final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL2TypeCar.this, R.anim.tween);
 			final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
 			
-			
-			//startTime = (20)*1000;
-			//countdown = new MyCountDown(startTime,1000);
-			//countdown.start();	
 			countdownTime.start();
 			instructPage.start();
 			
@@ -259,7 +245,7 @@ public class L1ScLongShort extends Activity {
 	            }
 	        });
 			
-				longAns.setOnClickListener(new View.OnClickListener() {
+				Answer1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
@@ -270,19 +256,19 @@ public class L1ScLongShort extends Activity {
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();
 							soundCorrect.start();
-							myDb.addItemScore("003",username,Round,item,1,(countTime - timeRemain));
+							myDb.addItemScore("006",username,Round,item,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
 							stopTime();
 							soundWrong.start();
-							myDb.addItemScore("003",username,Round,item,0,(countTime - timeRemain));
+							myDb.addItemScore("006",username,Round,item,0,(countTime - timeRemain));
 						}
 						
 					}
 				});
-				shortAns.setOnClickListener(new View.OnClickListener() {
+				Answer2.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
@@ -293,29 +279,45 @@ public class L1ScLongShort extends Activity {
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();
 							soundCorrect.start();
-							myDb.addItemScore("003",username,Round,item,1,(countTime - timeRemain));
+							myDb.addItemScore("006",username,Round,item,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
 							stopTime();
 							soundWrong.start();
-							myDb.addItemScore("003",username,Round,item,0,(countTime - timeRemain));
+							myDb.addItemScore("006",username,Round,item,0,(countTime - timeRemain));
 						}
 					}
 				});
+				Answer3.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						instructPage.stop();
+						if(Round == 1 || (username.equals("Guest") && item == 1)){
+							helpAnswer.clearAnimation();
+						}	
+						if(answer == 3){
+							imgCorrect.setVisibility(View.VISIBLE);
+							stopTime();
+							soundCorrect.start();
+							myDb.addItemScore("006",username,Round,item,1,(countTime - timeRemain));
 							
-		
-		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
-		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
-		imgWrongClick.setClickable(false);
-		imgCorrectClick.setClickable(false);
+						}
+						else{
+							imgWrong.setVisibility(View.VISIBLE);
+							stopTime();
+							soundWrong.start();
+							myDb.addItemScore("006",username,Round,item,0,(countTime - timeRemain));
+						}
+					}
+				});
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
             	
-            	game003();
+            	game006();
             }
         });
 
@@ -323,11 +325,11 @@ public class L1ScLongShort extends Activity {
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrong.setVisibility(View.INVISIBLE);
             	
-            	game003();
+            	game006();
             }
         });
 		
-		Button HelpButton = (Button)findViewById(R.id.longshortHelp);
+		Button HelpButton = (Button)findViewById(R.id.carHelp);
 		HelpButton.setOnClickListener(new View.OnClickListener() {
 	
 			public void onClick(View v) {
@@ -337,82 +339,119 @@ public class L1ScLongShort extends Activity {
 			}
 		});
 		
-		Button calendarButton = (Button)findViewById(R.id.longshortbackHome);
-		calendarButton.setOnClickListener(new View.OnClickListener() {
-		
-		
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			stopTime();
-			Intent in = new Intent(L1ScLongShort.this,Main.class);
-			in.putExtra("showPopup", 1);
-			startActivity(in);
-		}
+		Button carButton = (Button)findViewById(R.id.carbackHome);
+		carButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				stopTime();
+				Intent in = new Intent(PlL2TypeCar.this,Main.class);
+				in.putExtra("showPopup", 1);
+				startActivity(in);
+			}
 		});
 	}
 	
 	int choice(int random){
 		
-		Button ans1 = (Button)findViewById(R.id.longpic);
-		Button ans2 = (Button)findViewById(R.id.shortpic);
-		Random randomGenerator = new Random();
-		int longOrshort = randomGenerator.nextInt(2)+1;
+		Button ans1 = (Button)findViewById(R.id.picans1);
+		Button ans2 = (Button)findViewById(R.id.picans2);
+		Button ans3 = (Button)findViewById(R.id.picans3);
 		
-		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.longshortLayout);
-		
-	    if(longOrshort == 2)
-	    {	
-	    	Thislayout.setBackgroundResource(R.drawable.short_bg);
-	    	
-	    }
-	    else
-	    {	
-	    	Thislayout.setBackgroundResource(R.drawable.long_bg);
-	    	
-	    }
+		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.carLayout);
+		int answer=0;
 	    
 	    if(random == 1){
-			ans1.setBackgroundResource(R.drawable.pencil_long);
-			ans2.setBackgroundResource(R.drawable.pencil_shot);
+	    	answer = 2;
+	    	Thislayout.setBackgroundResource(R.drawable.pl3_bg2);
+	    	
+			ans1.setBackgroundResource(R.drawable.pl3_choice4);
+			ans2.setBackgroundResource(R.drawable.pl3_choice6);
+			ans3.setBackgroundResource(R.drawable.pl3_choice5);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_land);
 		}
 		else if(random == 2){
-			ans1.setBackgroundResource(R.drawable.brush_long);
-			ans2.setBackgroundResource(R.drawable.brush_shot);
+			answer = 3;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg6);
+	    	
+			ans1.setBackgroundResource(R.drawable.pl3_choice2);
+			ans2.setBackgroundResource(R.drawable.pl3_choice1);
+			ans3.setBackgroundResource(R.drawable.pl3_choice4);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_water);
 		}
 		else if(random == 3){
-			ans1.setBackgroundResource(R.drawable.collor_long);
-			ans2.setBackgroundResource(R.drawable.collor_shot);
+			answer = 1;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg3);
+	    	
+			ans1.setBackgroundResource(R.drawable.pl3_choice6);
+			ans2.setBackgroundResource(R.drawable.pl3_choice7);
+			ans3.setBackgroundResource(R.drawable.pl3_choice5);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_not_sky);
 		}
 		else if(random == 4){
-			ans1.setBackgroundResource(R.drawable.job_long);
-			ans2.setBackgroundResource(R.drawable.job_shot);
+			answer = 2;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg4);
+	    	
+			ans1.setBackgroundResource(R.drawable.pl3_choice1);
+			ans2.setBackgroundResource(R.drawable.pl3_choice3);
+			ans3.setBackgroundResource(R.drawable.pl3_choice6);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_not_land);
 		}
 		else if(random == 5){
-			ans1.setBackgroundResource(R.drawable.knife_long);
-			ans2.setBackgroundResource(R.drawable.knife_shot);
+			answer = 3;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg5);
+	    	
+			ans1.setBackgroundResource(R.drawable.pl3_choice3);
+			ans2.setBackgroundResource(R.drawable.pl3_choice4);
+			ans3.setBackgroundResource(R.drawable.pl3_choice5);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_not_water);
 		}
 		else if(random == 6){
-			ans1.setBackgroundResource(R.drawable.nail_long);
-			ans2.setBackgroundResource(R.drawable.nail_shot);
+			answer = 1;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg2);
+	    	
+			ans1.setBackgroundResource(R.drawable.pl3_choice2);
+			ans2.setBackgroundResource(R.drawable.pl3_choice4);
+			ans3.setBackgroundResource(R.drawable.pl3_choice7);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_land);
 		}
 		else if(random == 7){
-			ans1.setBackgroundResource(R.drawable.pen_long);
-			ans2.setBackgroundResource(R.drawable.pen_shot);
+			answer = 3;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg1);
+	    	
+			ans1.setBackgroundResource(R.drawable.pl3_choice6);
+			ans2.setBackgroundResource(R.drawable.pl3_choice1);
+			ans3.setBackgroundResource(R.drawable.pl3_choice5);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_sky);
 		}
 		else if(random == 8){
-			ans1.setBackgroundResource(R.drawable.pin_long);
-			ans2.setBackgroundResource(R.drawable.pin_shot);
+			answer = 1;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg6);
+	    	
+			ans1.setBackgroundResource(R.drawable.pl3_choice3);
+			ans2.setBackgroundResource(R.drawable.pl3_choice5);
+			ans3.setBackgroundResource(R.drawable.pl3_choice6);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_water);
 		}
 		else if(random == 9){
-			ans1.setBackgroundResource(R.drawable.rubber_long);
-			ans2.setBackgroundResource(R.drawable.rubber_shot);
+			answer = 3;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg2);
+	    	
+			ans1.setBackgroundResource(R.drawable.pl3_choice7);
+			ans2.setBackgroundResource(R.drawable.pl3_choice4);
+			ans3.setBackgroundResource(R.drawable.pl3_choice1);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_land);
 		}
 		else{
-			ans1.setBackgroundResource(R.drawable.ruler_long);
-			ans2.setBackgroundResource(R.drawable.ruler_shot);
+			answer = 1;
+			Thislayout.setBackgroundResource(R.drawable.pl3_bg1);
+	    	
+			ans1.setBackgroundResource(R.drawable.pl3_choice7);
+			ans2.setBackgroundResource(R.drawable.pl3_choice3);
+			ans3.setBackgroundResource(R.drawable.pl3_choice2);
+			instructPage = MediaPlayer.create(context, R.raw.ins_pll3_sky);
 		}
 		
-		return longOrshort;
+		return answer;
 		
 	}
 	
@@ -462,16 +501,16 @@ public class L1ScLongShort extends Activity {
 		textWrong.setTextColor(Color.BLACK);
 		String number;
 		number = String.valueOf(scores);
-		textCorrect.setText(number+" ข้อ");
+		textCorrect.setText(number+" เธ�เน�เธญ");
 		number = String.valueOf(10-scores);
-		textWrong.setText(number+" ข้อ");
+		textWrong.setText(number+" เธ�เน�เธญ");
 		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
 		dialogHomeBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent in = new Intent(L1ScLongShort.this,Main.class);
+				Intent in = new Intent(PlL2TypeCar.this,Main.class);
 				in.putExtra("showPopup", 1);
 				startActivity(in);
 				
@@ -494,10 +533,10 @@ public class L1ScLongShort extends Activity {
 				imgWrongpop.setVisibility(View.INVISIBLE);
 				imgCorrectpop.setVisibility(View.INVISIBLE);
 				
-				Round = myDb.getNumRound("003", username);
+				Round = myDb.getNumRound("006", username);
 				//Round++;
 				
-				game003();
+				game006();
 			}
 		});
 		
@@ -506,9 +545,8 @@ public class L1ScLongShort extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				
-				Intent intent = new Intent(L1ScLongShort.this,Main.class);
-				intent.putExtra("showPopup", 1);
+				Intent intent = new Intent(PlL2TypeCar.this,PlL3PlusCar.class);
+				//intent.putExtra("showPopup", 1);
 				startActivity(intent);
 				
 			}
@@ -516,18 +554,19 @@ public class L1ScLongShort extends Activity {
 		dialog.show();
 
 	}	
-
+	
 	void showTimeout(){
 		
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
 		imgWrongFin.setVisibility(View.VISIBLE);
+		imgWrongFin.setClickable(false);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		int item = myDb.CountNumRan();
 		myDb.close();
 		myDb.getWritableDatabase();
-		myDb.addItemScore("003",username,Round,item,0,startTime/1000);
+		myDb.addItemScore("006",username,Round,item,0,startTime/1000);
 		
 		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
 		soundWrongFin.start();
@@ -535,24 +574,22 @@ public class L1ScLongShort extends Activity {
 		soundWrongFin.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrongFin.setVisibility(View.INVISIBLE);
-            	game003();
+            	game006();
             }
         });
-		
-	}
-	
-	protected void onRestart() {
-		// TODO Auto-generated method stub
-		Intent intent = new Intent(L1ScLongShort.this,Main.class);
-		startActivity(intent);
-
-		super.onRestart();
 	}
 	
 	public boolean onTouchEvent (MotionEvent event) {
 		instructPage.start();
-
 		return super.onTouchEvent(event);
+	}
+	
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent(PlL2TypeCar.this,Main.class);
+		startActivity(intent);
+
+		super.onRestart();
 	}
 	
 	@Override
@@ -581,13 +618,13 @@ public class L1ScLongShort extends Activity {
 			LogoutBt.setVisibility(Button.INVISIBLE);
 			LoginBt.setVisibility(Button.VISIBLE);
 		}
+		
 		super.onWindowFocusChanged(hasFocus);
 	}
 	
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		
 		if(soundMain.isLooping()){
     		soundMain.stop();
     	}
@@ -610,12 +647,12 @@ public class L1ScLongShort extends Activity {
     	}
 		super.onPause();
 	}
-
+	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
         if (keyCode == KeyEvent.KEYCODE_BACK) {
         	stopTime();
-			Intent in = new Intent(L1ScLongShort.this,Main.class);
+			Intent in = new Intent(PlL2TypeCar.this,Main.class);
 			in.putExtra("showPopup", 1);
 			startActivity(in);
         	return false;

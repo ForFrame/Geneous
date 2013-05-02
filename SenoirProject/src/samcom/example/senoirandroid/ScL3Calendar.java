@@ -24,7 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-public class L1ScCalendar extends Activity {
+public class ScL3Calendar extends Activity {
 
 	String username;
 	long startTime;
@@ -91,16 +91,16 @@ public class L1ScCalendar extends Activity {
 		username = myDb.SelectCurrentUser();
 		
 		//mediaPlayer.start();
-		Round = myDb.getNumRound("002", username);
+		Round = myDb.getNumRound("003", username);
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-		game002();
+		game003();
 			
 		
 	}
 
-	void game002(){
+	void game003(){
 		int scores;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -149,7 +149,7 @@ public class L1ScCalendar extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
 				stopSound();
-				Intent intent = new Intent(L1ScCalendar.this,Main.class);
+				Intent intent = new Intent(ScL3Calendar.this,Main.class);
 				intent.putExtra("Logout", 1);
 				startActivity(intent);
 			}
@@ -161,7 +161,7 @@ public class L1ScCalendar extends Activity {
 				checkAns(false);
 			}
 			else{
-				scores = myDb.countScore("002", username, Round);
+				scores = myDb.countScore("003", username, Round);
 				countdownTime.cancel();
 				showPopup(scores);
 			}
@@ -263,8 +263,8 @@ void checkAns(Boolean isInterupt){
 		
 			final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 			final View helpAnswer = (View)findViewById(R.id.helpCalendar);
-			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween_once);
-			final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCalendar.this, R.anim.tween);
+			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(ScL3Calendar.this, R.anim.tween_once);
+			final Animation myFadeAnimation = AnimationUtils.loadAnimation(ScL3Calendar.this, R.anim.tween);
 			final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
 			
 			
@@ -301,14 +301,14 @@ void checkAns(Boolean isInterupt){
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();
 							soundCorrect.start();
-							myDb.addItemScore("002",username,Round,Day,1,(countTime - timeRemain));
+							myDb.addItemScore("003",username,Round,Day,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
 							stopTime();
 							soundWrong.start();
-							myDb.addItemScore("002",username,Round,Day,0,(countTime - timeRemain));
+							myDb.addItemScore("003",username,Round,Day,0,(countTime - timeRemain));
 						}
 						
 					}
@@ -324,14 +324,14 @@ void checkAns(Boolean isInterupt){
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();
 							soundCorrect.start();
-							myDb.addItemScore("002",username,Round,Day,1,(countTime - timeRemain));
+							myDb.addItemScore("003",username,Round,Day,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
 							stopTime();
 							soundWrong.start();
-							myDb.addItemScore("002",username,Round,Day,0,(countTime - timeRemain));
+							myDb.addItemScore("003",username,Round,Day,0,(countTime - timeRemain));
 						}
 					}
 				});
@@ -346,14 +346,14 @@ void checkAns(Boolean isInterupt){
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();
 							soundCorrect.start();
-							myDb.addItemScore("002",username,Round,Day,1,(countTime - timeRemain));
+							myDb.addItemScore("003",username,Round,Day,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
 							stopTime();
 							soundWrong.start();
-							myDb.addItemScore("002",username,Round,Day,0,(countTime - timeRemain));
+							myDb.addItemScore("003",username,Round,Day,0,(countTime - timeRemain));
 						}
 					}
 				});
@@ -369,7 +369,7 @@ void checkAns(Boolean isInterupt){
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
             	Day++;
-            	game002();
+            	game003();
             }
         });
 
@@ -377,7 +377,7 @@ void checkAns(Boolean isInterupt){
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrong.setVisibility(View.INVISIBLE);
             	Day++;
-            	game002();
+            	game003();
             }
         });
 		
@@ -399,7 +399,7 @@ void checkAns(Boolean isInterupt){
 			// TODO Auto-generated method stub
 			stopSound();
 			stopTime();
-			Intent in = new Intent(L1ScCalendar.this,Main.class);
+			Intent in = new Intent(ScL3Calendar.this,Main.class);
 			in.putExtra("showPopup", 1);
 			startActivity(in);
 		}
@@ -668,7 +668,7 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent in = new Intent(L1ScCalendar.this,Main.class);
+				Intent in = new Intent(ScL3Calendar.this,Main.class);
 				in.putExtra("showPopup", 1);
 				startActivity(in);
 				
@@ -687,10 +687,10 @@ void checkAns(Boolean isInterupt){
 				imgWrongpop.setVisibility(View.INVISIBLE);
 				imgCorrectpop.setVisibility(View.INVISIBLE);
 				
-				Round = myDb.getNumRound("002", username);
+				Round = myDb.getNumRound("003", username);
 				//Round++;
 				Day=1;
-				game002();
+				game003();
 			}
 		});
 		
@@ -699,7 +699,8 @@ void checkAns(Boolean isInterupt){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(L1ScCalendar.this,L1ScLongShort.class);
+				Intent intent = new Intent(ScL3Calendar.this,Main.class);
+				intent.putExtra("showPopup", 1);
 				startActivity(intent);
 				
 			}
@@ -715,7 +716,7 @@ void checkAns(Boolean isInterupt){
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
-		myDb.addItemScore("002",username,Round,Day,0,startTime/1000);
+		myDb.addItemScore("003",username,Round,Day,0,startTime/1000);
 		
 		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
 		soundWrongFin.start();
@@ -723,7 +724,7 @@ void checkAns(Boolean isInterupt){
 		soundWrongFin.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrongFin.setVisibility(View.INVISIBLE);
-            	game002();
+            	game003();
             }
         });
 		
@@ -731,7 +732,7 @@ void checkAns(Boolean isInterupt){
 	
 	protected void onRestart() {
 		// TODO Auto-generated method stub
-		Intent intent = new Intent(L1ScCalendar.this,Main.class);
+		Intent intent = new Intent(ScL3Calendar.this,Main.class);
 		startActivity(intent);
 		
 		super.onRestart();
@@ -793,7 +794,7 @@ void checkAns(Boolean isInterupt){
 		
         if (keyCode == KeyEvent.KEYCODE_BACK) {
         	stopTime();
-			Intent in = new Intent(L1ScCalendar.this,Main.class);
+			Intent in = new Intent(ScL3Calendar.this,Main.class);
 			in.putExtra("showPopup", 1);
 			startActivity(in);  
         	return false;

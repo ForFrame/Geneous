@@ -32,7 +32,7 @@
                   android:label="@string/app_name" 
                   android:screenOrientation="landscape"/>
         
-        <activity android:name="samcom.example.senoirandroid.LoginManage"
+        <activity android:name=".LoginManage"
                   android:screenOrientation="landscape"/>
         
         <activity android:name=".AdminRegis"
@@ -44,34 +44,20 @@
         
         <activity android:name=".SelectPoliceLevel"
                   android:screenOrientation="landscape"/>
-        <activity android:name=".PoliceLevel1"
+        <activity android:name=".PlL1CountCar"
                   android:screenOrientation="landscape"/>
-        <activity android:name=".PlL1Cross"
+        <activity android:name=".PlL2TypeCar"
                   android:screenOrientation="landscape"/>
-        <activity android:name=".PoliceLevel2"
-                  android:screenOrientation="landscape"/>
-        <activity android:name=".PlL2NearFar"
-                  android:screenOrientation="landscape"/>
-        <activity android:name=".PlL2NearFarTutorial"
-                  android:screenOrientation="landscape"/>
-        <activity android:name=".PoliceLevel3"
-                  android:screenOrientation="landscape"/>
-        <activity android:name=".PlL3Car"
+        <activity android:name=".PlL3PlusCar"
                   android:screenOrientation="landscape"/>
         
         <activity android:name=".SelectMarketLevel"
                   android:screenOrientation="landscape"/>
-        <activity android:name=".MarketLevel1"
+        <activity android:name=".MkL3BestFood"
                   android:screenOrientation="landscape"/>
-        <activity android:name=".MkL1BestFood"
+        <activity android:name=".MkL2CountMoney"
                   android:screenOrientation="landscape"/>
-        <activity android:name=".MarketLevel2"
-                  android:screenOrientation="landscape"/>
-        <activity android:name=".MkL2Money"
-                  android:screenOrientation="landscape"/>
-        <activity android:name=".MarketLevel3"
-                  android:screenOrientation="landscape"/>
-        <activity android:name=".MkL3Weight"
+        <activity android:name=".MkL1Weight"
                   android:screenOrientation="landscape"/>
                
 
@@ -92,17 +78,11 @@
         
         <activity android:name=".SelectSchoolLevel" 
             	  android:screenOrientation="landscape"/>                
-        <activity android:name=".SchoolLevel1"
+        <activity android:name=".ScL2Count" 
             	  android:screenOrientation="landscape"/>
-        <activity android:name=".L1ScCount" 
+        <activity android:name=".ScL3Calendar" 
             	  android:screenOrientation="landscape"/>
-        <activity android:name=".SchoolLevel2" 
-            	  android:screenOrientation="landscape"/>
-        <activity android:name=".L1ScCalendar" 
-            	  android:screenOrientation="landscape"/>
-        <activity android:name=".SchoolLevel3" 
-            	  android:screenOrientation="landscape"/>
-        <activity android:name=".L1ScLongShort" 
+        <activity android:name=".ScL1LongShort" 
             	  android:screenOrientation="landscape"/>
    
         

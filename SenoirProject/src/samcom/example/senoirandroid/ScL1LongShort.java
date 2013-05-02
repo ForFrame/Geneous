@@ -3,6 +3,8 @@ package samcom.example.senoirandroid;
 
 import java.util.Random;
 
+import samcom.example.senoirandroid.ScL2Count.MyCountDown;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -27,7 +29,7 @@ import android.widget.TextView;
 
 
 @SuppressWarnings("deprecation")
-public class PlL2NearFar extends Activity {
+public class ScL1LongShort extends Activity {
 
 	String username;
 	long startTime;
@@ -37,7 +39,7 @@ public class PlL2NearFar extends Activity {
 	boolean OnPause = false;
 	boolean RunningCount = false;
 	int Round;
-	int Begin = 1;
+	int Day = 1;
 	MyCountDown countdownTime;
 	MediaPlayer instructPage,soundMain;
 	
@@ -48,14 +50,14 @@ public class PlL2NearFar extends Activity {
 		}
 		
 		@Override
-		public void onFinish() { // เน€๏ฟฝ?๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ—เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ“เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?เธ’เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ”เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ
+		public void onFinish() { // เน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ—เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ�ฌเน€เธ�เธ�เน€เธ�เธ�เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ”เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
 			RunningCount = false;
 			showTimeout();
 		}
 		
 		@Override
-		public void onTick(long remain) { // เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ•เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?โ€”เน€๏ฟฝ?เธ“เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?เธ’เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?โ€”เน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?๏ฟฝ เน€๏ฟฝ?๏ฟฝ เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ?เน€๏ฟฝ?เธ‘เน€๏ฟฝ?๏ฟฝเน€๏ฟฝ?๏ฟฝ
+		public void onTick(long remain) { // เน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�๏ฟฝเน€เธ�โ€�เน€เธ�เธ�เน€เธ�โ€”เน€เธ�เธ•เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ“เน€เธ�๏ฟฝเน€เธ�เธ’เน€เธ�๏ฟฝเน€เธ�โ€”เน€เธ�เธ�เน€เธ�๏ฟฝ เน€เธ�๏ฟฝ เน€เธ�๏ฟฝเน€เธ�เธ�เน€เธ�เธ‘เน€เธ�๏ฟฝเน€เธ�๏ฟฝ
 		// TODO Auto-generated method stub
 			RunningCount = true;
 			TextView result = (TextView) findViewById(R.id.textTime);
@@ -66,39 +68,43 @@ public class PlL2NearFar extends Activity {
 
 @Override
 	protected void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	requestWindowFeature(Window.FEATURE_NO_TITLE);
-	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	setContentView(R.layout.activity_pl_l2_nearfar);
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.activity_l1_sc_longshort);
 	
-	soundMain = MediaPlayer.create(context, R.raw.main);
-	soundMain.start();
-	soundMain.setLooping(true);
-	soundMain.setVolume(30, 30);
+		soundMain = MediaPlayer.create(context, R.raw.main);
+		soundMain.start();
+		soundMain.setLooping(true);
+		soundMain.setVolume(30, 30);
 	
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		username = myDb.SelectCurrentUser();
+		
+		myDb.getWritableDatabase();
+		//myDb.addGameNo("001", "Short or Long", 1);
+		myDb.emptyNumberTable();
+		myDb.close();
 	
 		//mediaPlayer.start();
-		Round = myDb.getNumRound("005", username);
+		Round = myDb.getNumRound("001", username);
 		
-					
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		
-		game005();
-		
+		game001();
 		
 	}
 
-	void game005(){
+	void game001(){
 		int scores;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
+		final LoginManage myUser = new LoginManage(this);
 		int count = myDb.CountNumRan();
 		int Random = 0;
-		final LoginManage myUser = new LoginManage(this);
+		
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/teddy.ttf");
 		
 		username = myDb.SelectCurrentUser();
@@ -142,25 +148,23 @@ public class PlL2NearFar extends Activity {
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
 				instructPage.stop();
-				Intent intent = new Intent(PlL2NearFar.this,Main.class);
+				Intent intent = new Intent(ScL1LongShort.this,Main.class);
 				intent.putExtra("Logout", 1);
 				startActivity(intent);
 			}
 			
 		});
-		
 		if(OnPause == false){
 			if(count < 10){
 				Random = RanNum();
 				checkAnswer(Random,count+1);
 			}
 			else{
-				scores = myDb.countScore("005", username, Round);
+				scores = myDb.countScore("001", username, Round);
 				countdownTime.cancel();
 				showPopup(scores);
 			}
 		}
-
 	}
 	
 	int RanNum(){
@@ -189,11 +193,10 @@ public class PlL2NearFar extends Activity {
 			}
 		}	
 	}
-	
 	void checkAnswer(final int RandomNum,final int item){
 		
-		final Button Answer1 = (Button)findViewById(R.id.picans1);
-		final Button Answer2 = (Button)findViewById(R.id.picans2);
+		Button longAns = (Button)findViewById(R.id.longpic);
+		Button shortAns = (Button)findViewById(R.id.shortpic);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getWritableDatabase();
@@ -201,28 +204,39 @@ public class PlL2NearFar extends Activity {
 		final MediaPlayer soundCorrect = MediaPlayer.create(context, R.raw.crab_sound);
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
 		
-		startTime = (20)*1000;
+		startTime = (30)*1000;
 		countdownTime = new MyCountDown(startTime,1000);
 		
 		final float countTime = (float) startTime /1000;
 		
 		final View imgWrong = (View)findViewById(R.id.showwrong); 
 		final View imgCorrect = (View)findViewById(R.id.showcorrect);
-		imgWrong.setClickable(false);
-		imgCorrect.setClickable(false);
 		
 		TextView current = (TextView) findViewById(R.id.currentitem);
 		current.setText(item +"/ 10");
 		
 		
+		
 			answer = choice(RandomNum);
+			if(answer == 1){
+				instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_long);
+				//instructPage.start();
+			}
+			else{
+				instructPage = MediaPlayer.create(context, R.raw.ins_sclv3_short);
+				//instructPage.start();
+			}
 			
 			final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
-			final View helpAnswer = (View)findViewById(R.id.showAnswer);
-			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween_once);
-			final Animation myFadeAnimation = AnimationUtils.loadAnimation(PlL2NearFar.this, R.anim.tween);
+			final View helpAnswer = (View)findViewById(R.id.helpLong);
+			final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(ScL1LongShort.this, R.anim.tween_once);
+			final Animation myFadeAnimation = AnimationUtils.loadAnimation(ScL1LongShort.this, R.anim.tween);
 			final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
 			
+			
+			//startTime = (20)*1000;
+			//countdown = new MyCountDown(startTime,1000);
+			//countdown.start();	
 			countdownTime.start();
 			instructPage.start();
 			
@@ -230,7 +244,11 @@ public class PlL2NearFar extends Activity {
 			if(Round == 1 || (username.equals("Guest") && item == 1)){
 	        	instructFinger.startAnimation(myFadeonceAnimation);	
 	        }
-			
+			if(item == 2){
+				if(helpAnswer.isFocused()){
+					helpAnswer.clearAnimation();
+				}
+			}
 	        		
 			instructPage.setOnCompletionListener(new OnCompletionListener() {
 	            public void onCompletion(MediaPlayer soundCorrect) {
@@ -241,7 +259,7 @@ public class PlL2NearFar extends Activity {
 	            }
 	        });
 			
-				Answer1.setOnClickListener(new View.OnClickListener() {
+				longAns.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
@@ -252,19 +270,19 @@ public class PlL2NearFar extends Activity {
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();
 							soundCorrect.start();
-							myDb.addItemScore("005",username,Round,item,1,(countTime - timeRemain));
+							myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
 							stopTime();
 							soundWrong.start();
-							myDb.addItemScore("005",username,Round,item,0,(countTime - timeRemain));
+							myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 						}
 						
 					}
 				});
-				Answer2.setOnClickListener(new View.OnClickListener() {
+				shortAns.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						instructPage.stop();
@@ -275,23 +293,29 @@ public class PlL2NearFar extends Activity {
 							imgCorrect.setVisibility(View.VISIBLE);
 							stopTime();
 							soundCorrect.start();
-							myDb.addItemScore("005",username,Round,item,1,(countTime - timeRemain));
+							myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
 							
 						}
 						else{
 							imgWrong.setVisibility(View.VISIBLE);
 							stopTime();
 							soundWrong.start();
-							myDb.addItemScore("005",username,Round,item,0,(countTime - timeRemain));
+							myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
 						}
 					}
 				});
+							
+		
+		final View imgWrongClick = (View)findViewById(R.id.showwrong); 
+		final View imgCorrectClick = (View)findViewById(R.id.showcorrect);
+		imgWrongClick.setClickable(false);
+		imgCorrectClick.setClickable(false);
 		
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
             	
-            	game005();
+            	game001();
             }
         });
 
@@ -299,11 +323,11 @@ public class PlL2NearFar extends Activity {
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrong.setVisibility(View.INVISIBLE);
             	
-            	game005();
+            	game001();
             }
         });
 		
-		Button HelpButton = (Button)findViewById(R.id.nearfarHelp);
+		Button HelpButton = (Button)findViewById(R.id.longshortHelp);
 		HelpButton.setOnClickListener(new View.OnClickListener() {
 	
 			public void onClick(View v) {
@@ -313,14 +337,14 @@ public class PlL2NearFar extends Activity {
 			}
 		});
 		
-		Button nearfarButton = (Button)findViewById(R.id.nearfarbackHome);
-		nearfarButton.setOnClickListener(new View.OnClickListener() {
+		Button calendarButton = (Button)findViewById(R.id.longshortbackHome);
+		calendarButton.setOnClickListener(new View.OnClickListener() {
 		
 		
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			stopTime();
-			Intent in = new Intent(PlL2NearFar.this,Main.class);
+			Intent in = new Intent(ScL1LongShort.this,Main.class);
 			in.putExtra("showPopup", 1);
 			startActivity(in);
 		}
@@ -329,94 +353,245 @@ public class PlL2NearFar extends Activity {
 	
 	int choice(int random){
 		
-		Button ans1 = (Button)findViewById(R.id.picans1);
-		Button ans2 = (Button)findViewById(R.id.picans2);
-		TextView ansView = (TextView)findViewById(R.id.picView);
-		//Random randomGenerator = new Random();
-		//int nearOrfar = randomGenerator.nextInt(2)+1;
+		Button ans1 = (Button)findViewById(R.id.longpic);
+		Button ans2 = (Button)findViewById(R.id.shortpic);
+		Random randomGenerator = new Random();
+		int longOrshort = randomGenerator.nextInt(2)+1;
+		int answer = randomGenerator.nextInt(2)+1;
 		
-		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.nearfarLayout);
-		int answer=0;
+		AbsoluteLayout Thislayout=(AbsoluteLayout)findViewById(R.id.longshortLayout);
+		
+	    if(longOrshort == 2)
+	    {	
+	    	Thislayout.setBackgroundResource(R.drawable.short_bg);
+	    	
+	    }
+	    else
+	    {	
+	    	Thislayout.setBackgroundResource(R.drawable.long_bg);
+	    	
+	    }
 	    
 	    if(random == 1){
-	    	answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg1);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv1);
-			ans1.setBackgroundResource(R.drawable.pl2_choice1_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice1_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_1);
+	    	if(answer == 1){
+	    		if(longOrshort == 2){
+	    			ans1.setBackgroundResource(R.drawable.pencil_shot);
+	    			ans2.setBackgroundResource(R.drawable.pencil_long);
+				}
+	    		else{
+	    			ans1.setBackgroundResource(R.drawable.pencil_long);
+					ans2.setBackgroundResource(R.drawable.pencil_shot);
+	    		}
+	    	}
+	    	else{
+	    		if(longOrshort == 2){
+	    			ans1.setBackgroundResource(R.drawable.pencil_long);
+					ans2.setBackgroundResource(R.drawable.pencil_shot);
+	    		}
+	    		else{
+	    			ans1.setBackgroundResource(R.drawable.pencil_shot);
+	    			ans2.setBackgroundResource(R.drawable.pencil_long);
+	    		}
+	    	}
+	    		
 		}
 		else if(random == 2){
-			answer = 2;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg2);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv2);
-			ans1.setBackgroundResource(R.drawable.pl2_choice2_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice2_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_2);
+			if(answer == 1){
+	    		if(longOrshort == 2){
+	    			ans1.setBackgroundResource(R.drawable.brush_shot);
+	    			ans2.setBackgroundResource(R.drawable.brush_long);
+				}
+	    		else{
+	    			ans1.setBackgroundResource(R.drawable.brush_long);
+					ans2.setBackgroundResource(R.drawable.brush_shot);
+	    		}
+	    	}
+	    	else{
+	    		if(longOrshort == 2){
+	    			ans1.setBackgroundResource(R.drawable.brush_long);
+					ans2.setBackgroundResource(R.drawable.brush_shot);
+	    		}
+	    		else{
+	    			ans1.setBackgroundResource(R.drawable.brush_shot);
+	    			ans2.setBackgroundResource(R.drawable.brush_long);
+	    		}
+	    	}
 		}
 		else if(random == 3){
-			answer = 2;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg3);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv3);
-			ans1.setBackgroundResource(R.drawable.pl2_choice3_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice3_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_3);
+			if(answer == 1){
+	    		if(longOrshort == 2){
+	    			ans2.setBackgroundResource(R.drawable.collor_long);
+	    			ans1.setBackgroundResource(R.drawable.collor_shot);
+				}
+	    		else{
+	    			ans1.setBackgroundResource(R.drawable.collor_long);
+	    			ans2.setBackgroundResource(R.drawable.collor_shot);
+	    		}
+	    	}
+	    	else{
+	    		if(longOrshort == 2){
+	    			ans1.setBackgroundResource(R.drawable.collor_long);
+	    			ans2.setBackgroundResource(R.drawable.collor_shot);
+	    		}
+	    		else{
+	    			ans2.setBackgroundResource(R.drawable.collor_long);
+	    			ans1.setBackgroundResource(R.drawable.collor_shot);
+	    		}
+	    	}
 		}
 		else if(random == 4){
-			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg4);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv4);
-			ans1.setBackgroundResource(R.drawable.pl2_choice4_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice4_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
+			if(answer == 1){
+	    		if(longOrshort == 2){
+	    			ans2.setBackgroundResource(R.drawable.job_long);
+	    			ans1.setBackgroundResource(R.drawable.job_shot);
+				}
+	    		else{
+	    			ans1.setBackgroundResource(R.drawable.job_long);
+	    			ans2.setBackgroundResource(R.drawable.job_shot);
+	    		}
+	    	}
+	    	else{
+	    		if(longOrshort == 2){
+	    			ans1.setBackgroundResource(R.drawable.job_long);
+	    			ans2.setBackgroundResource(R.drawable.job_shot);
+	    		}
+	    		else{
+	    			ans2.setBackgroundResource(R.drawable.job_long);
+	    			ans1.setBackgroundResource(R.drawable.job_shot);
+	    		}
+	    	}
 		}
 		else if(random == 5){
-			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg5);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv5);
-			ans1.setBackgroundResource(R.drawable.pl2_choice5_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice5_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
+			if(answer == 1){
+	    		if(longOrshort == 2){
+	    			ans2.setBackgroundResource(R.drawable.knife_long);
+	    			ans1.setBackgroundResource(R.drawable.knife_shot);
+				}
+	    		else{
+	    			ans1.setBackgroundResource(R.drawable.knife_long);
+	    			ans2.setBackgroundResource(R.drawable.knife_shot);
+	    		}
+	    	}
+	    	else{
+	    		if(longOrshort == 2){
+	    			ans1.setBackgroundResource(R.drawable.knife_long);
+	    			ans2.setBackgroundResource(R.drawable.knife_shot);
+	    		}
+	    		else{
+	    			ans2.setBackgroundResource(R.drawable.knife_long);
+	    			ans1.setBackgroundResource(R.drawable.knife_shot);
+	    		}
+	    	}
 		}
 		else if(random == 6){
-			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg6);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv6);
-			ans1.setBackgroundResource(R.drawable.pl2_choice6_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice6_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_4);
+			if(answer == 1){
+	    		if(longOrshort == 2){
+	    			ans2.setBackgroundResource(R.drawable.nail_long);
+	    			ans1.setBackgroundResource(R.drawable.nail_shot);
+				}
+	    		else{
+	    			ans1.setBackgroundResource(R.drawable.nail_long);
+	    			ans2.setBackgroundResource(R.drawable.nail_shot);
+	    		}
+	    	}
+	    	else{
+	    		if(longOrshort == 2){
+	    			ans1.setBackgroundResource(R.drawable.nail_long);
+	    			ans2.setBackgroundResource(R.drawable.nail_shot);
+	    		}
+	    		else{
+	    			ans2.setBackgroundResource(R.drawable.nail_long);
+	    			ans1.setBackgroundResource(R.drawable.nail_shot);
+	    		}
+	    	}
 		}
 		else if(random == 7){
-			answer = 2;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg7);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv7);
-			ans1.setBackgroundResource(R.drawable.pl2_choice7_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice7_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_7);
+			if(answer == 1){
+	    		if(longOrshort == 2){
+	    			ans2.setBackgroundResource(R.drawable.pen_long);
+	    			ans1.setBackgroundResource(R.drawable.pen_shot);
+				}
+	    		else{
+	    			ans1.setBackgroundResource(R.drawable.pen_long);
+	    			ans2.setBackgroundResource(R.drawable.pen_shot);
+	    		}
+	    	}
+	    	else{
+	    		if(longOrshort == 2){
+	    			ans1.setBackgroundResource(R.drawable.pen_long);
+	    			ans2.setBackgroundResource(R.drawable.pen_shot);
+	    		}
+	    		else{
+	    			ans2.setBackgroundResource(R.drawable.pen_long);
+	    			ans1.setBackgroundResource(R.drawable.pen_shot);
+	    		}
+	    	}
 		}
 		else if(random == 8){
-			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg8);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv8);
-			ans1.setBackgroundResource(R.drawable.pl2_choice8_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice8_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_8);
+			if(answer == 1){
+	    		if(longOrshort == 2){
+	    			ans2.setBackgroundResource(R.drawable.pin_long);
+	    			ans1.setBackgroundResource(R.drawable.pin_shot);
+				}
+	    		else{
+	    			ans1.setBackgroundResource(R.drawable.pin_long);
+	    			ans2.setBackgroundResource(R.drawable.pin_shot);
+	    		}
+	    	}
+	    	else{
+	    		if(longOrshort == 2){
+	    			ans1.setBackgroundResource(R.drawable.pin_long);
+	    			ans2.setBackgroundResource(R.drawable.pin_shot);
+	    		}
+	    		else{
+	    			ans2.setBackgroundResource(R.drawable.pin_long);
+	    			ans1.setBackgroundResource(R.drawable.pin_shot);
+	    		}
+	    	}
 		}
 		else if(random == 9){
-			answer = 1;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg9);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv9);
-			ans1.setBackgroundResource(R.drawable.pl2_choice9_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice9_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_9);
+			if(answer == 1){
+	    		if(longOrshort == 2){
+	    			ans2.setBackgroundResource(R.drawable.rubber_long);
+	    			ans1.setBackgroundResource(R.drawable.rubber_shot);
+				}
+	    		else{
+	    			ans1.setBackgroundResource(R.drawable.rubber_long);
+	    			ans2.setBackgroundResource(R.drawable.rubber_shot);
+	    		}
+	    	}
+	    	else{
+	    		if(longOrshort == 2){
+	    			ans1.setBackgroundResource(R.drawable.rubber_long);
+	    			ans2.setBackgroundResource(R.drawable.rubber_shot);
+	    		}
+	    		else{
+	    			ans2.setBackgroundResource(R.drawable.rubber_long);
+	    			ans1.setBackgroundResource(R.drawable.rubber_shot);
+	    		}
+	    	}
 		}
 		else{
-			answer = 2;
-	    	Thislayout.setBackgroundResource(R.drawable.pl2_bg10);
-	    	ansView.setBackgroundResource(R.drawable.pl2_tv10);
-			ans1.setBackgroundResource(R.drawable.pl2_choice10_1);
-			ans2.setBackgroundResource(R.drawable.pl2_choice10_2);
-			instructPage = MediaPlayer.create(context, R.raw.ins_pll2_5);
+			if(answer == 1){
+	    		if(longOrshort == 2){
+	    			ans2.setBackgroundResource(R.drawable.ruler_long);
+	    			ans1.setBackgroundResource(R.drawable.ruler_shot);
+				}
+	    		else{
+	    			ans1.setBackgroundResource(R.drawable.ruler_long);
+	    			ans2.setBackgroundResource(R.drawable.ruler_shot);
+	    		}
+	    	}
+	    	else{
+	    		if(longOrshort == 2){
+	    			ans1.setBackgroundResource(R.drawable.ruler_long);
+	    			ans2.setBackgroundResource(R.drawable.ruler_shot);
+	    		}
+	    		else{
+	    			ans2.setBackgroundResource(R.drawable.ruler_long);
+	    			ans1.setBackgroundResource(R.drawable.ruler_shot);
+	    		}
+	    	}
 		}
 		
 		return answer;
@@ -469,16 +644,16 @@ public class PlL2NearFar extends Activity {
 		textWrong.setTextColor(Color.BLACK);
 		String number;
 		number = String.valueOf(scores);
-		textCorrect.setText(number+" เธ�เน�เธญ");
+		textCorrect.setText(number+" ข้อ");
 		number = String.valueOf(10-scores);
-		textWrong.setText(number+" เธ�เน�เธญ");
+		textWrong.setText(number+" ข้อ");
 		
 		Button dialogHomeBt = (Button)dialog.findViewById(R.id.scorehome);
 		dialogHomeBt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent in = new Intent(PlL2NearFar.this,Main.class);
+				Intent in = new Intent(ScL1LongShort.this,Main.class);
 				in.putExtra("showPopup", 1);
 				startActivity(in);
 				
@@ -501,10 +676,10 @@ public class PlL2NearFar extends Activity {
 				imgWrongpop.setVisibility(View.INVISIBLE);
 				imgCorrectpop.setVisibility(View.INVISIBLE);
 				
-				Round = myDb.getNumRound("005", username);
+				Round = myDb.getNumRound("001", username);
 				//Round++;
 				
-				game005();
+				game001();
 			}
 		});
 		
@@ -513,27 +688,28 @@ public class PlL2NearFar extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent intent = new Intent(PlL2NearFar.this,PlL2TypeCar.class);
+				
+				Intent intent = new Intent(ScL1LongShort.this,ScL2Count.class);
 				startActivity(intent);
+				
 				
 			}
 		});
 		dialog.show();
 
 	}	
-	
+
 	void showTimeout(){
 		
 		final View imgWrongFin = (View)findViewById(R.id.showwrong); 
 		imgWrongFin.setVisibility(View.VISIBLE);
-		imgWrongFin.setClickable(false);
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
 		int item = myDb.CountNumRan();
 		myDb.close();
 		myDb.getWritableDatabase();
-		myDb.addItemScore("005",username,Round,item,0,startTime/1000);
+		myDb.addItemScore("001",username,Round,item,0,startTime/1000);
 		
 		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
 		soundWrongFin.start();
@@ -541,26 +717,24 @@ public class PlL2NearFar extends Activity {
 		soundWrongFin.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrongFin.setVisibility(View.INVISIBLE);
-            	game005();
+            	game001();
             }
         });
 		
 	}
-
-	public boolean onTouchEvent (MotionEvent event) {
-		
-		instructPage.start();
-		return super.onTouchEvent(event);
-	}
 	
 	protected void onRestart() {
 		// TODO Auto-generated method stub
-		
-		Intent intent = new Intent(PlL2NearFar.this,Main.class);
+		Intent intent = new Intent(ScL1LongShort.this,Main.class);
 		startActivity(intent);
-		
-		
+
 		super.onRestart();
+	}
+	
+	public boolean onTouchEvent (MotionEvent event) {
+		instructPage.start();
+
+		return super.onTouchEvent(event);
 	}
 	
 	@Override
@@ -589,13 +763,13 @@ public class PlL2NearFar extends Activity {
 			LogoutBt.setVisibility(Button.INVISIBLE);
 			LoginBt.setVisibility(Button.VISIBLE);
 		}
-		
 		super.onWindowFocusChanged(hasFocus);
 	}
 	
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
+		
 		if(soundMain.isLooping()){
     		soundMain.stop();
     	}
@@ -618,14 +792,14 @@ public class PlL2NearFar extends Activity {
     	}
 		super.onPause();
 	}
-	
+
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
         if (keyCode == KeyEvent.KEYCODE_BACK) {
         	stopTime();
-			Intent in = new Intent(PlL2NearFar.this,Main.class);
+			Intent in = new Intent(ScL1LongShort.this,Main.class);
 			in.putExtra("showPopup", 1);
-			startActivity(in);  
+			startActivity(in);
         	return false;
         }
 	    return super.onKeyDown(keyCode, event);

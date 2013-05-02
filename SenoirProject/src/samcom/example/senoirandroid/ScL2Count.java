@@ -24,7 +24,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 
 
-public class L1ScCount extends Activity {
+public class ScL2Count extends Activity {
 	static int score = 10;
 	static int found = -1;
 	static int randomInt;
@@ -81,19 +81,19 @@ public class L1ScCount extends Activity {
 		myDb.getReadableDatabase();
 		username = myDb.SelectCurrentUser();
 		
-		Round = myDb.getNumRound("001", username);
+		Round = myDb.getNumRound("002", username);
 		myDb.getWritableDatabase();
 		myDb.emptyNumberTable();
 		myDb.close();
 		
 	
-			game001();
+			game002();
 	
 
 					
 	}	
 	
-	void game001(){
+	void game002(){
 		
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
@@ -141,7 +141,7 @@ public class L1ScCount extends Activity {
 			 
 			public void onClick(View v) {	
 				myDb.logoutUser(username);
-				Intent intent = new Intent(L1ScCount.this,Main.class);
+				Intent intent = new Intent(ScL2Count.this,Main.class);
 				intent.putExtra("Logout", 1);
 				startActivity(intent);
 			}
@@ -149,7 +149,7 @@ public class L1ScCount extends Activity {
 		});
 		if(OnPause == false){
 			if(count < 10){
-				Random = RanNum();
+				Random = RanNum(count);
 						
 				//final long startTime = ((Random*2)+10)*1000;
 				int LastRan = myDb.getLastNum(0);
@@ -159,7 +159,7 @@ public class L1ScCount extends Activity {
 				checkAns(Random,count+1);
 			}
 			else{
-				scores = myDb.countScore("001", username, Round);
+				scores = myDb.countScore("002", username, Round);
 				int LastRan = myDb.getLastNum(10);
 				hideTables(LastRan);
 				countdown.cancel();
@@ -173,15 +173,18 @@ public class L1ScCount extends Activity {
 	
 	
 	
-	int RanNum(){
+	int RanNum(int item){
 		int randomInt;
 		Boolean isExited;
 		final myDBClass myDb = new myDBClass(this);
 		myDb.getReadableDatabase();
-		
+		int i = 5;
+		if(item > 5){
+			i = 10;
+		}
 		do{
 			Random randomGenerator = new Random();
-			randomInt = randomGenerator.nextInt(10)+1;
+			randomInt = randomGenerator.nextInt(i)+1;
 			isExited = myDb.checkNumber(randomInt);
 		}while(isExited);
 		myDb.close();
@@ -208,16 +211,14 @@ public class L1ScCount extends Activity {
 		final MediaPlayer soundWrong = MediaPlayer.create(context, R.raw.wrong_sound2);
 		
 		Random randomGenerator = new Random();
-		int randomSound = randomGenerator.nextInt(3)+1;
+		int randomSound = randomGenerator.nextInt(2)+1;
 		if(randomSound == 1){
-			instructPage= MediaPlayer.create(context, R.raw.ins_sclv1_1);
-		}
-		else if(randomSound == 2){
 			instructPage= MediaPlayer.create(context, R.raw.ins_sclv1_2);
 		}
 		else {
 			instructPage= MediaPlayer.create(context, R.raw.ins_sclv1_3);
 		}
+		
 		
 		startTime = (20)*1000;
 		final float countTime = (float) startTime /1000;
@@ -236,8 +237,8 @@ public class L1ScCount extends Activity {
 		
 		final MediaPlayer soundAns = MediaPlayer.create(context, R.raw.choose_correct_ans);
 		final View helpAnswer = (View)findViewById(R.id.showAnswer);
-		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(L1ScCount.this, R.anim.tween_once);
-		final Animation myFadeAnimation = AnimationUtils.loadAnimation(L1ScCount.this, R.anim.tween);
+		final Animation myFadeonceAnimation = AnimationUtils.loadAnimation(ScL2Count.this, R.anim.tween_once);
+		final Animation myFadeAnimation = AnimationUtils.loadAnimation(ScL2Count.this, R.anim.tween);
 		final ImageView instructFinger = (ImageView)findViewById(R.id.finger);
 		
 		//if(Round == 1 || (username.equals("Guest") && item == 1)){
@@ -292,7 +293,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.VISIBLE);
 					stopTime();
 					soundCorrect.start();
-					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,1,(countTime - timeRemain));
 					
 				}
 				else{
@@ -300,7 +301,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.INVISIBLE);
 					stopTime();
 					soundWrong.start();
-					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,0,(countTime - timeRemain));
 				}
 			}
 		});
@@ -318,7 +319,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.VISIBLE);
 					stopTime();
 					soundCorrect.start();
-					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,1,(countTime - timeRemain));
 					
 				}
 				else{
@@ -326,7 +327,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.INVISIBLE);
 					stopTime();
 					soundWrong.start();
-					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,0,(countTime - timeRemain));
 				}
 			}
 		});
@@ -344,7 +345,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.VISIBLE);
 					stopTime();
 					soundCorrect.start();
-					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,1,(countTime - timeRemain));
 					
 				}
 				else{
@@ -352,7 +353,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.INVISIBLE);
 					stopTime();
 					soundWrong.start();
-					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,0,(countTime - timeRemain));
 				}
 			}
 		});
@@ -370,7 +371,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.VISIBLE);
 					stopTime();
 					soundCorrect.start();
-					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,1,(countTime - timeRemain));
 					
 				}
 				else{
@@ -378,7 +379,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.INVISIBLE);
 					stopTime();
 					soundWrong.start();
-					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,0,(countTime - timeRemain));
 				}
 			}
 		});
@@ -396,7 +397,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.VISIBLE);
 					stopTime();
 					soundCorrect.start();
-					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,1,(countTime - timeRemain));
 					
 				}
 				else{
@@ -404,7 +405,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.INVISIBLE);
 					stopTime();
 					soundWrong.start();
-					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,0,(countTime - timeRemain));
 				}
 			}
 		});
@@ -422,7 +423,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.VISIBLE);
 					stopTime();
 					soundCorrect.start();
-					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,1,(countTime - timeRemain));
 					
 				}
 				else{
@@ -430,7 +431,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.INVISIBLE);
 					stopTime();
 					soundWrong.start();
-					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,0,(countTime - timeRemain));
 				}
 			}
 		});
@@ -448,7 +449,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.VISIBLE);
 					stopTime();
 					soundCorrect.start();
-					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,1,(countTime - timeRemain));
 					
 				}
 				else{
@@ -456,7 +457,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.INVISIBLE);
 					stopTime();
 					soundWrong.start();
-					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,0,(countTime - timeRemain));
 				}
 			}
 		});
@@ -474,7 +475,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.VISIBLE);
 					stopTime();
 					soundCorrect.start();
-					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,1,(countTime - timeRemain));
 					
 				}
 				else{
@@ -482,7 +483,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.INVISIBLE);
 					stopTime();
 					soundWrong.start();
-					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,0,(countTime - timeRemain));
 				}
 			}
 		});
@@ -500,7 +501,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.VISIBLE);
 					stopTime();
 					soundCorrect.start();
-					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,1,(countTime - timeRemain));
 					
 				}
 				else{
@@ -508,7 +509,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.INVISIBLE);
 					stopTime();
 					soundWrong.start();
-					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,0,(countTime - timeRemain));
 				}
 			}
 		});
@@ -526,7 +527,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.VISIBLE);
 					stopTime();
 					soundCorrect.start();
-					myDb.addItemScore("001",username,Round,item,1,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,1,(countTime - timeRemain));
 					
 				}
 				else{
@@ -534,7 +535,7 @@ public class L1ScCount extends Activity {
 					imgCorrect.setVisibility(View.INVISIBLE);
 					stopTime();
 					soundWrong.start();
-					myDb.addItemScore("001",username,Round,item,0,(countTime - timeRemain));
+					myDb.addItemScore("002",username,Round,item,0,(countTime - timeRemain));
 				}
 			}
 		});
@@ -547,14 +548,14 @@ public class L1ScCount extends Activity {
 		soundCorrect.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundCorrect) {
             	imgCorrect.setVisibility(View.INVISIBLE);
-            	game001();
+            	game002();
             }
         });
 
 		soundWrong.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrong.setVisibility(View.INVISIBLE);
-            	game001();
+            	game002();
             }
         });
 		
@@ -575,7 +576,7 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				stopTime();
-				Intent in = new Intent(L1ScCount.this,Main.class);
+				Intent in = new Intent(ScL2Count.this,Main.class);
 				in.putExtra("showPopup", 1);
 				startActivity(in);
 			}
@@ -639,7 +640,7 @@ public class L1ScCount extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				Intent in = new Intent(L1ScCount.this,Main.class);
+				Intent in = new Intent(ScL2Count.this,Main.class);
 				in.putExtra("showPopup", 1);
 				startActivity(in);
 				
@@ -664,8 +665,8 @@ public class L1ScCount extends Activity {
 				imgWrongpop.setVisibility(View.INVISIBLE);
 				imgCorrectpop.setVisibility(View.INVISIBLE);
 				
-				Round = myDb.getNumRound("001", username);
-				game001();
+				Round = myDb.getNumRound("002", username);
+				game002();
 			}
 		});
 		
@@ -675,7 +676,7 @@ public class L1ScCount extends Activity {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
 				//soundPage.stop();
-				Intent intent = new Intent(L1ScCount.this,L1ScCalendar.class);
+				Intent intent = new Intent(ScL2Count.this,ScL3Calendar.class);
 				startActivity(intent);
 				
 			}
@@ -748,7 +749,7 @@ public class L1ScCount extends Activity {
 		//int item = count+1;
 		myDb.close();
 		myDb.getWritableDatabase();
-		myDb.addItemScore("001",username,Round,item,0,startTime/1000);
+		myDb.addItemScore("002",username,Round,item,0,startTime/1000);
 		
 		final MediaPlayer soundWrongFin = MediaPlayer.create(context, R.raw.wrong_sound2);
 		soundWrongFin.start();
@@ -756,7 +757,7 @@ public class L1ScCount extends Activity {
 		soundWrongFin.setOnCompletionListener(new OnCompletionListener() {
             public void onCompletion(MediaPlayer soundWrong) {
             	imgWrongFin.setVisibility(View.INVISIBLE);
-            	game001();
+            	game002();
             }
         });
 		
@@ -765,7 +766,7 @@ public class L1ScCount extends Activity {
 	@Override
 	protected void onRestart() {
 		// TODO Auto-generated method stub
-		Intent intent = new Intent(L1ScCount.this,Main.class);
+		Intent intent = new Intent(ScL2Count.this,Main.class);
 		startActivity(intent);
 		
 		super.onRestart();
@@ -799,12 +800,13 @@ public class L1ScCount extends Activity {
 		}
 		super.onWindowFocusChanged(hasFocus);
 	}
-	
+	/*
 	public boolean onTouchEvent (MotionEvent event) {
 		instructPage.start();
 
 		return super.onTouchEvent(event);
 	}
+	*/
 	
 	@Override
 	protected void onDestroy() {
@@ -836,7 +838,7 @@ public class L1ScCount extends Activity {
 		
         if (keyCode == KeyEvent.KEYCODE_BACK) {
         	stopTime();
-			Intent in = new Intent(L1ScCount.this,Main.class);
+			Intent in = new Intent(ScL2Count.this,Main.class);
 			in.putExtra("showPopup", 1);
 			startActivity(in); 
         	return false;

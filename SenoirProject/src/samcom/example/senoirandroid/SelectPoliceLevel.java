@@ -109,7 +109,7 @@ public class SelectPoliceLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectPoliceLevel.this,PlL1Cross.class);
+				Intent intent = new Intent(SelectPoliceLevel.this,PlL1CountCar.class);
 				startActivity(intent);
 			}
 		});
@@ -122,7 +122,7 @@ public class SelectPoliceLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectPoliceLevel.this,PlL2NearFar.class);
+				Intent intent = new Intent(SelectPoliceLevel.this,PlL2TypeCar.class);
 				startActivity(intent);
 			}
 		});
@@ -134,7 +134,7 @@ public class SelectPoliceLevel extends Activity implements OnGestureListener {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				instructPage.stop();
-				Intent intent = new Intent(SelectPoliceLevel.this,PlL3Car.class);
+				Intent intent = new Intent(SelectPoliceLevel.this,PlL3PlusCar.class);
 				startActivity(intent);
 			}
 		});
